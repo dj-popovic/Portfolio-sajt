@@ -41,7 +41,15 @@ Being built separately — see [CONTACT_API.md](./CONTACT_API.md). The current `
 
 ## 6. Translations
 
-SR (Latin), RU and DE were drafted by Claude and need a native-speaker pass before launch.
+SR (Latin), RU and DE were drafted by Claude and need a native-speaker pass before launch. Choices worth a second look:
+
+- **German uses "du"** (matches the warm, informal English). Switching to "Sie" touches most strings in `messages/de.json`.
+- **Founder roles are gender-neutral only in German** ("Co-Founder"). Serbian "Suosnivač" and Russian "Сооснователь" are the generic masculine; change them once the founders are named (e.g. "Suosnivačica").
+- **City stays `[Novi Sad]`** everywhere, so Serbian reads "u [Novi Sad]". When the real city goes in, decline it ("u Novom Sadu").
+- Headlines were rewritten to fit, not translated word for word: the hero in RU ("Креатив с огнём потеплее") and DE ("Kreative Arbeit, die wärmer brennt") had to stay short because Unbounded is wide.
+- Package names (Basic / Pro / Custom) are kept in English in every language.
+
+All four files must keep the same keys, ICU arguments and rich tags; every string must parse. The check used during the build (`node check-messages.mjs`-style: compare against `en.json`, parse each string with `intl-messageformat`) is easy to re-run after edits.
 
 ## 7. Legal (likely needed before launch)
 

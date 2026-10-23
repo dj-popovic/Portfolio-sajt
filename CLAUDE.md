@@ -5,7 +5,7 @@ Single-page portfolio for a two-person creative studio. Read `AGENTS.md` too: th
 ## Non-negotiables
 
 - **"Ember" is the colour palette's codename, never the studio name.** Don't hardcode it as a name anywhere.
-- **Keep placeholders** until the owners decide: `<logo>`, `[studio]`, `<Name One>`, `<Name Two>`, `[Novi Sad]`, `[photo …]`, `[From €X …]`. They live in `src/lib/placeholders.ts` / the message files. Never translate them.
+- **Keep placeholders** until the owners decide. Name placeholders — `<logo>`, `[studio]`, `<Name One>`, `<Name Two>`, `[Novi Sad]` and the concept brands (`[Ember & Oak]`, `[Northwind]`, `[Stillwater]`, `[Tako]`) — are never translated (`src/lib/placeholders.ts` / the message files). Bracketed draft copy (`[founder photo 1]`, `[a clear brief & timeline]`, `[From €X …]`) is translated but keeps its brackets, so it still reads as a placeholder in every language.
 - **The Claude Design export is the visual source of truth.** Skills and reviews are for polish, never to redesign. Section styles in `src/styles/sections.css` are ported from it; changes are marked `build:`.
 - Open items (photos, name, prices, backend, legal) are tracked in `docs/OPEN-ITEMS.md` — keep it current.
 
@@ -19,7 +19,7 @@ Single-page portfolio for a two-person creative studio. Read `AGENTS.md` too: th
 ## Stack conventions
 
 - Next.js App Router, TypeScript, Tailwind 4, next-intl (EN at `/`, `/sr` Serbian **Latin**, `/ru`, `/de`). Strings live in `messages/*.json`; rich tags `<glow>`, `<b>`, `<br></br>`; quote angle-bracket placeholders as `'<logo>'`.
-- Use typographic apostrophes (’) in messages — a straight `'` can start ICU quoting.
+- Use typographic apostrophes (’) in messages — a straight `'` can start ICU quoting. Titles keep a no-break space before " — " so a line never starts with a dash. Check message changes with the parity/ICU script in the Phase 4 notes (`docs/OPEN-ITEMS.md` → Translations).
 - **GSAP (+ScrollTrigger/SplitText) is the main animation engine**, all scroll-driven motion. **Motion (`motion/react`) only for small UI interactions.** Lenis for smooth scroll. React Three Fiber for 3D (hero nebula).
 - React Bits: pull only components we use (TS + Tailwind variant, from GitHub raw — reactbits.dev is blocked here) and adapt to Ember.
 - Demo mini-sites (Work section) are fictional client brands: their inner content stays in English; only our frame around them is translated.

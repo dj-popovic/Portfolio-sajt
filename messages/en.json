@@ -14,6 +14,7 @@
     }
   },
   "nav": {
+    "primary": "Primary",
     "about": "About",
     "services": "Services",
     "work": "Work",
@@ -56,42 +57,22 @@
       "branding": {
         "title": "Branding",
         "desc": "Identity systems that stay recognisable everywhere they land — from a favicon to a storefront.",
-        "tags": [
-          "Logo & marks",
-          "Visual identity",
-          "Guidelines",
-          "Naming"
-        ]
+        "tags": ["Logo & marks", "Visual identity", "Guidelines", "Naming"]
       },
       "websites": {
         "title": "Websites",
         "desc": "Sites that feel like the brand and move like it too — designed, built and animated end-to-end.",
-        "tags": [
-          "Design & build",
-          "Motion",
-          "CMS",
-          "Performance"
-        ]
+        "tags": ["Design & build", "Motion", "CMS", "Performance"]
       },
       "apps": {
         "title": "Apps",
         "desc": "Products people come back to — thought through from first flow to a fast, polished front-end.",
-        "tags": [
-          "Web & mobile",
-          "UX",
-          "Prototyping",
-          "Front-end"
-        ]
+        "tags": ["Web & mobile", "UX", "Prototyping", "Front-end"]
       },
       "marketing": {
         "title": "Marketing",
         "desc": "Once it’s built, we help get it in front of the right people — with a plan, not guesswork.",
-        "tags": [
-          "Strategy",
-          "Content",
-          "Social",
-          "Launch"
-        ]
+        "tags": ["Strategy", "Content", "Social", "Launch"]
       }
     }
   },
@@ -133,7 +114,7 @@
   "process": {
     "eyebrowA": "How we work",
     "eyebrowB": "One team, start to finish",
-    "title": "From first call to <glow>live</glow> — in four steps.",
+    "title": "From first call to <glow>live</glow> — in four steps.",
     "sub": "No handoffs, no middle-men. The same two people carry your project the whole way — here’s how a build usually goes.",
     "steps": {
       "discover": {
@@ -156,7 +137,7 @@
       },
       "launch": {
         "phase": "Launch & grow",
-        "title": "We ship it — then help it grow.",
+        "title": "We ship it — then help it grow.",
         "body": "We launch, hand over the keys, and stick around with a marketing plan to get it in front of the right people. A plan, not guesswork.",
         "deliver": "You get <b>[a launch + growth plan]</b>"
       }
@@ -165,7 +146,7 @@
   "fit": {
     "eyebrowA": "Find your fit",
     "eyebrowB": "Three ways to work together",
-    "title": "Pick a starting point — <glow>we’ll shape the rest together.</glow>",
+    "title": "Pick a starting point — <glow>we’ll shape the rest together.</glow>",
     "sub": "These are the ways we usually work, not a fixed menu. Find the closest fit, hit the button, and we’ll figure out the details over a real conversation.",
     "investment": "Investment",
     "price": "Let’s talk",
@@ -263,12 +244,7 @@
         "hint": "Rough is fine. Pick what’s closest, or tell us in your own words.",
         "placeholder": "e.g. launch by autumn, ~[budget]",
         "error": "Pick one of the options, or write a few words.",
-        "chips": [
-          "ASAP",
-          "1–3 months",
-          "Just exploring",
-          "Flexible"
-        ]
+        "chips": ["ASAP", "1–3 months", "Just exploring", "Flexible"]
       },
       "email": {
         "q": "Last one",

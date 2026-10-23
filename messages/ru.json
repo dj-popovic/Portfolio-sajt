@@ -1,11 +1,11 @@
 {
   "meta": {
-    "title": "'<logo>' · Two-person creative studio",
-    "description": "We’re a two-person studio crafting brands, websites and apps end-to-end — strategy, design and build, all under one roof."
+    "title": "'<logo>' · Креативная студия из двух человек",
+    "description": "Мы — студия из двух человек. Создаём бренды, сайты и приложения под ключ: стратегия, дизайн и разработка — всё под одной крышей."
   },
   "common": {
-    "skip": "Skip to content",
-    "logoAria": "Home",
+    "skip": "Перейти к содержимому",
+    "logoAria": "На главную",
     "languages": {
       "en": "English",
       "sr": "Srpski",
@@ -14,294 +14,270 @@
     }
   },
   "nav": {
-    "about": "About",
-    "services": "Services",
-    "work": "Work",
-    "process": "Process",
-    "cta": "Start a project",
-    "language": "Language",
-    "menu": "Menu",
-    "close": "Close menu"
+    "primary": "Главное меню",
+    "about": "О нас",
+    "services": "Услуги",
+    "work": "Работы",
+    "process": "Процесс",
+    "cta": "Начать проект",
+    "language": "Язык",
+    "menu": "Меню",
+    "close": "Закрыть меню"
   },
   "hero": {
-    "eyebrowA": "Branding · Websites · Apps",
-    "eyebrowB": "Two-person creative studio",
-    "title": "Creative work with a warmer<br></br><glow>kind of fire.</glow>",
-    "sub": "We’re a two-person studio crafting brands, websites and apps end-to-end — strategy, design and build, all under one roof. The site itself is our proof of work.",
-    "primary": "Start a project",
-    "secondary": "See our work",
-    "scroll": "Scroll"
+    "eyebrowA": "Брендинг · Сайты · Приложения",
+    "eyebrowB": "Креативная студия из двух человек",
+    "title": "Креатив<br></br><glow>с огнём потеплее.</glow>",
+    "sub": "Мы — студия из двух человек. Создаём бренды, сайты и приложения под ключ: стратегия, дизайн и разработка — всё под одной крышей. Этот сайт — лучшее тому доказательство.",
+    "primary": "Начать проект",
+    "secondary": "Смотреть работы",
+    "scroll": "Листайте"
   },
   "about": {
-    "eyebrow": "Who we are",
-    "title": "Two people,<br></br>one <glow>end-to-end</glow> studio.",
-    "body": "We’re a two-person studio that takes a project from first idea to launch — brand, website and app, plus the marketing to back it. Small on purpose: you work directly with the people doing the work, start to finish.",
-    "photo1": "[founder photo 1]",
-    "photo2": "[founder photo 2]",
-    "role1": "Co-founder · <b>Design & Brand</b>",
-    "role2": "Co-founder · <b>Development</b>",
+    "eyebrow": "Кто мы",
+    "title": "Два человека —<br></br>одна студия <glow>полного цикла.</glow>",
+    "body": "Мы — студия из двух человек и ведём проект от первой идеи до запуска: бренд, сайт и приложение, а ещё маркетинг, который всё это поддержит. Нас мало — и это намеренно: вы работаете напрямую с теми, кто делает работу, от начала до конца.",
+    "photo1": "[фото основателя 1]",
+    "photo2": "[фото основателя 2]",
+    "role1": "Сооснователь · <b>Дизайн и бренд</b>",
+    "role2": "Сооснователь · <b>Разработка</b>",
     "stats": {
-      "founders": "Founders",
-      "disciplines": "Disciplines",
-      "team": "Team, end-to-end"
+      "founders": "Основателя",
+      "disciplines": "Направления",
+      "team": "Команда полного цикла"
     }
   },
   "services": {
-    "eyebrowA": "What we offer",
-    "eyebrowB": "Four disciplines, one team",
-    "title": "Everything a brand needs to <glow>show up well.</glow>",
-    "note": "Take one piece or the whole stack — it’s the same two people either way, so nothing gets lost in a handoff.",
-    "foot": "Need all four? <b>That’s the whole point</b> — one team, idea to launch.",
+    "eyebrowA": "Что мы предлагаем",
+    "eyebrowB": "Четыре направления, одна команда",
+    "title": "Всё, что нужно бренду, чтобы <glow>заявить о себе.</glow>",
+    "note": "Берите что-то одно или всё сразу — в любом случае это те же два человека, так что при передаче ничего не теряется.",
+    "foot": "Нужны все четыре? <b>В этом и смысл</b> — одна команда, от идеи до запуска.",
     "items": {
       "branding": {
-        "title": "Branding",
-        "desc": "Identity systems that stay recognisable everywhere they land — from a favicon to a storefront.",
-        "tags": [
-          "Logo & marks",
-          "Visual identity",
-          "Guidelines",
-          "Naming"
-        ]
+        "title": "Брендинг",
+        "desc": "Айдентика, которую узнают везде — от фавикона до вывески.",
+        "tags": ["Логотип и знаки", "Айдентика", "Гайдлайны", "Нейминг"]
       },
       "websites": {
-        "title": "Websites",
-        "desc": "Sites that feel like the brand and move like it too — designed, built and animated end-to-end.",
-        "tags": [
-          "Design & build",
-          "Motion",
-          "CMS",
-          "Performance"
-        ]
+        "title": "Сайты",
+        "desc": "Сайты, которые ощущаются как бренд и двигаются так же, — дизайн, разработка и анимация под ключ.",
+        "tags": ["Дизайн и разработка", "Анимация", "CMS", "Скорость"]
       },
       "apps": {
-        "title": "Apps",
-        "desc": "Products people come back to — thought through from first flow to a fast, polished front-end.",
-        "tags": [
-          "Web & mobile",
-          "UX",
-          "Prototyping",
-          "Front-end"
-        ]
+        "title": "Приложения",
+        "desc": "Продукты, к которым хочется возвращаться, — продуманные от первого сценария до быстрого, отточенного фронтенда.",
+        "tags": ["Веб и мобильные", "UX", "Прототипы", "Фронтенд"]
       },
       "marketing": {
-        "title": "Marketing",
-        "desc": "Once it’s built, we help get it in front of the right people — with a plan, not guesswork.",
-        "tags": [
-          "Strategy",
-          "Content",
-          "Social",
-          "Launch"
-        ]
+        "title": "Маркетинг",
+        "desc": "Когда всё готово, помогаем показать это нужным людям — по плану, а не наугад.",
+        "tags": ["Стратегия", "Контент", "Соцсети", "Запуск"]
       }
     }
   },
   "work": {
-    "eyebrowA": "Selected work",
-    "eyebrowB": "Concepts — what we can build for you",
-    "title": "Not a portfolio yet. <glow>A glimpse of the range.</glow>",
-    "note": "Each tile is a live mini-demo. <b>Hover to preview</b> it scrolling, then open it full-screen to click around — built the way we’d build yours.",
-    "noteTouch": "Each tile is a live mini-demo. <b>Tap to open</b> it full-screen and click around — built the way we’d build yours.",
-    "open": "Open demo",
-    "foot": "These are concepts — <b>yours is next.</b>",
-    "kindWeb": "Concept · Web",
-    "kindApp": "Concept · App",
+    "eyebrowA": "Избранные работы",
+    "eyebrowB": "Концепты — что мы можем создать для вас",
+    "title": "Пока не портфолио. <glow>Лишь срез того, что мы умеем.</glow>",
+    "note": "Каждая плитка — живое мини-демо. <b>Наведите курсор</b>, чтобы увидеть, как оно прокручивается, а затем откройте его на весь экран и покликайте — сделано так, как мы сделали бы ваш проект.",
+    "noteTouch": "Каждая плитка — живое мини-демо. <b>Нажмите</b>, чтобы открыть его на весь экран и покликать, — сделано так, как мы сделали бы ваш проект.",
+    "open": "Открыть демо",
+    "foot": "Это концепты — <b>следующим будет ваш.</b>",
+    "kindWeb": "Концепт · Веб",
+    "kindApp": "Концепт · Приложение",
     "items": {
       "coffee": {
-        "value": "Editorial storefront for a <b>small-batch coffee roaster</b>",
-        "name": "[Ember & Oak] — small-batch coffee roaster"
+        "value": "Журнальный интернет-магазин для <b>мастерской обжарки кофе</b>",
+        "name": "[Ember & Oak] — мастерская обжарки кофе"
       },
       "fintech": {
-        "value": "Live analytics dashboard for a <b>fintech product</b>",
-        "name": "[Northwind] — cash-flow dashboard"
+        "value": "Дашборд с живой аналитикой для <b>финтех-продукта</b>",
+        "name": "[Northwind] — дашборд денежных потоков"
       },
       "wellness": {
-        "value": "A calm daily ritual for a <b>wellness brand</b>",
-        "name": "[Stillwater] — mindfulness app"
+        "value": "Спокойный ежедневный ритуал для <b>велнес-бренда</b>",
+        "name": "[Stillwater] — приложение для осознанности"
       },
       "food": {
-        "value": "On-demand ordering for a <b>street-food brand</b>",
-        "name": "[Tako] — street-food ordering app"
+        "value": "Заказ в пару касаний для <b>бренда стритфуда</b>",
+        "name": "[Tako] — приложение для заказа стритфуда"
       }
     },
     "window": {
-      "badge": "Interactive demo — built in code",
-      "close": "Close demo",
-      "hint": "Scroll and click around — it’s all live",
-      "openAria": "Open {name} demo"
+      "badge": "Интерактивное демо — написано кодом",
+      "close": "Закрыть демо",
+      "hint": "Листайте и нажимайте — всё работает",
+      "openAria": "Открыть демо: {name}"
     }
   },
   "process": {
-    "eyebrowA": "How we work",
-    "eyebrowB": "One team, start to finish",
-    "title": "From first call to <glow>live</glow> — in four steps.",
-    "sub": "No handoffs, no middle-men. The same two people carry your project the whole way — here’s how a build usually goes.",
+    "eyebrowA": "Как мы работаем",
+    "eyebrowB": "Одна команда от начала до конца",
+    "title": "От первого звонка до <glow>запуска</glow> — за четыре шага.",
+    "sub": "Без передач и посредников. Одни и те же два человека ведут ваш проект от начала до конца — вот как обычно проходит работа.",
     "steps": {
       "discover": {
-        "phase": "Discover",
-        "title": "We get to know the work.",
-        "body": "A kickoff to understand your business, audience and goals — what success looks like, and what’s gotten in the way so far. No templates, no assumptions.",
-        "deliver": "You leave with <b>[a clear brief & timeline]</b>"
+        "phase": "Погружение",
+        "title": "Разбираемся в задаче.",
+        "body": "Стартовая встреча, чтобы понять ваш бизнес, аудиторию и цели — как выглядит успех и что мешало до сих пор. Без шаблонов и догадок.",
+        "deliver": "Вы получаете <b>[понятный бриф и сроки]</b>"
       },
       "design": {
-        "phase": "Design",
-        "title": "We shape how it looks and feels.",
-        "body": "Brand direction, then every screen — designed and prototyped so you can click through and feel it long before a line of code is written.",
-        "deliver": "You approve <b>[an interactive prototype]</b>"
+        "phase": "Дизайн",
+        "title": "Продумываем облик и ощущения.",
+        "body": "Сначала направление бренда, затем каждый экран — в дизайне и прототипе, чтобы вы могли всё прокликать и прочувствовать задолго до первой строки кода.",
+        "deliver": "Вы утверждаете <b>[интерактивный прототип]</b>"
       },
       "build": {
-        "phase": "Build",
-        "title": "We make it real, end-to-end.",
-        "body": "We develop the whole thing ourselves — fast, animated and built to last — and keep you in the loop with working previews, not status emails.",
-        "deliver": "You see <b>[live builds every week]</b>"
+        "phase": "Разработка",
+        "title": "Воплощаем всё — от начала до конца.",
+        "body": "Всё разрабатываем сами — быстро, с анимацией и на годы вперёд — и держим вас в курсе рабочими превью, а не письмами о статусе.",
+        "deliver": "Вы видите <b>[живые сборки каждую неделю]</b>"
       },
       "launch": {
-        "phase": "Launch & grow",
-        "title": "We ship it — then help it grow.",
-        "body": "We launch, hand over the keys, and stick around with a marketing plan to get it in front of the right people. A plan, not guesswork.",
-        "deliver": "You get <b>[a launch + growth plan]</b>"
+        "phase": "Запуск и рост",
+        "title": "Запускаем — и помогаем расти.",
+        "body": "Запускаем, передаём ключи и остаёмся рядом с маркетинговым планом, чтобы проект увидели нужные люди. План, а не догадки.",
+        "deliver": "Вы получаете <b>[план запуска и роста]</b>"
       }
     }
   },
   "fit": {
-    "eyebrowA": "Find your fit",
-    "eyebrowB": "Three ways to work together",
-    "title": "Pick a starting point — <glow>we’ll shape the rest together.</glow>",
-    "sub": "These are the ways we usually work, not a fixed menu. Find the closest fit, hit the button, and we’ll figure out the details over a real conversation.",
-    "investment": "Investment",
-    "price": "Let’s talk",
-    "popular": "Most popular",
-    "plus": "Everything in <b>Basic</b>, plus:",
+    "eyebrowA": "Найдите свой формат",
+    "eyebrowB": "Три формата работы",
+    "title": "Выберите отправную точку — <glow>остальное продумаем вместе.</glow>",
+    "sub": "Это то, как мы обычно работаем, а не фиксированное меню. Выберите самый близкий вариант, нажмите кнопку — а детали обсудим в живом разговоре.",
+    "investment": "Стоимость",
+    "price": "Обсудим",
+    "popular": "Самый популярный",
+    "plus": "Всё из <b>Basic</b>, плюс:",
     "packages": {
       "basic": {
         "name": "Basic",
-        "tag": "A single-page or smaller website — clean, custom and unmistakably ours.",
-        "hint": "[From €X — shared in our chat]",
-        "cta": "Start a project",
+        "tag": "Одностраничник или небольшой сайт — чистый, индивидуальный и с нашим узнаваемым почерком.",
+        "hint": "[От X € — обсудим в разговоре]",
+        "cta": "Начать проект",
         "includes": [
-          "Custom responsive design in our style",
-          "Light, tasteful animations",
-          "Mobile-optimized throughout",
-          "Basic SEO + contact form",
-          "Deploy & handover"
+          "Индивидуальный адаптивный дизайн в нашем стиле",
+          "Лёгкие, аккуратные анимации",
+          "Полная оптимизация под мобильные",
+          "Базовое SEO + форма обратной связи",
+          "Публикация и передача"
         ]
       },
       "pro": {
         "name": "Pro",
-        "tag": "A larger, multi-page website in our signature animated style — the full experience.",
-        "hint": "[From €X — shared in our chat]",
-        "cta": "Start a project",
+        "tag": "Большой многостраничный сайт в нашем фирменном анимированном стиле — по полной программе.",
+        "hint": "[От X € — обсудим в разговоре]",
+        "cta": "Начать проект",
         "includes": [
-          "Fully bespoke design, multiple pages",
-          "Advanced animations + scroll choreography",
-          "3D / interactive elements + micro-interactions",
-          "Performance optimization"
+          "Полностью индивидуальный дизайн, несколько страниц",
+          "Продвинутые анимации + хореография скролла",
+          "3D / интерактивные элементы + микровзаимодействия",
+          "Оптимизация скорости"
         ]
       },
       "custom": {
         "name": "Custom",
-        "tag": "Apps & bespoke products — when you need more than a website.",
-        "hint": "[Scoped per project in our chat]",
-        "cta": "Let’s scope it",
+        "tag": "Приложения и индивидуальные продукты — когда нужно больше, чем сайт.",
+        "hint": "[Объём оцениваем под каждый проект]",
+        "cta": "Оценить проект",
         "includes": [
-          "Scope tailored per project",
-          "Web or mobile app",
-          "Custom functionality, integrations, auth, databases",
-          "Discovery + product design & build"
+          "Объём под каждый проект",
+          "Веб- или мобильное приложение",
+          "Индивидуальный функционал, интеграции, авторизация, базы данных",
+          "Исследование + дизайн и разработка продукта"
         ]
       }
     },
     "addons": {
-      "lead": "Add anything below to any package.",
+      "lead": "Любое из этого можно добавить к любому пакету.",
       "items": {
-        "branding": "Branding & logo",
-        "copy": "Copywriting",
-        "languages": "Extra languages",
-        "maintenance": "Maintenance",
-        "hosting": "Hosting",
+        "branding": "Брендинг и логотип",
+        "copy": "Копирайтинг",
+        "languages": "Дополнительные языки",
+        "maintenance": "Поддержка",
+        "hosting": "Хостинг",
         "cms": "CMS",
-        "analytics": "Analytics"
+        "analytics": "Аналитика"
       }
     }
   },
   "contact": {
-    "eyebrowA": "Let’s talk",
-    "eyebrowB": "It’s just the two of us",
-    "title": "Tell us what you’re <glow>dreaming up.</glow>",
-    "lede": "A few quick questions — one at a time, no pressure. However half-formed the idea, we’d love to hear it.",
-    "founders": "The <b>two of us</b> read every message — usually a reply within a day.",
-    "foundersMeta": "{nameOne} & {nameTwo} · co-founders",
-    "avatar1": "[founder photo 1]",
-    "avatar2": "[founder photo 2]",
-    "step": "Step <b>{current}</b> / {total}",
-    "back": "Back",
-    "next": "Next",
-    "send": "Send it",
-    "sending": "Sending…",
-    "startOver": "Start over",
-    "answerLabel": "Your answer",
-    "attached": "Starting point",
-    "attachedAddons": "Add-ons",
-    "removeAttachment": "Remove",
+    "eyebrowA": "Давайте поговорим",
+    "eyebrowB": "Нас всего двое",
+    "title": "Расскажите, о чём вы <glow>мечтаете.</glow>",
+    "lede": "Несколько коротких вопросов — по одному, без спешки. Даже если идея ещё сырая, мы с радостью её услышим.",
+    "founders": "<b>Мы вдвоём</b> читаем каждое сообщение — обычно отвечаем в течение дня.",
+    "foundersMeta": "{nameOne} и {nameTwo} · сооснователи",
+    "avatar1": "[фото основателя 1]",
+    "avatar2": "[фото основателя 2]",
+    "step": "Шаг <b>{current}</b> / {total}",
+    "back": "Назад",
+    "next": "Далее",
+    "send": "Отправить",
+    "sending": "Отправляем…",
+    "startOver": "Начать заново",
+    "answerLabel": "Ваш ответ",
+    "attached": "Отправная точка",
+    "attachedAddons": "Дополнения",
+    "removeAttachment": "Убрать",
     "steps": {
       "name": {
-        "q": "First things first",
-        "ask": "What should we call you?",
-        "hint": "No formalities needed — just the name your friends use.",
-        "placeholder": "Your name",
-        "error": "Any name works — even a nickname."
+        "q": "Для начала",
+        "ask": "Как к вам обращаться?",
+        "hint": "Без формальностей — просто имя, которым вас зовут друзья.",
+        "placeholder": "Ваше имя",
+        "error": "Подойдёт любое имя — даже прозвище."
       },
       "project": {
-        "q": "The fun part",
-        "ask": "What are you building?",
-        "hint": "A brand, a website, an app, a wild idea on a napkin — tell us in a sentence.",
-        "placeholder": "e.g. a storefront for our coffee roastery",
-        "error": "A sentence is plenty — just give us the gist."
+        "q": "Самое интересное",
+        "ask": "Что вы создаёте?",
+        "hint": "Бренд, сайт, приложение, безумная идея на салфетке — расскажите в одном предложении.",
+        "placeholder": "например, интернет-магазин для нашей обжарки кофе",
+        "error": "Одного предложения хватит — просто суть."
       },
       "timeline": {
-        "q": "So we can plan",
-        "ask": "Timeline & budget?",
-        "hint": "Rough is fine. Pick what’s closest, or tell us in your own words.",
-        "placeholder": "e.g. launch by autumn, ~[budget]",
-        "error": "Pick one of the options, or write a few words.",
-        "chips": [
-          "ASAP",
-          "1–3 months",
-          "Just exploring",
-          "Flexible"
-        ]
+        "q": "Чтобы спланировать",
+        "ask": "Сроки и бюджет?",
+        "hint": "Примерно — тоже нормально. Выберите ближайший вариант или расскажите своими словами.",
+        "placeholder": "например, запуск к осени, ~[бюджет]",
+        "error": "Выберите один из вариантов или напишите пару слов.",
+        "chips": ["Как можно скорее", "1–3 месяца", "Пока присматриваюсь", "Гибко"]
       },
       "email": {
-        "q": "Last one",
-        "ask": "Where can we reach you?",
-        "hint": "We’ll only ever use this to reply — promise.",
-        "placeholder": "you@email.com",
-        "error": "That email doesn’t look quite right."
+        "q": "Последний вопрос",
+        "ask": "Как с вами связаться?",
+        "hint": "Используем его только для ответа — обещаем.",
+        "placeholder": "name@example.com",
+        "error": "Похоже, в адресе ошибка."
       }
     },
     "done": {
-      "q": "That’s everything",
-      "ask": "Thanks — message on its way.",
-      "hint": "We’ve got it. Expect a warm, human reply within a day."
+      "q": "Вот и всё",
+      "ask": "Спасибо — сообщение уже в пути.",
+      "hint": "Мы его получили. Ждите тёплого, живого ответа в течение дня."
     },
-    "failed": "Something went wrong sending that. Try again in a moment, or email us directly."
+    "failed": "При отправке что-то пошло не так. Попробуйте ещё раз чуть позже или напишите нам на почту."
   },
   "footer": {
-    "label": "Start a conversation",
-    "studio": "Studio",
-    "elsewhere": "Elsewhere",
-    "journal": "Read the journal",
-    "status": "<b>{time}</b> in <city>[Novi Sad]</city> — {mood}",
+    "label": "Начните разговор",
+    "studio": "Студия",
+    "elsewhere": "Мы в сети",
+    "journal": "Читать журнал",
+    "status": "<b>{time}</b> в <city>[Novi Sad]</city> — {mood}",
     "moods": [
-      "probably still building",
-      "deep in a prototype",
-      "sketching something",
-      "brewing more coffee",
-      "watching the build pass",
-      "heads-down, music on"
+      "наверное, всё ещё что-то строим",
+      "по уши в прототипе",
+      "что-то набрасываем",
+      "варим ещё кофе",
+      "ждём, пока пройдёт сборка",
+      "в наушниках и в работе"
     ],
-    "moodNight": "still up, weirdly",
-    "meta": "© <year></year> '<logo>' · made by hand, kept warm",
-    "top": "Back to top",
+    "moodNight": "почему-то ещё не спим",
+    "meta": "© <year></year> '<logo>' · сделано вручную, с теплом",
+    "top": "Наверх",
     "social": {
       "instagram": "Instagram",
       "x": "X",

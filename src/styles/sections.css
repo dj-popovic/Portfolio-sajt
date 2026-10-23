@@ -1794,6 +1794,7 @@
 }
 /* build: small step counter uses the mono face */
 .convo-step {
+  white-space: nowrap; /* build: "Schritt 01 / 04" must not wrap */
   font-family: var(--font-mono);
   font-weight: 500;
   font-size: 13px;
@@ -2055,7 +2056,9 @@
   border-bottom: 1px solid var(--hairline);
 }
 .f-cta .lbl {
-  display: inline-flex;
+  /* build: own line even when the label is short (e.g. German) */
+  display: flex;
+  width: fit-content;
   align-items: center;
   gap: 11px;
   font-size: 12px;

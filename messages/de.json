@@ -1,11 +1,11 @@
 {
   "meta": {
-    "title": "'<logo>' · Two-person creative studio",
-    "description": "We’re a two-person studio crafting brands, websites and apps end-to-end — strategy, design and build, all under one roof."
+    "title": "'<logo>' · Kreativstudio zu zweit",
+    "description": "Wir sind ein Studio zu zweit und gestalten Marken, Websites und Apps von A bis Z — Strategie, Design und Entwicklung unter einem Dach."
   },
   "common": {
-    "skip": "Skip to content",
-    "logoAria": "Home",
+    "skip": "Zum Inhalt springen",
+    "logoAria": "Startseite",
     "languages": {
       "en": "English",
       "sr": "Srpski",
@@ -14,209 +14,190 @@
     }
   },
   "nav": {
-    "about": "About",
-    "services": "Services",
-    "work": "Work",
-    "process": "Process",
-    "cta": "Start a project",
-    "language": "Language",
-    "menu": "Menu",
-    "close": "Close menu"
+    "primary": "Hauptmenü",
+    "about": "Über uns",
+    "services": "Leistungen",
+    "work": "Arbeiten",
+    "process": "Ablauf",
+    "cta": "Projekt starten",
+    "language": "Sprache",
+    "menu": "Menü",
+    "close": "Menü schließen"
   },
   "hero": {
     "eyebrowA": "Branding · Websites · Apps",
-    "eyebrowB": "Two-person creative studio",
-    "title": "Creative work with a warmer<br></br><glow>kind of fire.</glow>",
-    "sub": "We’re a two-person studio crafting brands, websites and apps end-to-end — strategy, design and build, all under one roof. The site itself is our proof of work.",
-    "primary": "Start a project",
-    "secondary": "See our work",
-    "scroll": "Scroll"
+    "eyebrowB": "Kreativstudio zu zweit",
+    "title": "Kreative Arbeit,<br></br><glow>die wärmer brennt.</glow>",
+    "sub": "Wir sind ein Studio zu zweit und gestalten Marken, Websites und Apps von A bis Z — Strategie, Design und Entwicklung unter einem Dach. Diese Website ist unsere beste Arbeitsprobe.",
+    "primary": "Projekt starten",
+    "secondary": "Arbeiten ansehen",
+    "scroll": "Scrollen"
   },
   "about": {
-    "eyebrow": "Who we are",
-    "title": "Two people,<br></br>one <glow>end-to-end</glow> studio.",
-    "body": "We’re a two-person studio that takes a project from first idea to launch — brand, website and app, plus the marketing to back it. Small on purpose: you work directly with the people doing the work, start to finish.",
-    "photo1": "[founder photo 1]",
-    "photo2": "[founder photo 2]",
-    "role1": "Co-founder · <b>Design & Brand</b>",
-    "role2": "Co-founder · <b>Development</b>",
+    "eyebrow": "Wer wir sind",
+    "title": "Zwei Menschen,<br></br>ein Studio <glow>von A bis Z.</glow>",
+    "body": "Wir sind ein Studio zu zweit und begleiten Projekte von der ersten Idee bis zum Launch — Marke, Website und App, plus das Marketing dazu. Bewusst klein: Du arbeitest direkt mit den Menschen, die die Arbeit machen, von Anfang bis Ende.",
+    "photo1": "[Gründerfoto 1]",
+    "photo2": "[Gründerfoto 2]",
+    "role1": "Co-Founder · <b>Design & Marke</b>",
+    "role2": "Co-Founder · <b>Entwicklung</b>",
     "stats": {
-      "founders": "Founders",
-      "disciplines": "Disciplines",
-      "team": "Team, end-to-end"
+      "founders": "Köpfe",
+      "disciplines": "Disziplinen",
+      "team": "Team, von A bis Z"
     }
   },
   "services": {
-    "eyebrowA": "What we offer",
-    "eyebrowB": "Four disciplines, one team",
-    "title": "Everything a brand needs to <glow>show up well.</glow>",
-    "note": "Take one piece or the whole stack — it’s the same two people either way, so nothing gets lost in a handoff.",
-    "foot": "Need all four? <b>That’s the whole point</b> — one team, idea to launch.",
+    "eyebrowA": "Was wir bieten",
+    "eyebrowB": "Vier Disziplinen, ein Team",
+    "title": "Alles, was eine Marke braucht, um <glow>gut aufzutreten.</glow>",
+    "note": "Nimm einen Baustein oder das ganze Paket — es sind so oder so dieselben zwei Leute, also geht bei keiner Übergabe etwas verloren.",
+    "foot": "Du brauchst alle vier? <b>Genau darum geht’s</b> — ein Team, von der Idee bis zum Launch.",
     "items": {
       "branding": {
         "title": "Branding",
-        "desc": "Identity systems that stay recognisable everywhere they land — from a favicon to a storefront.",
-        "tags": [
-          "Logo & marks",
-          "Visual identity",
-          "Guidelines",
-          "Naming"
-        ]
+        "desc": "Erscheinungsbilder, die überall wiedererkennbar bleiben — vom Favicon bis zum Ladenschild.",
+        "tags": ["Logo & Zeichen", "Visuelle Identität", "Guidelines", "Naming"]
       },
       "websites": {
         "title": "Websites",
-        "desc": "Sites that feel like the brand and move like it too — designed, built and animated end-to-end.",
-        "tags": [
-          "Design & build",
-          "Motion",
-          "CMS",
-          "Performance"
-        ]
+        "desc": "Websites, die sich wie die Marke anfühlen und auch so bewegen — gestaltet, gebaut und animiert aus einer Hand.",
+        "tags": ["Design & Umsetzung", "Motion", "CMS", "Performance"]
       },
       "apps": {
         "title": "Apps",
-        "desc": "Products people come back to — thought through from first flow to a fast, polished front-end.",
-        "tags": [
-          "Web & mobile",
-          "UX",
-          "Prototyping",
-          "Front-end"
-        ]
+        "desc": "Produkte, zu denen Menschen zurückkehren — durchdacht vom ersten Flow bis zum schnellen, polierten Frontend.",
+        "tags": ["Web & Mobile", "UX", "Prototyping", "Frontend"]
       },
       "marketing": {
         "title": "Marketing",
-        "desc": "Once it’s built, we help get it in front of the right people — with a plan, not guesswork.",
-        "tags": [
-          "Strategy",
-          "Content",
-          "Social",
-          "Launch"
-        ]
+        "desc": "Wenn alles steht, bringen wir es zu den richtigen Leuten — mit Plan statt Bauchgefühl.",
+        "tags": ["Strategie", "Content", "Social Media", "Launch"]
       }
     }
   },
   "work": {
-    "eyebrowA": "Selected work",
-    "eyebrowB": "Concepts — what we can build for you",
-    "title": "Not a portfolio yet. <glow>A glimpse of the range.</glow>",
-    "note": "Each tile is a live mini-demo. <b>Hover to preview</b> it scrolling, then open it full-screen to click around — built the way we’d build yours.",
-    "noteTouch": "Each tile is a live mini-demo. <b>Tap to open</b> it full-screen and click around — built the way we’d build yours.",
-    "open": "Open demo",
-    "foot": "These are concepts — <b>yours is next.</b>",
-    "kindWeb": "Concept · Web",
-    "kindApp": "Concept · App",
+    "eyebrowA": "Ausgewählte Arbeiten",
+    "eyebrowB": "Konzepte — was wir für dich bauen können",
+    "title": "Noch kein Portfolio. <glow>Ein Einblick in unsere Bandbreite.</glow>",
+    "note": "Jede Kachel ist eine Live-Mini-Demo. <b>Fahr mit der Maus darüber</b>, um sie scrollen zu sehen, und öffne sie dann im Vollbild zum Ausprobieren — gebaut, wie wir auch deins bauen würden.",
+    "noteTouch": "Jede Kachel ist eine Live-Mini-Demo. <b>Tippe darauf</b>, um sie im Vollbild zu öffnen und auszuprobieren — gebaut, wie wir auch deins bauen würden.",
+    "open": "Demo öffnen",
+    "foot": "Das sind Konzepte — <b>deins ist als Nächstes dran.</b>",
+    "kindWeb": "Konzept · Web",
+    "kindApp": "Konzept · App",
     "items": {
       "coffee": {
-        "value": "Editorial storefront for a <b>small-batch coffee roaster</b>",
-        "name": "[Ember & Oak] — small-batch coffee roaster"
+        "value": "Editorialer Onlineshop für eine <b>kleine Kaffeerösterei</b>",
+        "name": "[Ember & Oak] — kleine Kaffeerösterei"
       },
       "fintech": {
-        "value": "Live analytics dashboard for a <b>fintech product</b>",
-        "name": "[Northwind] — cash-flow dashboard"
+        "value": "Live-Analytics-Dashboard für ein <b>Fintech-Produkt</b>",
+        "name": "[Northwind] — Cashflow-Dashboard"
       },
       "wellness": {
-        "value": "A calm daily ritual for a <b>wellness brand</b>",
-        "name": "[Stillwater] — mindfulness app"
+        "value": "Ein ruhiges tägliches Ritual für eine <b>Wellness-Marke</b>",
+        "name": "[Stillwater] — Achtsamkeits-App"
       },
       "food": {
-        "value": "On-demand ordering for a <b>street-food brand</b>",
-        "name": "[Tako] — street-food ordering app"
+        "value": "Bestellen auf Abruf für eine <b>Streetfood-Marke</b>",
+        "name": "[Tako] — Streetfood-Bestell-App"
       }
     },
     "window": {
-      "badge": "Interactive demo — built in code",
-      "close": "Close demo",
-      "hint": "Scroll and click around — it’s all live",
-      "openAria": "Open {name} demo"
+      "badge": "Interaktive Demo — in Code gebaut",
+      "close": "Demo schließen",
+      "hint": "Scroll und klick dich durch — alles ist live",
+      "openAria": "Demo öffnen: {name}"
     }
   },
   "process": {
-    "eyebrowA": "How we work",
-    "eyebrowB": "One team, start to finish",
-    "title": "From first call to <glow>live</glow> — in four steps.",
-    "sub": "No handoffs, no middle-men. The same two people carry your project the whole way — here’s how a build usually goes.",
+    "eyebrowA": "Wie wir arbeiten",
+    "eyebrowB": "Ein Team, von Anfang bis Ende",
+    "title": "Vom ersten Call bis <glow>live</glow> — in vier Schritten.",
+    "sub": "Keine Übergaben, keine Zwischenhändler. Dieselben zwei Leute begleiten dein Projekt den ganzen Weg — so läuft es meistens ab.",
     "steps": {
       "discover": {
-        "phase": "Discover",
-        "title": "We get to know the work.",
-        "body": "A kickoff to understand your business, audience and goals — what success looks like, and what’s gotten in the way so far. No templates, no assumptions.",
-        "deliver": "You leave with <b>[a clear brief & timeline]</b>"
+        "phase": "Verstehen",
+        "title": "Wir lernen das Projekt kennen.",
+        "body": "Ein Kickoff, um dein Business, deine Zielgruppe und deine Ziele zu verstehen — wie Erfolg aussieht und was bisher im Weg stand. Keine Vorlagen, keine Annahmen.",
+        "deliver": "Du bekommst <b>[ein klares Briefing & einen Zeitplan]</b>"
       },
       "design": {
         "phase": "Design",
-        "title": "We shape how it looks and feels.",
-        "body": "Brand direction, then every screen — designed and prototyped so you can click through and feel it long before a line of code is written.",
-        "deliver": "You approve <b>[an interactive prototype]</b>"
+        "title": "Wir gestalten Look & Feel.",
+        "body": "Erst die Markenrichtung, dann jeder Screen — gestaltet und als Prototyp, damit du dich durchklicken und alles spüren kannst, lange bevor eine Zeile Code entsteht.",
+        "deliver": "Am Ende steht <b>[ein interaktiver Prototyp]</b>"
       },
       "build": {
-        "phase": "Build",
-        "title": "We make it real, end-to-end.",
-        "body": "We develop the whole thing ourselves — fast, animated and built to last — and keep you in the loop with working previews, not status emails.",
-        "deliver": "You see <b>[live builds every week]</b>"
+        "phase": "Umsetzung",
+        "title": "Wir machen es real — von A bis Z.",
+        "body": "Wir entwickeln alles selbst — schnell, animiert und für lange gebaut — und halten dich mit funktionierenden Previews auf dem Laufenden, nicht mit Status-Mails.",
+        "deliver": "Du siehst <b>[jede Woche Live-Builds]</b>"
       },
       "launch": {
-        "phase": "Launch & grow",
-        "title": "We ship it — then help it grow.",
-        "body": "We launch, hand over the keys, and stick around with a marketing plan to get it in front of the right people. A plan, not guesswork.",
-        "deliver": "You get <b>[a launch + growth plan]</b>"
+        "phase": "Launch & Wachstum",
+        "title": "Wir launchen — und helfen beim Wachsen.",
+        "body": "Wir gehen live, übergeben dir die Schlüssel und bleiben mit einem Marketingplan an Bord, damit es die richtigen Leute erreicht. Ein Plan statt Bauchgefühl.",
+        "deliver": "Du bekommst <b>[einen Launch- & Wachstumsplan]</b>"
       }
     }
   },
   "fit": {
-    "eyebrowA": "Find your fit",
-    "eyebrowB": "Three ways to work together",
-    "title": "Pick a starting point — <glow>we’ll shape the rest together.</glow>",
-    "sub": "These are the ways we usually work, not a fixed menu. Find the closest fit, hit the button, and we’ll figure out the details over a real conversation.",
-    "investment": "Investment",
-    "price": "Let’s talk",
-    "popular": "Most popular",
-    "plus": "Everything in <b>Basic</b>, plus:",
+    "eyebrowA": "Finde, was passt",
+    "eyebrowB": "Drei Wege der Zusammenarbeit",
+    "title": "Wähl einen Startpunkt — <glow>den Rest gestalten wir gemeinsam.</glow>",
+    "sub": "So arbeiten wir meistens — kein festes Menü. Such dir das Passendste aus, klick auf den Button, und die Details klären wir in einem echten Gespräch.",
+    "investment": "Investition",
+    "price": "Lass uns reden",
+    "popular": "Am beliebtesten",
+    "plus": "Alles aus <b>Basic</b>, plus:",
     "packages": {
       "basic": {
         "name": "Basic",
-        "tag": "A single-page or smaller website — clean, custom and unmistakably ours.",
-        "hint": "[From €X — shared in our chat]",
-        "cta": "Start a project",
+        "tag": "Eine One-Page- oder kleinere Website — klar, individuell und unverkennbar wir.",
+        "hint": "[Ab X € — besprechen wir im Gespräch]",
+        "cta": "Projekt starten",
         "includes": [
-          "Custom responsive design in our style",
-          "Light, tasteful animations",
-          "Mobile-optimized throughout",
-          "Basic SEO + contact form",
-          "Deploy & handover"
+          "Individuelles, responsives Design in unserem Stil",
+          "Leichte, geschmackvolle Animationen",
+          "Durchgehend für Mobilgeräte optimiert",
+          "Basis-SEO + Kontaktformular",
+          "Livegang & Übergabe"
         ]
       },
       "pro": {
         "name": "Pro",
-        "tag": "A larger, multi-page website in our signature animated style — the full experience.",
-        "hint": "[From €X — shared in our chat]",
-        "cta": "Start a project",
+        "tag": "Eine größere, mehrseitige Website in unserem typischen animierten Stil — das volle Erlebnis.",
+        "hint": "[Ab X € — besprechen wir im Gespräch]",
+        "cta": "Projekt starten",
         "includes": [
-          "Fully bespoke design, multiple pages",
-          "Advanced animations + scroll choreography",
-          "3D / interactive elements + micro-interactions",
-          "Performance optimization"
+          "Komplett maßgeschneidertes Design, mehrere Seiten",
+          "Fortgeschrittene Animationen + Scroll-Choreografie",
+          "3D- / interaktive Elemente + Micro-Interactions",
+          "Performance-Optimierung"
         ]
       },
       "custom": {
         "name": "Custom",
-        "tag": "Apps & bespoke products — when you need more than a website.",
-        "hint": "[Scoped per project in our chat]",
-        "cta": "Let’s scope it",
+        "tag": "Apps & maßgeschneiderte Produkte — wenn du mehr als eine Website brauchst.",
+        "hint": "[Umfang klären wir pro Projekt im Gespräch]",
+        "cta": "Lass uns planen",
         "includes": [
-          "Scope tailored per project",
-          "Web or mobile app",
-          "Custom functionality, integrations, auth, databases",
-          "Discovery + product design & build"
+          "Umfang individuell pro Projekt",
+          "Web- oder Mobile-App",
+          "Individuelle Funktionen, Integrationen, Login, Datenbanken",
+          "Discovery + Produktdesign & Entwicklung"
         ]
       }
     },
     "addons": {
-      "lead": "Add anything below to any package.",
+      "lead": "Alles hier lässt sich zu jedem Paket hinzufügen.",
       "items": {
-        "branding": "Branding & logo",
-        "copy": "Copywriting",
-        "languages": "Extra languages",
-        "maintenance": "Maintenance",
+        "branding": "Branding & Logo",
+        "copy": "Texterstellung",
+        "languages": "Weitere Sprachen",
+        "maintenance": "Wartung",
         "hosting": "Hosting",
         "cms": "CMS",
         "analytics": "Analytics"
@@ -224,84 +205,79 @@
     }
   },
   "contact": {
-    "eyebrowA": "Let’s talk",
-    "eyebrowB": "It’s just the two of us",
-    "title": "Tell us what you’re <glow>dreaming up.</glow>",
-    "lede": "A few quick questions — one at a time, no pressure. However half-formed the idea, we’d love to hear it.",
-    "founders": "The <b>two of us</b> read every message — usually a reply within a day.",
-    "foundersMeta": "{nameOne} & {nameTwo} · co-founders",
-    "avatar1": "[founder photo 1]",
-    "avatar2": "[founder photo 2]",
-    "step": "Step <b>{current}</b> / {total}",
-    "back": "Back",
-    "next": "Next",
-    "send": "Send it",
-    "sending": "Sending…",
-    "startOver": "Start over",
-    "answerLabel": "Your answer",
-    "attached": "Starting point",
-    "attachedAddons": "Add-ons",
-    "removeAttachment": "Remove",
+    "eyebrowA": "Lass uns reden",
+    "eyebrowB": "Nur wir zwei",
+    "title": "Erzähl uns, wovon du <glow>träumst.</glow>",
+    "lede": "Ein paar kurze Fragen — eine nach der anderen, ganz ohne Druck. Egal wie unfertig die Idee ist, wir hören sie gern.",
+    "founders": "<b>Wir beide</b> lesen jede Nachricht — meistens antworten wir innerhalb eines Tages.",
+    "foundersMeta": "{nameOne} & {nameTwo} · Co-Founder",
+    "avatar1": "[Foto 1]",
+    "avatar2": "[Foto 2]",
+    "step": "Schritt <b>{current}</b> / {total}",
+    "back": "Zurück",
+    "next": "Weiter",
+    "send": "Abschicken",
+    "sending": "Wird gesendet…",
+    "startOver": "Neu starten",
+    "answerLabel": "Deine Antwort",
+    "attached": "Startpunkt",
+    "attachedAddons": "Extras",
+    "removeAttachment": "Entfernen",
     "steps": {
       "name": {
-        "q": "First things first",
-        "ask": "What should we call you?",
-        "hint": "No formalities needed — just the name your friends use.",
-        "placeholder": "Your name",
-        "error": "Any name works — even a nickname."
+        "q": "Das Wichtigste zuerst",
+        "ask": "Wie dürfen wir dich nennen?",
+        "hint": "Ganz ohne Förmlichkeiten — einfach der Name, den deine Freunde benutzen.",
+        "placeholder": "Dein Name",
+        "error": "Jeder Name passt — auch ein Spitzname."
       },
       "project": {
-        "q": "The fun part",
-        "ask": "What are you building?",
-        "hint": "A brand, a website, an app, a wild idea on a napkin — tell us in a sentence.",
-        "placeholder": "e.g. a storefront for our coffee roastery",
-        "error": "A sentence is plenty — just give us the gist."
+        "q": "Der spannende Teil",
+        "ask": "Was baust du?",
+        "hint": "Eine Marke, eine Website, eine App, eine wilde Idee auf einer Serviette — erzähl’s uns in einem Satz.",
+        "placeholder": "z. B. ein Onlineshop für unsere Kaffeerösterei",
+        "error": "Ein Satz reicht völlig — nur das Wesentliche."
       },
       "timeline": {
-        "q": "So we can plan",
-        "ask": "Timeline & budget?",
-        "hint": "Rough is fine. Pick what’s closest, or tell us in your own words.",
-        "placeholder": "e.g. launch by autumn, ~[budget]",
-        "error": "Pick one of the options, or write a few words.",
-        "chips": [
-          "ASAP",
-          "1–3 months",
-          "Just exploring",
-          "Flexible"
-        ]
+        "q": "Damit wir planen können",
+        "ask": "Zeitrahmen & Budget?",
+        "hint": "Grob reicht. Wähl, was am nächsten kommt, oder sag es in deinen Worten.",
+        "placeholder": "z. B. Launch bis Herbst, ~[Budget]",
+        "error": "Wähl eine der Optionen oder schreib ein paar Worte.",
+        "chips": ["So bald wie möglich", "1–3 Monate", "Erst mal umschauen", "Flexibel"]
       },
       "email": {
-        "q": "Last one",
-        "ask": "Where can we reach you?",
-        "hint": "We’ll only ever use this to reply — promise.",
-        "placeholder": "you@email.com",
-        "error": "That email doesn’t look quite right."
+        "q": "Letzte Frage",
+        "ask": "Wo erreichen wir dich?",
+        "hint": "Wir nutzen sie nur, um dir zu antworten — versprochen.",
+        "placeholder": "name@beispiel.de",
+        "error": "Diese E-Mail-Adresse sieht nicht ganz richtig aus."
       }
     },
     "done": {
-      "q": "That’s everything",
-      "ask": "Thanks — message on its way.",
-      "hint": "We’ve got it. Expect a warm, human reply within a day."
+      "q": "Das war’s",
+      "ask": "Danke — deine Nachricht ist unterwegs.",
+      "hint": "Ist angekommen. Rechne innerhalb eines Tages mit einer herzlichen, menschlichen Antwort."
     },
-    "failed": "Something went wrong sending that. Try again in a moment, or email us directly."
+    "failed": "Beim Senden ist etwas schiefgelaufen. Versuch es gleich noch mal oder schreib uns direkt eine E-Mail."
   },
   "footer": {
-    "label": "Start a conversation",
+    "label": "Schreib uns",
     "studio": "Studio",
-    "elsewhere": "Elsewhere",
-    "journal": "Read the journal",
+    "elsewhere": "Anderswo",
+    "journal": "Zum Journal",
     "status": "<b>{time}</b> in <city>[Novi Sad]</city> — {mood}",
     "moods": [
-      "probably still building",
-      "deep in a prototype",
-      "sketching something",
-      "brewing more coffee",
-      "watching the build pass",
-      "heads-down, music on"
+      "wahrscheinlich noch am Bauen",
+      "tief im Prototyp",
+      "skizzieren gerade etwas",
+      "kochen noch mehr Kaffee",
+      "schauen dem Build zu",
+      "Kopfhörer auf, voll im Flow"
     ],
-    "moodNight": "still up, weirdly",
-    "meta": "© <year></year> '<logo>' · made by hand, kept warm",
-    "top": "Back to top",
+    "moodNight": "komischerweise noch wach",
+    "meta": "© <year></year> '<logo>' · von Hand gemacht, mit Wärme",
+    "top": "Nach oben",
     "social": {
       "instagram": "Instagram",
       "x": "X",

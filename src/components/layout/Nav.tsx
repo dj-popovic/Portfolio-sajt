@@ -43,7 +43,7 @@ export function Nav() {
 
   return (
     <>
-      <nav className={cn("site-nav", stuck && "is-stuck")} aria-label="Primary" data-hero="nav">
+      <nav className={cn("site-nav", stuck && "is-stuck")} aria-label={t("primary")} data-hero="nav">
         <a href="#top" className="nav-logo" aria-label={tc("logoAria")}>
           <span className="logo-mark" aria-hidden>
             ★

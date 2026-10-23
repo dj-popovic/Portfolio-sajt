@@ -51,4 +51,4 @@ node scripts/shoot.mjs http://localhost:3100 .shots /
 
 ## Deploy
 
-Import the GitHub repo in Vercel — it detects Next.js, no settings needed. Optional env var: `NEXT_PUBLIC_CONTACT_ENDPOINT` if the contact backend is hosted elsewhere.
+Import the GitHub repo in Vercel; no settings needed. `vercel.json` pins the **Next.js** framework preset and the `.next` output folder, so a project that was created with the "Other" preset (error: *No Output Directory named "public" found*) still builds correctly. Optional env var: `NEXT_PUBLIC_CONTACT_ENDPOINT` if the contact backend is hosted elsewhere.

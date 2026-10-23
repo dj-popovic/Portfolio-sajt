@@ -1,0 +1,183 @@
+@import "tailwindcss";
+@import "../styles/sections.css";
+@import "../styles/previews.css";
+
+/* ------------------------------------------------------------------
+   Ember palette — "Ember" is the palette codename, not a studio name.
+   Core six from the brief + the derived tones the design uses.
+   ------------------------------------------------------------------ */
+@theme {
+  --color-base: #0e0b0a;
+  --color-surface: #1a1513;
+  --color-surface-deep: #120d0b;
+  --color-coal: #080605;
+  --color-cream: #f5ede4;
+  --color-ember: #ff6b35;
+  --color-amber: #ffb627;
+  --color-paper: #fbf6f0;
+
+  /* warm ink scale for the light sections */
+  --color-ink: #2a211c;
+  --color-ink-700: #4a3d34;
+  --color-ink-600: #5a4a40;
+  --color-ink-500: #6a584c;
+  --color-ink-400: #8a7668;
+  --color-ink-300: #a08a78;
+  --color-rust: #b5471e;
+  --color-flame: #e0571e;
+  --color-ember-light: #ff8f5e;
+  --color-ember-deep: #c23a18;
+  --color-ember-red: #e6421c;
+  --color-char: #1a0e07;
+
+  --ease-ember: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+  --breakpoint-xs: 30rem;
+}
+
+@theme inline {
+  --font-display: var(--font-unbounded), system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
+}
+
+/* Short aliases so the section stylesheets read like the design export */
+:root {
+  --base: var(--color-base);
+  --surface: var(--color-surface);
+  --text: var(--color-cream);
+  --accent: var(--color-ember);
+  --accent2: var(--color-amber);
+  --light: var(--color-paper);
+  --darkest: var(--color-coal);
+  --muted: color-mix(in oklab, var(--text) 58%, transparent);
+  --hairline: color-mix(in oklab, var(--text) 12%, transparent);
+}
+
+/* shared spacing helpers */
+@utility px-gutter {
+  padding-inline: clamp(24px, 5vw, 76px);
+}
+
+@layer base {
+  html {
+    background: var(--color-base);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-base);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--color-ember) 38%, transparent);
+    color: var(--color-cream);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  button {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  /* gradient "glow" words — dark sections */
+  .glow {
+    background: linear-gradient(92deg, var(--color-amber), var(--color-ember) 60%, var(--color-ember-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* gradient words on the light (paper) sections */
+  .glow-light {
+    background: linear-gradient(92deg, var(--color-flame), var(--color-ember) 55%, var(--color-ember-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* glowing dot used in every eyebrow */
+  .ember-dot {
+    width: 7px;
+    height: 7px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--color-ember);
+    box-shadow: 0 0 14px 2px color-mix(in oklab, var(--color-ember) 70%, transparent);
+  }
+  .ember-dot-soft {
+    box-shadow: 0 0 12px 1px color-mix(in oklab, var(--color-ember) 60%, transparent);
+  }
+
+  /* primary pill — ember gradient */
+  .btn-ember {
+    color: var(--color-char);
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--color-amber) 34%, var(--color-ember)),
+      var(--color-ember)
+    );
+    box-shadow: 0 10px 34px color-mix(in oklab, var(--color-ember) 42%, transparent);
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  @media (hover: hover) {
+    .btn-ember:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 44px color-mix(in oklab, var(--color-ember) 55%, transparent);
+    }
+  }
+  .btn-ember:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* logo mark tile (placeholder mark until the real logo exists) */
+  .logo-mark {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    color: var(--color-char);
+    font-weight: 700;
+    background: radial-gradient(
+      120% 120% at 30% 25%,
+      var(--color-amber),
+      var(--color-ember) 55%,
+      var(--color-ember-deep) 100%
+    );
+    box-shadow: 0 4px 18px color-mix(in oklab, var(--color-ember) 45%, transparent);
+  }
+}
+
+/* copy that only makes sense with (or without) a hover-capable pointer */
+@media (hover: hover) {
+  .touch-only {
+    display: none;
+  }
+}
+@media (hover: none) {
+  .hover-only {
+    display: none;
+  }
+}
+
+/* respect reduced motion everywhere */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

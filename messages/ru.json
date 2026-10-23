@@ -1,0 +1,312 @@
+{
+  "meta": {
+    "title": "'<logo>' · Two-person creative studio",
+    "description": "We’re a two-person studio crafting brands, websites and apps end-to-end — strategy, design and build, all under one roof."
+  },
+  "common": {
+    "skip": "Skip to content",
+    "logoAria": "Home",
+    "languages": {
+      "en": "English",
+      "sr": "Srpski",
+      "ru": "Русский",
+      "de": "Deutsch"
+    }
+  },
+  "nav": {
+    "about": "About",
+    "services": "Services",
+    "work": "Work",
+    "process": "Process",
+    "cta": "Start a project",
+    "language": "Language",
+    "menu": "Menu",
+    "close": "Close menu"
+  },
+  "hero": {
+    "eyebrowA": "Branding · Websites · Apps",
+    "eyebrowB": "Two-person creative studio",
+    "title": "Creative work with a warmer<br></br><glow>kind of fire.</glow>",
+    "sub": "We’re a two-person studio crafting brands, websites and apps end-to-end — strategy, design and build, all under one roof. The site itself is our proof of work.",
+    "primary": "Start a project",
+    "secondary": "See our work",
+    "scroll": "Scroll"
+  },
+  "about": {
+    "eyebrow": "Who we are",
+    "title": "Two people,<br></br>one <glow>end-to-end</glow> studio.",
+    "body": "We’re a two-person studio that takes a project from first idea to launch — brand, website and app, plus the marketing to back it. Small on purpose: you work directly with the people doing the work, start to finish.",
+    "photo1": "[founder photo 1]",
+    "photo2": "[founder photo 2]",
+    "role1": "Co-founder · <b>Design & Brand</b>",
+    "role2": "Co-founder · <b>Development</b>",
+    "stats": {
+      "founders": "Founders",
+      "disciplines": "Disciplines",
+      "team": "Team, end-to-end"
+    }
+  },
+  "services": {
+    "eyebrowA": "What we offer",
+    "eyebrowB": "Four disciplines, one team",
+    "title": "Everything a brand needs to <glow>show up well.</glow>",
+    "note": "Take one piece or the whole stack — it’s the same two people either way, so nothing gets lost in a handoff.",
+    "foot": "Need all four? <b>That’s the whole point</b> — one team, idea to launch.",
+    "items": {
+      "branding": {
+        "title": "Branding",
+        "desc": "Identity systems that stay recognisable everywhere they land — from a favicon to a storefront.",
+        "tags": [
+          "Logo & marks",
+          "Visual identity",
+          "Guidelines",
+          "Naming"
+        ]
+      },
+      "websites": {
+        "title": "Websites",
+        "desc": "Sites that feel like the brand and move like it too — designed, built and animated end-to-end.",
+        "tags": [
+          "Design & build",
+          "Motion",
+          "CMS",
+          "Performance"
+        ]
+      },
+      "apps": {
+        "title": "Apps",
+        "desc": "Products people come back to — thought through from first flow to a fast, polished front-end.",
+        "tags": [
+          "Web & mobile",
+          "UX",
+          "Prototyping",
+          "Front-end"
+        ]
+      },
+      "marketing": {
+        "title": "Marketing",
+        "desc": "Once it’s built, we help get it in front of the right people — with a plan, not guesswork.",
+        "tags": [
+          "Strategy",
+          "Content",
+          "Social",
+          "Launch"
+        ]
+      }
+    }
+  },
+  "work": {
+    "eyebrowA": "Selected work",
+    "eyebrowB": "Concepts — what we can build for you",
+    "title": "Not a portfolio yet. <glow>A glimpse of the range.</glow>",
+    "note": "Each tile is a live mini-demo. <b>Hover to preview</b> it scrolling, then open it full-screen to click around — built the way we’d build yours.",
+    "noteTouch": "Each tile is a live mini-demo. <b>Tap to open</b> it full-screen and click around — built the way we’d build yours.",
+    "open": "Open demo",
+    "foot": "These are concepts — <b>yours is next.</b>",
+    "kindWeb": "Concept · Web",
+    "kindApp": "Concept · App",
+    "items": {
+      "coffee": {
+        "value": "Editorial storefront for a <b>small-batch coffee roaster</b>",
+        "name": "[Ember & Oak] — small-batch coffee roaster"
+      },
+      "fintech": {
+        "value": "Live analytics dashboard for a <b>fintech product</b>",
+        "name": "[Northwind] — cash-flow dashboard"
+      },
+      "wellness": {
+        "value": "A calm daily ritual for a <b>wellness brand</b>",
+        "name": "[Stillwater] — mindfulness app"
+      },
+      "food": {
+        "value": "On-demand ordering for a <b>street-food brand</b>",
+        "name": "[Tako] — street-food ordering app"
+      }
+    },
+    "window": {
+      "badge": "Interactive demo — built in code",
+      "close": "Close demo",
+      "hint": "Scroll and click around — it’s all live",
+      "openAria": "Open {name} demo"
+    }
+  },
+  "process": {
+    "eyebrowA": "How we work",
+    "eyebrowB": "One team, start to finish",
+    "title": "From first call to <glow>live</glow> — in four steps.",
+    "sub": "No handoffs, no middle-men. The same two people carry your project the whole way — here’s how a build usually goes.",
+    "steps": {
+      "discover": {
+        "phase": "Discover",
+        "title": "We get to know the work.",
+        "body": "A kickoff to understand your business, audience and goals — what success looks like, and what’s gotten in the way so far. No templates, no assumptions.",
+        "deliver": "You leave with <b>[a clear brief & timeline]</b>"
+      },
+      "design": {
+        "phase": "Design",
+        "title": "We shape how it looks and feels.",
+        "body": "Brand direction, then every screen — designed and prototyped so you can click through and feel it long before a line of code is written.",
+        "deliver": "You approve <b>[an interactive prototype]</b>"
+      },
+      "build": {
+        "phase": "Build",
+        "title": "We make it real, end-to-end.",
+        "body": "We develop the whole thing ourselves — fast, animated and built to last — and keep you in the loop with working previews, not status emails.",
+        "deliver": "You see <b>[live builds every week]</b>"
+      },
+      "launch": {
+        "phase": "Launch & grow",
+        "title": "We ship it — then help it grow.",
+        "body": "We launch, hand over the keys, and stick around with a marketing plan to get it in front of the right people. A plan, not guesswork.",
+        "deliver": "You get <b>[a launch + growth plan]</b>"
+      }
+    }
+  },
+  "fit": {
+    "eyebrowA": "Find your fit",
+    "eyebrowB": "Three ways to work together",
+    "title": "Pick a starting point — <glow>we’ll shape the rest together.</glow>",
+    "sub": "These are the ways we usually work, not a fixed menu. Find the closest fit, hit the button, and we’ll figure out the details over a real conversation.",
+    "investment": "Investment",
+    "price": "Let’s talk",
+    "popular": "Most popular",
+    "plus": "Everything in <b>Basic</b>, plus:",
+    "packages": {
+      "basic": {
+        "name": "Basic",
+        "tag": "A single-page or smaller website — clean, custom and unmistakably ours.",
+        "hint": "[From €X — shared in our chat]",
+        "cta": "Start a project",
+        "includes": [
+          "Custom responsive design in our style",
+          "Light, tasteful animations",
+          "Mobile-optimized throughout",
+          "Basic SEO + contact form",
+          "Deploy & handover"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "tag": "A larger, multi-page website in our signature animated style — the full experience.",
+        "hint": "[From €X — shared in our chat]",
+        "cta": "Start a project",
+        "includes": [
+          "Fully bespoke design, multiple pages",
+          "Advanced animations + scroll choreography",
+          "3D / interactive elements + micro-interactions",
+          "Performance optimization"
+        ]
+      },
+      "custom": {
+        "name": "Custom",
+        "tag": "Apps & bespoke products — when you need more than a website.",
+        "hint": "[Scoped per project in our chat]",
+        "cta": "Let’s scope it",
+        "includes": [
+          "Scope tailored per project",
+          "Web or mobile app",
+          "Custom functionality, integrations, auth, databases",
+          "Discovery + product design & build"
+        ]
+      }
+    },
+    "addons": {
+      "lead": "Add anything below to any package.",
+      "items": {
+        "branding": "Branding & logo",
+        "copy": "Copywriting",
+        "languages": "Extra languages",
+        "maintenance": "Maintenance",
+        "hosting": "Hosting",
+        "cms": "CMS",
+        "analytics": "Analytics"
+      }
+    }
+  },
+  "contact": {
+    "eyebrowA": "Let’s talk",
+    "eyebrowB": "It’s just the two of us",
+    "title": "Tell us what you’re <glow>dreaming up.</glow>",
+    "lede": "A few quick questions — one at a time, no pressure. However half-formed the idea, we’d love to hear it.",
+    "founders": "The <b>two of us</b> read every message — usually a reply within a day.",
+    "foundersMeta": "{nameOne} & {nameTwo} · co-founders",
+    "avatar1": "[founder photo 1]",
+    "avatar2": "[founder photo 2]",
+    "step": "Step <b>{current}</b> / {total}",
+    "back": "Back",
+    "next": "Next",
+    "send": "Send it",
+    "sending": "Sending…",
+    "startOver": "Start over",
+    "answerLabel": "Your answer",
+    "attached": "Starting point",
+    "attachedAddons": "Add-ons",
+    "removeAttachment": "Remove",
+    "steps": {
+      "name": {
+        "q": "First things first",
+        "ask": "What should we call you?",
+        "hint": "No formalities needed — just the name your friends use.",
+        "placeholder": "Your name",
+        "error": "Any name works — even a nickname."
+      },
+      "project": {
+        "q": "The fun part",
+        "ask": "What are you building?",
+        "hint": "A brand, a website, an app, a wild idea on a napkin — tell us in a sentence.",
+        "placeholder": "e.g. a storefront for our coffee roastery",
+        "error": "A sentence is plenty — just give us the gist."
+      },
+      "timeline": {
+        "q": "So we can plan",
+        "ask": "Timeline & budget?",
+        "hint": "Rough is fine. Pick what’s closest, or tell us in your own words.",
+        "placeholder": "e.g. launch by autumn, ~[budget]",
+        "error": "Pick one of the options, or write a few words.",
+        "chips": [
+          "ASAP",
+          "1–3 months",
+          "Just exploring",
+          "Flexible"
+        ]
+      },
+      "email": {
+        "q": "Last one",
+        "ask": "Where can we reach you?",
+        "hint": "We’ll only ever use this to reply — promise.",
+        "placeholder": "you@email.com",
+        "error": "That email doesn’t look quite right."
+      }
+    },
+    "done": {
+      "q": "That’s everything",
+      "ask": "Thanks — message on its way.",
+      "hint": "We’ve got it. Expect a warm, human reply within a day."
+    },
+    "failed": "Something went wrong sending that. Try again in a moment, or email us directly."
+  },
+  "footer": {
+    "label": "Start a conversation",
+    "studio": "Studio",
+    "elsewhere": "Elsewhere",
+    "journal": "Read the journal",
+    "status": "<b>{time}</b> in <city>[Novi Sad]</city> — {mood}",
+    "moods": [
+      "probably still building",
+      "deep in a prototype",
+      "sketching something",
+      "brewing more coffee",
+      "watching the build pass",
+      "heads-down, music on"
+    ],
+    "moodNight": "still up, weirdly",
+    "meta": "© <year></year> '<logo>' · made by hand, kept warm",
+    "top": "Back to top",
+    "social": {
+      "instagram": "Instagram",
+      "x": "X",
+      "linkedin": "LinkedIn",
+      "dribbble": "Dribbble"
+    }
+  }
+}

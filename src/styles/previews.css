@@ -1,0 +1,565 @@
+/* ===================================================================
+   Work — card preview brand systems. Each concept is its own little
+   world and does NOT inherit the Ember light theme.
+   =================================================================== */
+.preview-track,
+.preview-track * {
+  box-sizing: border-box;
+}
+.pv {
+  font-family: var(--font-sans);
+}
+.pv .ph {
+  background: repeating-linear-gradient(45deg, var(--s1) 0 9px, var(--s2) 9px 18px);
+  color: var(--pc);
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+}
+.pv .logo-ph {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  opacity: 0.65;
+}
+
+/* 1 · coffee roaster (web, warm editorial) */
+.pv-coffee {
+  --s1: #e7d8c4;
+  --s2: #f0e4d5;
+  --pc: #9a7b5e;
+  background: #f4ebdd;
+  color: #2b1d14;
+  padding: 0;
+}
+.pv-coffee .c-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(43, 29, 20, 0.08);
+}
+.pv-coffee .c-brand {
+  font-family: var(--font-dmserif);
+  font-size: 17px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.pv-coffee .c-links {
+  display: flex;
+  gap: 16px;
+  font-size: 11px;
+  color: #7a6450;
+  font-weight: 500;
+}
+.pv-coffee .c-cart {
+  font-size: 11px;
+  font-weight: 600;
+  color: #b6552f;
+  white-space: nowrap;
+}
+.pv-coffee .c-hero {
+  padding: 26px 20px 22px;
+}
+.pv-coffee .c-hero h3 {
+  font-family: var(--font-dmserif);
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+.pv-coffee .c-hero h3 em {
+  font-style: italic;
+  color: #b6552f;
+}
+.pv-coffee .c-hero p {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #6e5a47;
+  max-width: 34ch;
+}
+.pv-coffee .c-heroimg {
+  height: 120px;
+  margin: 0 20px;
+  border-radius: 12px;
+}
+.pv-coffee .c-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 22px 20px;
+}
+.pv-coffee .c-prod .ph {
+  height: 84px;
+  margin-bottom: 8px;
+}
+.pv-coffee .c-prod .nm {
+  font-family: var(--font-dmserif);
+  font-size: 13px;
+}
+.pv-coffee .c-prod .pr {
+  font-size: 11px;
+  color: #b6552f;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.pv-coffee .c-quote {
+  background: #2b1d14;
+  color: #f4ebdd;
+  padding: 24px 20px;
+}
+.pv-coffee .c-quote .q {
+  font-family: var(--font-dmserif);
+  font-size: 17px;
+  line-height: 1.3;
+}
+.pv-coffee .c-quote .a {
+  font-size: 10.5px;
+  color: #c89b7b;
+  margin-top: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+@media (max-width: 520px) {
+  .pv-coffee .c-links {
+    display: none;
+  }
+}
+
+/* 2 · fintech dashboard (web, dark techy) */
+.pv-fintech {
+  --s1: #16223a;
+  --s2: #1c2b49;
+  --pc: #5b79a8;
+  background: #0b1220;
+  color: #e6edf7;
+  padding: 0;
+}
+.pv-fintech,
+.pv-fintech * {
+  font-family: var(--font-spacegrotesk);
+}
+.pv-fintech .f-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(230, 237, 247, 0.08);
+}
+.pv-fintech .f-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+.pv-fintech .f-brand .d {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #34e1b4, #1fa6c9);
+}
+.pv-fintech .f-nav {
+  display: flex;
+  gap: 14px;
+  font-size: 11px;
+  color: #7e91b0;
+}
+.pv-fintech .f-nav .on {
+  color: #34e1b4;
+}
+.pv-fintech .f-head {
+  padding: 18px 18px 6px;
+}
+.pv-fintech .f-head .lbl {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7e91b0;
+}
+.pv-fintech .f-head .big {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 4px;
+}
+.pv-fintech .f-head .big small {
+  font-size: 12px;
+  color: #34e1b4;
+  font-weight: 600;
+  margin-left: 6px;
+}
+.pv-fintech .f-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 14px 18px;
+}
+.pv-fintech .f-kpi {
+  background: #121c30;
+  border: 1px solid rgba(230, 237, 247, 0.07);
+  border-radius: 11px;
+  padding: 12px;
+}
+.pv-fintech .f-kpi .k {
+  font-size: 9px;
+  color: #7e91b0;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.pv-fintech .f-kpi .v {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 6px;
+}
+.pv-fintech .f-kpi .v.up {
+  color: #34e1b4;
+}
+.pv-fintech .f-chart {
+  margin: 6px 18px 0;
+  background: #121c30;
+  border: 1px solid rgba(230, 237, 247, 0.07);
+  border-radius: 13px;
+  padding: 16px;
+}
+.pv-fintech .f-chart .ct {
+  font-size: 11px;
+  color: #7e91b0;
+  margin-bottom: 12px;
+}
+.pv-fintech .f-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 96px;
+}
+.pv-fintech .f-bars i {
+  flex: 1;
+  border-radius: 5px 5px 0 0;
+  background: linear-gradient(180deg, #34e1b4, #1b6fa8);
+  display: block;
+}
+.pv-fintech .f-table {
+  padding: 14px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.pv-fintech .f-tr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid rgba(230, 237, 247, 0.06);
+}
+.pv-fintech .f-tr .nm {
+  color: #c7d3e6;
+}
+.pv-fintech .f-tr .am {
+  font-weight: 700;
+}
+.pv-fintech .f-tr .am.pos {
+  color: #34e1b4;
+}
+.pv-fintech .f-tr .am.neg {
+  color: #ff7a8a;
+}
+
+/* 3 · wellness (app, calm) */
+.pv-wellness {
+  --s1: #d9d2ff;
+  --s2: #e7e2ff;
+  --pc: #7a71b8;
+  background: linear-gradient(180deg, #eeebff, #e0e9ff 60%, #dce7ff);
+  color: #2a2553;
+  padding: 0;
+}
+.pv-wellness,
+.pv-wellness * {
+  font-family: var(--font-nunito);
+}
+.pv-wellness .w-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 22px 0;
+  font-size: 11px;
+  font-weight: 700;
+}
+.pv-wellness .w-head {
+  padding: 18px 22px 10px;
+}
+.pv-wellness .w-head .hi {
+  font-size: 12px;
+  color: #7a71b8;
+  font-weight: 700;
+}
+.pv-wellness .w-head h3 {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-top: 2px;
+}
+.pv-wellness .w-head h3 span {
+  display: block;
+}
+.pv-wellness .w-breathe {
+  display: grid;
+  place-items: center;
+  padding: 8px 0 16px;
+}
+.pv-wellness .w-circle {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 38%, #fff, #c9d6ff 70%);
+  box-shadow:
+    0 16px 36px -12px rgba(108, 92, 231, 0.5),
+    inset 0 0 0 8px rgba(255, 255, 255, 0.5);
+  animation: breathe 5s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(0.92);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+.pv-wellness .w-circle b {
+  font-size: 13px;
+  color: #5a4fb0;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+.pv-wellness .w-list {
+  padding: 6px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pv-wellness .w-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(108, 92, 231, 0.12);
+  border-radius: 16px;
+  padding: 12px;
+  backdrop-filter: blur(4px);
+}
+.pv-wellness .w-card .ic {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  flex: 0 0 auto;
+  background: linear-gradient(135deg, #8e7df0, #6c5ce7);
+}
+.pv-wellness .w-card .ic.b {
+  background: linear-gradient(135deg, #7fb3ff, #4f8df0);
+}
+.pv-wellness .w-card .ic.c {
+  background: linear-gradient(135deg, #b49bff, #8e7df0);
+}
+.pv-wellness .w-card .t {
+  font-size: 13px;
+  font-weight: 800;
+}
+.pv-wellness .w-card .s {
+  font-size: 10.5px;
+  color: #7a71b8;
+  font-weight: 600;
+  margin-top: 1px;
+}
+.pv-wellness .w-tabs {
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 18px 8px;
+  border-top: 1px solid rgba(108, 92, 231, 0.12);
+}
+.pv-wellness .w-tabs i {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: rgba(108, 92, 231, 0.18);
+}
+.pv-wellness .w-tabs i.on {
+  background: #6c5ce7;
+}
+
+/* 4 · street food (app, bold vibrant) */
+.pv-food {
+  --s1: #ffd9a8;
+  --s2: #ffe6c4;
+  --pc: #c77a2e;
+  background: #fff4e6;
+  color: #241910;
+  padding: 0;
+}
+.pv-food,
+.pv-food * {
+  font-family: var(--font-bricolage);
+}
+.pv-food .o-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 18px 6px;
+}
+.pv-food .o-loc {
+  font-size: 10px;
+  color: #8a6a4a;
+  font-weight: 600;
+}
+.pv-food .o-loc b {
+  display: block;
+  color: #241910;
+  font-size: 13px;
+  font-weight: 800;
+}
+.pv-food .o-brand {
+  font-size: 18px;
+  font-weight: 800;
+  color: #e63946;
+  letter-spacing: -0.02em;
+}
+.pv-food .o-search {
+  margin: 6px 18px 0;
+  height: 34px;
+  border-radius: 11px;
+  background: #fff;
+  border: 1px solid rgba(36, 25, 16, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 11px;
+  color: #9a7a5a;
+}
+.pv-food .o-chips {
+  display: flex;
+  gap: 8px;
+  padding: 14px 18px 6px;
+  overflow: hidden;
+}
+.pv-food .o-chips span {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(36, 25, 16, 0.1);
+  color: #5a4634;
+}
+.pv-food .o-chips span.on {
+  background: #e63946;
+  color: #fff;
+  border-color: #e63946;
+}
+.pv-food .o-promo {
+  margin: 8px 18px 0;
+  border-radius: 16px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(120deg, #e63946, #ff6b35);
+  color: #fff;
+}
+.pv-food .o-promo .tag {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+.pv-food .o-promo h3 {
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1;
+  margin: 6px 0 4px;
+  letter-spacing: -0.02em;
+}
+.pv-food .o-promo .sub {
+  font-size: 11px;
+  opacity: 0.92;
+}
+.pv-food .o-promo .badge {
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: #ffc93c;
+}
+.pv-food .o-list {
+  padding: 14px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.pv-food .o-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pv-food .o-item .ph {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+  border-radius: 13px;
+}
+.pv-food .o-item .nm {
+  font-size: 13px;
+  font-weight: 800;
+}
+.pv-food .o-item .ds {
+  font-size: 10.5px;
+  color: #8a6a4a;
+  font-weight: 600;
+  margin-top: 1px;
+}
+.pv-food .o-item .pr {
+  font-size: 12px;
+  font-weight: 800;
+  color: #e63946;
+  margin-top: 4px;
+}
+.pv-food .o-item .add {
+  margin-left: auto;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  border-radius: 10px;
+  background: #241910;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+.pv-food .o-tabs {
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 18px 8px;
+  border-top: 1px solid rgba(36, 25, 16, 0.1);
+}
+.pv-food .o-tabs i {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background: rgba(36, 25, 16, 0.12);
+}
+.pv-food .o-tabs i.on {
+  background: #e63946;
+}

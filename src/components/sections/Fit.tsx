@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { ADDONS, PACKAGES } from "@/lib/brief";
-import { AddonChips, PackageButton } from "@/components/sections/FitInteractive";
+import { AddonChips, PackageButton, PackageCard } from "@/components/sections/FitInteractive";
 import { PanelClip } from "@/components/motion/PanelClip";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { CheckIcon } from "@/components/ui/icons";
@@ -34,7 +34,7 @@ export function Fit() {
             const featured = key === "pro";
             const includes = t.raw(`packages.${key}.includes`) as string[];
             return (
-              <article
+              <PackageCard
                 key={key}
                 className={cn("pkg", featured && "featured")}
                 data-card
@@ -72,7 +72,7 @@ export function Fit() {
                 </ul>
 
                 <PackageButton pkg={key}>{t(`packages.${key}.cta`)}</PackageButton>
-              </article>
+              </PackageCard>
             );
           })}
         </div>

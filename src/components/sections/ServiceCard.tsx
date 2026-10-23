@@ -1,6 +1,7 @@
 "use client";
 
-import type { PointerEvent, ReactNode } from "react";
+import type { ReactNode } from "react";
+import { tiltLeave, tiltMove } from "@/lib/tilt";
 
 type ServiceCardProps = {
   num: string;
@@ -11,16 +12,15 @@ type ServiceCardProps = {
 };
 
 export function ServiceCard({ num, title, desc, tags, icon }: ServiceCardProps) {
-  // cursor-following ember glow (drives the ::before radial gradient)
-  const onMove = (e: PointerEvent<HTMLElement>) => {
-    const el = e.currentTarget;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${((e.clientX - r.left) / r.width) * 100}%`);
-    el.style.setProperty("--my", `${((e.clientY - r.top) / r.height) * 100}%`);
-  };
-
+  // cursor-following ember glow (the ::before radial gradient) + a slight tilt toward the cursor
   return (
-    <article className="svc-card" onPointerMove={onMove} data-card data-reveal-item>
+    <article
+      className="svc-card"
+      onPointerMove={(e) => tiltMove(e, 5)}
+      onPointerLeave={tiltLeave}
+      data-card
+      data-reveal-item
+    >
       <div className="svc-top">
         <span className="svc-num">{num}</span>
         <span className="svc-icon" aria-hidden>

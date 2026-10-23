@@ -16,6 +16,8 @@ type Spark = {
   ph: number;
   sp: number;
 };
+/** a spark falling into the bed — the hero's nebula, coming down as coals */
+type Fall = { x: number; y: number; vx: number; vy: number; r: number; hue: RGB; delay: number; land: number };
 
 function warm(): RGB {
   const r = Math.random();
@@ -25,6 +27,7 @@ function warm(): RGB {
 /**
  * The footer's smouldering coal bed: coals along the very bottom, sparks
  * drifting slowly up, and a flare wherever the cursor passes over the embers.
+ * The first time it comes into view, a shower of sparks falls in and lights it.
  */
 export function FooterEmbers({ className }: { className?: string }) {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -41,6 +44,8 @@ export function FooterEmbers({ className }: { className?: string }) {
     let H = 0;
     let coals: Coal[] = [];
     let sparks: Spark[] = [];
+    const falls: Fall[] = [];
+    let showered = false;
     let raf = 0;
     let visible = false;
     const pointer = { x: -9999, y: -9999, active: false, lastSpawn: 0 };
@@ -63,6 +68,7 @@ export function FooterEmbers({ className }: { className?: string }) {
     function seed() {
       coals = [];
       sparks = [];
+      falls.length = 0;
       const nC = reduce ? 48 : Math.min(200, Math.floor(W / 7));
       for (let i = 0; i < nC; i++) {
         const edge = Math.pow(Math.random(), 1.6); // cluster toward the very bottom
@@ -80,6 +86,22 @@ export function FooterEmbers({ className }: { className?: string }) {
       }
       const nS = reduce ? 0 : Math.min(36, Math.floor(W / 46));
       for (let i = 0; i < nS; i++) sparks.push(newSpark(true));
+    }
+
+    function shower() {
+      const n = Math.min(34, Math.max(14, Math.floor(W / 40)));
+      for (let i = 0; i < n; i++) {
+        falls.push({
+          x: Math.random() * W,
+          y: -10 - Math.random() * H * 0.25,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: 1.1 + Math.random() * 1.5,
+          r: 0.9 + Math.random() * 1.3,
+          hue: warm(),
+          delay: Math.random() * 80, // frames, so they arrive as a shower, not a sheet
+          land: H - 6 - Math.pow(Math.random(), 1.6) * 52,
+        });
+      }
     }
 
     function resize() {
@@ -140,6 +162,48 @@ export function FooterEmbers({ className }: { className?: string }) {
         ctx.fill();
       }
 
+      // falling sparks: a short streak each, landing heats the coals around it
+      for (let i = falls.length - 1; i >= 0; i--) {
+        const f = falls[i];
+        if (f.delay > 0) {
+          f.delay--;
+          continue;
+        }
+        f.vy += 0.045;
+        f.x += f.vx;
+        f.y += f.vy;
+        if (f.y >= f.land) {
+          for (const c of coals) {
+            const d = Math.abs(c.x - f.x);
+            if (d < 70) c.heat = Math.min(1, c.heat + (1 - d / 70) * 0.9);
+          }
+          for (let k = 0; k < 2; k++) sparks.push(newSpark(false, f.x + (Math.random() - 0.5) * 14, f.land, 2.2));
+          falls.splice(i, 1);
+          continue;
+        }
+        const rgb = `${f.hue[0]},${f.hue[1]},${f.hue[2]}`;
+        const tx = f.x - f.vx * 7;
+        const ty = f.y - f.vy * 7;
+        const tail = ctx.createLinearGradient(f.x, f.y, tx, ty);
+        tail.addColorStop(0, `rgba(${rgb},0.85)`);
+        tail.addColorStop(1, `rgba(${rgb},0)`);
+        ctx.strokeStyle = tail;
+        ctx.lineWidth = f.r * 1.5;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(f.x, f.y);
+        ctx.lineTo(tx, ty);
+        ctx.stroke();
+        const head = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.r * 4.5);
+        head.addColorStop(0, `rgba(255,236,206,0.95)`);
+        head.addColorStop(0.35, `rgba(${rgb},0.55)`);
+        head.addColorStop(1, `rgba(${rgb},0)`);
+        ctx.fillStyle = head;
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.r * 4.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
       // stir up a few extra sparks under the cursor
       if (pointer.active && pointer.y > H * 0.45 && now - pointer.lastSpawn > 70 && sparks.length < 90) {
         pointer.lastSpawn = now;
@@ -194,9 +258,16 @@ export function FooterEmbers({ className }: { className?: string }) {
       window.clearTimeout(resizeTimer);
       resizeTimer = window.setTimeout(resize, 150);
     };
-    const io = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-    });
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (!showered && !reduce && entry.intersectionRatio >= 0.35) {
+          showered = true;
+          shower();
+        }
+      },
+      { threshold: [0, 0.35] },
+    );
 
     resize();
     io.observe(canvas);

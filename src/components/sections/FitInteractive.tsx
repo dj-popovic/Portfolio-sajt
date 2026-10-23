@@ -1,9 +1,15 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { useBrief } from "@/components/brief/BriefProvider";
+import { tiltLeave, tiltMove } from "@/lib/tilt";
 import { ADDONS, type PackageKey } from "@/lib/brief";
 import { CheckIcon, PlusIcon } from "@/components/ui/icons";
+
+// Package card shell: the server renders its content, this adds the pointer tilt.
+export function PackageCard(props: ComponentProps<"article">) {
+  return <article {...props} onPointerMove={(e) => tiltMove(e, 4)} onPointerLeave={tiltLeave} />;
+}
 
 // Package button: remembers the choice, then the anchor scrolls to Contact.
 export function PackageButton({ pkg, children }: { pkg: PackageKey; children: ReactNode }) {

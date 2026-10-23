@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { ConceptCard } from "@/components/work/ConceptCard";
+import { WorkWindow } from "@/components/work/WorkWindow";
 import { CoffeePreview, FintechPreview, FoodPreview, WellnessPreview } from "@/components/work/previews";
 import { richLight } from "@/lib/rich";
 
@@ -27,7 +28,7 @@ const CONCEPTS: Array<{ key: DemoKey; kind: "web" | "app"; stage?: string; Previ
 
 export function WorkGallery() {
   const t = useTranslations("work");
-  const [, setOpen] = useState<{ key: DemoKey; origin: HTMLElement } | null>(null);
+  const [open, setOpen] = useState<{ key: DemoKey; kind: "web" | "app"; origin: HTMLElement } | null>(null);
 
   return (
     <div className="work-grid" data-reveal-group data-reveal-stagger="0.1">
@@ -40,11 +41,12 @@ export function WorkGallery() {
           value={t.rich(`items.${key}.value`, richLight)}
           openLabel={t("open")}
           ariaLabel={t("window.openAria", { name: t(`items.${key}.name`) })}
-          onOpen={(origin) => setOpen({ key, origin })}
+          onOpen={(origin) => setOpen({ key, kind, origin })}
         >
           <Preview />
         </ConceptCard>
       ))}
+      {open ? <WorkWindow demo={open.key} kind={open.kind} origin={open.origin} onClose={() => setOpen(null)} /> : null}
     </div>
   );
 }

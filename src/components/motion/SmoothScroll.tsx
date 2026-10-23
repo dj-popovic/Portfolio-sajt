@@ -6,19 +6,22 @@ import { gsap, prefersReducedMotion, ScrollTrigger } from "@/lib/gsap";
 
 type ScrollTarget = string | HTMLElement | number;
 
+type ScrollOptions = { offset?: number; immediate?: boolean; duration?: number; onComplete?: () => void };
+
 type ScrollApi = {
   /** smooth-scroll to a selector, element or y position */
-  scrollTo: (target: ScrollTarget, opts?: { offset?: number; immediate?: boolean }) => void;
+  scrollTo: (target: ScrollTarget, opts?: ScrollOptions) => void;
   /** freeze page scrolling (menus, the demo window); calls nest */
   lock: () => void;
   unlock: () => void;
 };
 
-function nativeScrollTo(target: ScrollTarget, opts?: { offset?: number; immediate?: boolean }) {
+function nativeScrollTo(target: ScrollTarget, opts?: ScrollOptions) {
   const el = typeof target === "string" ? document.querySelector<HTMLElement>(target) : target;
   const y =
     typeof el === "number" ? el : el ? el.getBoundingClientRect().top + window.scrollY + (opts?.offset ?? 0) : 0;
   window.scrollTo({ top: y, behavior: opts?.immediate || prefersReducedMotion() ? "auto" : "smooth" });
+  opts?.onComplete?.();
 }
 
 const ScrollContext = createContext<ScrollApi | null>(null);
@@ -38,7 +41,12 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       scrollTo: (target, opts) => {
         const lenis = lenisRef.current;
         if (!lenis) return nativeScrollTo(target, opts);
-        lenis.scrollTo(target, { offset: opts?.offset ?? 0, immediate: opts?.immediate, duration: 1.3 });
+        lenis.scrollTo(target, {
+          offset: opts?.offset ?? 0,
+          immediate: opts?.immediate,
+          duration: opts?.duration ?? 1.3,
+          onComplete: opts?.onComplete,
+        });
       },
       lock: () => {
         locks.current++;

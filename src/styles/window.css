@@ -1,0 +1,205 @@
+/* ===================================================================
+   WORK — opened demo window. Ported from the design's work-window.css.
+   The FRAME follows the Ember system; the CONTENT is each concept's own
+   self-contained mini-site with its own colours, type and motion.
+   =================================================================== */
+.work-window {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: clamp(10px, 3vw, 40px);
+}
+.ww-scrim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 100% at 50% 0%, rgba(30, 16, 9, 0.72), rgba(8, 6, 5, 0.9));
+  -webkit-backdrop-filter: blur(7px) saturate(0.85);
+  backdrop-filter: blur(7px) saturate(0.85);
+}
+.ww-frame {
+  position: relative;
+  z-index: 1;
+  width: min(1160px, 100%);
+  height: min(88vh, 880px);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid color-mix(in oklab, var(--text) 12%, transparent);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow:
+    0 80px 140px -40px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 107, 53, 0.05),
+    0 0 90px -20px rgba(255, 107, 53, 0.18);
+}
+.ww-bar {
+  flex: 0 0 auto;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px 0 18px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--surface) 86%, #000),
+    color-mix(in oklab, var(--surface) 96%, #000)
+  );
+  border-bottom: 1px solid color-mix(in oklab, var(--text) 10%, transparent);
+}
+.ww-bar .logo-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  font-size: 11px;
+}
+.ww-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.ww-kicker {
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--accent2) 70%, var(--text));
+  font-weight: 600;
+}
+/* build: small title in Inter (brief: display face for big type only) */
+.ww-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ww-demo {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  border: 1px dashed color-mix(in oklab, var(--accent) 50%, transparent);
+  background: color-mix(in oklab, var(--accent) 10%, transparent);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: color-mix(in oklab, var(--accent2) 60%, var(--text));
+  white-space: nowrap;
+}
+.ww-demo .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.6);
+  animation: wwPulse 1.9s ease-out infinite;
+}
+@keyframes wwPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(255, 107, 53, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 53, 0);
+  }
+}
+.ww-close {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  margin-left: 6px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  border: 1px solid color-mix(in oklab, var(--text) 14%, transparent);
+  background: transparent;
+  color: color-mix(in oklab, var(--text) 70%, transparent);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+.ww-close:hover {
+  color: var(--text);
+  border-color: color-mix(in oklab, var(--accent) 55%, transparent);
+  transform: rotate(90deg);
+}
+.ww-body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  background: var(--base);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 107, 53, 0.4) transparent;
+}
+.ww-body::-webkit-scrollbar {
+  width: 10px;
+}
+.ww-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 107, 53, 0.35);
+  border-radius: 99px;
+  border: 3px solid var(--base);
+}
+.ww-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  background: rgba(14, 11, 10, 0.7);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid color-mix(in oklab, var(--text) 14%, transparent);
+  font-size: 11.5px;
+  color: color-mix(in oklab, var(--text) 70%, transparent);
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  white-space: nowrap;
+}
+.ww-hint.is-gone {
+  opacity: 0;
+}
+.ww-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+.ww-loading span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: contactPulse 1.4s ease-out infinite;
+}
+@media (max-width: 760px) {
+  .ww-frame {
+    height: 100%;
+    border-radius: 18px;
+  }
+  .ww-demo .lbl {
+    display: none;
+  }
+  .ww-demo {
+    padding: 8px;
+  }
+  .ww-name {
+    font-size: 12.5px;
+  }
+}

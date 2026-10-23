@@ -1,0 +1,202 @@
+/* ===================================================================
+   Concept demos — small keyframes and form controls each mini-site uses.
+   (Everything else lives in the demo components as Tailwind classes.)
+   =================================================================== */
+
+/* ---------- [Ember & Oak] coffee ---------- */
+@keyframes coffeeFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.coffee-float {
+  animation: coffeeFloat 6s ease-in-out infinite;
+}
+@keyframes coffeeSteam {
+  0% {
+    stroke-dashoffset: 60;
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.9;
+  }
+  100% {
+    stroke-dashoffset: -60;
+    opacity: 0;
+  }
+}
+.coffee-steam {
+  stroke-dasharray: 30 60;
+  animation: coffeeSteam 3.2s ease-in-out infinite;
+}
+@keyframes demoSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.coffee-spin {
+  animation: demoSpin 24s linear infinite;
+}
+@keyframes demoMarquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.coffee-marquee {
+  animation: demoMarquee 26s linear infinite;
+}
+.coffee-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #e9c46a, #b6552f 55%, #5b3a26);
+  outline: none;
+}
+.coffee-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #f4ebdd;
+  border: 4px solid #c8862e;
+  cursor: grab;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+.coffee-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #f4ebdd;
+  border: 4px solid #c8862e;
+  cursor: grab;
+}
+.coffee-range:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid #f4ebdd;
+  outline-offset: 3px;
+}
+
+/* ---------- [Northwind] fintech ---------- */
+@keyframes finFlow {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+/* round-capped near-zero dashes read as dots drifting along each money stream */
+.fin-particles {
+  stroke-dasharray: 0.01 16;
+  stroke-linecap: round;
+  pointer-events: none;
+  animation: finFlow 1.2s linear infinite;
+}
+.fin-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #34e1b4 var(--p, 50%), #18243d var(--p, 50%));
+  outline: none;
+}
+.fin-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e6edf7;
+  border: 4px solid #34e1b4;
+  cursor: grab;
+  box-shadow: 0 0 0 6px rgba(52, 225, 180, 0.15);
+}
+.fin-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #e6edf7;
+  border: 4px solid #34e1b4;
+  cursor: grab;
+}
+.fin-range:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid #e6edf7;
+  outline-offset: 3px;
+}
+
+/* ---------- [Stillwater] wellness ---------- */
+@keyframes swBreathe {
+  0%,
+  100% {
+    transform: scale(0.9);
+  }
+  45% {
+    transform: scale(1.06);
+  }
+}
+.sw-breathe {
+  animation: swBreathe 7s ease-in-out infinite;
+}
+.sw-breathe-soft {
+  animation: swBreathe 9s ease-in-out infinite;
+}
+@keyframes swTwinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.sw-twinkle {
+  animation: swTwinkle 3.2s ease-in-out infinite;
+}
+@keyframes swEq {
+  0%,
+  100% {
+    height: 6px;
+  }
+  50% {
+    height: 22px;
+  }
+}
+.sw-eq {
+  height: 6px;
+  animation: swEq 0.9s ease-in-out infinite;
+}
+
+/* ---------- [Tako] street food ---------- */
+.tk-scroll {
+  scrollbar-width: none;
+}
+.tk-scroll::-webkit-scrollbar {
+  display: none;
+}
+@keyframes tkPing {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+.tk-ping {
+  animation: tkPing 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes tkFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-12deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(-6deg);
+  }
+}
+.tk-float {
+  animation: tkFloat 5s ease-in-out infinite;
+}

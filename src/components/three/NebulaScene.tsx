@@ -253,7 +253,7 @@ function Field({ count }: { count: number }) {
   const group = useRef<THREE.Group>(null);
   const points = useRef<THREE.Points>(null);
   const startedAt = useRef<number | null>(null);
-  const smooth = useRef({ mx: 0, my: 0, force: 0, intensity: 0, hero: 0 });
+  const smooth = useRef({ mx: 0, my: 0, force: 0, intensity: 0, hero: 0, time: 0 });
 
   const geometry = useMemo(() => {
     const f = buildField(count);
@@ -330,7 +330,10 @@ function Field({ count }: { count: number }) {
 
     g.rotation.set(-0.18 + s.my * 0.05, 0.12 + s.mx * 0.08, 0);
 
-    u.uTime.value = t;
+    // own clock: after a pause (Contact, an open demo window) the flow resumes
+    // where it stopped instead of jumping ahead by the time it slept
+    s.time += Math.min(delta, 1 / 20);
+    u.uTime.value = s.time;
     u.uPixelRatio.value = gl.getPixelRatio();
     u.uIntro.value = Math.min(1, (t - startedAt.current) / 2.4);
     u.uIntensity.value = s.intensity;

@@ -5,6 +5,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { Nebula2D } from "@/components/canvas/Nebula2D";
 import { ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { nebula, NEBULA_INTENSITY } from "@/lib/nebula-store";
+import { overlay } from "@/lib/overlay";
 import { cn } from "@/lib/cn";
 
 const NebulaScene = dynamic(() => import("./NebulaScene"), { ssr: false });
@@ -36,6 +37,7 @@ export function NebulaLayer() {
   const mode = useSyncExternalStore(noopSubscribe, detectMode, () => "pending" as Mode);
   const [ready, setReady] = useState(false);
   const [active, setActive] = useState(true);
+  const covered = useSyncExternalStore(overlay.subscribe, overlay.isOpen, () => false);
 
   // scroll → camera push + per-section glow intensity
   useGSAP(
@@ -123,7 +125,7 @@ export function NebulaLayer() {
   const count = window.innerWidth < 760 ? 9000 : 22000;
   return (
     <div className={cn("nebula-layer", ready && "is-ready")} aria-hidden>
-      <NebulaScene count={count} active={active} onReady={() => setReady(true)} />
+      <NebulaScene count={count} active={active && !covered} onReady={() => setReady(true)} />
     </div>
   );
 }

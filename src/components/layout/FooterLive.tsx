@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useSyncExternalStore } from "react";
+import { useScroll } from "@/components/motion/SmoothScroll";
 import { STUDIO_TIME_ZONE } from "@/lib/placeholders";
 
 const timeParts = new Intl.DateTimeFormat("en-GB", {
@@ -64,8 +65,15 @@ export function CopyrightYear() {
 }
 
 export function BackToTop({ label }: { label: string }) {
+  const scroll = useScroll();
+  // one long glide back up, then focus lands at the top too (keyboard users start over from the nav)
+  const toTop = () =>
+    scroll.scrollTo(0, {
+      duration: 2.2,
+      onComplete: () => document.querySelector<HTMLElement>(".nav-logo")?.focus({ preventScroll: true }),
+    });
   return (
-    <button className="f-top-btn" type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+    <button className="f-top-btn" type="button" onClick={toTop}>
       {label}
       <span className="arr" aria-hidden>
         ↑

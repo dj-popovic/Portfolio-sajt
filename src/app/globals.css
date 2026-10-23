@@ -2,6 +2,8 @@
 @import "../styles/sections.css";
 @import "../styles/previews.css";
 @import "../styles/motion.css";
+@import "../styles/window.css";
+@import "../styles/demos.css";
 
 /* ------------------------------------------------------------------
    Ember palette — "Ember" is the palette codename, not a studio name.

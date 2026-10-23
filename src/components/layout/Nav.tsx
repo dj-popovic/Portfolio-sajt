@@ -1,7 +1,10 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useScroll } from "@/components/motion/SmoothScroll";
+import { ScrollTrigger } from "@/lib/gsap";
+import { cn } from "@/lib/cn";
 import { AnimatePresence, motion } from "motion/react";
 import { Link } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
@@ -15,10 +18,32 @@ export function Nav() {
   const tc = useTranslations("common");
   const locale = useLocale() as Locale;
   const [open, setOpen] = useState(false);
+  const [stuck, setStuck] = useState(false);
+  const closeMenu = useCallback(() => setOpen(false), []);
+
+  // after the hero, the nav turns into a compact glass bar that stays with you
+  useEffect(() => {
+    const hero = document.querySelector<HTMLElement>("#top");
+    if (!hero) return;
+    const st = ScrollTrigger.create({
+      start: () => hero.offsetHeight - 90,
+      end: "max",
+      onToggle: (self) => setStuck(self.isActive),
+    });
+    return () => st.kill();
+  }, []);
+
+  // phones: the language pill opens the menu (it holds the full switcher)
+  const openMenuOnPhone = (e: React.MouseEvent) => {
+    if (window.matchMedia("(max-width: 560px)").matches) {
+      e.preventDefault();
+      setOpen(true);
+    }
+  };
 
   return (
     <>
-      <nav className="site-nav" aria-label="Primary">
+      <nav className={cn("site-nav", stuck && "is-stuck")} aria-label="Primary" data-hero="nav">
         <a href="#top" className="nav-logo" aria-label={tc("logoAria")}>
           <span className="logo-mark" aria-hidden>
             ★
@@ -49,6 +74,7 @@ export function Nav() {
                   aria-current={code === locale ? "true" : undefined}
                   lang={code}
                   title={tc(`languages.${code}`)}
+                  onClick={code === locale ? openMenuOnPhone : undefined}
                 >
                   {code.toUpperCase()}
                 </Link>
@@ -73,9 +99,7 @@ export function Nav() {
         </div>
       </nav>
 
-      <AnimatePresence>
-        {open ? <MobileMenu locale={locale} onClose={() => setOpen(false)} /> : null}
-      </AnimatePresence>
+      <AnimatePresence>{open ? <MobileMenu locale={locale} onClose={closeMenu} /> : null}</AnimatePresence>
     </>
   );
 }
@@ -84,12 +108,13 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
   const t = useTranslations("nav");
   const tc = useTranslations("common");
   const panelRef = useRef<HTMLDivElement>(null);
+  const scroll = useScroll();
 
   useEffect(() => {
     const previous = document.activeElement as HTMLElement | null;
     const panel = panelRef.current;
     panel?.querySelector<HTMLElement>("button, a")?.focus();
-    document.documentElement.style.overflow = "hidden";
+    scroll.lock();
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -109,10 +134,10 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
     window.addEventListener("keydown", onKey);
     return () => {
       window.removeEventListener("keydown", onKey);
-      document.documentElement.style.overflow = "";
+      scroll.unlock();
       previous?.focus();
     };
-  }, [onClose]);
+  }, [onClose, scroll]);
 
   return (
     <motion.div
@@ -165,9 +190,7 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
       </motion.ul>
 
       <div className="mt-auto">
-        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-cream/58">
-          {t("language")}
-        </p>
+        <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-cream/58">{t("language")}</p>
         <div className="grid grid-cols-2 gap-2">
           {routing.locales.map((code) => (
             <Link

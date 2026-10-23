@@ -22,7 +22,14 @@ export function AddonChips({ labels }: { labels: Record<(typeof ADDONS)[number],
       {ADDONS.map((key) => {
         const on = addons.includes(key);
         return (
-          <button key={key} type="button" className="chip" aria-pressed={on} onClick={() => toggleAddon(key)} data-addon={key}>
+          <button
+            key={key}
+            type="button"
+            className="chip"
+            aria-pressed={on}
+            onClick={() => toggleAddon(key)}
+            data-addon={key}
+          >
             <span className="ico" aria-hidden>
               <PlusIcon className="x-add" />
               <CheckIcon className="x-on" size={11} />

@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "../styles/sections.css";
 @import "../styles/previews.css";
+@import "../styles/motion.css";
 
 /* ------------------------------------------------------------------
    Ember palette — "Ember" is the palette codename, not a studio name.

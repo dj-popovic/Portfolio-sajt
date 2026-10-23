@@ -28,4 +28,6 @@ Single-page portfolio for a two-person creative studio. Read `AGENTS.md` too: th
 ## Workflow
 
 - Commits: author `dj-popovic <dj.popovic5503@gmail.com>` (set in local git config), Claude as co-author via trailer. Push straight to `main`.
-- Visual check: `npm run build && npx next start -p 3100`, then `node scripts/shoot.mjs http://localhost:3100 .shots /` for section screenshots at 1440/390.
+- Visual check: `npm run build && npx next start -p 3100`, then `node scripts/shoot.mjs http://localhost:3100 .shots /` for section screenshots at 1440/390, or `node scripts/scrollshots.mjs http://localhost:3100/ .shots/scroll 260` to step through the scroll choreography with real wheel events (Lenis-aware).
+- Motion map: `src/components/motion/` (Lenis provider, reveal orchestrator, heading sweep, panel clips), `AboutStage.tsx` (pinned signature sequence), `src/components/three/` (R3F nebula + fallbacks), `src/components/reactbits/` (adapted React Bits — keep their LICENSE.md).
+- Never tween `clip-path` strings directly (browsers normalise them) — tween numbers and write the string (`motion/clip.ts`).

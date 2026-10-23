@@ -20,7 +20,7 @@ export function ServiceCard({ num, title, desc, tags, icon }: ServiceCardProps) 
   };
 
   return (
-    <article className="svc-card" onPointerMove={onMove} data-card>
+    <article className="svc-card" onPointerMove={onMove} data-card data-reveal-item>
       <div className="svc-top">
         <span className="svc-num">{num}</span>
         <span className="svc-icon" aria-hidden>

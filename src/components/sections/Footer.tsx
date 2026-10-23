@@ -22,11 +22,11 @@ export function Footer() {
               {t("label")}
             </span>
             {/* TODO(name): real address once the studio name/domain exist */}
-            <a className="f-email block" href={`mailto:hello@${PLACEHOLDER.studio}.com`}>
+            <a className="f-email block" data-reveal="title" href={`mailto:hello@${PLACEHOLDER.studio}.com`}>
               hello@<span className="ph">{PLACEHOLDER.studio}</span>.com
             </a>
           </div>
-          <div className="f-nav">
+          <div className="f-nav" data-reveal="fade" data-reveal-delay="0.2">
             <div className="f-col">
               <h4>{t("studio")}</h4>
               <ul>

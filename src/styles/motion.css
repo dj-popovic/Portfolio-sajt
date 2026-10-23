@@ -1,0 +1,168 @@
+/* ===================================================================
+   Motion layer — states the GSAP / R3F code animates between.
+   =================================================================== */
+
+/* the fixed 3D nebula sits behind everything; page content paints above */
+.nebula-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+.nebula-layer.is-ready {
+  opacity: 1;
+}
+/* with the 3D layer, the vignette + floor travel with the canvas instead of
+   ending at the hero's bottom edge (no seam while the hero scrolls away) */
+.nebula-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 240px 60px rgba(0, 0, 0, 0.85);
+  background: radial-gradient(120% 90% at 50% 120%, color-mix(in oklab, var(--base) 88%, transparent), transparent 60%);
+}
+[data-nebula="webgl"] .hero-vignette,
+[data-nebula="webgl"] .hero-floor {
+  display: none;
+}
+main,
+.footer {
+  position: relative;
+  z-index: 1;
+}
+/* dark sections let the ember glow through; light panels stay opaque */
+.services,
+.process,
+.contact {
+  background: transparent;
+}
+
+/* the design's warm glow underlayer, centred under the nebula */
+.hero-aura {
+  --r: calc(min(100vw, 100svh) * 0.46);
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle calc(var(--r) * 0.95) at 64% 46%, rgba(255, 107, 53, 0.1), transparent),
+    radial-gradient(
+      circle calc(var(--r) * 0.55) at calc(64% - var(--r) * 0.18) calc(46% - var(--r) * 0.1),
+      rgba(255, 182, 39, 0.1),
+      transparent
+    ),
+    radial-gradient(
+      circle calc(var(--r) * 0.5) at calc(64% + var(--r) * 0.22) calc(46% + var(--r) * 0.16),
+      rgba(230, 66, 28, 0.06),
+      transparent
+    );
+}
+@media (max-width: 759px) {
+  .hero-aura {
+    --r: calc(min(100vw, 100svh) * 0.5);
+    background:
+      radial-gradient(circle calc(var(--r) * 0.95) at 60% 40%, rgba(255, 107, 53, 0.1), transparent),
+      radial-gradient(circle calc(var(--r) * 0.55) at 55% 36%, rgba(255, 182, 39, 0.1), transparent);
+  }
+}
+
+/* scroll cue: a slow spark slides down the line */
+.scroll-cue .line {
+  position: relative;
+  overflow: hidden;
+}
+.scroll-cue .line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -45%;
+  width: 100%;
+  height: 45%;
+  background: linear-gradient(transparent, var(--accent2), transparent);
+  animation: cueDrop 2.4s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+}
+@keyframes cueDrop {
+  to {
+    top: 110%;
+  }
+}
+
+/* About: the ember tile the light panel grows out of */
+.about-tile {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 5;
+  width: 88px;
+  height: 88px;
+  margin: -44px 0 0 -44px;
+  border-radius: 26px;
+  font-size: 30px;
+  visibility: hidden;
+}
+
+/* heading reveal: a soft-edged mask sweeps left → right (see motion/sweep.ts) */
+.rv-sweep {
+  -webkit-mask-image: linear-gradient(
+    100deg,
+    #000 0%,
+    #000 calc(var(--rv, 1) * 140% - 40%),
+    transparent calc(var(--rv, 1) * 140%)
+  );
+  mask-image: linear-gradient(
+    100deg,
+    #000 0%,
+    #000 calc(var(--rv, 1) * 140% - 40%),
+    transparent calc(var(--rv, 1) * 140%)
+  );
+}
+/* CSS hover transitions on transform would smear a GSAP tween */
+.rv-busy {
+  transition: none !important;
+}
+
+/* until the motion layer is up, reveal targets wait off-stage (never without JS) */
+@media (prefers-reduced-motion: no-preference) {
+  .js:not(.motion-failed) [data-reveal],
+  .js:not(.motion-failed) [data-reveal-item],
+  .js:not(.motion-failed) [data-hero] {
+    visibility: hidden;
+  }
+}
+
+/* nav: compact glass bar once the hero is behind you */
+.site-nav.is-stuck {
+  position: fixed;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background: color-mix(in oklab, var(--base) 70%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  backdrop-filter: blur(16px) saturate(1.3);
+  border-bottom: 1px solid var(--hairline);
+  animation: navDrop 0.55s var(--ease-out-quart) both;
+}
+@keyframes navDrop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+/* Pro card: the ember border "ignites" with a sweep when it lands */
+@property --ignite-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 150deg;
+}
+@property --ignite {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+.pkg.featured::before {
+  background: linear-gradient(var(--ignite-angle), var(--accent2), var(--accent) 50%, transparent 80%);
+  opacity: calc(0.9 * var(--ignite));
+}

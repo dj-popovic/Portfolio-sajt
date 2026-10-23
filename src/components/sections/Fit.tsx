@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { ADDONS, PACKAGES } from "@/lib/brief";
 import { AddonChips, PackageButton } from "@/components/sections/FitInteractive";
+import { PanelClip } from "@/components/motion/PanelClip";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { CheckIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
@@ -15,20 +16,31 @@ export function Fit() {
 
   return (
     <section className="fit" id="fit" data-screen-label="Find your fit">
+      <PanelClip />
       <div className="fit-amb" aria-hidden />
       <div className="fit-inner">
         <div className="fit-head">
           <Eyebrow a={t("eyebrowA")} b={t("eyebrowB")} tone="light" />
-          <h2 className="fit-title">{t.rich("title", richLight)}</h2>
-          <p className="fit-sub">{t("sub")}</p>
+          <h2 className="fit-title" data-reveal="title">
+            {t.rich("title", richLight)}
+          </h2>
+          <p className="fit-sub" data-reveal="fade" data-reveal-delay="0.25">
+            {t("sub")}
+          </p>
         </div>
 
-        <div className="fit-grid">
+        <div className="fit-grid" data-reveal-group data-reveal-stagger="0.12">
           {PACKAGES.map((key) => {
             const featured = key === "pro";
             const includes = t.raw(`packages.${key}.includes`) as string[];
             return (
-              <article key={key} className={cn("pkg", featured && "featured")} data-card>
+              <article
+                key={key}
+                className={cn("pkg", featured && "featured")}
+                data-card
+                data-reveal-item
+                data-ignite={featured || undefined}
+              >
                 <div className="pkg-kicker">
                   <h3 className="pkg-name">{t(`packages.${key}.name`)}</h3>
                   {featured ? (
@@ -65,7 +77,7 @@ export function Fit() {
           })}
         </div>
 
-        <div className="fit-addons">
+        <div className="fit-addons" data-reveal="fade">
           <span className="addons-lead">
             <span className="plus" aria-hidden>
               +

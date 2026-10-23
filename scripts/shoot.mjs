@@ -45,7 +45,9 @@ for (const width of widths) {
     }
   }
   const total = await page.evaluate(() => document.documentElement.scrollHeight);
-  console.log(`${width}px: page height ${total}${errors.length ? `, errors:\n  ${errors.join("\n  ")}` : ", no errors"}`);
+  console.log(
+    `${width}px: page height ${total}${errors.length ? `, errors:\n  ${errors.join("\n  ")}` : ", no errors"}`,
+  );
   await page.close();
 }
 await browser.close();

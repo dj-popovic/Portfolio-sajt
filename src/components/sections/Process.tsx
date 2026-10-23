@@ -14,8 +14,12 @@ export function Process() {
       <div className="process-inner">
         <div className="process-head">
           <Eyebrow a={t("eyebrowA")} b={t("eyebrowB")} />
-          <h2 className="sec-title">{t.rich("title", richDark)}</h2>
-          <p className="process-sub">{t("sub")}</p>
+          <h2 className="sec-title" data-reveal="title">
+            {t.rich("title", richDark)}
+          </h2>
+          <p className="process-sub" data-reveal="fade" data-reveal-delay="0.25">
+            {t("sub")}
+          </p>
         </div>
 
         <ProcessTimeline>

@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { PanelClip } from "@/components/motion/PanelClip";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { WorkGallery } from "@/components/work/WorkGallery";
 import { richLight } from "@/lib/rich";
@@ -8,14 +9,17 @@ export function Work() {
 
   return (
     <section className="work" id="work" data-screen-label="Work">
+      <PanelClip />
       <div className="work-glow" aria-hidden />
       <div className="work-inner">
         <div className="sec-head">
           <div className="lead">
             <Eyebrow a={t("eyebrowA")} b={t("eyebrowB")} tone="light" />
-            <h2 className="sec-title">{t.rich("title", richLight)}</h2>
+            <h2 className="sec-title" data-reveal="title">
+              {t.rich("title", richLight)}
+            </h2>
           </div>
-          <p className="note">
+          <p className="note" data-reveal="fade" data-reveal-delay="0.3">
             <span className="hover-only">{t.rich("note", richLight)}</span>
             <span className="touch-only">{t.rich("noteTouch", richLight)}</span>
           </p>
@@ -23,7 +27,7 @@ export function Work() {
 
         <WorkGallery />
 
-        <div className="sec-foot">
+        <div className="sec-foot" data-reveal="fade">
           <span className="ln" aria-hidden />
           <p>{t.rich("foot", richLight)}</p>
           <span className="ln" aria-hidden />

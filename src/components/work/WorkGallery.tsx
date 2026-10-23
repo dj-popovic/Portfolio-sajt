@@ -30,7 +30,7 @@ export function WorkGallery() {
   const [, setOpen] = useState<{ key: DemoKey; origin: HTMLElement } | null>(null);
 
   return (
-    <div className="work-grid">
+    <div className="work-grid" data-reveal-group data-reveal-stagger="0.1">
       {CONCEPTS.map(({ key, kind, stage, Preview }) => (
         <ConceptCard
           key={key}

@@ -15,7 +15,16 @@ type ConceptCardProps = {
   children: ReactNode;
 };
 
-export function ConceptCard({ kind, kindLabel, value, openLabel, ariaLabel, stage, onOpen, children }: ConceptCardProps) {
+export function ConceptCard({
+  kind,
+  kindLabel,
+  value,
+  openLabel,
+  ariaLabel,
+  stage,
+  onOpen,
+  children,
+}: ConceptCardProps) {
   const ref = useRef<HTMLElement>(null);
 
   // Touch screens have no hover: auto-play the preview while the card is in view.
@@ -49,6 +58,7 @@ export function ConceptCard({ kind, kindLabel, value, openLabel, ariaLabel, stag
       onClick={open}
       onKeyDown={onKey}
       data-card
+      data-reveal-item
     >
       <div className="media" aria-hidden>
         {kind === "web" ? (

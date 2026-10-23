@@ -118,7 +118,7 @@ export function ConvoFlow() {
   const errorId = `convo-err-${step}`;
 
   return (
-    <form className="convo" id="convo" onSubmit={onSubmit} noValidate aria-live="polite">
+    <form className="convo" id="convo" onSubmit={onSubmit} noValidate aria-live="polite" data-reveal-item>
       <div className="convo-head">
         <span className="convo-step">
           {t.rich("step", {

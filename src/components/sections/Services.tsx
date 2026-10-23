@@ -22,12 +22,16 @@ export function Services() {
         <div className="sec-head">
           <div className="lead">
             <Eyebrow a={t("eyebrowA")} b={t("eyebrowB")} />
-            <h2 className="sec-title">{t.rich("title", richDark)}</h2>
+            <h2 className="sec-title" data-reveal="title">
+              {t.rich("title", richDark)}
+            </h2>
           </div>
-          <p className="note">{t("note")}</p>
+          <p className="note" data-reveal="fade" data-reveal-delay="0.3">
+            {t("note")}
+          </p>
         </div>
 
-        <div className="svc-grid">
+        <div className="svc-grid" data-reveal-group>
           {ITEMS.map(({ key, Icon }, i) => (
             <ServiceCard
               key={key}
@@ -40,7 +44,7 @@ export function Services() {
           ))}
         </div>
 
-        <div className="sec-foot">
+        <div className="sec-foot" data-reveal="fade">
           <span className="ln" aria-hidden />
           <p>{t.rich("foot", richDark)}</p>
           <span className="ln" aria-hidden />

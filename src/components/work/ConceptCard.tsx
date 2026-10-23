@@ -25,7 +25,7 @@ export function ConceptCard({
   onOpen,
   children,
 }: ConceptCardProps) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   // Touch screens have no hover: auto-play the preview while the card is in view.
   useEffect(() => {
@@ -48,7 +48,7 @@ export function ConceptCard({
   };
 
   return (
-    <article
+    <div
       ref={ref}
       className="concept-card"
       role="button"
@@ -85,6 +85,6 @@ export function ConceptCard({
         <span className={cn("concept-kind", kind === "app" && "app")}>{kindLabel}</span>
         <p className="concept-value">{value}</p>
       </div>
-    </article>
+    </div>
   );
 }

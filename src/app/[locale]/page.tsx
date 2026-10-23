@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { BriefProvider } from "@/components/brief/BriefProvider";
 import { Nav } from "@/components/layout/Nav";
+import { MotionPreferences } from "@/components/motion/MotionPreferences";
 import { Reveals } from "@/components/motion/Reveals";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { NebulaLayer } from "@/components/three/NebulaLayer";
@@ -18,27 +19,29 @@ export default function HomePage() {
 
   return (
     <SmoothScroll>
-      <BriefProvider>
-        <NebulaLayer />
-        <a
-          href="#main"
-          className="sr-only z-[200] rounded-full bg-cream px-4 py-2 text-sm font-semibold text-base focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
-        >
-          {t("skip")}
-        </a>
-        <Nav />
-        <main id="main">
-          <Hero />
-          <About />
-          <Services />
-          <Work />
-          <Process />
-          <Fit />
-          <Contact />
-        </main>
-        <Footer />
-        <Reveals />
-      </BriefProvider>
+      <MotionPreferences>
+        <BriefProvider>
+          <NebulaLayer />
+          <a
+            href="#main"
+            className="sr-only z-[200] rounded-full bg-cream px-4 py-2 text-sm font-semibold text-base focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
+          >
+            {t("skip")}
+          </a>
+          <Nav />
+          <main id="main">
+            <Hero />
+            <About />
+            <Services />
+            <Work />
+            <Process />
+            <Fit />
+            <Contact />
+          </main>
+          <Footer />
+          <Reveals />
+        </BriefProvider>
+      </MotionPreferences>
     </SmoothScroll>
   );
 }

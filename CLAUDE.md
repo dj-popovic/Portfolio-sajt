@@ -19,11 +19,12 @@ Single-page portfolio for a two-person creative studio. Read `AGENTS.md` too: th
 ## Stack conventions
 
 - Next.js App Router, TypeScript, Tailwind 4, next-intl (EN at `/`, `/sr` Serbian **Latin**, `/ru`, `/de`). Strings live in `messages/*.json`; rich tags `<glow>`, `<b>`, `<br></br>`; quote angle-bracket placeholders as `'<logo>'`.
-- Use typographic apostrophes (’) in messages — a straight `'` can start ICU quoting. Titles keep a no-break space before " — " so a line never starts with a dash. Check message changes with the parity/ICU script in the Phase 4 notes (`docs/OPEN-ITEMS.md` → Translations).
+- Use typographic apostrophes (’) in messages — a straight `'` can start ICU quoting. Titles keep a no-break space before " — " so a line never starts with a dash. After editing messages run `npm run check:messages` (keys, ICU arguments/tags, placeholders, parsing).
 - **GSAP (+ScrollTrigger/SplitText) is the main animation engine**, all scroll-driven motion. **Motion (`motion/react`) only for small UI interactions.** Lenis for smooth scroll. React Three Fiber for 3D (hero nebula).
 - React Bits: pull only components we use (TS + Tailwind variant, from GitHub raw — reactbits.dev is blocked here) and adapt to Ember.
 - Demo mini-sites (Work section) are fictional client brands: their inner content stays in English; only our frame around them is translated.
-- Respect `prefers-reduced-motion` everywhere (no pins/scrubs, simple fades).
+- Respect `prefers-reduced-motion` everywhere (no pins/scrubs, simple fades). The global rule in `globals.css` kills loops and movement but keeps 0.15s opacity/colour transitions; `MotionPreferences` puts Motion in `reducedMotion="user"`. GSAP code branches with `gsap.matchMedia`.
+- Fonts: `subsets` in `src/lib/fonts.ts` only controls **preloading** (every subset is in the CSS and loads on demand), so keep it at `["latin"]`.
 
 ## Workflow
 

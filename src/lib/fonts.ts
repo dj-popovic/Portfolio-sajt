@@ -9,16 +9,18 @@ import {
 } from "next/font/google";
 
 // Self-hosted at build time (no requests to Google from visitors).
-// latin-ext covers Serbian Latin (č ć đ š ž), cyrillic covers Russian.
+// Every subset (latin-ext for Serbian č ć đ š ž, cyrillic for Russian, …) is always in the CSS
+// and fetched on demand via unicode-range; `subsets` only picks what is *preloaded*. Preloading
+// just latin keeps EN/DE from downloading Cyrillic + Latin-ext files they never use.
 
 export const unbounded = Unbounded({
-  subsets: ["latin", "latin-ext", "cyrillic"],
+  subsets: ["latin"],
   variable: "--font-unbounded",
   display: "swap",
 });
 
 export const inter = Inter({
-  subsets: ["latin", "latin-ext", "cyrillic"],
+  subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
 });

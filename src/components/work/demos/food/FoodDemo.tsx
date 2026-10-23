@@ -744,7 +744,7 @@ function Promo() {
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="mt-2 flex justify-center gap-1.5">
+      <div className="mt-1 flex justify-center gap-1">
         {PROMOS.map((promo, n) => (
           <button
             key={promo.tag}
@@ -752,8 +752,18 @@ function Promo() {
             onClick={() => go(n)}
             aria-label={`Offer ${n + 1}: ${promo.title.replace("\n", " ")}`}
             aria-current={n === i ? "true" : undefined}
-            className={`h-1.5 rounded-full transition-all duration-300 ${n === i ? "w-5 bg-(--red)" : "w-1.5 bg-(--ink)/20"}`}
-          />
+            className="relative grid size-4 place-items-center"
+          >
+            <span className="size-1.5 rounded-full bg-(--ink)/20" />
+            {/* the active pill slides between dots (layout animation = transforms, no width tween) */}
+            {n === i ? (
+              <motion.span
+                layoutId="tk-promo-dot"
+                className="absolute h-1.5 w-5 rounded-full bg-(--red)"
+                transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
+              />
+            ) : null}
+          </button>
         ))}
       </div>
     </div>

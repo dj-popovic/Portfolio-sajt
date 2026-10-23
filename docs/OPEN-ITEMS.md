@@ -49,12 +49,32 @@ SR (Latin), RU and DE were drafted by Claude and need a native-speaker pass befo
 - Headlines were rewritten to fit, not translated word for word: the hero in RU ("Креатив с огнём потеплее") and DE ("Kreative Arbeit, die wärmer brennt") had to stay short because Unbounded is wide.
 - Package names (Basic / Pro / Custom) are kept in English in every language.
 
-All four files must keep the same keys, ICU arguments and rich tags; every string must parse. The check used during the build (`node check-messages.mjs`-style: compare against `en.json`, parse each string with `intl-messageformat`) is easy to re-run after edits.
+All four files must keep the same keys, ICU arguments and rich tags, and every string must parse — `npm run check:messages` checks exactly that after any edit.
 
-## 7. Legal (likely needed before launch)
+## 7. Contrast — decision needed
+
+An accessibility pass (axe-core + the Impeccable detector) found text in the design palette below the WCAG AA ratio (4.5:1 for normal text). These colours come from the Claude Design export, so they were **not** changed without your go-ahead. Each can be fixed by a small lightness nudge that keeps the look:
+
+| Where | Now | Ratio |
+|---|---|---|
+| Package cards — "Investment" label (`.price-note`) | `#A8927F` on white | 3.0:1 |
+| Package cards — "[From €X …]" hint (`.price-hint`) | `#A08A78` on white | 3.3:1 |
+| About — stat labels under 2 / 4 / 1 | `#8A7668` on paper | 4.0:1 |
+| Services — card numbers 01–04 | `#6C6661` on the dark card | 3.3:1 |
+| Work — "Concept · Web/App" pill | white on the orange gradient | 2.5:1 |
+| How we work — inactive step phase tags | `#6A6561` on base | 3.4:1 |
+| How we work — big step numbers before they light up | `#3C3836` on base | 1.7:1 (large text, needs 3:1) |
+| Hero — "Scroll" cue | `#6F6A66` on base | 3.7:1 |
+| Nav — inactive language codes over the nebula | ~2.3:1 | |
+
+Placeholder labels inside the founder photo slots also fail, but they disappear once real photos are in.
+
+Intentional design choices the detector also flags, left as designed: gradient "glow" words in headings, the ember glow on buttons, the pulsing status dot, the large hero headline.
+
+## 8. Legal (likely needed before launch)
 
 With a contact form and a German audience: a privacy policy (GDPR) and probably an Impressum. Not designed yet.
 
-## 8. Later
+## 9. Later
 
 - Testimonials / social proof section (reserved in the brief, add when there are clients).

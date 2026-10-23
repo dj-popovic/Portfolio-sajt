@@ -61,6 +61,7 @@ const THEME = {
   "--paper": "#FBF5EC",
   "--ink": "#2B1D14",
   "--clay": "#B6552F",
+  "--clay-ink": "#9A4423", // clay for small text: AA on cream
   "--gold": "#C8862E",
   "--muted": "#6E5A47",
 } as CSSProperties;
@@ -115,13 +116,13 @@ export default function CoffeeDemo() {
             E
           </span>
           [Ember&nbsp;&amp;&nbsp;Oak]
-          <span className="font-mono text-[10px] text-(--clay)/70">{PLACEHOLDER.logo}</span>
+          <span className="font-mono text-[10px] text-(--muted)">{PLACEHOLDER.logo}</span>
         </span>
         <span className="hidden gap-[26px] text-[13.5px] font-medium text-(--muted) md:flex">
           {["Shop", "Subscriptions", "Our story", "Journal"].map((l) => (
             <a
               key={l}
-              className="relative cursor-pointer transition-colors after:absolute after:right-full after:-bottom-1 after:left-0 after:h-[1.5px] after:bg-(--clay) after:transition-[right] after:duration-300 hover:text-(--ink) hover:after:right-0"
+              className="relative cursor-pointer transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-[1.5px] after:origin-left after:scale-x-0 after:bg-(--clay) after:transition-transform after:duration-200 after:ease-out hover:text-(--ink) hover:after:scale-x-100"
               onClick={() => goTo(l === "Our story" ? processRef : shopRef)}
             >
               {l}
@@ -222,7 +223,7 @@ export default function CoffeeDemo() {
       {/* hero */}
       <header className="grid items-center gap-[clamp(24px,4vw,56px)] px-[clamp(20px,4vw,46px)] pt-[clamp(38px,5vw,68px)] pb-[clamp(30px,4vw,52px)] md:grid-cols-[1.05fr_.95fr]">
         <div>
-          <p className="mb-[18px] text-[12px] font-semibold tracking-[0.2em] text-(--clay) uppercase">
+          <p className="mb-[18px] text-[12px] font-semibold tracking-[0.2em] text-(--clay-ink) uppercase">
             Roasted in [city] · since [year]
           </p>
           <h1 className={`${serif} mb-5 text-[clamp(2.6rem,5vw,4.2rem)] leading-[1.02] tracking-[-0.01em]`}>
@@ -422,7 +423,7 @@ function ProductCard({ coffee, onAdd }: { coffee: Coffee; onAdd: (id: Coffee["id
       <div className="px-[18px] pt-4 pb-5">
         <div className="flex items-baseline justify-between gap-2.5">
           <span className={`${serif} text-[22px]`}>{coffee.name}</span>
-          <span className="text-[15px] font-semibold text-(--clay) tabular-nums">${coffee.price[size]}</span>
+          <span className="text-[15px] font-semibold text-(--clay-ink) tabular-nums">${coffee.price[size]}</span>
         </div>
         <p className="mt-1.5 text-[13px] text-(--muted)">
           {coffee.origin} · notes of {coffee.notes.join(", ")}
@@ -607,7 +608,7 @@ function SubscriptionBuilder() {
     <section className="px-[clamp(20px,4vw,46px)] py-[clamp(40px,5vw,68px)]">
       <div className="grid items-center gap-8 md:grid-cols-[.9fr_1.1fr]">
         <div>
-          <p className="mb-2 text-[12px] font-semibold tracking-[0.2em] text-(--clay) uppercase">Subscriptions</p>
+          <p className="mb-2 text-[12px] font-semibold tracking-[0.2em] text-(--clay-ink) uppercase">Subscriptions</p>
           <h2 className={`${serif} mb-4 text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.06]`}>Never run out on a Monday.</h2>
           <p className="max-w-[40ch] text-[15px] text-(--muted)">
             Pick a rhythm, we’ll roast to it. Pause, skip or change beans anytime — 10% off every bag.
@@ -678,7 +679,7 @@ function SubscriptionBuilder() {
             <p className="text-right text-[12.5px] text-(--muted)">
               ≈ ${perMonth} / month
               <br />
-              <span className="font-semibold text-(--clay)">you save 10%</span>
+              <span className="font-semibold text-(--clay-ink)">you save 10%</span>
             </p>
           </div>
           <button

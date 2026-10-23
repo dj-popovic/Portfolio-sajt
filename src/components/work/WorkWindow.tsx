@@ -78,12 +78,12 @@ export function WorkWindow({ demo, kind, origin, onClose }: WorkWindowProps) {
     if (!f || prefersReducedMotion()) return onClose();
     const to = originInset();
     const state = { top: 0, right: 0, bottom: 0, left: 0, r: 22 };
-    gsap.to(f.querySelector(".ww-content"), { autoAlpha: 0, duration: 0.18 });
-    gsap.to(scrim.current, { autoAlpha: 0, duration: 0.45, ease: "power2.inOut" });
+    gsap.to(f.querySelector(".ww-content"), { autoAlpha: 0, duration: 0.15 });
+    gsap.to(scrim.current, { autoAlpha: 0, duration: 0.35, ease: "power2.inOut" });
     gsap.to(state, {
       ...to,
       r: 14,
-      duration: 0.5,
+      duration: 0.4,
       ease: "power3.inOut",
       onUpdate: () => paintClip(f, state),
       onComplete: onClose,
@@ -103,15 +103,15 @@ export function WorkWindow({ demo, kind, origin, onClose }: WorkWindowProps) {
       const from = originInset();
       const state = { ...from, r: 14 };
       paintClip(f, state);
-      gsap.fromTo(scrim.current, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.45, ease: "power2.out" });
-      gsap.fromTo(f.querySelector(".ww-content"), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35, delay: 0.32 });
+      gsap.fromTo(scrim.current, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35, ease: "power2.out" });
+      gsap.fromTo(f.querySelector(".ww-content"), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, delay: 0.2 });
       gsap.to(state, {
         top: 0,
         right: 0,
         bottom: 0,
         left: 0,
         r: 22,
-        duration: 0.7,
+        duration: 0.55,
         ease: "expo.out",
         onUpdate: () => paintClip(f, state),
         onComplete: () => {
@@ -172,7 +172,7 @@ export function WorkWindow({ demo, kind, origin, onClose }: WorkWindowProps) {
             <CloseIcon />
           </button>
         </div>
-        <div
+        <article
           className="ww-body ww-content"
           data-lenis-prevent
           onScroll={(e) => {
@@ -180,7 +180,7 @@ export function WorkWindow({ demo, kind, origin, onClose }: WorkWindowProps) {
           }}
         >
           <Demo />
-        </div>
+        </article>
         <div className={`ww-hint ${hintGone ? "is-gone" : ""}`} aria-hidden>
           <svg
             width="14"

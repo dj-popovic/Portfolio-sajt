@@ -193,9 +193,12 @@ function Sidebar({ tab, setTab }: { tab: Tab; setTab: (t: Tab) => void }) {
           );
         })}
         {["Invoices", "Payroll", "Settings"].map((l) => (
-          <span key={l} className="flex items-center gap-3 px-3 py-2.5 text-[13.5px] text-(--muted)/55">
-            <span className="size-[18px] rounded-md border border-(--line)" aria-hidden />
+          <span key={l} className="flex items-center gap-3 px-3 py-2.5 text-[13.5px] text-(--muted)" aria-hidden>
+            <span className="size-[18px] rounded-md border border-(--line)" />
             {l}
+            <span className="ml-auto rounded-md bg-(--panel2) px-1.5 py-0.5 text-[9.5px] tracking-[0.08em] uppercase">
+              Soon
+            </span>
           </span>
         ))}
       </nav>

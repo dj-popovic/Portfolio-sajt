@@ -173,14 +173,33 @@
   }
 }
 
-/* respect reduced motion everywhere */
+/* Reduced motion: no looping, travelling or scroll-driven motion. State changes keep a
+   short fade (opacity and colour only — never transform), so they still read as changes. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-property: opacity, color, background-color, border-color, box-shadow, fill, stroke !important;
+    transition-duration: 0.15s !important;
+    transition-delay: 0s !important;
     scroll-behavior: auto !important;
   }
+  /* hover/auto-scrolling previews stay on their first screen */
+  .preview-track {
+    animation: none !important;
+  }
+}
+
+/* Card tilt angles change on every pointer move; non-inheriting, so only the card restyles. */
+@property --rx {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --ry {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
 }

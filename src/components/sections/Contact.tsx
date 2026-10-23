@@ -15,7 +15,7 @@ export function Contact() {
 
       <div className="contact-inner">
         <div className="contact-grid" data-reveal-group data-reveal-stagger="0">
-          <aside className="presence">
+          <div className="presence">
             <Eyebrow a={t("eyebrowA")} b={t("eyebrowB")} />
             <h2 data-reveal="title">{t.rich("title", richDark)}</h2>
             <p className="lede" data-reveal="fade" data-reveal-delay="0.25">
@@ -40,7 +40,7 @@ export function Contact() {
                 </span>
               </div>
             </div>
-          </aside>
+          </div>
 
           <ConvoFlow />
         </div>

@@ -1,6 +1,5 @@
 import { useTranslations } from "next-intl";
 import { PanelClip } from "@/components/motion/PanelClip";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { WorkGallery } from "@/components/work/WorkGallery";
 import { richLight } from "@/lib/rich";
 
@@ -14,7 +13,6 @@ export function Work() {
       <div className="work-inner">
         <div className="sec-head">
           <div className="lead">
-            <Eyebrow a={t("eyebrowA")} b={t("eyebrowB")} tone="light" />
             <h2 className="sec-title" data-reveal="title">
               {t.rich("title", richLight)}
             </h2>

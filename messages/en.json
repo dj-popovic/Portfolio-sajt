@@ -25,8 +25,6 @@
     "close": "Close menu"
   },
   "hero": {
-    "eyebrowA": "Branding · Websites · Apps",
-    "eyebrowB": "Two-person creative studio",
     "title": "Creative work with a warmer<br></br><glow>kind of fire.</glow>",
     "sub": "We’re a two-person studio crafting brands, websites and apps end-to-end — strategy, design and build, all under one roof. The site itself is our proof of work.",
     "primary": "Start a project",
@@ -34,7 +32,6 @@
     "scroll": "Scroll"
   },
   "about": {
-    "eyebrow": "Who we are",
     "title": "Two people,<br></br>one <glow>end-to-end</glow> studio.",
     "body": "We’re a two-person studio that takes a project from first idea to launch — brand, website and app, plus the marketing to back it. Small on purpose: you work directly with the people doing the work, start to finish.",
     "photo1": "[founder photo 1]",
@@ -48,8 +45,6 @@
     }
   },
   "services": {
-    "eyebrowA": "What we offer",
-    "eyebrowB": "Four disciplines, one team",
     "title": "Everything a brand needs to <glow>show up well.</glow>",
     "note": "Take one piece or the whole stack — it’s the same two people either way, so nothing gets lost in a handoff.",
     "foot": "Need all four? <b>That’s the whole point</b> — one team, idea to launch.",
@@ -77,8 +72,6 @@
     }
   },
   "work": {
-    "eyebrowA": "Selected work",
-    "eyebrowB": "Concepts — what we can build for you",
     "title": "Not a portfolio yet. <glow>A glimpse of the range.</glow>",
     "note": "Each tile is a live mini-demo. <b>Hover to preview</b> it scrolling, then open it full-screen to click around — built the way we’d build yours.",
     "noteTouch": "Each tile is a live mini-demo. <b>Tap to open</b> it full-screen and click around — built the way we’d build yours.",
@@ -112,8 +105,6 @@
     }
   },
   "process": {
-    "eyebrowA": "How we work",
-    "eyebrowB": "One team, start to finish",
     "title": "From first call to <glow>live</glow> — in four steps.",
     "sub": "No handoffs, no middle-men. The same two people carry your project the whole way — here’s how a build usually goes.",
     "steps": {
@@ -144,8 +135,6 @@
     }
   },
   "fit": {
-    "eyebrowA": "Find your fit",
-    "eyebrowB": "Three ways to work together",
     "title": "Pick a starting point — <glow>we’ll shape the rest together.</glow>",
     "sub": "These are the ways we usually work, not a fixed menu. Find the closest fit, hit the button, and we’ll figure out the details over a real conversation.",
     "investment": "Investment",
@@ -205,8 +194,6 @@
     }
   },
   "contact": {
-    "eyebrowA": "Let’s talk",
-    "eyebrowB": "It’s just the two of us",
     "title": "Tell us what you’re <glow>dreaming up.</glow>",
     "lede": "A few quick questions — one at a time, no pressure. However half-formed the idea, we’d love to hear it.",
     "founders": "The <b>two of us</b> read every message — usually a reply within a day.",
@@ -262,7 +249,6 @@
     "failed": "Something went wrong sending that. Try again in a moment, or email us directly."
   },
   "footer": {
-    "label": "Start a conversation",
     "studio": "Studio",
     "elsewhere": "Elsewhere",
     "journal": "Read the journal",

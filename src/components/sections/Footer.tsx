@@ -17,10 +17,6 @@ export function Footer() {
       <div className="footer-inner">
         <div className="f-top">
           <div className="f-cta">
-            <span className="lbl">
-              <span className="ember-dot ember-dot-soft" aria-hidden />
-              {t("label")}
-            </span>
             {/* TODO(name): real address once the studio name/domain exist */}
             <a className="f-email block" data-reveal="title" href={`mailto:hello@${PLACEHOLDER.studio}.com`}>
               hello@<span className="ph">{PLACEHOLDER.studio}</span>.com

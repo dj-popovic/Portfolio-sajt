@@ -35,7 +35,6 @@ export function About() {
 
   return (
     <AboutStage
-      eyebrow={t("eyebrow")}
       title={t.rich("title", richLight)}
       body={t("body")}
       stats={[

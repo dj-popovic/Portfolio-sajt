@@ -1,6 +1,5 @@
 import { useTranslations } from "next-intl";
 import { ProcessTimeline } from "@/components/sections/ProcessTimeline";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { richDark } from "@/lib/rich";
 
 const STEPS = ["discover", "design", "build", "launch"] as const;
@@ -13,7 +12,6 @@ export function Process() {
       <div className="process-glow" aria-hidden />
       <div className="process-inner">
         <div className="process-head">
-          <Eyebrow a={t("eyebrowA")} b={t("eyebrowB")} />
           <h2 className="sec-title" data-reveal="title">
             {t.rich("title", richDark)}
           </h2>

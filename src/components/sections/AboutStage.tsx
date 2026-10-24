@@ -5,13 +5,11 @@ import { setInset, tileClip } from "@/components/motion/clip";
 import { finishSweep, prepareSweep } from "@/components/motion/sweep";
 import CountUp from "@/components/reactbits/CountUp";
 import { ScrollReveal, type ScrollRevealHandle } from "@/components/reactbits/ScrollReveal";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { gsap, useGSAP } from "@/lib/gsap";
 
 type Stat = { n: number; label: string };
 
 type AboutStageProps = {
-  eyebrow: string;
   title: ReactNode;
   body: string;
   stats: Stat[];
@@ -28,10 +26,9 @@ const PHOTO_Y = [-34, 40];
  * the light panel (pinned, scroll-scrubbed), the story reveals inside it,
  * then the panel folds back into the tile as "What we offer" arrives.
  */
-export function AboutStage({ eyebrow, title, body, stats, photoLeft, photoRight }: AboutStageProps) {
+export function AboutStage({ title, body, stats, photoLeft, photoRight }: AboutStageProps) {
   const root = useRef<HTMLElement>(null);
   const bodyApi = useRef<ScrollRevealHandle>(null);
-  const [eyebrowPlay, setEyebrowPlay] = useState(false);
   const [statsPlay, setStatsPlay] = useState(false);
 
   useGSAP(
@@ -84,7 +81,6 @@ export function AboutStage({ eyebrow, title, body, stats, photoLeft, photoRight 
             },
             0.22,
           )
-          .call(() => setEyebrowPlay(true), [], 0.24)
           .to(heading, { "--rv": 1, filter: "blur(0px)", y: 0, duration: 0.16, ease: "power1.out" }, 0.26)
           .to(
             { p: 0 },
@@ -140,7 +136,7 @@ export function AboutStage({ eyebrow, title, body, stats, photoLeft, photoRight 
             y: 0,
             duration: 1.2,
             ease: "power2.out",
-            scrollTrigger: { trigger: heading, start: "top 85%", once: true, onEnter: () => setEyebrowPlay(true) },
+            scrollTrigger: { trigger: heading, start: "top 85%", once: true },
             onComplete: () => finishSweep(heading),
           });
           gsap.fromTo(
@@ -177,7 +173,6 @@ export function AboutStage({ eyebrow, title, body, stats, photoLeft, photoRight 
       // ---------- reduced motion: everything simply there ----------
       mm.add("(prefers-reduced-motion: reduce)", () => {
         gsap.set(tile, { autoAlpha: 0 });
-        setEyebrowPlay(true);
         setStatsPlay(true);
       });
 
@@ -195,7 +190,6 @@ export function AboutStage({ eyebrow, title, body, stats, photoLeft, photoRight 
       <div className="about-wrap">
         {photoLeft}
         <div className="about-center">
-          <Eyebrow a={eyebrow} tone="light" play={eyebrowPlay} />
           <h2>{title}</h2>
           <ScrollReveal ref={bodyApi} mode="external" baseOpacity={0.14} blurStrength={4} stagger={0.045}>
             {body}

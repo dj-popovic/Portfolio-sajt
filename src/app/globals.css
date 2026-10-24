@@ -108,19 +108,6 @@
     color: transparent;
   }
 
-  /* glowing dot used in every eyebrow */
-  .ember-dot {
-    width: 7px;
-    height: 7px;
-    flex: 0 0 auto;
-    border-radius: 50%;
-    background: var(--color-ember);
-    box-shadow: 0 0 14px 2px color-mix(in oklab, var(--color-ember) 70%, transparent);
-  }
-  .ember-dot-soft {
-    box-shadow: 0 0 12px 1px color-mix(in oklab, var(--color-ember) 60%, transparent);
-  }
-
   /* primary pill — ember gradient */
   .btn-ember {
     color: var(--color-char);

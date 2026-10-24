@@ -2,7 +2,6 @@ import { useTranslations } from "next-intl";
 import { ADDONS, PACKAGES } from "@/lib/brief";
 import { AddonChips, PackageButton, PackageCard } from "@/components/sections/FitInteractive";
 import { PanelClip } from "@/components/motion/PanelClip";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { CheckIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 import { richLight } from "@/lib/rich";
@@ -20,7 +19,6 @@ export function Fit() {
       <div className="fit-amb" aria-hidden />
       <div className="fit-inner">
         <div className="fit-head">
-          <Eyebrow a={t("eyebrowA")} b={t("eyebrowB")} tone="light" />
           <h2 className="fit-title" data-reveal="title">
             {t.rich("title", richLight)}
           </h2>

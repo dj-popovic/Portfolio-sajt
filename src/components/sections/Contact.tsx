@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 import { ContactParticles } from "@/components/canvas/ContactParticles";
 import { ConvoFlow } from "@/components/contact/ConvoFlow";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { PLACEHOLDER } from "@/lib/placeholders";
 import { richDark } from "@/lib/rich";
 
@@ -16,7 +15,6 @@ export function Contact() {
       <div className="contact-inner">
         <div className="contact-grid" data-reveal-group data-reveal-stagger="0">
           <div className="presence">
-            <Eyebrow a={t("eyebrowA")} b={t("eyebrowB")} />
             <h2 data-reveal="title">{t.rich("title", richDark)}</h2>
             <p className="lede" data-reveal="fade" data-reveal-delay="0.25">
               {t("lede")}

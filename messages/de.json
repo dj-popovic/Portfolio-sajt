@@ -25,8 +25,6 @@
     "close": "Menü schließen"
   },
   "hero": {
-    "eyebrowA": "Branding · Websites · Apps",
-    "eyebrowB": "Kreativstudio zu zweit",
     "title": "Kreative Arbeit,<br></br><glow>die wärmer brennt.</glow>",
     "sub": "Wir sind ein Studio zu zweit und gestalten Marken, Websites und Apps von A bis Z — Strategie, Design und Entwicklung unter einem Dach. Diese Website ist unsere beste Arbeitsprobe.",
     "primary": "Projekt starten",
@@ -34,7 +32,6 @@
     "scroll": "Scrollen"
   },
   "about": {
-    "eyebrow": "Wer wir sind",
     "title": "Zwei Menschen,<br></br>ein Studio <glow>von A bis Z.</glow>",
     "body": "Wir sind ein Studio zu zweit und begleiten Projekte von der ersten Idee bis zum Launch — Marke, Website und App, plus das Marketing dazu. Bewusst klein: Du arbeitest direkt mit den Menschen, die die Arbeit machen, von Anfang bis Ende.",
     "photo1": "[Gründerfoto 1]",
@@ -48,8 +45,6 @@
     }
   },
   "services": {
-    "eyebrowA": "Was wir bieten",
-    "eyebrowB": "Vier Disziplinen, ein Team",
     "title": "Alles, was eine Marke braucht, um <glow>gut aufzutreten.</glow>",
     "note": "Nimm einen Baustein oder das ganze Paket — es sind so oder so dieselben zwei Leute, also geht bei keiner Übergabe etwas verloren.",
     "foot": "Du brauchst alle vier? <b>Genau darum geht’s</b> — ein Team, von der Idee bis zum Launch.",
@@ -77,8 +72,6 @@
     }
   },
   "work": {
-    "eyebrowA": "Ausgewählte Arbeiten",
-    "eyebrowB": "Konzepte — was wir für dich bauen können",
     "title": "Noch kein Portfolio. <glow>Ein Einblick in unsere Bandbreite.</glow>",
     "note": "Jede Kachel ist eine Live-Mini-Demo. <b>Fahr mit der Maus darüber</b>, um sie scrollen zu sehen, und öffne sie dann im Vollbild zum Ausprobieren — gebaut, wie wir auch deins bauen würden.",
     "noteTouch": "Jede Kachel ist eine Live-Mini-Demo. <b>Tippe darauf</b>, um sie im Vollbild zu öffnen und auszuprobieren — gebaut, wie wir auch deins bauen würden.",
@@ -112,8 +105,6 @@
     }
   },
   "process": {
-    "eyebrowA": "Wie wir arbeiten",
-    "eyebrowB": "Ein Team, von Anfang bis Ende",
     "title": "Vom ersten Call bis <glow>live</glow> — in vier Schritten.",
     "sub": "Keine Übergaben, keine Zwischenhändler. Dieselben zwei Leute begleiten dein Projekt den ganzen Weg — so läuft es meistens ab.",
     "steps": {
@@ -144,8 +135,6 @@
     }
   },
   "fit": {
-    "eyebrowA": "Finde, was passt",
-    "eyebrowB": "Drei Wege der Zusammenarbeit",
     "title": "Wähl einen Startpunkt — <glow>den Rest gestalten wir gemeinsam.</glow>",
     "sub": "So arbeiten wir meistens — kein festes Menü. Such dir das Passendste aus, klick auf den Button, und die Details klären wir in einem echten Gespräch.",
     "investment": "Investition",
@@ -205,8 +194,6 @@
     }
   },
   "contact": {
-    "eyebrowA": "Lass uns reden",
-    "eyebrowB": "Nur wir zwei",
     "title": "Erzähl uns, wovon du <glow>träumst.</glow>",
     "lede": "Ein paar kurze Fragen — eine nach der anderen, ganz ohne Druck. Egal wie unfertig die Idee ist, wir hören sie gern.",
     "founders": "<b>Wir beide</b> lesen jede Nachricht — meistens antworten wir innerhalb eines Tages.",
@@ -262,7 +249,6 @@
     "failed": "Beim Senden ist etwas schiefgelaufen. Versuch es gleich noch mal oder schreib uns direkt eine E-Mail."
   },
   "footer": {
-    "label": "Schreib uns",
     "studio": "Studio",
     "elsewhere": "Anderswo",
     "journal": "Zum Journal",

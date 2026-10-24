@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 import type { ComponentType } from "react";
 import { ServiceCard } from "@/components/sections/ServiceCard";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { BrowserIcon, PhoneIcon, SparkIcon, TrendIcon } from "@/components/ui/icons";
 import { richDark } from "@/lib/rich";
 
@@ -21,7 +20,6 @@ export function Services() {
       <div className="services-inner">
         <div className="sec-head">
           <div className="lead">
-            <Eyebrow a={t("eyebrowA")} b={t("eyebrowB")} />
             <h2 className="sec-title" data-reveal="title">
               {t.rich("title", richDark)}
             </h2>

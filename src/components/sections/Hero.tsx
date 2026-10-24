@@ -2,7 +2,6 @@ import { useTranslations } from "next-intl";
 import Magnet from "@/components/reactbits/Magnet";
 import { HeroIntro } from "@/components/sections/HeroIntro";
 import { HeroFallbackNebula } from "@/components/three/NebulaLayer";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { PlayIcon } from "@/components/ui/icons";
 import { richDark } from "@/lib/rich";
 
@@ -20,7 +19,6 @@ export function Hero() {
 
       <div className="hero-inner">
         <div className="hero-content">
-          <Eyebrow a={t("eyebrowA")} b={t("eyebrowB")} />
           <h1 className="hero-title" data-hero="title">
             {t.rich("title", richDark)}
           </h1>

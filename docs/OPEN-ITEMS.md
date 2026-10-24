@@ -51,25 +51,31 @@ SR (Latin), RU and DE were drafted by Claude and need a native-speaker pass befo
 
 All four files must keep the same keys, ICU arguments and rich tags, and every string must parse — `npm run check:messages` checks exactly that after any edit.
 
-## 7. Contrast — decision needed
+## 7. Contrast — done
 
-An accessibility pass (axe-core + the Impeccable detector) found text in the design palette below the WCAG AA ratio (4.5:1 for normal text). These colours come from the Claude Design export, so they were **not** changed without your go-ahead. Each can be fixed by a small lightness nudge that keeps the look:
+Small text from the design palette was nudged up to WCAG AA (4.5:1 for normal text, 3:1 for large text) without changing the look. axe-core now reports no contrast violations. Every change is marked `build: contrast (WCAG AA)` in `src/styles/sections.css`.
 
-| Where | Now | Ratio |
+| Where | Before | After |
 |---|---|---|
-| Package cards — "Investment" label (`.price-note`) | `#A8927F` on white | 3.0:1 |
-| Package cards — "[From €X …]" hint (`.price-hint`) | `#A08A78` on white | 3.3:1 |
-| About — stat labels under 2 / 4 / 1 | `#8A7668` on paper | 4.0:1 |
-| Services — card numbers 01–04 | `#6C6661` on the dark card | 3.3:1 |
-| Work — "Concept · Web/App" pill | white on the orange gradient | 2.5:1 |
-| How we work — inactive step phase tags | `#6A6561` on base | 3.4:1 |
-| How we work — big step numbers before they light up | `#3C3836` on base | 1.7:1 (large text, needs 3:1) |
-| Hero — "Scroll" cue | `#6F6A66` on base | 3.7:1 |
-| Nav — inactive language codes over the nebula | ~2.3:1 | |
+| Package cards — "Investment" label and the "[From €X …]" hint | 3.0 / 3.3:1 | `#837162`, 4.7:1 |
+| About — stat labels under 2 / 4 / 1 | 4.0:1 | `#7E6C5F`, 4.7:1 |
+| Services — card numbers 01–04 | 3.3:1 | 50% cream, 4.7:1 |
+| Work — "Concept · Web" pill | white on orange, 2.5:1 | dark text, 6.7:1 (the dark "App" pill keeps white text) |
+| How we work — phase tags and "you get" lines | 3.4 / 4.2:1 | 50% cream, 4.8:1 |
+| How we work — big step numbers before they light up | 1.7:1 | 38% cream, 3.2:1 (large text) |
+| Hero — "Scroll" cue | 3.7:1 | 50% cream, 4.8:1 |
+| Nav — inactive language codes | 2.3:1 | 4.6:1 |
+| Contact — input placeholder | 2.5:1 | 4.7:1 |
+| Photo placeholder labels (About cards, Contact avatars) | 2.7 / 3.2:1 | 4.6 / 4.7:1, until real photos replace them |
 
-Placeholder labels inside the founder photo slots also fail, but they disappear once real photos are in.
+Still flagged by the Impeccable detector, on purpose:
 
-Intentional design choices the detector also flags, left as designed: gradient "glow" words in headings, the ember glow on buttons, the pulsing status dot, the large hero headline.
+- The miniature site previews on the Work cards. They're pictures of the concept sites (hidden from screen readers), so text contrast rules don't apply to them.
+- The ember gradient on the hero headline's highlighted words, now the only gradient text on the page.
+- The pulsing dot next to the footer's local clock. It marks a live value, so it stays.
+- Inter as the body font: a brief decision.
+- Striped image placeholders inside the previews and the coffee concept. They go away with the photos (section 1).
+- The 8.5px "[founder photo]" labels in the Contact avatars. They go away with the photos too.
 
 ## 8. Legal (likely needed before launch)
 

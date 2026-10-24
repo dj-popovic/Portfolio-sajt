@@ -450,6 +450,15 @@
     gap: 24px;
   }
 }
+/* build: fix — on the smallest phones the captions clipped the role (RU "Сооснователь") */
+@media (max-width: 359px) {
+  .photo figcaption {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    padding: 10px;
+  }
+}
 
 /* ----------------------------------------------------------- SERVICES */
 .services {
@@ -691,7 +700,7 @@
 }
 .work-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* build: fix — a preview's content can't widen its column */
   gap: clamp(20px, 2.4vw, 30px);
 }
 .concept-card {
@@ -787,6 +796,7 @@
 .viewport {
   position: relative;
   flex: 1;
+  min-width: 0; /* build: fix */
   overflow: hidden;
 }
 .preview-track {
@@ -893,7 +903,7 @@
 }
 @media (max-width: 900px) {
   .work-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr); /* build: fix — cards ran off the right edge on phones */
   }
   .concept-card .media {
     height: clamp(320px, 62vw, 400px);
@@ -903,6 +913,14 @@
   }
   .work .sec-foot p {
     white-space: normal;
+  }
+}
+/* build: fix — on the smallest phones a long pill (RU) pushed the text off the card */
+@media (max-width: 359px) {
+  .concept-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
 }
 

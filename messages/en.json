@@ -29,7 +29,12 @@
     "sub": "We’re a two-person studio crafting brands, websites and apps end-to-end: strategy, design and build, all under one roof. The site itself is our proof of work.",
     "primary": "Start a project",
     "secondary": "See our work",
-    "scroll": "Scroll"
+    "scroll": "Scroll",
+    "orb": {
+      "label": "Ember orb, an interactive sphere of dots",
+      "help": "Drag it or use the arrow keys to spin it. Click it or press Enter to send a ripple across it.",
+      "hint": "Drag to spin"
+    }
   },
   "about": {
     "title": "Two people,<br></br>one <glow>end-to-end</glow> studio.",

@@ -29,7 +29,12 @@
     "sub": "Mi smo dvočlani studio koji od početka do kraja pravi brendove, sajtove i aplikacije: strategija, dizajn i razvoj, sve pod jednim krovom. A ovaj sajt je najbolji dokaz za to.",
     "primary": "Započnite projekat",
     "secondary": "Pogledajte radove",
-    "scroll": "Skrolujte"
+    "scroll": "Skrolujte",
+    "orb": {
+      "label": "Žarka kugla, interaktivna sfera od tačaka",
+      "help": "Prevucite je ili koristite strelice da je zavrtite. Kliknite je ili pritisnite Enter da po njoj pređe talas.",
+      "hint": "Prevucite da zavrtite"
+    }
   },
   "about": {
     "title": "Dvoje ljudi,<br></br>jedan studio <glow>od A do Š.</glow>",

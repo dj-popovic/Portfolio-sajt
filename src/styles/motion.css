@@ -2,8 +2,8 @@
    Motion layer — states the GSAP / R3F code animates between.
    =================================================================== */
 
-/* the fixed 3D nebula sits behind everything; page content paints above */
-.nebula-layer {
+/* the orb's fixed layer sits behind everything; page content paints above */
+.orb-layer {
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -11,21 +11,27 @@
   opacity: 0;
   transition: opacity 1.4s ease;
 }
-.nebula-layer.is-ready {
+.orb-layer.is-ready {
   opacity: 1;
 }
-/* with the 3D layer, the vignette + floor travel with the canvas instead of
-   ending at the hero's bottom edge (no seam while the hero scrolls away) */
-.nebula-layer::after {
+/* once the last dot has reached the tile the layer sleeps (a frozen frame never shows) */
+.orb-layer.is-ready.is-asleep {
+  opacity: 0;
+  transition-duration: 0.3s;
+}
+/* the hero's vignette + floor travel with the layer (no seam while the hero
+   scrolls away) and lift as the orb unravels, so the thread stays bright */
+.orb-layer::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   box-shadow: inset 0 0 240px 60px rgba(0, 0, 0, 0.85);
   background: radial-gradient(120% 90% at 50% 120%, color-mix(in oklab, var(--base) 88%, transparent), transparent 60%);
+  opacity: calc(1 - var(--orb-morph, 0));
 }
-[data-nebula="webgl"] .hero-vignette,
-[data-nebula="webgl"] .hero-floor {
+[data-orb="webgl"] .hero-vignette,
+[data-orb="webgl"] .hero-floor {
   display: none;
 }
 main,
@@ -33,40 +39,34 @@ main,
   position: relative;
   z-index: 1;
 }
-/* dark sections let the ember glow through; light panels stay opaque */
+/* dark sections stay see-through, so the thread can pass behind them */
 .services,
 .process,
 .contact {
   background: transparent;
 }
 
-/* the design's warm glow underlayer, centred under the nebula */
+/* the warm glow under the orb (position written by OrbControls) */
 .hero-aura {
-  --r: calc(min(100vw, 100svh) * 0.46);
+  --x: var(--orb-x, 70%);
+  --y: var(--orb-y, 50%);
+  --r: var(--orb-r, 34vmin);
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle calc(var(--r) * 0.95) at 64% 46%, rgba(255, 107, 53, 0.1), transparent),
+    radial-gradient(circle calc(var(--r) * 1.35) at var(--x) var(--y), rgba(255, 107, 53, 0.09), transparent),
     radial-gradient(
-      circle calc(var(--r) * 0.55) at calc(64% - var(--r) * 0.18) calc(46% - var(--r) * 0.1),
-      rgba(255, 182, 39, 0.1),
+      circle calc(var(--r) * 0.8) at calc(var(--x) + var(--r) * 0.3) calc(var(--y) - var(--r) * 0.32),
+      rgba(255, 182, 39, 0.08),
       transparent
     ),
     radial-gradient(
-      circle calc(var(--r) * 0.5) at calc(64% + var(--r) * 0.22) calc(46% + var(--r) * 0.16),
-      rgba(230, 66, 28, 0.06),
+      circle calc(var(--r) * 0.7) at calc(var(--x) - var(--r) * 0.3) calc(var(--y) + var(--r) * 0.34),
+      rgba(230, 66, 28, 0.05),
       transparent
     );
-}
-@media (max-width: 759px) {
-  .hero-aura {
-    --r: calc(min(100vw, 100svh) * 0.5);
-    background:
-      radial-gradient(circle calc(var(--r) * 0.95) at 60% 40%, rgba(255, 107, 53, 0.1), transparent),
-      radial-gradient(circle calc(var(--r) * 0.55) at 55% 36%, rgba(255, 182, 39, 0.1), transparent);
-  }
 }
 
 /* scroll cue: a slow spark slides down the line */

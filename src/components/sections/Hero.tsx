@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { HeroIntro } from "@/components/sections/HeroIntro";
-import { HeroFallbackNebula } from "@/components/three/NebulaLayer";
+import { OrbControls } from "@/components/sections/OrbControls";
+import { HeroOrbFallback } from "@/components/three/OrbLayer";
 import { PlayIcon } from "@/components/ui/icons";
 import { richHero } from "@/lib/rich";
 
@@ -9,9 +10,9 @@ export function Hero() {
 
   return (
     <section className="hero" id="top" data-screen-label="Hero">
-      {/* the 3D nebula is a fixed layer behind the page; this is its warm aura + fallbacks */}
+      {/* the orb is a fixed layer behind the page; this is its warm aura, fallbacks and controls */}
       <div className="hero-aura" aria-hidden />
-      <HeroFallbackNebula />
+      <HeroOrbFallback />
       <div className="hero-scrim" aria-hidden />
       <div className="hero-floor" aria-hidden />
       <div className="hero-vignette" aria-hidden />
@@ -37,6 +38,9 @@ export function Hero() {
           </div>
         </div>
       </div>
+
+      {/* after the buttons in the tab order; it still sits under the text (z-index) */}
+      <OrbControls />
 
       <div className="scroll-cue" aria-hidden data-hero="cue">
         <span>{t("scroll")}</span>

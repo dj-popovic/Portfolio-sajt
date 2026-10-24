@@ -153,7 +153,7 @@
   z-index: 0;
   display: block;
 }
-/* left-side scrim so the headline stays legible over the nebula */
+/* left-side scrim so the headline stays legible over the orb */
 .hero-scrim {
   position: absolute;
   inset: 0;
@@ -192,9 +192,81 @@
   padding: 120px clamp(24px, 5vw, 76px) 80px;
   max-width: 1640px;
   margin: 0 auto;
+  pointer-events: none; /* build: the orb's hit area sits underneath */
 }
 .hero-content {
   max-width: 720px;
+  pointer-events: auto;
+}
+/* build: orb — the disc that takes drags, taps and keys (the orb is drawn behind the page) */
+.orb-hit {
+  position: absolute;
+  z-index: 2;
+  left: calc(var(--orb-x, 70%) - var(--orb-r, 34vmin));
+  top: calc(var(--orb-y, 50%) - var(--orb-r, 34vmin));
+  width: calc(var(--orb-r, 34vmin) * 2);
+  height: calc(var(--orb-r, 34vmin) * 2);
+  border-radius: 50%;
+  cursor: grab;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+.orb-hit:active {
+  cursor: grabbing;
+}
+.orb-hit:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 10px;
+}
+.orb-hint {
+  position: absolute;
+  z-index: 2;
+  left: var(--orb-x, 70%);
+  top: calc(var(--orb-y, 50%) + var(--orb-r, 34vmin) + 20px);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.orb-hint-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 14px 7px 11px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: color-mix(in oklab, var(--text) 74%, transparent);
+  background: color-mix(in oklab, var(--surface) 72%, transparent);
+  border: 1px solid var(--hairline);
+  transition: opacity 0.4s ease;
+}
+.orb-hint-pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.orb-hint-pill.is-done {
+  opacity: 0;
+}
+/* build: stacked hero (phones, tall tablets) — the orb on top, the headline under it.
+   Mirrors isStacked() in src/lib/orb.ts */
+@media (max-width: 759px), (max-width: 1023px) and (max-aspect-ratio: 10/11) {
+  .hero-inner {
+    justify-content: flex-end;
+    padding-top: calc(var(--orb-y, 30svh) + var(--orb-r, 38vw) + 40px);
+    padding-bottom: 48px;
+  }
+  /* the headline sits under the orb, so no scrim (it would hide the thread) */
+  .hero-scrim {
+    display: none;
+  }
+  /* sits on the orb's sparse lower edge, clear of the headline */
+  .orb-hint {
+    top: calc(var(--orb-y, 30svh) + var(--orb-r, 38vw) - 20px);
+  }
 }
 .hero-title {
   font-family: var(--font-display);

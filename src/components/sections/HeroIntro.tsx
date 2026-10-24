@@ -3,7 +3,7 @@
 import { splitTitle } from "@/components/motion/splitTitle";
 import { gsap, useGSAP } from "@/lib/gsap";
 
-/** First-load choreography: nav, headline words, subline, buttons, scroll cue. */
+/** First-load choreography: nav, headline words, subline, buttons, scroll cue, the orb's hint. */
 export function HeroIntro() {
   useGSAP(() => {
     const mm = gsap.matchMedia();
@@ -40,7 +40,8 @@ export function HeroIntro() {
             0.85,
           )
           .fromTo('[data-hero="actions"]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 0.85)
-          .fromTo('[data-hero="cue"]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8 }, 1.3);
+          .fromTo('[data-hero="cue"]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8 }, 1.3)
+          .fromTo('[data-hero="hint"]', { autoAlpha: 0, y: 6 }, { autoAlpha: 1, y: 0, duration: 0.8 }, 1.7);
       };
 
       if (document.fonts?.status === "loaded") play();

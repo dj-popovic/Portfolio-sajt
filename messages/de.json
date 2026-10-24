@@ -29,7 +29,12 @@
     "sub": "Wir sind ein Studio zu zweit und gestalten Marken, Websites und Apps von A bis Z: Strategie, Design und Entwicklung unter einem Dach. Diese Website ist unsere beste Arbeitsprobe.",
     "primary": "Projekt starten",
     "secondary": "Arbeiten ansehen",
-    "scroll": "Scrollen"
+    "scroll": "Scrollen",
+    "orb": {
+      "label": "Glutkugel, eine interaktive Kugel aus Punkten",
+      "help": "Zieh sie oder nutze die Pfeiltasten, um sie zu drehen. Klick sie an oder drück Enter, damit eine Welle über sie läuft.",
+      "hint": "Zum Drehen ziehen"
+    }
   },
   "about": {
     "title": "Zwei Menschen,<br></br>ein Studio <glow>von A bis Z.</glow>",

@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "'<logo>' · Dvočlani kreativni studio",
-    "description": "Mi smo dvočlani studio koji od početka do kraja pravi brendove, sajtove i aplikacije — strategija, dizajn i razvoj, sve pod jednim krovom."
+    "description": "Mi smo dvočlani studio koji od početka do kraja pravi brendove, sajtove i aplikacije: strategija, dizajn i razvoj, sve pod jednim krovom."
   },
   "common": {
     "skip": "Preskoči na sadržaj",
@@ -26,14 +26,14 @@
   },
   "hero": {
     "title": "Kreativa koja gori<br></br><glow>toplijim plamenom.</glow>",
-    "sub": "Mi smo dvočlani studio koji od početka do kraja pravi brendove, sajtove i aplikacije — strategija, dizajn i razvoj, sve pod jednim krovom. A ovaj sajt je najbolji dokaz za to.",
+    "sub": "Mi smo dvočlani studio koji od početka do kraja pravi brendove, sajtove i aplikacije: strategija, dizajn i razvoj, sve pod jednim krovom. A ovaj sajt je najbolji dokaz za to.",
     "primary": "Započnite projekat",
     "secondary": "Pogledajte radove",
     "scroll": "Skrolujte"
   },
   "about": {
     "title": "Dvoje ljudi,<br></br>jedan studio <glow>od A do Š.</glow>",
-    "body": "Mi smo dvočlani studio koji vodi projekat od prve ideje do lansiranja — brend, sajt i aplikacija, plus marketing koji sve to podržava. Mali smo namerno: radite direktno sa ljudima koji rade posao, od početka do kraja.",
+    "body": "Mi smo dvočlani studio koji vaš brend, sajt i aplikaciju vodi od prve ideje do lansiranja, uz marketing koji sve to podržava. Mali smo namerno: radite direktno sa ljudima koji rade posao, od početka do kraja.",
     "photo1": "[fotografija osnivača 1]",
     "photo2": "[fotografija osnivača 2]",
     "role1": "Suosnivač · <b>Dizajn i brend</b>",
@@ -46,37 +46,37 @@
   },
   "services": {
     "title": "Sve što brendu treba da <glow>se dobro pokaže.</glow>",
-    "note": "Uzmite jedan deo ili sve odjednom — u oba slučaja to je isto dvoje ljudi, pa se ništa ne gubi u primopredaji.",
-    "foot": "Trebaju vam sve četiri? <b>U tome i jeste poenta</b> — jedan tim, od ideje do lansiranja.",
+    "note": "Uzmite jedan deo ili sve odjednom. U oba slučaja to je isto dvoje ljudi, pa se ništa ne gubi u primopredaji.",
+    "foot": "Trebaju vam sve četiri? <b>U tome i jeste poenta.</b> Jedan tim, od ideje do lansiranja.",
     "items": {
       "branding": {
         "title": "Brending",
-        "desc": "Vizuelni identiteti koji ostaju prepoznatljivi gde god se pojave — od favikona do izloga.",
+        "desc": "Vizuelni identiteti koji ostaju prepoznatljivi gde god se pojave, od favikona do izloga.",
         "tags": ["Logo i znakovi", "Vizuelni identitet", "Smernice", "Imenovanje"]
       },
       "websites": {
         "title": "Sajtovi",
-        "desc": "Sajtovi koji deluju kao brend i kreću se kao on — dizajnirani, izrađeni i animirani od početka do kraja.",
+        "desc": "Sajtovi koji deluju kao brend i kreću se kao on. Dizajnirani, izrađeni i animirani od početka do kraja.",
         "tags": ["Dizajn i izrada", "Animacija", "CMS", "Performanse"]
       },
       "apps": {
         "title": "Aplikacije",
-        "desc": "Proizvodi kojima se ljudi vraćaju — promišljeni od prvog toka do brzog, uglađenog frontenda.",
+        "desc": "Proizvodi kojima se ljudi vraćaju, promišljeni od prvog toka do brzog, uglađenog frontenda.",
         "tags": ["Web i mobilne", "UX", "Prototipovi", "Frontend"]
       },
       "marketing": {
         "title": "Marketing",
-        "desc": "Kad je sve napravljeno, pomažemo da stigne do pravih ljudi — sa planom, a ne nagađanjem.",
+        "desc": "Kad je sve napravljeno, pomažemo da stigne do pravih ljudi, i to sa planom, a ne nagađanjem.",
         "tags": ["Strategija", "Sadržaj", "Društvene mreže", "Lansiranje"]
       }
     }
   },
   "work": {
     "title": "Još nije portfolio. <glow>Samo uvid u ono što umemo.</glow>",
-    "note": "Svaka pločica je živi mini-demo. <b>Pređite mišem</b> da vidite kako skroluje, pa ga otvorite preko celog ekrana i isprobajte — napravljen je onako kako bismo napravili i vaš.",
-    "noteTouch": "Svaka pločica je živi mini-demo. <b>Dodirnite</b> da ga otvorite preko celog ekrana i isprobate — napravljen je onako kako bismo napravili i vaš.",
+    "note": "Svaka pločica je živi mini-demo, napravljen onako kako bismo napravili i vaš. <b>Pređite mišem</b> da vidite kako skroluje, pa ga otvorite preko celog ekrana i isprobajte.",
+    "noteTouch": "Svaka pločica je živi mini-demo, napravljen onako kako bismo napravili i vaš. <b>Dodirnite</b> da ga otvorite preko celog ekrana i isprobate.",
     "open": "Otvori demo",
-    "foot": "Ovo su koncepti — <b>vaš je sledeći.</b>",
+    "foot": "Ovo su koncepti. <b>Vaš je sledeći.</b>",
     "kindWeb": "Koncept · Web",
     "kindApp": "Koncept · Aplikacija",
     "items": {
@@ -98,44 +98,44 @@
       }
     },
     "window": {
-      "badge": "Interaktivni demo — napravljen u kodu",
+      "badge": "Interaktivni demo, napravljen u kodu",
       "close": "Zatvori demo",
-      "hint": "Skrolujte i kliknite — sve radi",
+      "hint": "Skrolujte i kliknite. Sve radi.",
       "openAria": "Otvori demo: {name}"
     }
   },
   "process": {
-    "title": "Od prvog poziva do <glow>lansiranja</glow> — u četiri koraka.",
-    "sub": "Bez prosleđivanja i posrednika. Isto dvoje ljudi vodi vaš projekat celim putem — evo kako izrada obično izgleda.",
+    "title": "Od prvog poziva do <glow>lansiranja</glow> u četiri koraka.",
+    "sub": "Bez prosleđivanja i posrednika. Isto dvoje ljudi vodi vaš projekat celim putem. Evo kako izrada obično izgleda.",
     "steps": {
       "discover": {
         "phase": "Upoznavanje",
         "title": "Upoznajemo vaš posao.",
-        "body": "Uvodni sastanak da razumemo vaš posao, publiku i ciljeve — kako izgleda uspeh i šta vas je do sada sputavalo. Bez šablona, bez pretpostavki.",
+        "body": "Uvodni sastanak da razumemo vaš posao, publiku i ciljeve: kako izgleda uspeh i šta vas je do sada sputavalo. Bez šablona, bez pretpostavki.",
         "deliver": "Dobijate <b>[jasan brif i rokove]</b>"
       },
       "design": {
         "phase": "Dizajn",
         "title": "Oblikujemo izgled i osećaj.",
-        "body": "Prvo pravac brenda, pa svaki ekran — dizajniran i prototipovan tako da možete da ga isprobate i osetite mnogo pre prve linije koda.",
+        "body": "Prvo pravac brenda, pa svaki ekran, dizajniran i prototipovan tako da možete da ga isprobate i osetite mnogo pre prve linije koda.",
         "deliver": "Odobravate <b>[interaktivni prototip]</b>"
       },
       "build": {
         "phase": "Razvoj",
-        "title": "Oživljavamo sve — od A do Š.",
-        "body": "Sve razvijamo sami — brzo, animirano i da traje — i držimo vas u toku verzijama koje rade, a ne mejlovima o statusu.",
+        "title": "Oživljavamo sve, od A do Š.",
+        "body": "Sve razvijamo sami: brzo, animirano i da traje. U toku ste uz verzije koje rade, a ne uz mejlove o statusu.",
         "deliver": "Vidite <b>[nove verzije svake nedelje]</b>"
       },
       "launch": {
         "phase": "Lansiranje i rast",
-        "title": "Lansiramo — pa pomažemo da raste.",
+        "title": "Lansiramo, pa pomažemo da raste.",
         "body": "Lansiramo, predajemo vam ključeve i ostajemo uz vas sa marketing planom, da projekat stigne do pravih ljudi. Plan, a ne nagađanje.",
         "deliver": "Dobijate <b>[plan lansiranja i rasta]</b>"
       }
     }
   },
   "fit": {
-    "title": "Izaberite početnu tačku — <glow>ostalo oblikujemo zajedno.</glow>",
+    "title": "Izaberite početnu tačku. <glow>Ostalo oblikujemo zajedno.</glow>",
     "sub": "Ovo su načini na koje obično radimo, a ne fiksni meni. Nađite ono što vam je najbliže, kliknite na dugme, a detalje ćemo dogovoriti u pravom razgovoru.",
     "investment": "Investicija",
     "price": "Razgovarajmo",
@@ -144,8 +144,8 @@
     "packages": {
       "basic": {
         "name": "Basic",
-        "tag": "Sajt od jedne stranice ili manji sajt — čist, rađen po meri i nepogrešivo naš.",
-        "hint": "[Od X € — dogovaramo u razgovoru]",
+        "tag": "Sajt od jedne stranice ili manji sajt. Čist, rađen po meri i nepogrešivo naš.",
+        "hint": "[Od X €, dogovaramo u razgovoru]",
         "cta": "Započnite projekat",
         "includes": [
           "Responzivan dizajn po meri, u našem stilu",
@@ -157,8 +157,8 @@
       },
       "pro": {
         "name": "Pro",
-        "tag": "Veći sajt sa više stranica, u našem prepoznatljivom animiranom stilu — potpuni doživljaj.",
-        "hint": "[Od X € — dogovaramo u razgovoru]",
+        "tag": "Veći sajt sa više stranica, u našem prepoznatljivom animiranom stilu. Potpuni doživljaj.",
+        "hint": "[Od X €, dogovaramo u razgovoru]",
         "cta": "Započnite projekat",
         "includes": [
           "Potpuno unikatan dizajn, više stranica",
@@ -169,7 +169,7 @@
       },
       "custom": {
         "name": "Custom",
-        "tag": "Aplikacije i proizvodi po meri — kad vam treba više od sajta.",
+        "tag": "Aplikacije i proizvodi po meri, kad vam treba više od sajta.",
         "hint": "[Obim dogovaramo za svaki projekat posebno]",
         "cta": "Hajde da procenimo",
         "includes": [
@@ -195,8 +195,8 @@
   },
   "contact": {
     "title": "Recite nam o čemu <glow>sanjate.</glow>",
-    "lede": "Nekoliko kratkih pitanja — jedno po jedno, bez pritiska. Koliko god ideja bila nedorečena, rado ćemo je čuti.",
-    "founders": "<b>Nas dvoje</b> čitamo svaku poruku — odgovor obično stiže u roku od jednog dana.",
+    "lede": "Nekoliko kratkih pitanja, jedno po jedno, bez pritiska. Koliko god ideja bila nedorečena, rado ćemo je čuti.",
+    "founders": "<b>Nas dvoje</b> čitamo svaku poruku i obično odgovaramo u roku od jednog dana.",
     "foundersMeta": "{nameOne} i {nameTwo} · suosnivači",
     "avatar1": "[fotografija osnivača 1]",
     "avatar2": "[fotografija osnivača 2]",
@@ -214,16 +214,16 @@
       "name": {
         "q": "Za početak",
         "ask": "Kako da vas zovemo?",
-        "hint": "Bez formalnosti — samo ime kojim vas zovu prijatelji.",
+        "hint": "Bez formalnosti, samo ime kojim vas zovu prijatelji.",
         "placeholder": "Vaše ime",
-        "error": "Bilo koje ime je u redu — čak i nadimak."
+        "error": "Bilo koje ime je u redu, čak i nadimak."
       },
       "project": {
         "q": "Zabavni deo",
         "ask": "Šta pravite?",
-        "hint": "Brend, sajt, aplikacija, luda ideja na salveti — recite nam u jednoj rečenici.",
+        "hint": "Brend, sajt, aplikacija, luda ideja na salveti. Recite nam u jednoj rečenici.",
         "placeholder": "npr. online prodavnica za našu pržionicu kafe",
-        "error": "Dovoljna je jedna rečenica — samo suština."
+        "error": "Dovoljna je jedna rečenica. Samo suština."
       },
       "timeline": {
         "q": "Da bismo planirali",
@@ -236,14 +236,14 @@
       "email": {
         "q": "Poslednje pitanje",
         "ask": "Gde možemo da vas kontaktiramo?",
-        "hint": "Koristićemo ga samo da vam odgovorimo — obećavamo.",
+        "hint": "Koristićemo ga samo da vam odgovorimo. Obećavamo.",
         "placeholder": "ime@email.com",
         "error": "Ova adresa ne izgleda baš ispravno."
       }
     },
     "done": {
       "q": "To je sve",
-      "ask": "Hvala — poruka je na putu.",
+      "ask": "Hvala! Poruka je na putu.",
       "hint": "Stigla je. Očekujte topao, ljudski odgovor u roku od jednog dana."
     },
     "failed": "Nešto nije u redu sa slanjem. Pokušajte ponovo za trenutak ili nam pišite direktno na mejl."
@@ -252,7 +252,7 @@
     "studio": "Studio",
     "elsewhere": "Na mrežama",
     "journal": "Čitajte blog",
-    "status": "<b>{time}</b> u <city>[Novi Sad]</city> — {mood}",
+    "status": "<b>{time}</b> u <city>[Novi Sad]</city>, {mood}",
     "moods": [
       "verovatno još nešto gradimo",
       "do guše u prototipu",

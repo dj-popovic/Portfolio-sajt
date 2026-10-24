@@ -27,7 +27,7 @@ function subscribeClock(onChange: () => void) {
 
 const noopSubscribe = () => () => {};
 
-/** "21:14 in Novi Sad — probably still building", on the studio's clock. */
+/** "21:14 in Novi Sad, probably still building", on the studio's clock. */
 export function StudioStatus() {
   const t = useTranslations("footer");
   const moods = t.raw("moods") as string[];

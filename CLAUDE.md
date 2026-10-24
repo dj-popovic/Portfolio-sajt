@@ -20,6 +20,7 @@ Single-page portfolio for a two-person creative studio. Read `AGENTS.md` too: th
 
 - Next.js App Router, TypeScript, Tailwind 4, next-intl (EN at `/`, `/sr` Serbian **Latin**, `/ru`, `/de`). Strings live in `messages/*.json`; rich tags `<glow>`, `<b>`, `<br></br>`; quote angle-bracket placeholders as `'<logo>'`.
 - Use typographic apostrophes (’) in messages — a straight `'` can start ICU quoting. Titles keep a no-break space before " — " so a line never starts with a dash. After editing messages run `npm run check:messages` (keys, ICU arguments/tags, placeholders, parsing).
+- Go easy on em dashes in copy (a stacked-up "—" reads as AI cadence): use periods, commas or colons. They stay only in the concept names ("[Tako] — …") and in Russian where grammar needs them ("Мы — студия").
 - **GSAP (+ScrollTrigger/SplitText) is the main animation engine**, all scroll-driven motion. **Motion (`motion/react`) only for small UI interactions.** Lenis for smooth scroll. React Three Fiber for 3D (hero nebula).
 - React Bits: pull only components we use (TS + Tailwind variant, from GitHub raw — reactbits.dev is blocked here) and adapt to Ember.
 - Demo mini-sites (Work section) are fictional client brands: their inner content stays in English; only our frame around them is translated.

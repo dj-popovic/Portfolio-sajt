@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "'<logo>' · Kreativstudio zu zweit",
-    "description": "Wir sind ein Studio zu zweit und gestalten Marken, Websites und Apps von A bis Z — Strategie, Design und Entwicklung unter einem Dach."
+    "description": "Wir sind ein Studio zu zweit und gestalten Marken, Websites und Apps von A bis Z: Strategie, Design und Entwicklung unter einem Dach."
   },
   "common": {
     "skip": "Zum Inhalt springen",
@@ -26,14 +26,14 @@
   },
   "hero": {
     "title": "Kreative Arbeit,<br></br><glow>die wärmer brennt.</glow>",
-    "sub": "Wir sind ein Studio zu zweit und gestalten Marken, Websites und Apps von A bis Z — Strategie, Design und Entwicklung unter einem Dach. Diese Website ist unsere beste Arbeitsprobe.",
+    "sub": "Wir sind ein Studio zu zweit und gestalten Marken, Websites und Apps von A bis Z: Strategie, Design und Entwicklung unter einem Dach. Diese Website ist unsere beste Arbeitsprobe.",
     "primary": "Projekt starten",
     "secondary": "Arbeiten ansehen",
     "scroll": "Scrollen"
   },
   "about": {
     "title": "Zwei Menschen,<br></br>ein Studio <glow>von A bis Z.</glow>",
-    "body": "Wir sind ein Studio zu zweit und begleiten Projekte von der ersten Idee bis zum Launch — Marke, Website und App, plus das Marketing dazu. Bewusst klein: Du arbeitest direkt mit den Menschen, die die Arbeit machen, von Anfang bis Ende.",
+    "body": "Wir sind ein Studio zu zweit und begleiten deine Marke, Website und App von der ersten Idee bis zum Launch, inklusive Marketing. Bewusst klein: Du arbeitest direkt mit den Menschen, die die Arbeit machen, von Anfang bis Ende.",
     "photo1": "[Gründerfoto 1]",
     "photo2": "[Gründerfoto 2]",
     "role1": "Co-Founder · <b>Design & Marke</b>",
@@ -46,37 +46,37 @@
   },
   "services": {
     "title": "Alles, was eine Marke braucht, um <glow>gut aufzutreten.</glow>",
-    "note": "Nimm einen Baustein oder das ganze Paket — es sind so oder so dieselben zwei Leute, also geht bei keiner Übergabe etwas verloren.",
-    "foot": "Du brauchst alle vier? <b>Genau darum geht’s</b> — ein Team, von der Idee bis zum Launch.",
+    "note": "Nimm einen Baustein oder das ganze Paket. Es sind so oder so dieselben zwei Leute, also geht bei keiner Übergabe etwas verloren.",
+    "foot": "Du brauchst alle vier? <b>Genau darum geht’s.</b> Ein Team, von der Idee bis zum Launch.",
     "items": {
       "branding": {
         "title": "Branding",
-        "desc": "Erscheinungsbilder, die überall wiedererkennbar bleiben — vom Favicon bis zum Ladenschild.",
+        "desc": "Erscheinungsbilder, die überall wiedererkennbar bleiben, vom Favicon bis zum Ladenschild.",
         "tags": ["Logo & Zeichen", "Visuelle Identität", "Guidelines", "Naming"]
       },
       "websites": {
         "title": "Websites",
-        "desc": "Websites, die sich wie die Marke anfühlen und auch so bewegen — gestaltet, gebaut und animiert aus einer Hand.",
+        "desc": "Websites, die sich wie die Marke anfühlen und auch so bewegen. Gestaltet, gebaut und animiert aus einer Hand.",
         "tags": ["Design & Umsetzung", "Motion", "CMS", "Performance"]
       },
       "apps": {
         "title": "Apps",
-        "desc": "Produkte, zu denen Menschen zurückkehren — durchdacht vom ersten Flow bis zum schnellen, polierten Frontend.",
+        "desc": "Produkte, zu denen Menschen zurückkehren, durchdacht vom ersten Flow bis zum schnellen, polierten Frontend.",
         "tags": ["Web & Mobile", "UX", "Prototyping", "Frontend"]
       },
       "marketing": {
         "title": "Marketing",
-        "desc": "Wenn alles steht, bringen wir es zu den richtigen Leuten — mit Plan statt Bauchgefühl.",
+        "desc": "Wenn alles steht, bringen wir es zu den richtigen Leuten, mit Plan statt Bauchgefühl.",
         "tags": ["Strategie", "Content", "Social Media", "Launch"]
       }
     }
   },
   "work": {
     "title": "Noch kein Portfolio. <glow>Ein Einblick in unsere Bandbreite.</glow>",
-    "note": "Jede Kachel ist eine Live-Mini-Demo. <b>Fahr mit der Maus darüber</b>, um sie scrollen zu sehen, und öffne sie dann im Vollbild zum Ausprobieren — gebaut, wie wir auch deins bauen würden.",
-    "noteTouch": "Jede Kachel ist eine Live-Mini-Demo. <b>Tippe darauf</b>, um sie im Vollbild zu öffnen und auszuprobieren — gebaut, wie wir auch deins bauen würden.",
+    "note": "Jede Kachel ist eine Live-Mini-Demo, so gebaut, wie wir auch dein Projekt bauen würden. <b>Fahr mit der Maus darüber</b>, um sie scrollen zu sehen, und öffne sie dann im Vollbild zum Ausprobieren.",
+    "noteTouch": "Jede Kachel ist eine Live-Mini-Demo, so gebaut, wie wir auch dein Projekt bauen würden. <b>Tippe darauf</b>, um sie im Vollbild zu öffnen und auszuprobieren.",
     "open": "Demo öffnen",
-    "foot": "Das sind Konzepte — <b>deins ist als Nächstes dran.</b>",
+    "foot": "Das sind Konzepte. <b>Deins ist als Nächstes dran.</b>",
     "kindWeb": "Konzept · Web",
     "kindApp": "Konzept · App",
     "items": {
@@ -98,45 +98,45 @@
       }
     },
     "window": {
-      "badge": "Interaktive Demo — in Code gebaut",
+      "badge": "Interaktive Demo, in Code gebaut",
       "close": "Demo schließen",
-      "hint": "Scroll und klick dich durch — alles ist live",
+      "hint": "Scroll und klick dich durch. Alles ist live.",
       "openAria": "Demo öffnen: {name}"
     }
   },
   "process": {
-    "title": "Vom ersten Call bis <glow>live</glow> — in vier Schritten.",
-    "sub": "Keine Übergaben, keine Zwischenhändler. Dieselben zwei Leute begleiten dein Projekt den ganzen Weg — so läuft es meistens ab.",
+    "title": "Vom ersten Call bis <glow>live</glow> in vier Schritten.",
+    "sub": "Keine Übergaben, keine Zwischenhändler. Dieselben zwei Leute begleiten dein Projekt den ganzen Weg. So läuft es meistens ab.",
     "steps": {
       "discover": {
         "phase": "Verstehen",
         "title": "Wir lernen das Projekt kennen.",
-        "body": "Ein Kickoff, um dein Business, deine Zielgruppe und deine Ziele zu verstehen — wie Erfolg aussieht und was bisher im Weg stand. Keine Vorlagen, keine Annahmen.",
+        "body": "Ein Kickoff, um dein Business, deine Zielgruppe und deine Ziele zu verstehen: wie Erfolg aussieht und was bisher im Weg stand. Keine Vorlagen, keine Annahmen.",
         "deliver": "Du bekommst <b>[ein klares Briefing & einen Zeitplan]</b>"
       },
       "design": {
         "phase": "Design",
         "title": "Wir gestalten Look & Feel.",
-        "body": "Erst die Markenrichtung, dann jeder Screen — gestaltet und als Prototyp, damit du dich durchklicken und alles spüren kannst, lange bevor eine Zeile Code entsteht.",
+        "body": "Erst die Markenrichtung, dann jeder Screen als klickbarer Prototyp, damit du alles durchklicken und spüren kannst, lange bevor eine Zeile Code entsteht.",
         "deliver": "Am Ende steht <b>[ein interaktiver Prototyp]</b>"
       },
       "build": {
         "phase": "Umsetzung",
-        "title": "Wir machen es real — von A bis Z.",
-        "body": "Wir entwickeln alles selbst — schnell, animiert und für lange gebaut — und halten dich mit funktionierenden Previews auf dem Laufenden, nicht mit Status-Mails.",
+        "title": "Wir machen es real, von A bis Z.",
+        "body": "Wir entwickeln alles selbst: schnell, animiert und für lange gebaut. Und wir halten dich mit funktionierenden Previews auf dem Laufenden, nicht mit Status-Mails.",
         "deliver": "Du siehst <b>[jede Woche Live-Builds]</b>"
       },
       "launch": {
         "phase": "Launch & Wachstum",
-        "title": "Wir launchen — und helfen beim Wachsen.",
+        "title": "Wir launchen und helfen beim Wachsen.",
         "body": "Wir gehen live, übergeben dir die Schlüssel und bleiben mit einem Marketingplan an Bord, damit es die richtigen Leute erreicht. Ein Plan statt Bauchgefühl.",
         "deliver": "Du bekommst <b>[einen Launch- & Wachstumsplan]</b>"
       }
     }
   },
   "fit": {
-    "title": "Wähl einen Startpunkt — <glow>den Rest gestalten wir gemeinsam.</glow>",
-    "sub": "So arbeiten wir meistens — kein festes Menü. Such dir das Passendste aus, klick auf den Button, und die Details klären wir in einem echten Gespräch.",
+    "title": "Wähl einen Startpunkt. <glow>Den Rest gestalten wir gemeinsam.</glow>",
+    "sub": "Das sind unsere üblichen Arbeitsweisen, kein festes Menü. Such dir das Passendste aus, klick auf den Button, und die Details klären wir in einem echten Gespräch.",
     "investment": "Investition",
     "price": "Lass uns reden",
     "popular": "Am beliebtesten",
@@ -144,8 +144,8 @@
     "packages": {
       "basic": {
         "name": "Basic",
-        "tag": "Eine One-Page- oder kleinere Website — klar, individuell und unverkennbar wir.",
-        "hint": "[Ab X € — besprechen wir im Gespräch]",
+        "tag": "Eine One-Page- oder kleinere Website. Klar, individuell und unverkennbar wir.",
+        "hint": "[Ab X €, mehr dazu im Gespräch]",
         "cta": "Projekt starten",
         "includes": [
           "Individuelles, responsives Design in unserem Stil",
@@ -157,8 +157,8 @@
       },
       "pro": {
         "name": "Pro",
-        "tag": "Eine größere, mehrseitige Website in unserem typischen animierten Stil — das volle Erlebnis.",
-        "hint": "[Ab X € — besprechen wir im Gespräch]",
+        "tag": "Eine größere, mehrseitige Website in unserem typischen animierten Stil. Das volle Erlebnis.",
+        "hint": "[Ab X €, mehr dazu im Gespräch]",
         "cta": "Projekt starten",
         "includes": [
           "Komplett maßgeschneidertes Design, mehrere Seiten",
@@ -169,7 +169,7 @@
       },
       "custom": {
         "name": "Custom",
-        "tag": "Apps & maßgeschneiderte Produkte — wenn du mehr als eine Website brauchst.",
+        "tag": "Apps & maßgeschneiderte Produkte für alles, was über eine Website hinausgeht.",
         "hint": "[Umfang klären wir pro Projekt im Gespräch]",
         "cta": "Lass uns planen",
         "includes": [
@@ -195,8 +195,8 @@
   },
   "contact": {
     "title": "Erzähl uns, wovon du <glow>träumst.</glow>",
-    "lede": "Ein paar kurze Fragen — eine nach der anderen, ganz ohne Druck. Egal wie unfertig die Idee ist, wir hören sie gern.",
-    "founders": "<b>Wir beide</b> lesen jede Nachricht — meistens antworten wir innerhalb eines Tages.",
+    "lede": "Ein paar kurze Fragen, eine nach der anderen, ganz ohne Druck. Egal wie unfertig die Idee ist, wir hören sie gern.",
+    "founders": "<b>Wir beide</b> lesen jede Nachricht und antworten meistens innerhalb eines Tages.",
     "foundersMeta": "{nameOne} & {nameTwo} · Co-Founder",
     "avatar1": "[Foto 1]",
     "avatar2": "[Foto 2]",
@@ -214,16 +214,16 @@
       "name": {
         "q": "Das Wichtigste zuerst",
         "ask": "Wie dürfen wir dich nennen?",
-        "hint": "Ganz ohne Förmlichkeiten — einfach der Name, den deine Freunde benutzen.",
+        "hint": "Ganz ohne Förmlichkeiten, einfach der Name, den deine Freunde benutzen.",
         "placeholder": "Dein Name",
-        "error": "Jeder Name passt — auch ein Spitzname."
+        "error": "Jeder Name passt, auch ein Spitzname."
       },
       "project": {
         "q": "Der spannende Teil",
         "ask": "Was baust du?",
-        "hint": "Eine Marke, eine Website, eine App, eine wilde Idee auf einer Serviette — erzähl’s uns in einem Satz.",
+        "hint": "Eine Marke, eine Website, eine App, eine wilde Idee auf einer Serviette. Erzähl’s uns in einem Satz.",
         "placeholder": "z. B. ein Onlineshop für unsere Kaffeerösterei",
-        "error": "Ein Satz reicht völlig — nur das Wesentliche."
+        "error": "Ein Satz reicht völlig. Nur das Wesentliche."
       },
       "timeline": {
         "q": "Damit wir planen können",
@@ -236,14 +236,14 @@
       "email": {
         "q": "Letzte Frage",
         "ask": "Wo erreichen wir dich?",
-        "hint": "Wir nutzen sie nur, um dir zu antworten — versprochen.",
+        "hint": "Wir nutzen sie nur, um dir zu antworten. Versprochen.",
         "placeholder": "name@beispiel.de",
         "error": "Diese E-Mail-Adresse sieht nicht ganz richtig aus."
       }
     },
     "done": {
       "q": "Das war’s",
-      "ask": "Danke — deine Nachricht ist unterwegs.",
+      "ask": "Danke! Deine Nachricht ist unterwegs.",
       "hint": "Ist angekommen. Rechne innerhalb eines Tages mit einer herzlichen, menschlichen Antwort."
     },
     "failed": "Beim Senden ist etwas schiefgelaufen. Versuch es gleich noch mal oder schreib uns direkt eine E-Mail."
@@ -252,7 +252,7 @@
     "studio": "Studio",
     "elsewhere": "Anderswo",
     "journal": "Zum Journal",
-    "status": "<b>{time}</b> in <city>[Novi Sad]</city> — {mood}",
+    "status": "<b>{time}</b> in <city>[Novi Sad]</city>, {mood}",
     "moods": [
       "wahrscheinlich noch am Bauen",
       "tief im Prototyp",

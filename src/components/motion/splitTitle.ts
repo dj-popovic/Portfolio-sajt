@@ -9,7 +9,7 @@ import { SplitText } from "@/lib/gsap";
 export function splitTitle(el: HTMLElement) {
   const split = SplitText.create(el, { type: "words", wordsClass: "rv-word", aria: "auto" });
 
-  el.querySelectorAll<HTMLElement>(".glow, .glow-light").forEach((glow) => {
+  el.querySelectorAll<HTMLElement>(".glow-fire").forEach((glow) => {
     const box = glow.getBoundingClientRect();
     const image = getComputedStyle(glow).backgroundImage;
     glow.querySelectorAll<HTMLElement>(".rv-word").forEach((word) => {

@@ -93,19 +93,19 @@
 }
 
 @layer components {
-  /* gradient "glow" words — dark sections */
-  .glow {
+  /* the one gradient on the site: the hero's "kind of fire." */
+  .glow-fire {
     background: linear-gradient(92deg, var(--color-amber), var(--color-ember) 60%, var(--color-ember-light));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-  /* gradient words on the light (paper) sections */
+  /* highlighted words in section titles: solid ember (flame on paper keeps 3:1 for large text) */
+  .glow {
+    color: var(--color-ember);
+  }
   .glow-light {
-    background: linear-gradient(92deg, var(--color-flame), var(--color-ember) 55%, var(--color-ember-light));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--color-flame);
   }
 
   /* primary pill — ember gradient */
@@ -116,7 +116,9 @@
       color-mix(in oklab, var(--color-amber) 34%, var(--color-ember)),
       var(--color-ember)
     );
-    box-shadow: 0 10px 34px color-mix(in oklab, var(--color-ember) 42%, transparent);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.22),
+      0 6px 16px -8px rgb(0 0 0 / 0.6);
     transition:
       transform 0.18s ease,
       box-shadow 0.18s ease;
@@ -124,7 +126,14 @@
   @media (hover: hover) {
     .btn-ember:hover {
       transform: translateY(-2px);
-      box-shadow: 0 16px 44px color-mix(in oklab, var(--color-ember) 55%, transparent);
+      box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.22),
+        0 10px 22px -10px rgb(0 0 0 / 0.65);
+    }
+    .btn-primary.btn-ember:hover {
+      box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.22),
+        0 10px 28px -12px color-mix(in oklab, var(--color-ember) 55%, transparent);
     }
   }
   .btn-ember:active {
@@ -144,7 +153,7 @@
       var(--color-ember) 55%,
       var(--color-ember-deep) 100%
     );
-    box-shadow: 0 4px 18px color-mix(in oklab, var(--color-ember) 45%, transparent);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.25);
   }
 }
 

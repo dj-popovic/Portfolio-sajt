@@ -3,7 +3,7 @@ import Magnet from "@/components/reactbits/Magnet";
 import { HeroIntro } from "@/components/sections/HeroIntro";
 import { HeroFallbackNebula } from "@/components/three/NebulaLayer";
 import { PlayIcon } from "@/components/ui/icons";
-import { richDark } from "@/lib/rich";
+import { richHero } from "@/lib/rich";
 
 export function Hero() {
   const t = useTranslations("hero");
@@ -20,7 +20,7 @@ export function Hero() {
       <div className="hero-inner">
         <div className="hero-content">
           <h1 className="hero-title" data-hero="title">
-            {t.rich("title", richDark)}
+            {t.rich("title", richHero)}
           </h1>
           <p className="hero-sub" data-hero="sub">
             {t("sub")}

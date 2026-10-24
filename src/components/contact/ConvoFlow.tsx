@@ -174,8 +174,9 @@ export function ConvoFlow() {
             key={done ? "done" : step}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.32, ease: EASE }}
+            // the old question leaves fast, so the next one is there within ~0.4s
+            exit={{ opacity: 0, y: -6, transition: { duration: 0.14, ease: EASE } }}
+            transition={{ duration: 0.26, ease: EASE }}
           >
             <span className="convo-q">
               <span className="qdot" aria-hidden />

@@ -14,7 +14,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 28px clamp(24px, 5vw, 76px);
+  padding: 20px clamp(24px, 5vw, 76px); /* build: scale */
 }
 .nav-logo {
   display: inline-flex;
@@ -199,14 +199,14 @@
 .hero-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.9rem, 6.6vw, 6rem);
+  font-size: clamp(2.5rem, 5vw, 4.5rem); /* build: scale */
   line-height: 0.99;
   letter-spacing: -0.02em;
   text-wrap: balance;
   margin-bottom: 30px;
 }
 .hero-sub {
-  font-size: clamp(1rem, 1.35vw, 1.22rem);
+  font-size: clamp(1rem, 1.15vw, 1.075rem); /* build: scale */
   line-height: 1.6;
   color: color-mix(in oklab, var(--text) 80%, transparent);
   max-width: 50ch;
@@ -223,8 +223,8 @@
   display: inline-flex;
   align-items: center;
   font-weight: 600;
-  font-size: 16px;
-  padding: 16px 30px;
+  font-size: 15px; /* build: scale */
+  padding: 13px 24px; /* build: scale */
   border-radius: 999px;
   text-decoration: none;
 }
@@ -233,9 +233,9 @@
   align-items: center;
   gap: 13px;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px; /* build: scale */
   color: var(--text);
-  padding: 15px 26px 15px 16px;
+  padding: 12px 22px 12px 13px; /* build: scale */
   border-radius: 999px;
   border: 1px solid color-mix(in oklab, var(--text) 18%, transparent);
   background: color-mix(in oklab, var(--surface) 50%, transparent);
@@ -250,8 +250,8 @@
   background: color-mix(in oklab, var(--surface) 78%, transparent);
 }
 .btn-ghost .play {
-  width: 34px;
-  height: 34px;
+  width: 30px; /* build: scale */
+  height: 30px;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -316,7 +316,7 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 1500px;
+  max-width: 1280px; /* build: scale */
   margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(220px, 1fr) minmax(380px, 1.3fr) minmax(220px, 1fr);
@@ -333,7 +333,7 @@
   align-content: center;
   gap: 10px;
   width: 100%;
-  height: clamp(300px, 26vw, 380px);
+  height: clamp(260px, 22vw, 320px); /* build: scale */
   border-radius: 18px;
   box-shadow:
     0 30px 60px -24px rgba(60, 24, 8, 0.45),
@@ -385,7 +385,7 @@
 .about-center h2 {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2rem, 3.6vw, 3.4rem);
+  font-size: clamp(1.75rem, 2.9vw, 2.6rem); /* build: scale */
   line-height: 1.04;
   letter-spacing: -0.02em;
   text-wrap: balance;
@@ -415,7 +415,7 @@
 .about-stats .n {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-size: clamp(1.35rem, 2vw, 1.75rem); /* build: scale */
   color: var(--color-ink);
 }
 .about-stats .l {
@@ -456,7 +456,7 @@
   position: relative;
   background: var(--base);
   color: var(--text);
-  padding: clamp(90px, 12vh, 160px) clamp(24px, 5vw, 76px);
+  padding: clamp(72px, 10vh, 120px) clamp(24px, 5vw, 76px); /* build: scale */
   overflow: hidden;
   isolation: isolate;
 }
@@ -481,7 +481,7 @@
   justify-content: space-between;
   gap: 40px;
   flex-wrap: wrap;
-  margin-bottom: clamp(40px, 6vh, 72px);
+  margin-bottom: clamp(32px, 5vh, 56px); /* build: scale */
 }
 .sec-head .lead {
   max-width: 700px;
@@ -489,7 +489,7 @@
 .sec-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2rem, 4.4vw, 3.6rem);
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem); /* build: scale */
   line-height: 1.02;
   letter-spacing: -0.02em;
   text-wrap: balance;
@@ -513,8 +513,8 @@
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  min-height: 368px;
-  padding: 30px 26px 26px;
+  min-height: 312px; /* build: scale */
+  padding: 26px 22px 22px; /* build: scale */
   border-radius: 20px;
   background: linear-gradient(
     180deg,
@@ -587,7 +587,7 @@
 .svc-card h3 {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.35rem;
+  font-size: 1.2rem; /* build: scale */
   letter-spacing: -0.01em;
   margin: 26px 0 10px;
 }
@@ -659,7 +659,7 @@
   position: relative;
   background: var(--light);
   color: var(--color-ink);
-  padding: clamp(96px, 13vh, 170px) clamp(24px, 5vw, 76px) clamp(80px, 10vh, 130px);
+  padding: clamp(76px, 10vh, 128px) clamp(24px, 5vw, 76px) clamp(64px, 8vh, 100px); /* build: scale */
   overflow: hidden;
   isolation: isolate;
 }
@@ -910,7 +910,7 @@
   position: relative;
   background: var(--base);
   color: var(--text);
-  padding: clamp(96px, 13vh, 170px) clamp(24px, 5vw, 76px) clamp(96px, 13vh, 160px);
+  padding: clamp(76px, 10vh, 128px) clamp(24px, 5vw, 76px); /* build: scale */
   overflow: hidden;
   isolation: isolate;
 }
@@ -931,7 +931,7 @@
 }
 .process-head {
   max-width: 760px;
-  margin-bottom: clamp(46px, 7vh, 84px);
+  margin-bottom: clamp(36px, 5.5vh, 64px); /* build: scale */
 }
 .process .sec-title {
   margin-top: 22px;
@@ -994,7 +994,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: clamp(40px, 7vh, 84px);
+  gap: clamp(32px, 5.5vh, 64px); /* build: scale */
 }
 .tl-step {
   position: relative;
@@ -1033,7 +1033,7 @@
 .tl-num {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem); /* build: scale */
   line-height: 1;
   letter-spacing: -0.02em;
   color: color-mix(in oklab, var(--text) 20%, transparent);
@@ -1063,7 +1063,7 @@
   text-wrap: balance; /* build */
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  font-size: clamp(1.25rem, 1.9vw, 1.6rem); /* build: scale */
   letter-spacing: -0.01em;
   margin: 0 0 12px;
   color: color-mix(in oklab, var(--text) 62%, transparent);
@@ -1127,7 +1127,7 @@
   position: relative;
   background: var(--light);
   color: var(--color-ink);
-  padding: clamp(96px, 14vh, 180px) clamp(24px, 5vw, 76px) clamp(96px, 13vh, 170px);
+  padding: clamp(76px, 10vh, 128px) clamp(24px, 5vw, 76px); /* build: scale */
   overflow: hidden;
   isolation: isolate;
 }
@@ -1150,12 +1150,12 @@
 .fit-head {
   text-align: center;
   max-width: 760px;
-  margin: 0 auto clamp(46px, 7vh, 76px);
+  margin: 0 auto clamp(36px, 5.5vh, 60px); /* build: scale */
 }
 .fit-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2rem, 4.4vw, 3.5rem);
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem); /* build: scale */
   line-height: 1.03;
   letter-spacing: -0.02em;
   text-wrap: balance;
@@ -1180,7 +1180,7 @@
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  padding: 34px 30px 32px;
+  padding: 28px 26px 28px; /* build: scale */
   border-radius: 24px;
   background: #ffffff;
   border: 1px solid color-mix(in oklab, #2a211c 11%, transparent);
@@ -1216,7 +1216,7 @@
 .pkg-name {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.45rem;
+  font-size: 1.3rem; /* build: scale */
   letter-spacing: -0.01em;
   color: var(--color-ink);
 }
@@ -1247,7 +1247,7 @@
 .price-val {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.9rem;
+  font-size: 1.6rem; /* build: scale */
   line-height: 1;
   letter-spacing: -0.01em;
   color: var(--color-ink);
@@ -1338,7 +1338,7 @@
   background: linear-gradient(180deg, #221913, var(--surface));
   color: var(--text);
   border: 1px solid color-mix(in oklab, var(--accent) 55%, transparent);
-  --lift: -22px;
+  --lift: -16px; /* build: scale */
   box-shadow:
     0 0 0 1px color-mix(in oklab, var(--accent) 22%, transparent),
     0 44px 80px -40px color-mix(in oklab, var(--accent) 60%, transparent),
@@ -1361,7 +1361,7 @@
 }
 @media (hover: hover) {
   .pkg.featured:hover {
-    --lift: -30px;
+    --lift: -24px; /* build: scale */
     --rot: -0.5deg;
     border-color: color-mix(in oklab, var(--accent) 70%, transparent);
     box-shadow:
@@ -1579,7 +1579,7 @@
   position: relative;
   background: var(--base);
   color: var(--text);
-  padding: clamp(110px, 15vh, 180px) clamp(24px, 5vw, 76px) clamp(120px, 16vh, 190px);
+  padding: clamp(80px, 11vh, 132px) clamp(24px, 5vw, 76px) clamp(88px, 12vh, 140px); /* build: scale */
   overflow: hidden;
   isolation: isolate;
 }
@@ -1619,7 +1619,7 @@
 .presence h2 {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.9rem, 3.4vw, 3rem);
+  font-size: clamp(1.65rem, 2.8vw, 2.4rem); /* build: scale */
   line-height: 1.04;
   letter-spacing: -0.02em;
   text-wrap: balance;
@@ -1704,7 +1704,7 @@
   );
   border: 1px solid var(--hairline);
   border-radius: 26px;
-  padding: clamp(28px, 3.4vw, 46px);
+  padding: clamp(24px, 2.8vw, 38px); /* build: scale */
   box-shadow: 0 40px 90px -50px rgba(0, 0, 0, 0.8);
   overflow: hidden;
 }
@@ -1760,7 +1760,7 @@
 .convo-body {
   position: relative;
   z-index: 1;
-  min-height: 188px;
+  min-height: 168px; /* build: scale */
 }
 .convo-q {
   display: flex;
@@ -1781,7 +1781,7 @@
 .convo-ask {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(1.5rem, 2.6vw, 2.15rem);
+  font-size: clamp(1.35rem, 2.1vw, 1.75rem); /* build: scale */
   line-height: 1.08;
   letter-spacing: -0.015em;
   margin: 0 0 8px;
@@ -1799,7 +1799,7 @@
 }
 .convo-field input {
   width: 100%;
-  font-size: clamp(1.15rem, 1.8vw, 1.6rem);
+  font-size: clamp(1.05rem, 1.4vw, 1.3rem); /* build: scale */
   font-weight: 500;
   color: var(--text);
   background: transparent;
@@ -1941,7 +1941,7 @@
   position: relative;
   background: var(--darkest);
   color: var(--text);
-  padding: clamp(70px, 9vh, 110px) clamp(24px, 5vw, 76px) 0;
+  padding: clamp(56px, 8vh, 90px) clamp(24px, 5vw, 76px) 0; /* build: scale */
   overflow: hidden;
   isolation: isolate;
 }
@@ -1979,14 +1979,14 @@
   display: grid;
   grid-template-columns: 1.3fr 1fr;
   gap: clamp(32px, 5vw, 72px);
-  padding-bottom: clamp(48px, 7vh, 80px);
+  padding-bottom: clamp(40px, 6vh, 64px); /* build: scale */
   border-bottom: 1px solid var(--hairline);
 }
 .f-email {
   display: inline-block;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(1.7rem, 4vw, 3rem);
+  font-size: clamp(1.5rem, 3.2vw, 2.4rem); /* build: scale */
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--text);

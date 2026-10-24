@@ -15,7 +15,7 @@ export function Process() {
           <h2 className="sec-title" data-reveal="title">
             {t.rich("title", richDark)}
           </h2>
-          <p className="process-sub" data-reveal="fade" data-reveal-delay="0.25">
+          <p className="process-sub" data-reveal="fade" data-reveal-delay="0.15">
             {t("sub")}
           </p>
         </div>

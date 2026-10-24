@@ -8,7 +8,7 @@ import { CheckIcon, PlusIcon } from "@/components/ui/icons";
 
 // Package card shell: the server renders its content, this adds the pointer tilt.
 export function PackageCard(props: ComponentProps<"article">) {
-  return <article {...props} onPointerMove={(e) => tiltMove(e, 4)} onPointerLeave={tiltLeave} />;
+  return <article {...props} onPointerMove={(e) => tiltMove(e, 3)} onPointerLeave={tiltLeave} />;
 }
 
 // Package button: remembers the choice, then the anchor scrolls to Contact.

@@ -31,7 +31,7 @@ export function WorkGallery() {
   const [open, setOpen] = useState<{ key: DemoKey; kind: "web" | "app"; origin: HTMLElement } | null>(null);
 
   return (
-    <div className="work-grid" data-reveal-group data-reveal-stagger="0.1">
+    <div className="work-grid" data-reveal-group data-reveal-stagger="0.06">
       {CONCEPTS.map(({ key, kind, stage, Preview }) => (
         <ConceptCard
           key={key}

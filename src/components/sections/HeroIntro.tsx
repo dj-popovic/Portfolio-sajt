@@ -22,25 +22,25 @@ export function HeroIntro() {
             split.words,
             {
               autoAlpha: 0,
-              yPercent: 40,
-              filter: "blur(14px)",
-              duration: 1.2,
-              stagger: 0.07,
+              yPercent: 30,
+              filter: "blur(8px)",
+              duration: 1,
+              stagger: 0.06,
               onComplete: () => split?.revert(),
             },
             0.25,
           );
         }
-        tl.fromTo('[data-hero="nav"]', { autoAlpha: 0, y: -14 }, { autoAlpha: 1, y: 0, duration: 0.9 }, 0.1)
-          .fromTo('[data-hero="sub"]', { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 1 }, 0.85)
+        tl.fromTo('[data-hero="nav"]', { autoAlpha: 0, y: -10 }, { autoAlpha: 1, y: 0, duration: 0.7 }, 0.1)
+          .fromTo('[data-hero="sub"]', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.8 }, 0.7)
           .fromTo(
             '[data-hero="actions"] > *',
-            { autoAlpha: 0, y: 18 },
-            { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.1, clearProps: "transform" },
-            1.0,
+            { autoAlpha: 0, y: 12 },
+            { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.06, clearProps: "transform" },
+            0.85,
           )
-          .fromTo('[data-hero="actions"]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 1.0)
-          .fromTo('[data-hero="cue"]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.2 }, 1.6);
+          .fromTo('[data-hero="actions"]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 0.85)
+          .fromTo('[data-hero="cue"]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8 }, 1.3);
       };
 
       if (document.fonts?.status === "loaded") play();

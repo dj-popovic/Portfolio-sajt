@@ -8,7 +8,7 @@ import { gsap } from "@/lib/gsap";
  */
 export function prepareSweep(el: HTMLElement) {
   el.classList.add("rv-sweep");
-  gsap.set(el, { "--rv": 0, filter: "blur(10px)", y: 14, autoAlpha: 1 });
+  gsap.set(el, { "--rv": 0, filter: "blur(4px)", y: 8, autoAlpha: 1 });
 }
 
 export function sweepTo(el: HTMLElement, vars: gsap.TweenVars = {}) {
@@ -16,7 +16,7 @@ export function sweepTo(el: HTMLElement, vars: gsap.TweenVars = {}) {
     "--rv": 1,
     filter: "blur(0px)",
     y: 0,
-    duration: 1.25,
+    duration: 0.8,
     ease: "power2.out",
     ...vars,
   });

@@ -526,9 +526,9 @@
   /* build: lift + pointer tilt (--rx/--ry written by ServiceCard) */
   transform: perspective(1000px) translateY(var(--lift, 0px)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition:
-    transform 0.4s var(--ease-ember),
-    border-color 0.4s ease,
-    box-shadow 0.4s ease;
+    transform 0.25s var(--ease-ember),
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 /* cursor-following ember glow */
 .svc-card::before {
@@ -542,7 +542,7 @@
     color-mix(in oklab, var(--accent) 24%, transparent),
     transparent 60%
   );
-  transition: opacity 0.4s ease;
+  transition: opacity 0.25s ease;
 }
 @media (hover: hover) {
   .svc-card:hover {
@@ -581,8 +581,8 @@
   background: color-mix(in oklab, var(--accent) 12%, transparent);
   border: 1px solid color-mix(in oklab, var(--accent) 24%, transparent);
   transition:
-    transform 0.4s var(--ease-ember),
-    color 0.3s ease;
+    transform 0.25s var(--ease-ember),
+    color 0.2s ease;
 }
 .svc-card h3 {
   font-family: var(--font-display);
@@ -709,9 +709,9 @@
     0 1px 2px rgba(60, 24, 8, 0.05),
     0 30px 50px -28px rgba(60, 24, 8, 0.3);
   transition:
-    transform 0.45s var(--ease-ember),
-    box-shadow 0.45s ease,
-    border-color 0.45s ease;
+    transform 0.25s var(--ease-ember),
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 @media (hover: hover) {
   .concept-card:hover {
@@ -1188,9 +1188,9 @@
     0 24px 50px -32px rgba(60, 24, 8, 0.34),
     0 3px 10px rgba(60, 24, 8, 0.06);
   transition:
-    transform 0.42s var(--ease-ember),
-    border-color 0.42s ease,
-    box-shadow 0.42s ease;
+    transform 0.25s var(--ease-ember),
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
   will-change: transform;
   /* build: lift + pointer tilt (--rx/--ry written by PackageCard) */
   transform: perspective(1100px) translateY(var(--lift, 0px)) rotate(var(--rot, 0deg)) rotateX(var(--rx, 0deg))
@@ -1693,20 +1693,7 @@
   height: 7px;
   border-radius: 50%;
   flex: 0 0 auto;
-  background: var(--accent);
-  box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 60%, transparent);
-  animation: contactPulse 2.6s ease-out infinite;
-}
-@keyframes contactPulse {
-  0% {
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 55%, transparent);
-  }
-  70% {
-    box-shadow: 0 0 0 9px transparent;
-  }
-  100% {
-    box-shadow: 0 0 0 0 transparent;
-  }
+  background: var(--accent); /* build: static — nothing here is live */
 }
 .convo {
   position: relative;

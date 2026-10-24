@@ -22,12 +22,12 @@ export function Fit() {
           <h2 className="fit-title" data-reveal="title">
             {t.rich("title", richLight)}
           </h2>
-          <p className="fit-sub" data-reveal="fade" data-reveal-delay="0.25">
+          <p className="fit-sub" data-reveal="fade" data-reveal-delay="0.15">
             {t("sub")}
           </p>
         </div>
 
-        <div className="fit-grid" data-reveal-group data-reveal-stagger="0.12">
+        <div className="fit-grid" data-reveal-group data-reveal-stagger="0.06">
           {PACKAGES.map((key) => {
             const featured = key === "pro";
             const includes = t.raw(`packages.${key}.includes`) as string[];

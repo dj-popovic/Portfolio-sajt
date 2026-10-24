@@ -16,7 +16,7 @@ export function ServiceCard({ num, title, desc, tags, icon }: ServiceCardProps) 
   return (
     <article
       className="svc-card"
-      onPointerMove={(e) => tiltMove(e, 5)}
+      onPointerMove={(e) => tiltMove(e, 4)}
       onPointerLeave={tiltLeave}
       data-card
       data-reveal-item

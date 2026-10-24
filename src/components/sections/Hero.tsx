@@ -1,5 +1,4 @@
 import { useTranslations } from "next-intl";
-import Magnet from "@/components/reactbits/Magnet";
 import { HeroIntro } from "@/components/sections/HeroIntro";
 import { HeroFallbackNebula } from "@/components/three/NebulaLayer";
 import { PlayIcon } from "@/components/ui/icons";
@@ -26,19 +25,15 @@ export function Hero() {
             {t("sub")}
           </p>
           <div className="hero-actions" data-hero="actions">
-            <Magnet padding={60} magnetStrength={5} maxOffset={10}>
-              <a href="#contact" className="btn-primary btn-ember">
-                {t("primary")}
-              </a>
-            </Magnet>
-            <Magnet padding={60} magnetStrength={6} maxOffset={8}>
-              <a href="#work" className="btn-ghost">
-                <span className="play" aria-hidden>
-                  <PlayIcon />
-                </span>
-                {t("secondary")}
-              </a>
-            </Magnet>
+            <a href="#contact" className="btn-primary btn-ember">
+              {t("primary")}
+            </a>
+            <a href="#work" className="btn-ghost">
+              <span className="play" aria-hidden>
+                <PlayIcon />
+              </span>
+              {t("secondary")}
+            </a>
           </div>
         </div>
       </div>

@@ -34,15 +34,14 @@ export function Reveals() {
           if (el.closest("[data-manual-reveal]")) return;
           gsap.fromTo(
             el,
-            { autoAlpha: 0, y: 22, filter: "blur(6px)" },
+            { autoAlpha: 0, y: 12 },
             {
               autoAlpha: 1,
               y: 0,
-              filter: "blur(0px)",
-              duration: 1,
+              duration: 0.6,
               ease: "power3.out",
               delay: Number(el.dataset.revealDelay ?? 0.1),
-              clearProps: "filter,transform",
+              clearProps: "transform",
               scrollTrigger: { trigger: el, start: "top 88%", once: true },
             },
           );
@@ -56,15 +55,14 @@ export function Reveals() {
           items.forEach((item) => item.classList.add("rv-busy"));
           gsap.fromTo(
             items,
-            { autoAlpha: 0, y: 56, filter: "blur(8px)" },
+            { autoAlpha: 0, y: 20 },
             {
               autoAlpha: 1,
               y: 0,
-              filter: "blur(0px)",
-              duration: 1.15,
+              duration: 0.7,
               ease: "expo.out",
-              stagger: Number(group.dataset.revealStagger ?? 0.09),
-              clearProps: "filter,transform",
+              stagger: Number(group.dataset.revealStagger ?? 0.06),
+              clearProps: "transform",
               scrollTrigger: { trigger: group, start: "top 84%", once: true },
               onComplete: () => items.forEach((item) => item.classList.remove("rv-busy")),
             },
@@ -79,8 +77,8 @@ export function Reveals() {
             {
               "--ignite-angle": "150deg",
               "--ignite": 1,
-              duration: 1.8,
-              delay: 0.5,
+              duration: 1.2,
+              delay: 0.3,
               ease: "power2.inOut",
               scrollTrigger: { trigger: el, start: "top 80%", once: true },
             },

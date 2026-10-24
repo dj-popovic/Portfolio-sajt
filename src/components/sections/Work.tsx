@@ -17,7 +17,7 @@ export function Work() {
               {t.rich("title", richLight)}
             </h2>
           </div>
-          <p className="note" data-reveal="fade" data-reveal-delay="0.3">
+          <p className="note" data-reveal="fade" data-reveal-delay="0.15">
             <span className="hover-only">{t.rich("note", richLight)}</span>
             <span className="touch-only">{t.rich("noteTouch", richLight)}</span>
           </p>

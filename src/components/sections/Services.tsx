@@ -24,7 +24,7 @@ export function Services() {
               {t.rich("title", richDark)}
             </h2>
           </div>
-          <p className="note" data-reveal="fade" data-reveal-delay="0.3">
+          <p className="note" data-reveal="fade" data-reveal-delay="0.15">
             {t("note")}
           </p>
         </div>

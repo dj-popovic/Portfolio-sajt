@@ -22,7 +22,7 @@ export function Footer() {
               hello@<span className="ph">{PLACEHOLDER.studio}</span>.com
             </a>
           </div>
-          <div className="f-nav" data-reveal="fade" data-reveal-delay="0.2">
+          <div className="f-nav" data-reveal="fade" data-reveal-delay="0.15">
             <div className="f-col">
               <h4>{t("studio")}</h4>
               <ul>

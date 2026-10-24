@@ -16,11 +16,11 @@ export function Contact() {
         <div className="contact-grid" data-reveal-group data-reveal-stagger="0">
           <div className="presence">
             <h2 data-reveal="title">{t.rich("title", richDark)}</h2>
-            <p className="lede" data-reveal="fade" data-reveal-delay="0.25">
+            <p className="lede" data-reveal="fade" data-reveal-delay="0.15">
               {t("lede")}
             </p>
 
-            <div className="founders" data-reveal="fade" data-reveal-delay="0.4">
+            <div className="founders" data-reveal="fade" data-reveal-delay="0.25">
               <div className="founder-avatars">
                 {/* TODO(photos): founder avatars — see docs/OPEN-ITEMS.md */}
                 <span className="founder-avatar" role="img" aria-label={t("avatar1")}>

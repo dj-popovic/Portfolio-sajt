@@ -92,3 +92,16 @@ export const ImageIcon = (p: IconProps) => (
     <path d="m21 16-5.2-5.2a1.5 1.5 0 0 0-2.1 0L5 19.5" />
   </svg>
 );
+
+export const GlobeIcon = (p: IconProps) => (
+  <svg {...base({ size: 15, ...p })} strokeWidth={1.8}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M3 12h18M12 3c2.4 2.5 3.6 5.5 3.6 9s-1.2 6.5-3.6 9c-2.4-2.5-3.6-5.5-3.6-9S9.6 5.5 12 3z" />
+  </svg>
+);
+
+export const ChevronDownIcon = (p: IconProps) => (
+  <svg {...base({ size: 12, ...p })} strokeWidth={2.4}>
+    <path d="m6 9 6 6 6-6" />
+  </svg>
+);

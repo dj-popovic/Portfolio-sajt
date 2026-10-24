@@ -64,7 +64,7 @@ Small text from the design palette was nudged up to WCAG AA (4.5:1 for normal te
 | How we work — phase tags and "you get" lines | 3.4 / 4.2:1 | 50% cream, 4.8:1 |
 | How we work — big step numbers before they light up | 1.7:1 | 38% cream, 3.2:1 (large text) |
 | Hero — "Scroll" cue | 3.7:1 | 50% cream, 4.8:1 |
-| Nav — inactive language codes | 2.3:1 | 4.6:1 |
+| Nav — inactive language codes (since replaced by the language dropdown) | 2.3:1 | 4.6:1 |
 | Contact — input placeholder | 2.5:1 | 4.7:1 |
 | Photo placeholder labels (About cards, Contact avatars) | 2.7 / 3.2:1 | 4.6 / 4.7:1, until real photos replace them |
 
@@ -72,6 +72,7 @@ Still flagged by the Impeccable detector, on purpose:
 
 - The miniature site previews on the Work cards. They're pictures of the concept sites (hidden from screen readers), so text contrast rules don't apply to them.
 - The ember gradient on the hero headline's highlighted words, now the only gradient text on the page.
+- The soft ember glow on the header's Start a project button (asked for in the header redesign).
 - The pulsing dot next to the footer's local clock. It marks a live value, so it stays.
 - Inter as the body font: a brief decision.
 - Striped image placeholders inside the previews and the coffee concept. They go away with the photos (section 1).

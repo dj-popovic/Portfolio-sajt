@@ -21,6 +21,7 @@
     "process": "Proces",
     "cta": "Započnite projekat",
     "language": "Jezik",
+    "languageCurrent": "Jezik: {name}",
     "menu": "Meni",
     "close": "Zatvori meni"
   },

@@ -21,6 +21,7 @@
     "process": "Ablauf",
     "cta": "Projekt starten",
     "language": "Sprache",
+    "languageCurrent": "Sprache: {name}",
     "menu": "Menü",
     "close": "Menü schließen"
   },

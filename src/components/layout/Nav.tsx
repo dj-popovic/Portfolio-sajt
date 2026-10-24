@@ -3,8 +3,8 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useScroll } from "@/components/motion/SmoothScroll";
+import { LangMenu } from "@/components/layout/LangMenu";
 import { ScrollTrigger } from "@/lib/gsap";
-import { cn } from "@/lib/cn";
 import { AnimatePresence, motion } from "motion/react";
 import { Link } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
@@ -12,75 +12,75 @@ import { BurgerIcon, CloseIcon } from "@/components/ui/icons";
 import { PLACEHOLDER } from "@/lib/placeholders";
 
 const SECTIONS = ["about", "services", "work", "process"] as const;
+type Section = (typeof SECTIONS)[number];
+
+/** The section under the middle of the screen (the pinned About included), or null in the hero and after Process. */
+function useActiveSection() {
+  const [active, setActive] = useState<Section | null>(null);
+  useEffect(() => {
+    let raf = 0;
+    const spy = () => {
+      raf = 0;
+      const line = window.innerHeight * 0.45;
+      let current: Section | null = null;
+      for (const id of SECTIONS) {
+        const r = document.getElementById(id)?.getBoundingClientRect();
+        if (r && r.top <= line && r.bottom > line) current = id;
+      }
+      setActive(current);
+    };
+    const st = ScrollTrigger.create({
+      start: 0,
+      end: "max",
+      onUpdate: () => {
+        if (!raf) raf = requestAnimationFrame(spy);
+      },
+    });
+    spy();
+    return () => {
+      cancelAnimationFrame(raf);
+      st.kill();
+    };
+  }, []);
+  return active;
+}
 
 export function Nav() {
   const t = useTranslations("nav");
   const tc = useTranslations("common");
   const locale = useLocale() as Locale;
   const [open, setOpen] = useState(false);
-  const [stuck, setStuck] = useState(false);
+  const active = useActiveSection();
   const closeMenu = useCallback(() => setOpen(false), []);
-
-  // after the hero, the nav turns into a compact glass bar that stays with you
-  useEffect(() => {
-    const hero = document.querySelector<HTMLElement>("#top");
-    if (!hero) return;
-    const st = ScrollTrigger.create({
-      start: () => hero.offsetHeight - 90,
-      end: "max",
-      onToggle: (self) => setStuck(self.isActive),
-    });
-    return () => st.kill();
-  }, []);
-
-  // phones: the language pill opens the menu (it holds the full switcher)
-  const openMenuOnPhone = (e: React.MouseEvent) => {
-    if (window.matchMedia("(max-width: 560px)").matches) {
-      e.preventDefault();
-      setOpen(true);
-    }
-  };
 
   return (
     <>
-      <nav className={cn("site-nav", stuck && "is-stuck")} aria-label={t("primary")} data-hero="nav">
-        <a href="#top" className="nav-logo" aria-label={tc("logoAria")}>
+      <nav className="site-nav" aria-label={t("primary")} data-hero="nav">
+        <a href="#top" className="nav-logo glass" aria-label={tc("logoAria")}>
           <span className="logo-mark" aria-hidden>
             ★
           </span>
           <span className="ph">{PLACEHOLDER.logo}</span>
         </a>
 
-        <div className="nav-links">
+        <div className="nav-links glass">
           {SECTIONS.map((id) => (
-            <a key={id} href={`#${id}`}>
-              {t(id)}
+            <a key={id} href={`#${id}`} aria-current={active === id ? "true" : undefined}>
+              {active === id ? (
+                <motion.span
+                  layoutId="nav-thumb"
+                  className="nav-thumb"
+                  aria-hidden
+                  transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
+                />
+              ) : null}
+              <span className="label">{t(id)}</span>
             </a>
           ))}
         </div>
 
         <div className="nav-right">
-          <div className="lang" role="group" aria-label={t("language")}>
-            {routing.locales.map((code, i) => (
-              <span key={code} className={code === locale ? "lang-current" : "lang-rest"}>
-                {i > 0 ? (
-                  <span className="dotsep lang-rest" aria-hidden>
-                    ·{" "}
-                  </span>
-                ) : null}
-                <Link
-                  href="/"
-                  locale={code}
-                  aria-current={code === locale ? "true" : undefined}
-                  lang={code}
-                  title={tc(`languages.${code}`)}
-                  onClick={code === locale ? openMenuOnPhone : undefined}
-                >
-                  {code.toUpperCase()}
-                </Link>
-              </span>
-            ))}
-          </div>
+          <LangMenu locale={locale} className="nav-lang" />
 
           <a href="#contact" className="nav-cta btn-ember">
             {t("cta")}
@@ -88,7 +88,7 @@ export function Nav() {
 
           <button
             type="button"
-            className="nav-burger"
+            className="nav-burger glass"
             aria-label={t("menu")}
             aria-expanded={open}
             aria-controls="mobile-menu"
@@ -146,26 +146,26 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
       role="dialog"
       aria-modal="true"
       aria-label={t("menu")}
-      className="fixed inset-0 z-[100] flex flex-col bg-base/95 px-gutter pt-7 pb-10 backdrop-blur-xl"
+      className="fixed inset-0 z-[100] flex flex-col bg-base/95 px-[clamp(16px,3vw,40px)] pt-4 pb-10 backdrop-blur-xl"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25, ease: [0.25, 1, 0.5, 1] }}
     >
       <div className="flex items-center justify-between">
-        <span className="nav-logo">
-          <span className="logo-mark h-[30px] w-[30px] rounded-[9px] text-[10px]" aria-hidden>
+        <span className="nav-logo glass">
+          <span className="logo-mark" aria-hidden>
             ★
           </span>
           <span className="ph">{PLACEHOLDER.logo}</span>
         </span>
-        <button type="button" className="nav-burger !grid" aria-label={t("close")} onClick={onClose}>
+        <button type="button" className="nav-burger glass !grid" aria-label={t("close")} onClick={onClose}>
           <CloseIcon size={16} />
         </button>
       </div>
 
       <motion.ul
-        className="mt-14 flex flex-col gap-2"
+        className="mt-14 flex flex-col gap-2 px-2"
         initial="hidden"
         animate="show"
         variants={{ show: { transition: { staggerChildren: 0.05, delayChildren: 0.05 } } }}
@@ -189,7 +189,7 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
         ))}
       </motion.ul>
 
-      <div className="mt-auto">
+      <div className="mt-auto px-2">
         <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-cream/58">{t("language")}</p>
         <div className="grid grid-cols-2 gap-2">
           {routing.locales.map((code) => (

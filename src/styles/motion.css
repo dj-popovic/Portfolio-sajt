@@ -133,24 +133,6 @@ main,
   }
 }
 
-/* nav: compact glass bar once the hero is behind you */
-.site-nav.is-stuck {
-  position: fixed;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  background: color-mix(in oklab, var(--base) 70%, transparent);
-  -webkit-backdrop-filter: blur(16px) saturate(1.3);
-  backdrop-filter: blur(16px) saturate(1.3);
-  border-bottom: 1px solid var(--hairline);
-  animation: navDrop 0.55s var(--ease-out-quart) both;
-}
-@keyframes navDrop {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-}
-
 /* Pro card: the ember border "ignites" with a sweep when it lands */
 @property --ignite-angle {
   syntax: "<angle>";

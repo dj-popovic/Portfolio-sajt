@@ -986,30 +986,67 @@
   margin: 0 auto;
   text-wrap: pretty;
 }
-.about-divider {
-  width: 54px;
-  height: 2px;
-  margin: 30px auto;
-  background: linear-gradient(90deg, var(--accent2), var(--accent));
-  border-radius: 2px;
-}
+/* build: the stats sit on a plate of the founder cards' dark material, so the
+   centre column belongs with the cards either side of it */
 .about-stats {
-  display: flex;
-  justify-content: center;
-  gap: clamp(24px, 4vw, 48px);
-  margin-top: 6px;
+  position: relative;
+  display: inline-flex;
+  margin-top: 32px;
+  padding: 16px 6px;
+  border-radius: 22px;
+  color: var(--text);
+  background:
+    radial-gradient(120% 90% at 50% 125%, rgb(255 140 60 / 0.24), transparent 62%),
+    linear-gradient(170deg, #241b16, #130e0c 70%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.1),
+    0 30px 50px -28px rgb(42 33 28 / 0.6),
+    0 10px 20px -12px rgb(42 33 28 / 0.35);
+}
+.about-stats::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    165deg,
+    rgb(255 255 255 / 0.26),
+    rgb(255 255 255 / 0.04) 40%,
+    rgb(255 140 60 / 0.08) 65%,
+    rgb(255 140 60 / 0.45)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.about-stats .stat {
+  position: relative;
+  padding: 2px clamp(18px, 2.6vw, 32px);
+}
+.about-stats .stat + .stat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 14%;
+  bottom: 14%;
+  width: 1px;
+  background: rgb(255 255 255 / 0.09);
 }
 .about-stats .n {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.35rem, 2vw, 1.75rem); /* build: scale */
-  color: var(--color-ink);
+  font-size: clamp(1.4rem, 2.1vw, 1.85rem); /* build: scale */
+  color: var(--text);
 }
 .about-stats .l {
+  margin-top: 4px;
   font-size: 12px;
   letter-spacing: 0.04em;
-  color: #7e6c5f; /* build: contrast (WCAG AA) */
-  margin-top: 2px;
+  color: color-mix(in oklab, var(--text) 62%, transparent);
 }
 @media (max-width: 900px) {
   .about-wrap {
@@ -1048,17 +1085,33 @@
     margin-top: 18px;
   }
 }
+/* phones: the plate takes the column and each stat the room its label needs */
 @media (max-width: 520px) {
   .about-stats {
-    gap: 24px;
+    display: flex;
+    padding: 14px 2px;
   }
-}
-@media (max-width: 520px) {
+  .about-stats .stat {
+    flex: 1 1 auto;
+    padding: 2px 10px;
+  }
+  .about-stats .l {
+    text-wrap: balance;
+  }
   .fcard-name {
     font-size: clamp(0.78rem, 3.7vw, 0.95rem);
   }
   .fcard-role {
     font-size: 11.5px;
+  }
+}
+@media (max-width: 380px) {
+  .about-stats .stat {
+    padding: 2px 8px;
+  }
+  .about-stats .l {
+    font-size: 11px;
+    letter-spacing: 0.02em;
   }
 }
 

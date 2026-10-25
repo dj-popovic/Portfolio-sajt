@@ -43,7 +43,6 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
       const [glow] = q(".about-glow");
       const [heat] = q(".about-heat");
       const [heading] = q(".about-center h2");
-      const [divider] = q(".about-divider");
       const [bodyText] = q(".about-center p");
       const [statsRow] = q(".about-stats");
       const cards = q(".founder");
@@ -113,7 +112,6 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
             },
             0.2,
           )
-          .fromTo(divider, { scaleX: 0 }, { scaleX: 1, duration: 0.05, ease: "power2.out" }, 0.4)
           .fromTo(statsRow, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.05 }, 0.4)
           .call(() => setStatsPlay(true), [], 0.42)
           // hold, then fold back into the tile (warming up again on the way)
@@ -231,7 +229,6 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
           <ScrollReveal ref={bodyApi} mode="external" baseOpacity={0.14} blurStrength={4} stagger={0.045}>
             {body}
           </ScrollReveal>
-          <div className="about-divider" aria-hidden />
           <div className="about-stats">
             {stats.map((s) => (
               <div className="stat" key={s.label}>

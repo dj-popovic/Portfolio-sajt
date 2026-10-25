@@ -1,10 +1,12 @@
 import { useTranslations } from "next-intl";
 import type { ComponentType } from "react";
 import { ServiceCard } from "@/components/sections/ServiceCard";
+import type { ServiceKey } from "@/components/services/ServiceGlyph";
+import { ServicesDeck } from "@/components/services/ServicesDeck";
 import { BrowserIcon, PhoneIcon, SparkIcon, TrendIcon } from "@/components/ui/icons";
 import { richDark } from "@/lib/rich";
 
-const ITEMS: Array<{ key: "branding" | "websites" | "apps" | "marketing"; Icon: ComponentType }> = [
+const ITEMS: Array<{ key: ServiceKey; Icon: ComponentType }> = [
   { key: "branding", Icon: SparkIcon },
   { key: "websites", Icon: BrowserIcon },
   { key: "apps", Icon: PhoneIcon },
@@ -13,6 +15,7 @@ const ITEMS: Array<{ key: "branding" | "websites" | "apps" | "marketing"; Icon: 
 
 export function Services() {
   const t = useTranslations("services");
+  const nav = useTranslations("nav");
 
   return (
     <section className="services" id="services" data-screen-label="What we offer">
@@ -29,10 +32,22 @@ export function Services() {
           </p>
         </div>
 
-        <div className="svc-grid" data-reveal-group>
+        <ServicesDeck
+          label={nav("services")}
+          names={ITEMS.map(({ key }) => t(`items.${key}.title`))}
+          foot={
+            <div className="sec-foot">
+              <span className="ln" aria-hidden />
+              <p>{t.rich("foot", richDark)}</p>
+              <span className="ln" aria-hidden />
+            </div>
+          }
+        >
           {ITEMS.map(({ key, Icon }, i) => (
             <ServiceCard
               key={key}
+              kind={key}
+              index={i}
               num={String(i + 1).padStart(2, "0")}
               title={t(`items.${key}.title`)}
               desc={t(`items.${key}.desc`)}
@@ -40,13 +55,7 @@ export function Services() {
               icon={<Icon />}
             />
           ))}
-        </div>
-
-        <div className="sec-foot" data-reveal="fade">
-          <span className="ln" aria-hidden />
-          <p>{t.rich("foot", richDark)}</p>
-          <span className="ln" aria-hidden />
-        </div>
+        </ServicesDeck>
       </div>
     </section>
   );

@@ -23,3 +23,12 @@ export function tiltLeave(e: PointerEvent<HTMLElement>) {
   e.currentTarget.style.setProperty("--rx", "0deg");
   e.currentTarget.style.setProperty("--ry", "0deg");
 }
+
+/** Only the light: writes --mx/--my where the pointer is (cards whose transform belongs to a scroll animation). */
+export function pointerLight(e: PointerEvent<HTMLElement>) {
+  if (e.pointerType !== "mouse") return;
+  const el = e.currentTarget;
+  const r = el.getBoundingClientRect();
+  el.style.setProperty("--mx", `${(((e.clientX - r.left) / r.width) * 100).toFixed(1)}%`);
+  el.style.setProperty("--my", `${(((e.clientY - r.top) / r.height) * 100).toFixed(1)}%`);
+}

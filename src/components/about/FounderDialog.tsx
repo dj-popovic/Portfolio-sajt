@@ -145,15 +145,28 @@ export function FounderDialog({
       return;
     }
     ({ box: from.current, tilt: tilt.current } = cardOf(card));
-    // the content (sphere included) goes first, the empty sheet folds back onto
-    // the card, the card is put back under it, then the sheet dissolves (one
-    // after the other, so the two never thin out together)
-    animate(el.querySelectorAll("[data-fd], [data-fd-tile]"), { opacity: 0 }, { duration: 0.12 });
-    animate(scrim.current!, { opacity: 0 }, { duration: 0.32, delay: 0.06 });
-    animate(1, 0, { duration: 0.38, ease: OUT, delay: 0.04, onUpdate: paint }).then(() => {
+    // the content (sphere included) goes first and the empty sheet folds back
+    // onto the card; a breath before it lands the card is put back under it
+    // and the sheet dissolves, so the card is whole again in about 0.35s
+    animate(el.querySelectorAll("[data-fd], [data-fd-tile]"), { opacity: 0 }, { duration: 0.1 });
+    animate(scrim.current!, { opacity: 0 }, { duration: 0.26, delay: 0.04 });
+    let swapped = false;
+    const swap = () => {
+      if (swapped) return;
+      swapped = true;
       flushSync(onFolding);
-      animate(el, { opacity: 0 }, { duration: 0.14 }).then(onClosed);
-    });
+      animate(el, { opacity: 0 }, { duration: 0.12 }).then(onClosed);
+    };
+    animate(1, 0, {
+      duration: 0.3,
+      ease: OUT,
+      delay: 0.04,
+      onUpdate: (p) => {
+        paint(p);
+        // within a few pixels of the card
+        if (p < 0.006) swap();
+      },
+    }).then(swap);
   }, [onClosed, onFolding, paint]);
 
   // keys: Esc closes, Tab stays inside; a resize re-fits the sheet

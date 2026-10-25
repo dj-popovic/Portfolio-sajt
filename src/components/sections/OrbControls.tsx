@@ -20,6 +20,14 @@ export function OrbControls() {
   const t = useTranslations("hero.orb");
   const hit = useRef<HTMLDivElement>(null);
   const [touched, setTouched] = useState(false);
+  // the hint leaves as soon as the page scrolls (and comes back at the top)
+  const [away, setAway] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setAway(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // layout → CSS custom properties on the hero
   useEffect(() => {
@@ -180,7 +188,7 @@ export function OrbControls() {
         {t("help")}
       </p>
       <div className="orb-hint" aria-hidden data-hero="hint">
-        <span className={cn("orb-hint-pill", touched && "is-done")}>
+        <span className={cn("orb-hint-pill glass", (touched || away) && "is-done")}>
           <span className="dot" />
           {t("hint")}
         </span>

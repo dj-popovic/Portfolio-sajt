@@ -357,10 +357,10 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   white-space: nowrap;
-  color: color-mix(in oklab, var(--text) 74%, transparent);
-  background: color-mix(in oklab, var(--surface) 72%, transparent);
-  border: 1px solid var(--hairline);
-  transition: opacity 0.4s ease;
+  color: color-mix(in oklab, var(--text) 78%, transparent);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s var(--ease-out-quart);
 }
 .orb-hint-pill .dot {
   width: 6px;
@@ -370,6 +370,7 @@
 }
 .orb-hint-pill.is-done {
   opacity: 0;
+  transform: translateY(6px);
 }
 /* build: stacked hero (phones, tall tablets) — the orb on top, the headline under it.
    Mirrors isStacked() in src/lib/orb.ts */

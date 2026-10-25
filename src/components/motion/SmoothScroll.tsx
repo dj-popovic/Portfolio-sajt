@@ -24,6 +24,39 @@ function nativeScrollTo(target: ScrollTarget, opts?: ScrollOptions) {
   opts?.onComplete?.();
 }
 
+// keys that scroll the page, held while something is open over it
+const SCROLL_KEYS = new Set([" ", "PageUp", "PageDown", "Home", "End", "ArrowUp", "ArrowDown"]);
+// an overlay's own scroll area (marked data-lenis-prevent) keeps scrolling
+const inScrollArea = (t: EventTarget | null) => t instanceof Element && t.closest("[data-lenis-prevent]") !== null;
+
+/**
+ * Holds the page still without hiding its scrollbar: hiding it (overflow:
+ * hidden) widens the page and everything behind the overlay jumps sideways.
+ * Lenis holds wheel and touch while stopped; this covers the keys, and wheel
+ * and touch too when Lenis is off (reduced motion).
+ */
+function holdScroll() {
+  const hold = (e: Event) => {
+    if (e.cancelable && !inScrollArea(e.target)) e.preventDefault();
+  };
+  const holdKeys = (e: KeyboardEvent) => {
+    if (!SCROLL_KEYS.has(e.key) || inScrollArea(e.target)) return;
+    const t = e.target instanceof Element ? e.target : null;
+    // fields keep their keys, and Space still presses buttons and links
+    if (t?.closest("input, textarea, select, [contenteditable]")) return;
+    if (e.key === " " && t?.closest("button, a, [role='button']")) return;
+    e.preventDefault();
+  };
+  window.addEventListener("wheel", hold, { passive: false });
+  window.addEventListener("touchmove", hold, { passive: false });
+  window.addEventListener("keydown", holdKeys);
+  return () => {
+    window.removeEventListener("wheel", hold);
+    window.removeEventListener("touchmove", hold);
+    window.removeEventListener("keydown", holdKeys);
+  };
+}
+
 const ScrollContext = createContext<ScrollApi | null>(null);
 
 export function useScroll() {
@@ -35,6 +68,7 @@ export function useScroll() {
 export function SmoothScroll({ children }: { children: ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
   const locks = useRef(0);
+  const release = useRef<() => void>(() => {});
 
   const api = useMemo<ScrollApi>(
     () => ({
@@ -49,15 +83,15 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
         });
       },
       lock: () => {
-        locks.current++;
+        if (locks.current++ === 0) release.current = holdScroll();
         lenisRef.current?.stop();
-        document.documentElement.style.overflow = "hidden";
       },
       unlock: () => {
         locks.current = Math.max(0, locks.current - 1);
         if (locks.current) return;
+        release.current();
+        release.current = () => {};
         lenisRef.current?.start();
-        document.documentElement.style.overflow = "";
       },
     }),
     [],

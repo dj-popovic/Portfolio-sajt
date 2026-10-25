@@ -21,9 +21,12 @@ export function FounderCard({ id }: { id: FounderId }) {
   const card = useRef<HTMLElement>(null);
   const button = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
+  const [folding, setFolding] = useState(false);
 
+  const fold = useCallback(() => setFolding(true), []);
   const closed = useCallback(() => {
     setOpen(false);
+    setFolding(false);
     button.current?.focus({ preventScroll: true });
   }, []);
 
@@ -31,7 +34,7 @@ export function FounderCard({ id }: { id: FounderId }) {
     <div className={cn("founder", `founder-${founder.side}`)}>
       <article
         ref={card}
-        className={cn("fcard", open && "is-open")}
+        className={cn("fcard", open && !folding && "is-open")}
         data-sphere-host
         onPointerMove={(e) => tiltMove(e, 8)}
         onPointerLeave={tiltLeave}
@@ -56,7 +59,7 @@ export function FounderCard({ id }: { id: FounderId }) {
           onClick={() => setOpen(true)}
         />
       </article>
-      {open ? <FounderDialog founder={founder} origin={card} onClosed={closed} /> : null}
+      {open ? <FounderDialog founder={founder} origin={card} onFolding={fold} onClosed={closed} /> : null}
     </div>
   );
 }

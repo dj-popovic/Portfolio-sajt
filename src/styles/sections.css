@@ -629,7 +629,12 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(circle at var(--mx, 50%) var(--my, 30%), rgb(255 236 210 / 0.15), transparent 45%);
+  background: radial-gradient(
+    110px circle at var(--mx, 50%) var(--my, 30%),
+    rgb(224 87 30 / 0.3),
+    rgb(194 58 24 / 0.12) 50%,
+    transparent 75%
+  );
   opacity: 0;
   transition: opacity 0.25s ease;
   pointer-events: none;
@@ -677,10 +682,13 @@
   border: 1px solid color-mix(in oklab, var(--accent) 55%, transparent);
   background: color-mix(in oklab, var(--accent) 10%, transparent);
   transform: translateZ(46px);
+  /* the colour answers the hover at once; the half turn eases in so the eye
+     catches it turning (an ease-out spends it all in the first frames) */
   transition:
-    transform 0.25s var(--ease-ember),
-    background-color 0.2s ease,
-    color 0.2s ease;
+    transform 0.7s cubic-bezier(0.45, 0, 0.15, 1),
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
 }
 /* the whole card is the button, in front of every layer */
 .fcard-btn {
@@ -701,7 +709,7 @@
     opacity: 1;
   }
   .fcard:hover .fcard-plus {
-    transform: translateZ(46px) rotate(90deg);
+    transform: translateZ(46px) rotate(180deg) scale(1.08);
     background: var(--accent);
     color: var(--color-char);
   }

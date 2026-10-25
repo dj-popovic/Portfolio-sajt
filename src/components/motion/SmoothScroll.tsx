@@ -69,18 +69,28 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
   const locks = useRef(0);
   const release = useRef<() => void>(() => {});
+  const pending = useRef<{ target: ScrollTarget; opts?: ScrollOptions } | null>(null);
 
-  const api = useMemo<ScrollApi>(
-    () => ({
+  const api = useMemo<ScrollApi>(() => {
+    const go = (target: ScrollTarget, opts?: ScrollOptions) => {
+      const lenis = lenisRef.current;
+      if (!lenis) return nativeScrollTo(target, opts);
+      lenis.scrollTo(target, {
+        offset: opts?.offset ?? 0,
+        immediate: opts?.immediate,
+        duration: opts?.duration ?? 1.3,
+        onComplete: opts?.onComplete,
+      });
+    };
+    return {
       scrollTo: (target, opts) => {
-        const lenis = lenisRef.current;
-        if (!lenis) return nativeScrollTo(target, opts);
-        lenis.scrollTo(target, {
-          offset: opts?.offset ?? 0,
-          immediate: opts?.immediate,
-          duration: opts?.duration ?? 1.3,
-          onComplete: opts?.onComplete,
-        });
+        // a stopped Lenis ignores scrollTo (say, a link in the menu while the menu
+        // holds the page): it runs as soon as the page is let go
+        if (locks.current > 0 && lenisRef.current) {
+          pending.current = { target, opts };
+          return;
+        }
+        go(target, opts);
       },
       lock: () => {
         if (locks.current++ === 0) release.current = holdScroll();
@@ -92,10 +102,12 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
         release.current();
         release.current = () => {};
         lenisRef.current?.start();
+        const next = pending.current;
+        pending.current = null;
+        if (next) go(next.target, next.opts);
       },
-    }),
-    [],
-  );
+    };
+  }, []);
 
   useEffect(() => {
     // in-page anchors glide instead of jumping (native smooth scroll when Lenis is off)

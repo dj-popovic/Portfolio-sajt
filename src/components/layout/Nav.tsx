@@ -9,6 +9,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Link } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 import { BurgerIcon, CloseIcon } from "@/components/ui/icons";
+import { overlay } from "@/lib/overlay";
 import { PLACEHOLDER } from "@/lib/placeholders";
 
 const SECTIONS = ["about", "services", "work", "process"] as const;
@@ -115,6 +116,8 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
     const panel = panelRef.current;
     panel?.querySelector<HTMLElement>("button, a")?.focus();
     scroll.lock();
+    // the sheet covers the page: the orb and the other renderers behind it rest
+    overlay.push();
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -134,6 +137,7 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
     window.addEventListener("keydown", onKey);
     return () => {
       window.removeEventListener("keydown", onKey);
+      overlay.pop();
       scroll.unlock();
       previous?.focus();
     };
@@ -198,6 +202,7 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
               href="/"
               locale={code}
               lang={code}
+              prefetch={false}
               onClick={onClose}
               aria-current={code === locale ? "true" : undefined}
               className={

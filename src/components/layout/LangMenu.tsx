@@ -96,10 +96,13 @@ export function LangMenu({ locale, className }: { locale: Locale; className?: st
           >
             {routing.locales.map((code) => (
               <li key={code}>
+                {/* no prefetch: opening the menu would fetch and parse three whole pages
+                    while it animates (a switch is rare; it can fetch on click) */}
                 <Link
                   href="/"
                   locale={code}
                   lang={code}
+                  prefetch={false}
                   data-lang-item
                   aria-current={code === locale ? "true" : undefined}
                   onClick={() => close()}

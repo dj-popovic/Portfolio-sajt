@@ -1,5 +1,6 @@
-// Counts full-page overlays (the opened demo window). Background renderers
-// pause while one is open: nobody can see them, and the demo gets the frames.
+// Counts full-page overlays (a demo window, a founder's profile, the phone
+// menu). Background renderers pause while one is open: nobody can see them,
+// and the overlay gets the frames.
 let open = 0;
 const listeners = new Set<() => void>();
 const emit = () => listeners.forEach((l) => l());

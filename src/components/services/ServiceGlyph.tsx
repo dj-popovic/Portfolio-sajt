@@ -23,9 +23,11 @@ const GLYPHS: Record<ServiceKey, { box: string; d: string }> = {
 };
 
 /**
- * A service's symbol drawn in ember dots, the orb's stipple again: the icon's
- * stroke is a mask over a dot grid tinted amber → ember, with a soft glow of
- * the same line behind it. `--draw` (1 → 0) draws it in along its path.
+ * A service's symbol drawn in ember dots, the orb's stipple again: a thick
+ * amber → ember line seen through a fixed grid of dots (the mask), with a
+ * soft glow of the same line behind it. `--draw` (1 → 0) draws it in along
+ * its path. Only the line moves; the mask never changes (Safari doesn't
+ * repaint a mask whose contents animate).
  */
 export function ServiceGlyph({ kind }: { kind: ServiceKey }) {
   const { box, d } = GLYPHS[kind];
@@ -37,14 +39,14 @@ export function ServiceGlyph({ kind }: { kind: ServiceKey }) {
         <pattern id={`${id}-dots`} width="0.7" height="0.7" patternUnits="userSpaceOnUse">
           <circle cx="0.35" cy="0.35" r="0.17" fill="#fff" />
         </pattern>
-        <linearGradient id={`${id}-tint`} x1="0" y1="0" x2="1" y2="1">
+        <mask id={`${id}-mask`} maskUnits="userSpaceOnUse" x={x} y={y} width={w} height={h}>
+          <rect x={x} y={y} width={w} height={h} fill={`url(#${id}-dots)`} />
+        </mask>
+        <linearGradient id={`${id}-tint`} gradientUnits="userSpaceOnUse" x1={x} y1={y} x2={x + w} y2={y + h}>
           <stop offset="0" stopColor="#ffd38a" />
           <stop offset="0.45" stopColor="#ffb627" />
           <stop offset="1" stopColor="#ff6b35" />
         </linearGradient>
-        <mask id={`${id}-mask`} maskUnits="userSpaceOnUse" x={x} y={y} width={w} height={h}>
-          <path className="svc-glyph-line" d={d} pathLength={1} stroke={`url(#${id}-dots)`} strokeWidth="2.6" />
-        </mask>
         <filter id={`${id}-blur`} x="-40%" y="-40%" width="180%" height="180%">
           <feGaussianBlur stdDeviation="1.2" />
         </filter>
@@ -57,7 +59,14 @@ export function ServiceGlyph({ kind }: { kind: ServiceKey }) {
         strokeWidth="1.8"
         filter={`url(#${id}-blur)`}
       />
-      <rect x={x} y={y} width={w} height={h} fill={`url(#${id}-tint)`} mask={`url(#${id}-mask)`} />
+      <path
+        className="svc-glyph-line"
+        d={d}
+        pathLength={1}
+        stroke={`url(#${id}-tint)`}
+        strokeWidth="2.6"
+        mask={`url(#${id}-mask)`}
+      />
     </svg>
   );
 }

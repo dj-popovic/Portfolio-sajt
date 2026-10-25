@@ -1268,7 +1268,12 @@
   z-index: 0;
   border-radius: inherit;
   opacity: 0;
-  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), rgb(255 190 140 / 0.12), transparent 70%);
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 0%),
+    rgb(255 107 53 / 0.22),
+    rgb(194 58 24 / 0.09) 48%,
+    transparent 74%
+  );
   transition: opacity 0.3s ease;
   pointer-events: none;
 }
@@ -1326,6 +1331,11 @@
   stroke-linejoin: round;
   stroke-dasharray: 1;
   stroke-dashoffset: var(--draw, 0);
+}
+/* in the deck and the stack the symbols draw themselves in: hidden until
+   their tween says otherwise (a refresh that clears the tween lands here) */
+.services[data-deck] .svc-glyph {
+  --draw: 1;
 }
 .svc-glyph-glow {
   opacity: 0.6;

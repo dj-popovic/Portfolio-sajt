@@ -12,7 +12,7 @@ const STACK =
 const LIFT = 16; // px a covered pane peeks above the one in front of it
 const SINK = 0.045; // how much smaller each covered pane gets
 const SHADE = [0, 0.42, 0.6, 0.74]; // how dim, by depth
-const STEP = 0.36; // viewport heights of scrolling per pane
+const STEP = 0.3; // viewport heights of scrolling per pane
 
 // where the two lights sit behind the deck for each pane (percent of their own size)
 const LIGHTS = [
@@ -89,14 +89,13 @@ export function ServicesDeck({ label, names, children, foot }: DeckProps) {
 
         gsap.set(cards, { transformOrigin: "50% 0%" });
         gsap.set(cards.slice(1), { y: below });
-        gsap.set(glyphs.slice(1), { "--draw": 1 });
         gsap.set(marker, rowBox(0));
         gsap.set(footEl, { opacity: 0 });
         light(0).forEach(({ el, ...to }) => gsap.set(el, to));
 
         const n = cards.length;
         // one unit per pane coming in, then the closing beat and a short hold
-        const total = n;
+        const total = n - 1 + 0.72;
         const tl = gsap.timeline({
           defaults: { ease: "none", immediateRender: false },
           scrollTrigger: {
@@ -108,7 +107,7 @@ export function ServicesDeck({ label, names, children, foot }: DeckProps) {
             invalidateOnRefresh: true,
             onUpdate: (self) => {
               const time = self.progress * total;
-              show(time > n - 1 + 0.3 ? n : Math.min(n - 1, Math.floor(time + 0.5)));
+              show(time > n - 1 + 0.22 ? n : Math.min(n - 1, Math.floor(time + 0.5)));
             },
           },
         });
@@ -124,7 +123,9 @@ export function ServicesDeck({ label, names, children, foot }: DeckProps) {
           }
           // its words leave as it's covered (through the glass they'd only smudge); its glow stays
           tl.fromTo(bodies[i - 1], { opacity: 1 }, { opacity: 0, duration: 0.45 }, at + 0.1);
-          tl.fromTo(glyphs[i], { "--draw": 1 }, { "--draw": 0, duration: 0.62, ease: "power1.inOut" }, at + 0.22);
+          // its symbol draws in as it rises (hidden by default in CSS, so a refresh can't
+          // leave it drawn early) and is whole as the pane settles
+          tl.fromTo(glyphs[i], { "--draw": 1 }, { "--draw": 0, duration: 0.6, ease: "power2.out" }, at + 0.04);
           tl.fromTo(glares[i], { xPercent: 0 }, { xPercent: 340, duration: 0.9, ease: "power1.inOut" }, at + 0.05);
           tl.fromTo(marker, rowBox(i - 1), { ...rowBox(i), duration: 0.5, ease: "power2.inOut" }, at + 0.14);
           light(i).forEach(({ el, ...to }, k) => {
@@ -138,12 +139,12 @@ export function ServicesDeck({ label, names, children, foot }: DeckProps) {
           });
         }
         // the closing beat: the marker takes in all four, the line lands
-        tl.fromTo(marker, rowBox(n - 1), { ...allBox(), duration: 0.42, ease: "power2.inOut" }, n - 1 + 0.15);
+        tl.fromTo(marker, rowBox(n - 1), { ...allBox(), duration: 0.36, ease: "power2.inOut" }, n - 1 + 0.08);
         tl.fromTo(
           footEl,
           { opacity: 0, y: 14 },
-          { opacity: 1, y: 0, duration: 0.32, ease: "power2.out" },
-          n - 1 + 0.38,
+          { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" },
+          n - 1 + 0.26,
         );
         tl.set({}, {}, total);
 

@@ -8,7 +8,7 @@ import { gsap } from "@/lib/gsap";
  */
 export function prepareSweep(el: HTMLElement) {
   el.classList.add("rv-sweep");
-  gsap.set(el, { "--rv": 0, filter: "blur(4px)", y: 8, autoAlpha: 1 });
+  gsap.set(el, { "--rv": 0, filter: "blur(4px)", y: 8, opacity: 1 });
 }
 
 export function sweepTo(el: HTMLElement, vars: gsap.TweenVars = {}) {

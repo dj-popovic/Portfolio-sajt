@@ -17,11 +17,11 @@ export function HeroIntro() {
         const title = document.querySelector<HTMLElement>('[data-hero="title"]');
         if (title) {
           split = splitTitle(title);
-          gsap.set(title, { autoAlpha: 1 });
+          gsap.set(title, { opacity: 1 });
           tl.from(
             split.words,
             {
-              autoAlpha: 0,
+              opacity: 0,
               yPercent: 30,
               filter: "blur(8px)",
               duration: 1,
@@ -31,17 +31,17 @@ export function HeroIntro() {
             0.25,
           );
         }
-        tl.fromTo('[data-hero="nav"]', { autoAlpha: 0, y: -10 }, { autoAlpha: 1, y: 0, duration: 0.7 }, 0.1)
-          .fromTo('[data-hero="sub"]', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.8 }, 0.7)
+        tl.fromTo('[data-hero="nav"]', { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.7 }, 0.1)
+          .fromTo('[data-hero="sub"]', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8 }, 0.7)
           .fromTo(
             '[data-hero="actions"] > *',
-            { autoAlpha: 0, y: 12 },
-            { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.06, clearProps: "transform" },
+            { opacity: 0, y: 12 },
+            { opacity: 1, y: 0, duration: 0.7, stagger: 0.06, clearProps: "transform" },
             0.85,
           )
-          .fromTo('[data-hero="actions"]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, 0.85)
-          .fromTo('[data-hero="cue"]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8 }, 1.3)
-          .fromTo('[data-hero="hint"]', { autoAlpha: 0, y: 6 }, { autoAlpha: 1, y: 0, duration: 0.8 }, 1.7);
+          .fromTo('[data-hero="actions"]', { opacity: 0 }, { opacity: 1, duration: 0.01 }, 0.85)
+          .fromTo('[data-hero="cue"]', { opacity: 0 }, { opacity: 1, duration: 0.8 }, 1.3)
+          .fromTo('[data-hero="hint"]', { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.8 }, 1.7);
       };
 
       if (document.fonts?.status === "loaded") play();

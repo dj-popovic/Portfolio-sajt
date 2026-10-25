@@ -34,9 +34,9 @@ export function Reveals() {
           if (el.closest("[data-manual-reveal]")) return;
           gsap.fromTo(
             el,
-            { autoAlpha: 0, y: 12 },
+            { opacity: 0, y: 12 },
             {
-              autoAlpha: 1,
+              opacity: 1,
               y: 0,
               duration: 0.6,
               ease: "power3.out",
@@ -55,9 +55,9 @@ export function Reveals() {
           items.forEach((item) => item.classList.add("rv-busy"));
           gsap.fromTo(
             items,
-            { autoAlpha: 0, y: 20 },
+            { opacity: 0, y: 20 },
             {
-              autoAlpha: 1,
+              opacity: 1,
               y: 0,
               duration: 0.7,
               ease: "expo.out",

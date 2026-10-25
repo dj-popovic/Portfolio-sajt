@@ -2,6 +2,7 @@
 
 import { useRef, useState, type ReactNode } from "react";
 import { setInset, tileClip } from "@/components/motion/clip";
+import { useScroll } from "@/components/motion/SmoothScroll";
 import { finishSweep, prepareSweep } from "@/components/motion/sweep";
 import CountUp from "@/components/reactbits/CountUp";
 import { ScrollReveal, type ScrollRevealHandle } from "@/components/reactbits/ScrollReveal";
@@ -33,6 +34,7 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
   const root = useRef<HTMLElement>(null);
   const bodyApi = useRef<ScrollRevealHandle>(null);
   const [statsPlay, setStatsPlay] = useState(false);
+  const scroll = useScroll();
 
   useGSAP(
     () => {
@@ -89,11 +91,11 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
           .fromTo(glow, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.12 }, 0.12)
           .fromTo(
             cards,
-            { y: (i) => CARD_Y[i] + 150, rotation: (i) => (i === 0 ? -14 : 14), autoAlpha: 0 },
+            { y: (i) => CARD_Y[i] + 150, rotation: (i) => (i === 0 ? -14 : 14), opacity: 0 },
             {
               y: (i) => CARD_Y[i],
               rotation: (i) => (i === 0 ? -3 : 3),
-              autoAlpha: 1,
+              opacity: 1,
               duration: 0.16,
               ease: "power3.out",
               stagger: 0.03,
@@ -112,14 +114,25 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
             },
             0.2,
           )
-          .fromTo(statsRow, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.05 }, 0.4)
+          .fromTo(statsRow, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.05 }, 0.4)
           .call(() => setStatsPlay(true), [], 0.42)
           // hold, then fold back into the tile (warming up again on the way)
           .to(panel, { open: 0, duration: 0.13, onUpdate: paint }, 0.84)
           .to(heat, { autoAlpha: 1, duration: 0.09, ease: "power1.in" }, 0.86)
           .to(tile, { autoAlpha: 1, scale: 1, duration: 0.04 }, 0.93);
 
+        // the cards only stand between ~15% and ~85% of the pin (opacity, not
+        // visibility, so Tab still reaches them): a keyboard visit scrolls there
+        const onFocus = (e: FocusEvent) => {
+          const st = tl.scrollTrigger;
+          if (!st || !(e.target instanceof Element) || !e.target.closest(".founder")) return;
+          const p = (window.scrollY - st.start) / (st.end - st.start);
+          if (p < 0.3 || p > 0.8) scroll.scrollTo(st.start + (st.end - st.start) * 0.5, { duration: 0.8 });
+        };
+        section.addEventListener("focusin", onFocus);
+
         return () => {
+          section.removeEventListener("focusin", onFocus);
           section.style.clipPath = "";
           orb.panel.live = false;
           finishSweep(heading);
@@ -174,10 +187,10 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
           });
           gsap.fromTo(
             cards,
-            { y: 60, autoAlpha: 0 },
+            { y: 60, opacity: 0 },
             {
               y: 0,
-              autoAlpha: 1,
+              opacity: 1,
               duration: 1,
               ease: "power3.out",
               stagger: 0.1,

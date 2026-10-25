@@ -124,12 +124,14 @@ main,
   transition: none !important;
 }
 
-/* until the motion layer is up, reveal targets wait off-stage (never without JS) */
+/* until the motion layer is up, reveal targets wait off-stage (never without JS).
+   Transparent, not visibility: hidden, so what hasn't been revealed yet is still
+   in the tab order and in the accessibility tree (headings, cards, links) */
 @media (prefers-reduced-motion: no-preference) {
   .js:not(.motion-failed) [data-reveal],
   .js:not(.motion-failed) [data-reveal-item],
   .js:not(.motion-failed) [data-hero] {
-    visibility: hidden;
+    opacity: 0;
   }
 }
 

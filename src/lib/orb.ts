@@ -93,6 +93,11 @@ export const orb = {
   morph: 0,
   /** what the thread runs into: the About tile (desktop) or the top of the About panel */
   aim: null as Aim | null,
+  /**
+   * The About panel as it opens, in viewport px (written by AboutStage): the
+   * tile glows along its edge and, on the pinned stage, the dots burst out.
+   */
+  panel: { open: 0, x: 0, y: 0, w: 0, h: 0, r: 0, stage: false, live: false },
 };
 
 /** Advance the spin. A drag sets it directly; afterwards it eases back into the drift. */

@@ -29,6 +29,7 @@ const vertexShader = /* glsl */ `
   uniform float uTime;
   uniform float uIntro;
   uniform float uDot;
+  uniform vec4 uBurst; // origin (px), age in seconds (< 0: none), reach (px)
 
   attribute vec4 aSeed; // dither threshold, size, unravel order, phase
 
@@ -101,6 +102,19 @@ const vertexShader = /* glsl */ `
       size = mix(size, uDot * (0.65 + aSeed.y * 0.55), join);
     }
 
+    // the dots the tile took in burst out as the About panel opens, then cool and fade
+    if (uBurst.z >= 0.0 && q >= 1.0) {
+      float bt = uBurst.z;
+      float ang = aSeed.w * 6.2832 + aSeed.x * 1.3;
+      float spd = 0.12 + 0.88 * pow(fract(aSeed.x * 7.13 + aSeed.y * 3.7), 1.9);
+      p = uBurst.xy + vec2(cos(ang), sin(ang)) * (1.0 - exp(-bt * 2.6)) * spd * uBurst.w;
+      p.y -= bt * bt * 16.0 * aSeed.y;
+      float life = 1.0 - smoothstep(0.15, 1.1 + aSeed.y * 0.6, bt);
+      alpha = step(aSeed.y, 0.62) * (0.4 + 0.6 * aSeed.x) * life * smoothstep(0.0, 0.03, bt);
+      col = mix(hot, mix(amber, ember, smoothstep(0.15, 0.9, bt)), smoothstep(0.0, 0.18, bt));
+      size = uDot * (0.9 + aSeed.x * 1.2) * (1.0 - 0.35 * smoothstep(0.0, 1.4, bt));
+    }
+
     // first load: the dots gather in from a loose cloud
     float intro = 1.0 - pow(1.0 - uIntro, 3.0);
     float a = aSeed.w * 6.283;
@@ -156,14 +170,35 @@ const bodyFragment = /* glsl */ `
     gl_FragColor = vec4(mix(vec3(1.0, 0.4, 0.2), vec3(1.0, 0.64, 0.28), lam), a);
   }
 `;
-// where the thread ends: the tile "charges" as the last dots arrive
-const chargeFragment = /* glsl */ `
-  uniform float uCharge;
+// a glow that hugs a rounded rectangle: the ★ tile while it charges, then the
+// About panel's edge as it opens. Computed per pixel, so it fades to nothing
+// with no box around it.
+const screenVertex = /* glsl */ `
   varying vec2 vUv;
   void main() {
-    float a = exp(-dot(vUv, vUv) * 3.6) * uCharge;
-    if (a < 0.004) discard;
-    gl_FragColor = vec4(1.0, 0.46, 0.22, a);
+    vUv = position.xy;
+    gl_Position = vec4(position.xy, 0.0, 1.0);
+  }
+`;
+const rimFragment = /* glsl */ `
+  uniform vec2 uRes;
+  uniform vec4 uRect;
+  uniform float uCorner;
+  uniform float uSpread;
+  uniform float uGlow;
+  varying vec2 vUv;
+  float roundRect(vec2 p, vec2 b, float r) {
+    vec2 q = abs(p) - b + r;
+    return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
+  }
+  void main() {
+    vec2 px = vec2((vUv.x * 0.5 + 0.5) * uRes.x, (0.5 - vUv.y * 0.5) * uRes.y);
+    vec2 hb = uRect.zw * 0.5;
+    float d = max(roundRect(px - uRect.xy - hb, hb, min(uCorner, min(hb.x, hb.y))), 0.0);
+    float rim = exp(-d / (uSpread * 0.2));
+    float a = (exp(-d / uSpread) * 0.5 + rim * 0.55) * uGlow;
+    if (a < 0.003) discard;
+    gl_FragColor = vec4(mix(vec3(1.0, 0.36, 0.15), vec3(1.0, 0.8, 0.45), rim), a);
   }
 `;
 
@@ -175,9 +210,10 @@ const smoothstep = (a: number, b: number, x: number) => {
 function Orb({ count }: { count: number }) {
   const material = useRef<THREE.ShaderMaterial>(null);
   const body = useRef<THREE.ShaderMaterial>(null);
-  const glow = useRef<THREE.ShaderMaterial>(null);
   const rot = useMemo(() => new THREE.Matrix3(), []);
-  const s = useRef({ time: 0, start: -1, force: 0, px: -9999, py: -9999, charge: 0, done: 0 });
+  const rim = useRef<THREE.Mesh>(null);
+  const rimMat = useRef<THREE.ShaderMaterial>(null);
+  const s = useRef({ time: 0, start: -1, force: 0, px: -9999, py: -9999, glow: 0, open: 0, burst: -1 });
 
   const geometry = useMemo(() => {
     const { pos, seed } = buildOrb(count);
@@ -207,6 +243,7 @@ function Orb({ count }: { count: number }) {
       uTime: { value: 0 },
       uIntro: { value: 0 },
       uDot: { value: 1.9 },
+      uBurst: { value: new THREE.Vector4(0, 0, -1, 1) },
     }),
     [rot],
   );
@@ -220,12 +257,13 @@ function Orb({ count }: { count: number }) {
     }),
     [uniforms],
   );
-  const glowUniforms = useMemo(
+  const rimUniforms = useMemo(
     () => ({
       uRes: uniforms.uRes,
-      uAt: { value: new THREE.Vector2() },
-      uHalf: { value: 110 },
-      uCharge: { value: 0 },
+      uRect: { value: new THREE.Vector4() },
+      uCorner: { value: 26 },
+      uSpread: { value: 26 },
+      uGlow: { value: 0 },
     }),
     [uniforms],
   );
@@ -296,16 +334,37 @@ function Orb({ count }: { count: number }) {
       bu.uFade.value = intro * (1 - smoothstep(0, 0.55, m));
     }
 
-    // the tile charges while the last dots arrive, then the glow settles away
-    st.done = m >= 0.999 ? st.done + dt : 0;
-    const target = smoothstep(0.62, 1, m) * (1 - smoothstep(0.15, 0.8, st.done));
-    st.charge += (target - st.charge) * (1 - Math.exp(-dt * 6));
-    const gu = glow.current?.uniforms;
-    if (gu) {
-      gu.uAt.value.set(tx, ty);
-      gu.uHalf.value = Math.min(130, Math.max(80, L.r * 0.35));
-      gu.uCharge.value = st.charge * 0.55;
+    // the tile glows as the last dots arrive and holds it; as the panel opens
+    // the glow rides its edge, and on the pinned stage the dots burst out
+    const pn = orb.panel;
+    const charge = smoothstep(0.62, 1, m);
+    let glowTo = 0;
+    const ru = rimMat.current?.uniforms;
+    if (!ru) return;
+    if (pn.live && pn.open > 0.001) {
+      ru.uRect.value.set(pn.x, pn.y, pn.w, pn.h);
+      ru.uCorner.value = pn.r;
+      ru.uSpread.value = 26 + 64 * pn.open;
+      glowTo = pn.stage
+        ? charge * (1 - smoothstep(0.3, 0.8, pn.open))
+        : smoothstep(0.02, 0.2, pn.open) * (1 - smoothstep(0.5, 0.95, pn.open)) * 0.75;
+    } else if (aim && aim.edge === "center" && m > 0) {
+      ru.uRect.value.set(tx - 44, ty - 44, 88, 88);
+      ru.uCorner.value = 26;
+      ru.uSpread.value = 26;
+      glowTo = charge;
     }
+    st.glow += (glowTo - st.glow) * (1 - Math.exp(-dt * 10));
+    ru.uGlow.value = st.glow * 0.8;
+    if (rim.current) rim.current.visible = st.glow > 0.004;
+
+    if (pn.stage && pn.live) {
+      if (pn.open > 0.02 && st.open <= 0.02 && m > 0.999) st.burst = 0;
+      if (pn.open <= 0.005) st.burst = -1;
+    }
+    st.open = pn.open;
+    if (st.burst >= 0) st.burst = st.burst > 2.2 ? 2.2 : st.burst + dt;
+    u.uBurst.value.set(pn.x + pn.w / 2, pn.y + pn.h / 2, st.burst, Math.hypot(view.w, view.h) * 0.55);
   });
 
   return (
@@ -322,12 +381,12 @@ function Orb({ count }: { count: number }) {
           blending={THREE.AdditiveBlending}
         />
       </mesh>
-      <mesh geometry={quad} frustumCulled={false}>
+      <mesh ref={rim} geometry={quad} frustumCulled={false} visible={false}>
         <shaderMaterial
-          ref={glow}
-          vertexShader={quadVertex}
-          fragmentShader={chargeFragment}
-          uniforms={glowUniforms}
+          ref={rimMat}
+          vertexShader={screenVertex}
+          fragmentShader={rimFragment}
+          uniforms={rimUniforms}
           transparent
           depthWrite={false}
           depthTest={false}

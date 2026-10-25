@@ -38,8 +38,8 @@ const PANEL =
 /**
  * The orb's fixed layer behind the page. In the hero it is a sphere you can
  * spin; scrolling unravels it into a thread of dots that runs into the ★ tile
- * where About begins (or the top of the About panel on small screens). Once
- * the last dot has arrived, the layer goes to sleep.
+ * where About begins (or the top of the About panel on small screens). The
+ * tile glows, the panel bursts open in sparks, and then the layer sleeps.
  */
 export function OrbLayer() {
   const mode = useOrbMode();
@@ -55,10 +55,10 @@ export function OrbLayer() {
       const tile = about?.querySelector<HTMLElement>(".about-tile");
       if (!about) return;
 
-      const follow = (end: string, aim: NonNullable<typeof orb.aim>) => {
+      const follow = (end: string, awakeUntil: string, aim: NonNullable<typeof orb.aim>) => {
         orb.aim = aim;
         let sleep = 0;
-        const st = ScrollTrigger.create({
+        const morph = ScrollTrigger.create({
           trigger: about,
           start: 0,
           end,
@@ -66,9 +66,15 @@ export function OrbLayer() {
             orb.morph = self.progress;
             layer.current?.style.setProperty("--orb-morph", self.progress.toFixed(3));
           },
+        });
+        // awake through the tile's glow and the burst as the panel opens
+        const wake = ScrollTrigger.create({
+          trigger: about,
+          start: 0,
+          end: awakeUntil,
           onLeave: () => {
             window.clearTimeout(sleep);
-            sleep = window.setTimeout(() => setAwake(false), 1100);
+            sleep = window.setTimeout(() => setAwake(false), 1600);
           },
           onEnterBack: () => {
             window.clearTimeout(sleep);
@@ -77,14 +83,15 @@ export function OrbLayer() {
         });
         return () => {
           window.clearTimeout(sleep);
-          st.kill();
+          morph.kill();
+          wake.kill();
           orb.aim = null;
         };
       };
 
       const mm = gsap.matchMedia();
-      mm.add(STAGE, () => follow("top top", { el: tile ?? about, edge: tile ? "center" : "top" }));
-      mm.add(PANEL, () => follow("top 40%", { el: about, edge: "top" }));
+      mm.add(STAGE, () => follow("top top", "top -45%", { el: tile ?? about, edge: tile ? "center" : "top" }));
+      mm.add(PANEL, () => follow("top 40%", "top 10%", { el: about, edge: "top" }));
       return () => mm.revert();
     },
     { dependencies: [mode] },

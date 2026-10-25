@@ -21,11 +21,14 @@ export function tileClip(el: HTMLElement, p: number, tile: number) {
   const H = el.offsetHeight;
   const closed = { x: Math.max(0, (W - tile) / 2), y: Math.max(0, (H - tile) / 2), r: 26 };
   const mid = { x: W * 0.3, y: H * 0.26, r: 64 };
+  let inset: { x: number; y: number; r: number };
   if (p <= 0.5) {
     const t = easeIn(p / 0.5);
-    setInset(el, lerp(closed.y, mid.y, t), lerp(closed.x, mid.x, t), lerp(closed.r, mid.r, t));
+    inset = { y: lerp(closed.y, mid.y, t), x: lerp(closed.x, mid.x, t), r: lerp(closed.r, mid.r, t) };
   } else {
     const t = easeOut((p - 0.5) / 0.5);
-    setInset(el, lerp(mid.y, 0, t), lerp(mid.x, 0, t), lerp(mid.r, 0, t));
+    inset = { y: lerp(mid.y, 0, t), x: lerp(mid.x, 0, t), r: lerp(mid.r, 0, t) };
   }
+  setInset(el, inset.y, inset.x, inset.r);
+  return inset;
 }

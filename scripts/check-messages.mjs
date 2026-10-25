@@ -21,7 +21,7 @@ const signature = (s) => {
     .join(",");
   return `${args}|${tags}`;
 };
-const values = { name: "x", current: 1, total: 4, nameOne: "a", nameTwo: "b", time: "10:00", mood: "m" };
+const values = { name: "x", role: "r", current: 1, total: 4, nameOne: "a", nameTwo: "b", time: "10:00", mood: "m" };
 const tags = { b: (c) => c, glow: (c) => c, br: () => "", city: (c) => c, year: () => "2026" };
 
 function walk(ref, cur, path, locale) {

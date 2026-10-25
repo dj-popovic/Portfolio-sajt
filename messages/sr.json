@@ -40,14 +40,40 @@
   "about": {
     "title": "Dvoje ljudi,<br></br>jedan studio <glow>od A do Š.</glow>",
     "body": "Mi smo dvočlani studio koji vaš brend, sajt i aplikaciju vodi od prve ideje do lansiranja, uz marketing koji sve to podržava. Mali smo namerno: radite direktno sa ljudima koji rade posao, od početka do kraja.",
-    "photo1": "[fotografija osnivača 1]",
-    "photo2": "[fotografija osnivača 2]",
-    "role1": "Suosnivač · <b>Dizajn i brend</b>",
-    "role2": "Suosnivač · <b>Razvoj</b>",
     "stats": {
       "founders": "Osnivača",
       "disciplines": "Discipline",
       "team": "Tim, od A do Š"
+    },
+    "people": {
+      "one": {
+        "role": "Frontend i dizajn",
+        "bio": "[Dizajniram i pravim ono što ljudi vide i dodiruju: interfejse, pokrete i osećaj brenda na ekranu.]",
+        "does": [
+          "Sajtovi i veb-aplikacije",
+          "Dizajn sistemi i interfejsi",
+          "Animacija, 3D i interakcija",
+          "Brzina, SEO i pristupačnost"
+        ]
+      },
+      "two": {
+        "role": "Backend i infrastruktura",
+        "bio": "[Pravim ono što sve pokreće: API-je, podatke, integracije i servere ispod svega.]",
+        "does": [
+          "API-ji i integracije",
+          "Baze i modeli podataka",
+          "Cloud, hosting i DevOps",
+          "Bezbednost, plaćanja i skaliranje"
+        ]
+      }
+    },
+    "card": {
+      "open": "Upoznajte {name}, {role}",
+      "close": "Zatvori",
+      "who": "Ko sam",
+      "does": "Šta radim",
+      "stack": "Jezici i alati",
+      "contact": "Kontakt"
     }
   },
   "services": {

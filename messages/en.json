@@ -40,14 +40,40 @@
   "about": {
     "title": "Two people,<br></br>one <glow>end-to-end</glow> studio.",
     "body": "We’re a two-person studio that takes your brand, website and app from first idea to launch, plus the marketing to back it. Small on purpose: you work directly with the people doing the work, start to finish.",
-    "photo1": "[founder photo 1]",
-    "photo2": "[founder photo 2]",
-    "role1": "Co-founder · <b>Design & Brand</b>",
-    "role2": "Co-founder · <b>Development</b>",
     "stats": {
       "founders": "Founders",
       "disciplines": "Disciplines",
       "team": "Team, end-to-end"
+    },
+    "people": {
+      "one": {
+        "role": "Frontend & design",
+        "bio": "[I design and build the side people see and touch: interfaces, motion and the way a brand feels on screen.]",
+        "does": [
+          "Websites and web apps",
+          "Design systems and interfaces",
+          "Motion, 3D and interaction",
+          "Speed, SEO and accessibility"
+        ]
+      },
+      "two": {
+        "role": "Backend & infrastructure",
+        "bio": "[I build the side that keeps it all running: APIs, data, integrations and the servers underneath.]",
+        "does": [
+          "APIs and integrations",
+          "Databases and data models",
+          "Cloud, hosting and DevOps",
+          "Security, payments and scale"
+        ]
+      }
+    },
+    "card": {
+      "open": "Meet {name}, {role}",
+      "close": "Close",
+      "who": "Who I am",
+      "does": "What I do",
+      "stack": "Languages and tools",
+      "contact": "Get in touch"
     }
   },
   "services": {

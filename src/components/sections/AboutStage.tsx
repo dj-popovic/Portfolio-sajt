@@ -6,6 +6,7 @@ import { finishSweep, prepareSweep } from "@/components/motion/sweep";
 import CountUp from "@/components/reactbits/CountUp";
 import { ScrollReveal, type ScrollRevealHandle } from "@/components/reactbits/ScrollReveal";
 import { gsap, useGSAP } from "@/lib/gsap";
+import { orb } from "@/lib/orb";
 
 type Stat = { n: number; label: string };
 
@@ -13,20 +14,22 @@ type AboutStageProps = {
   title: ReactNode;
   body: string;
   stats: Stat[];
-  photoLeft: ReactNode;
-  photoRight: ReactNode;
+  left: ReactNode;
+  right: ReactNode;
 };
 
 const TILE = 88; // px — the ember tile the panel grows out of
-// resting offsets of the two photo cards in the design (desktop)
-const PHOTO_Y = [-34, 40];
+// resting offsets of the two founder cards in the design (desktop)
+const CARD_Y = [-30, 36];
 
 /**
- * About — the reel's signature move, adapted: the ember ★ tile grows into
- * the light panel (pinned, scroll-scrubbed), the story reveals inside it,
- * then the panel folds back into the tile as "What we offer" arrives.
+ * About — the reel's signature move, adapted: the ember ★ tile the hero's
+ * thread ran into bursts open into the light panel (pinned, scroll-scrubbed;
+ * it starts hot and cools to paper while the orb layer throws sparks off its
+ * edge), the story and the two founder cards come in, then the panel folds
+ * back into the tile as "What we offer" arrives.
  */
-export function AboutStage({ title, body, stats, photoLeft, photoRight }: AboutStageProps) {
+export function AboutStage({ title, body, stats, left, right }: AboutStageProps) {
   const root = useRef<HTMLElement>(null);
   const bodyApi = useRef<ScrollRevealHandle>(null);
   const [statsPlay, setStatsPlay] = useState(false);
@@ -38,18 +41,33 @@ export function AboutStage({ title, body, stats, photoLeft, photoRight }: AboutS
       const q = gsap.utils.selector(section);
       const [tile] = q(".about-tile");
       const [glow] = q(".about-glow");
+      const [heat] = q(".about-heat");
       const [heading] = q(".about-center h2");
       const [divider] = q(".about-divider");
       const [bodyText] = q(".about-center p");
       const [statsRow] = q(".about-stats");
-      const photos = q(".photo");
+      const cards = q(".founder");
 
       const mm = gsap.matchMedia();
 
       // ---------- desktop: pinned signature sequence ----------
       mm.add("(prefers-reduced-motion: no-preference) and (min-width: 901px) and (min-height: 700px)", () => {
         const panel = { open: 0 };
-        const paint = () => tileClip(section, panel.open, TILE);
+        const paint = () => {
+          const inset = tileClip(section, panel.open, TILE);
+          // the orb layer draws the glow and the sparks along this edge
+          const b = section.getBoundingClientRect();
+          Object.assign(orb.panel, {
+            open: panel.open,
+            x: b.left + inset.x,
+            y: b.top + inset.y,
+            w: b.width - inset.x * 2,
+            h: b.height - inset.y * 2,
+            r: inset.r,
+            stage: true,
+            live: true,
+          });
+        };
         paint();
         prepareSweep(heading);
 
@@ -58,49 +76,54 @@ export function AboutStage({ title, body, stats, photoLeft, photoRight }: AboutS
           scrollTrigger: {
             trigger: section,
             start: "top top",
-            end: "+=230%",
+            end: "+=140%",
             pin: true,
-            scrub: 0.6,
+            scrub: 0.5,
             onRefresh: paint,
           },
         });
 
-        tl.to(panel, { open: 1, duration: 0.28, onUpdate: paint }, 0)
-          .fromTo(tile, { autoAlpha: 1, scale: 1 }, { autoAlpha: 0, scale: 0.55, duration: 0.08 }, 0.01)
-          .fromTo(glow, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.16 }, 0.16)
+        tl.to(panel, { open: 1, duration: 0.2, onUpdate: paint }, 0)
+          .fromTo(tile, { autoAlpha: 1, scale: 1 }, { autoAlpha: 0, scale: 0.55, duration: 0.05 }, 0.005)
+          // the panel opens hot and cools to paper
+          .fromTo(heat, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.17, ease: "power1.in" }, 0.03)
+          .fromTo(glow, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.12 }, 0.12)
           .fromTo(
-            photos,
-            { y: (i) => PHOTO_Y[i] + 150, rotation: (i) => (i === 0 ? -14 : 14), autoAlpha: 0 },
+            cards,
+            { y: (i) => CARD_Y[i] + 150, rotation: (i) => (i === 0 ? -14 : 14), autoAlpha: 0 },
             {
-              y: (i) => PHOTO_Y[i],
+              y: (i) => CARD_Y[i],
               rotation: (i) => (i === 0 ? -3 : 3),
               autoAlpha: 1,
-              duration: 0.2,
+              duration: 0.16,
               ease: "power3.out",
-              stagger: 0.04,
+              stagger: 0.03,
             },
-            0.22,
+            0.13,
           )
-          .to(heading, { "--rv": 1, filter: "blur(0px)", y: 0, duration: 0.16, ease: "power1.out" }, 0.26)
+          .to(heading, { "--rv": 1, filter: "blur(0px)", y: 0, duration: 0.12, ease: "power1.out" }, 0.16)
           .to(
             { p: 0 },
             {
               p: 1,
-              duration: 0.3,
+              duration: 0.2,
               onUpdate() {
                 bodyApi.current?.render(this.targets()[0].p);
               },
             },
-            0.34,
+            0.2,
           )
-          .fromTo(divider, { scaleX: 0 }, { scaleX: 1, duration: 0.08, ease: "power2.out" }, 0.58)
-          .call(() => setStatsPlay(true), [], 0.6)
-          // hold, then fold back into the tile
-          .to(panel, { open: 0, duration: 0.15, onUpdate: paint }, 0.84)
-          .to(tile, { autoAlpha: 1, scale: 1, duration: 0.05 }, 0.94);
+          .fromTo(divider, { scaleX: 0 }, { scaleX: 1, duration: 0.05, ease: "power2.out" }, 0.4)
+          .fromTo(statsRow, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.05 }, 0.4)
+          .call(() => setStatsPlay(true), [], 0.42)
+          // hold, then fold back into the tile (warming up again on the way)
+          .to(panel, { open: 0, duration: 0.13, onUpdate: paint }, 0.84)
+          .to(heat, { autoAlpha: 1, duration: 0.09, ease: "power1.in" }, 0.86)
+          .to(tile, { autoAlpha: 1, scale: 1, duration: 0.04 }, 0.93);
 
         return () => {
           section.style.clipPath = "";
+          orb.panel.live = false;
           finishSweep(heading);
         };
       });
@@ -114,6 +137,18 @@ export function AboutStage({ title, body, stats, photoLeft, photoRight }: AboutS
           const paint = () => {
             const c = Math.max(state.enter, state.leave);
             setInset(section, 0, c * 6, c * 40, "%");
+            const b = section.getBoundingClientRect();
+            const x = b.width * c * 0.06;
+            Object.assign(orb.panel, {
+              open: 1 - c,
+              x: b.left + x,
+              y: b.top,
+              w: b.width - x * 2,
+              h: b.height,
+              r: c * 40,
+              stage: false,
+              live: true,
+            });
           };
           paint();
           gsap.to(state, {
@@ -140,7 +175,7 @@ export function AboutStage({ title, body, stats, photoLeft, photoRight }: AboutS
             onComplete: () => finishSweep(heading),
           });
           gsap.fromTo(
-            photos,
+            cards,
             { y: 60, autoAlpha: 0 },
             {
               y: 0,
@@ -165,6 +200,7 @@ export function AboutStage({ title, body, stats, photoLeft, photoRight }: AboutS
 
           return () => {
             section.style.clipPath = "";
+            orb.panel.live = false;
             finishSweep(heading);
           };
         },
@@ -184,11 +220,12 @@ export function AboutStage({ title, body, stats, photoLeft, photoRight }: AboutS
   return (
     <section ref={root} className="about" id="about" data-screen-label="About" data-manual-reveal>
       <div className="about-glow" aria-hidden />
+      <div className="about-heat" aria-hidden />
       <div className="about-tile logo-mark" aria-hidden>
         ★
       </div>
+      {/* the story first (heading order, reading order); grid areas put the cards either side */}
       <div className="about-wrap">
-        {photoLeft}
         <div className="about-center">
           <h2>{title}</h2>
           <ScrollReveal ref={bodyApi} mode="external" baseOpacity={0.14} blurStrength={4} stagger={0.045}>
@@ -206,7 +243,8 @@ export function AboutStage({ title, body, stats, photoLeft, photoRight }: AboutS
             ))}
           </div>
         </div>
-        {photoRight}
+        {left}
+        {right}
       </div>
     </section>
   );

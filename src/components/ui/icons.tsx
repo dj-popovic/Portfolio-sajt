@@ -105,3 +105,10 @@ export const ChevronDownIcon = (p: IconProps) => (
     <path d="m6 9 6 6 6-6" />
   </svg>
 );
+
+export const MailIcon = (p: IconProps) => (
+  <svg {...base({ size: 16, ...p })} strokeWidth={1.8}>
+    <rect x="3" y="5" width="18" height="14" rx="2.5" />
+    <path d="m4 7 8 6 8-6" />
+  </svg>
+);

@@ -5,6 +5,8 @@ export const PLACEHOLDER = {
   studio: "[studio]",
   nameOne: "<Name One>",
   nameTwo: "<Name Two>",
+  emailOne: "[name-one]@[studio].com",
+  emailTwo: "[name-two]@[studio].com",
   city: "[Novi Sad]",
 } as const;
 

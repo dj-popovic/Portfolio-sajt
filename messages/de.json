@@ -40,14 +40,40 @@
   "about": {
     "title": "Zwei Menschen,<br></br>ein Studio <glow>von A bis Z.</glow>",
     "body": "Wir sind ein Studio zu zweit und begleiten deine Marke, Website und App von der ersten Idee bis zum Launch, inklusive Marketing. Bewusst klein: Du arbeitest direkt mit den Menschen, die die Arbeit machen, von Anfang bis Ende.",
-    "photo1": "[Gründerfoto 1]",
-    "photo2": "[Gründerfoto 2]",
-    "role1": "Co-Founder · <b>Design & Marke</b>",
-    "role2": "Co-Founder · <b>Entwicklung</b>",
     "stats": {
       "founders": "Köpfe",
       "disciplines": "Disziplinen",
       "team": "Team, von A bis Z"
+    },
+    "people": {
+      "one": {
+        "role": "Frontend & Design",
+        "bio": "[Ich gestalte und baue, was Menschen sehen und anfassen: Interfaces, Bewegung und wie sich eine Marke auf dem Bildschirm anfühlt.]",
+        "does": [
+          "Websites und Web-Apps",
+          "Designsysteme und Interfaces",
+          "Animation, 3D und Interaktion",
+          "Tempo, SEO und Barrierefreiheit"
+        ]
+      },
+      "two": {
+        "role": "Backend & Infrastruktur",
+        "bio": "[Ich baue, was alles am Laufen hält: APIs, Daten, Integrationen und die Server darunter.]",
+        "does": [
+          "APIs und Integrationen",
+          "Datenbanken und Datenmodelle",
+          "Cloud, Hosting und DevOps",
+          "Sicherheit, Zahlungen und Skalierung"
+        ]
+      }
+    },
+    "card": {
+      "open": "Lerne {name} kennen, {role}",
+      "close": "Schließen",
+      "who": "Wer ich bin",
+      "does": "Was ich mache",
+      "stack": "Sprachen und Tools",
+      "contact": "Kontakt"
     }
   },
   "services": {

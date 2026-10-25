@@ -8,12 +8,13 @@ The site is built so photos drop in without layout changes. Until then the slots
 
 | Where | What | Why it matters |
 |---|---|---|
-| About — two tilted cards (`src/components/sections/About.tsx`) | Business portraits of both founders, portrait crop (~4:5), warm light | The About section *is* the human proof — "two people, one studio". Empty cards make the studio feel anonymous, which works against the warm, welcoming brief. |
-| Contact — two round avatars (`src/components/sections/Contact.tsx`) | Square crops of the same portraits | "The two of us read every message" only feels true with faces next to it; it's the trust moment right before someone writes to you. |
+| Contact — two round avatars (`src/components/sections/Contact.tsx`) | Square portraits of both founders — **or** drop photos here too (About no longer uses them, see below) and show initials | "The two of us read every message" feels truer with faces (or at least names) next to it; it's the trust moment right before someone writes to you. |
 | Work — coffee concept ([Ember & Oak]) | A founders / cupping-table photo for the story block (the one striped `[photo]` slot left, `TODO(photos)` in `demos/coffee/CoffeeDemo.tsx`). Optional: real bag shots to replace the drawn bags. | The drawn bags already carry the shop; the story block is where a real photo makes the concept read as finished client work instead of a mock-up — the whole point of the Work section. |
 | Work — street-food concept ([Tako]) | Optional: dish photos (tacos, bowls, drinks; top-down or 3/4) to replace the flat illustrations in `demos/food/Dish.tsx` | Food apps live or die on appetite appeal. The illustrations work, but real food photography is what makes people hungry. |
 | Work — wellness concept ([Stillwater]) | Optional: 2–3 calm ambient images (water, sky, texture) | Nice to have — the app UI already carries itself. |
 | Social share (OG) image | 1200×630 with the final logo | Shown when the link is shared in chats/social. Needs the name/logo first. |
+
+About uses no photos any more: the founders are 3D name cards with their tools (decided in the About redesign).
 
 Image licensing: use photos you own or that are explicitly licensed for commercial use.
 
@@ -27,6 +28,11 @@ Image licensing: use photos you own or that are explicitly licensed for commerci
 
 - All copy is in `messages/en.json` (+ `sr`, `ru`, `de`). The current text is the design's placeholder copy.
 - Founder names `<Name One>` / `<Name Two>`, city `[Novi Sad]`.
+- Founder profiles (the About cards open into them):
+  - Bios are bracketed first-person drafts in `about.people.*.bio` — write your own.
+  - Emails `[name-one]@[studio].com` / `[name-two]@[studio].com` live in `src/lib/placeholders.ts`.
+  - LinkedIn / GitHub links are `#` in `src/lib/founders.ts`.
+  - The tool stacks in the same file are a first pick (12 each, frontend left, backend right). Logos come from Simple Icons (`src/lib/tech-icons.ts`, generated); adding a tool means adding its path there.
 - Social links are `#` (Instagram, Dribbble, LinkedIn, X) — real URLs needed, or remove the ones you won't use.
 - "Read the journal" links to nothing — remove it unless a journal is planned.
 - The concept brand names are placeholders too: `[Ember & Oak]`, `[Northwind]`, `[Stillwater]`, `[Tako]`.

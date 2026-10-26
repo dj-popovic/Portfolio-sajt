@@ -12,7 +12,12 @@ const STACK =
 const LIFT = 16; // px a covered pane peeks above the one in front of it
 const SINK = 0.045; // how much smaller each covered pane gets
 const SHADE = [0, 0.42, 0.6, 0.74]; // how dim, by depth
-const STEP = 0.3; // viewport heights of scrolling per pane
+
+// the deck's timeline runs in viewport heights of scrolling
+const PANE = 0.58; // from one pane to the next
+const RISE = 0.2; // a pane slides up over the last
+const DRAW = 0.5; // its symbol draws in, as unhurried as the first pane's on the way in
+const LEAD = 0.06; // a breath on the first pane before the second comes
 
 // where the two lights sit behind the deck for each pane (percent of their own size)
 const LIGHTS = [
@@ -94,57 +99,62 @@ export function ServicesDeck({ label, names, children, foot }: DeckProps) {
         light(0).forEach(({ el, ...to }) => gsap.set(el, to));
 
         const n = cards.length;
-        // one unit per pane coming in, then the closing beat and a short hold
-        const total = n - 1 + 0.72;
+        // pane i starts coming in here; after the last one's symbol is whole, the closing beat
+        const start = (i: number) => LEAD + (i - 1) * PANE;
+        const closing = start(n);
+        const total = closing + 0.24;
         const tl = gsap.timeline({
           defaults: { ease: "none", immediateRender: false },
           scrollTrigger: {
             trigger: section,
             start: "top top",
-            end: () => `+=${window.innerHeight * STEP * total}`,
+            end: () => `+=${window.innerHeight * total}`,
             pin: true,
             scrub: 0.6,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
               const time = self.progress * total;
-              show(time > n - 1 + 0.22 ? n : Math.min(n - 1, Math.floor(time + 0.5)));
+              // a pane counts as in front from halfway up
+              let front = 0;
+              for (let i = 1; i < n; i++) if (time >= start(i) + RISE / 2) front = i;
+              show(time > closing + 0.02 ? n : front);
             },
           },
         });
 
         for (let i = 1; i < n; i++) {
-          const at = i - 1 + 0.12;
+          const at = start(i);
           const ease = "power2.out";
-          tl.fromTo(cards[i], { y: below }, { y: 0, duration: 0.76, ease }, at);
+          tl.fromTo(cards[i], { y: below }, { y: 0, duration: RISE, ease }, at);
           // everything under it sinks one level deeper
           for (let j = 0; j < i; j++) {
-            tl.fromTo(cards[j], depth(i - 1 - j), { ...depth(i - j), duration: 0.76, ease }, at);
-            tl.fromTo(shades[j], { opacity: SHADE[i - 1 - j] }, { opacity: SHADE[i - j], duration: 0.76 }, at);
+            tl.fromTo(cards[j], depth(i - 1 - j), { ...depth(i - j), duration: RISE, ease }, at);
+            tl.fromTo(shades[j], { opacity: SHADE[i - 1 - j] }, { opacity: SHADE[i - j], duration: RISE }, at);
           }
           // its words leave as it's covered (through the glass they'd only smudge); its glow stays
-          tl.fromTo(bodies[i - 1], { opacity: 1 }, { opacity: 0, duration: 0.45 }, at + 0.1);
-          // its symbol draws in as it rises (hidden by default in CSS, so a refresh can't
-          // leave it drawn early) and is whole as the pane settles
-          tl.fromTo(glyphs[i], { "--draw": 1 }, { "--draw": 0, duration: 0.6, ease: "power2.out" }, at + 0.04);
-          tl.fromTo(glares[i], { xPercent: 0 }, { xPercent: 340, duration: 0.9, ease: "power1.inOut" }, at + 0.05);
-          tl.fromTo(marker, rowBox(i - 1), { ...rowBox(i), duration: 0.5, ease: "power2.inOut" }, at + 0.14);
+          tl.fromTo(bodies[i - 1], { opacity: 1 }, { opacity: 0, duration: RISE * 0.6 }, at + 0.02);
+          // its symbol draws in from the moment it starts to rise, at an even pace, like the
+          // first pane's (hidden by default in CSS, so a refresh can't leave it drawn early)
+          tl.fromTo(glyphs[i], { "--draw": 1 }, { "--draw": 0, duration: DRAW, ease: "power1.inOut" }, at + 0.02);
+          tl.fromTo(glares[i], { xPercent: 0 }, { xPercent: 340, duration: RISE * 1.5, ease: "power1.inOut" }, at);
+          tl.fromTo(marker, rowBox(i - 1), { ...rowBox(i), duration: RISE * 0.7, ease: "power2.inOut" }, at + 0.02);
           light(i).forEach(({ el, ...to }, k) => {
             const from = light(i - 1)[k];
             tl.fromTo(
               el,
               { xPercent: from.xPercent, yPercent: from.yPercent },
-              { ...to, duration: 0.8, ease: "power1.inOut" },
+              { ...to, duration: RISE * 1.5, ease: "power1.inOut" },
               at,
             );
           });
         }
         // the closing beat: the marker takes in all four, the line lands
-        tl.fromTo(marker, rowBox(n - 1), { ...allBox(), duration: 0.36, ease: "power2.inOut" }, n - 1 + 0.08);
+        tl.fromTo(marker, rowBox(n - 1), { ...allBox(), duration: 0.14, ease: "power2.inOut" }, closing);
         tl.fromTo(
           footEl,
           { opacity: 0, y: 14 },
-          { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" },
-          n - 1 + 0.26,
+          { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" },
+          closing + 0.06,
         );
         tl.set({}, {}, total);
 
@@ -171,8 +181,9 @@ export function ServicesDeck({ label, names, children, foot }: DeckProps) {
         jumpTo.current = (i) => {
           const st = tl.scrollTrigger;
           if (!st) return;
-          const time = i === 0 ? 0 : i - 1 + 0.9;
-          scroll.scrollTo(st.start + (st.end - st.start) * (time / total), { duration: 1 });
+          // to where that pane is in front with its symbol whole
+          const time = i === 0 ? 0 : start(i) + DRAW + 0.03;
+          scroll.scrollTo(st.start + (st.end - st.start) * (time / total), { duration: 1.2 });
         };
         // a keyboard visit to the index from outside the pin brings the deck into place
         const onFocus = (e: FocusEvent) => {

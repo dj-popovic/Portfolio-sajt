@@ -6,13 +6,13 @@ Things that are intentionally unfinished, and why. Search the code for `TODO(` t
 
 The site is built so photos drop in without layout changes. Until then the slots show `[bracketed]` placeholders.
 
-| Where | What | Why it matters |
-|---|---|---|
-| Contact — two round avatars (`src/components/sections/Contact.tsx`) | Square portraits of both founders — **or** drop photos here too (About no longer uses them, see below) and show initials | "The two of us read every message" feels truer with faces (or at least names) next to it; it's the trust moment right before someone writes to you. |
-| Work — coffee concept ([Ember & Oak]) | A founders / cupping-table photo for the story block (the one striped `[photo]` slot left, `TODO(photos)` in `demos/coffee/CoffeeDemo.tsx`). Optional: real bag shots to replace the drawn bags. | The drawn bags already carry the shop; the story block is where a real photo makes the concept read as finished client work instead of a mock-up — the whole point of the Work section. |
-| Work — street-food concept ([Tako]) | Optional: dish photos (tacos, bowls, drinks; top-down or 3/4) to replace the flat illustrations in `demos/food/Dish.tsx` | Food apps live or die on appetite appeal. The illustrations work, but real food photography is what makes people hungry. |
-| Work — wellness concept ([Stillwater]) | Optional: 2–3 calm ambient images (water, sky, texture) | Nice to have — the app UI already carries itself. |
-| Social share (OG) image | 1200×630 with the final logo | Shown when the link is shared in chats/social. Needs the name/logo first. |
+| Where                                                               | What                                                                                                                                                                                             | Why it matters                                                                                                                                                                          |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Contact — two round avatars (`src/components/sections/Contact.tsx`) | Square portraits of both founders — **or** drop photos here too (About no longer uses them, see below) and show initials                                                                         | "The two of us read every message" feels truer with faces (or at least names) next to it; it's the trust moment right before someone writes to you.                                     |
+| Work — coffee concept ([Ember & Oak])                               | A founders / cupping-table photo for the story block (the one striped `[photo]` slot left, `TODO(photos)` in `demos/coffee/CoffeeDemo.tsx`). Optional: real bag shots to replace the drawn bags. | The drawn bags already carry the shop; the story block is where a real photo makes the concept read as finished client work instead of a mock-up — the whole point of the Work section. |
+| Work — street-food concept ([Tako])                                 | Optional: dish photos (tacos, bowls, drinks; top-down or 3/4) to replace the flat illustrations in `demos/food/Dish.tsx`                                                                         | Food apps live or die on appetite appeal. The illustrations work, but real food photography is what makes people hungry.                                                                |
+| Work — wellness concept ([Stillwater])                              | Optional: 2–3 calm ambient images (water, sky, texture)                                                                                                                                          | Nice to have — the app UI already carries itself.                                                                                                                                       |
+| Social share (OG) image                                             | 1200×630 with the final logo                                                                                                                                                                     | Shown when the link is shared in chats/social. Needs the name/logo first.                                                                                                               |
 
 About uses no photos any more: the founders are 3D name cards with their tools (decided in the About redesign).
 
@@ -35,7 +35,7 @@ Image licensing: use photos you own or that are explicitly licensed for commerci
   - The tool stacks in the same file are a first pick (12 each, frontend left, backend right). Logos come from Simple Icons (`src/lib/tech-icons.ts`, generated); adding a tool means adding its path there.
 - Social links are `#` (Instagram, Dribbble, LinkedIn, X) — real URLs needed, or remove the ones you won't use.
 - "Read the journal" links to nothing — remove it unless a journal is planned.
-- The concept brand names are placeholders too: `[Ember & Oak]`, `[Northwind]`, `[Stillwater]`, `[Tako]`.
+- The concept brand names are placeholders too: `[Ember & Oak]`, `[Northwind]`, `[Stillwater]`, `[Tako]`. Their marks are drawn icons (`src/components/work/marks.tsx`), so a rename only touches the names.
 
 ## 4. Prices
 
@@ -61,22 +61,24 @@ All four files must keep the same keys, ICU arguments and rich tags, and every s
 
 Small text from the design palette was nudged up to WCAG AA (4.5:1 for normal text, 3:1 for large text) without changing the look. axe-core now reports no contrast violations. Every change is marked `build: contrast (WCAG AA)` in `src/styles/sections.css`.
 
-| Where | Before | After |
-|---|---|---|
-| Package cards — "Investment" label and the "[From €X …]" hint | 3.0 / 3.3:1 | `#837162`, 4.7:1 |
-| About — stat labels under 2 / 4 / 1 | 4.0:1 | `#7E6C5F`, 4.7:1 |
-| Services — card numbers 01–04 | 3.3:1 | 50% cream, 4.7:1 |
-| Work — "Concept · Web" pill | white on orange, 2.5:1 | dark text, 6.7:1 (the dark "App" pill keeps white text) |
-| How we work — phase tags and "you get" lines | 3.4 / 4.2:1 | 50% cream, 4.8:1 |
-| How we work — big step numbers before they light up | 1.7:1 | 38% cream, 3.2:1 (large text) |
-| Hero — "Scroll" cue | 3.7:1 | 50% cream, 4.8:1 |
-| Nav — inactive language codes (since replaced by the language dropdown) | 2.3:1 | 4.6:1 |
-| Contact — input placeholder | 2.5:1 | 4.7:1 |
-| Photo placeholder labels (About cards, Contact avatars) | 2.7 / 3.2:1 | 4.6 / 4.7:1, until real photos replace them |
+| Where                                                                   | Before                 | After                                                                                 |
+| ----------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------- |
+| Package cards — "Investment" label and the "[From €X …]" hint           | 3.0 / 3.3:1            | `#837162`, 4.7:1                                                                      |
+| About — stat labels under 2 / 4 / 1                                     | 4.0:1                  | `#7E6C5F`, 4.7:1                                                                      |
+| Services — card numbers 01–04                                           | 3.3:1                  | 50% cream, 4.7:1                                                                      |
+| Work — "Concept · Web" pill                                             | white on orange, 2.5:1 | dark text, 6.7:1; since redesigned as a quiet glass pill on the dark card (78% cream) |
+| How we work — phase tags and "you get" lines                            | 3.4 / 4.2:1            | 50% cream, 4.8:1                                                                      |
+| How we work — big step numbers before they light up                     | 1.7:1                  | 38% cream, 3.2:1 (large text)                                                         |
+| Hero — "Scroll" cue                                                     | 3.7:1                  | 50% cream, 4.8:1                                                                      |
+| Nav — inactive language codes (since replaced by the language dropdown) | 2.3:1                  | 4.6:1                                                                                 |
+| Contact — input placeholder                                             | 2.5:1                  | 4.7:1                                                                                 |
+| Photo placeholder labels (About cards, Contact avatars)                 | 2.7 / 3.2:1            | 4.6 / 4.7:1, until real photos replace them                                           |
 
 Still flagged by the Impeccable detector, on purpose:
 
-- The miniature site previews on the Work cards. They're pictures of the concept sites (hidden from screen readers), so text contrast rules don't apply to them.
+- The live previews on the Work cards. They're replicas of the concept sites and apps in those brands' own colours (hidden from screen readers), so the contrast and "nested cards" rules don't apply to them; the coffee site's marquee in its preview only runs while the card is on screen.
+- The founder cards' names and roles read as cream on paper to the detector, which can't see the card's dark shell (a separate layer under the text). On screen they're cream on near-black.
+- The ember underglow inside the founder cards: part of the cards' material.
 - The ember gradient on the hero headline's highlighted words, now the only gradient text on the page.
 - The soft ember glow on the header's Start a project button (asked for in the header redesign).
 - The pulsing dot next to the footer's local clock. It marks a live value, so it stays.

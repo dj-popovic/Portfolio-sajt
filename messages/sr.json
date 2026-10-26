@@ -114,26 +114,26 @@
     "items": {
       "coffee": {
         "value": "Editorijalna prodavnica za <b>malu pržionicu kafe</b>",
-        "name": "[Ember & Oak] — mala pržionica kafe"
+        "what": "Mala pržionica kafe"
       },
       "fintech": {
         "value": "Dashboard sa analitikom uživo za <b>fintech proizvod</b>",
-        "name": "[Northwind] — dashboard novčanog toka"
+        "what": "Dashboard novčanog toka"
       },
       "wellness": {
         "value": "Miran dnevni ritual za <b>wellness brend</b>",
-        "name": "[Stillwater] — aplikacija za smirenje"
+        "what": "Aplikacija za smirenje"
       },
       "food": {
         "value": "Naručivanje na klik za <b>street food brend</b>",
-        "name": "[Tako] — aplikacija za naručivanje hrane"
+        "what": "Aplikacija za naručivanje hrane"
       }
     },
     "window": {
-      "badge": "Interaktivni demo, napravljen u kodu",
       "close": "Zatvori demo",
       "hint": "Skrolujte i kliknite. Sve radi.",
-      "openAria": "Otvori demo: {name}"
+      "openAria": "Otvori demo: {brand}, {what}",
+      "switch": "Koncepti"
     }
   },
   "process": {

@@ -182,8 +182,9 @@
     transition-delay: 0s !important;
     scroll-behavior: auto !important;
   }
-  /* hover/auto-scrolling previews stay on their first screen */
-  .preview-track {
+  /* the Work previews hold still (ConceptCard doesn't play them either) */
+  .pv-web .pv-track,
+  .pv-scr {
     animation: none !important;
   }
 }

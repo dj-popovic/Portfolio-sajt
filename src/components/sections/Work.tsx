@@ -1,15 +1,18 @@
 import { useTranslations } from "next-intl";
 import { PanelClip } from "@/components/motion/PanelClip";
+import { ArrowUpRight } from "@/components/ui/icons";
 import { WorkGallery } from "@/components/work/WorkGallery";
 import { richLight } from "@/lib/rich";
 
 export function Work() {
   const t = useTranslations("work");
+  const nav = useTranslations("nav");
 
   return (
     <section className="work" id="work" data-screen-label="Work">
       <PanelClip />
       <div className="work-glow" aria-hidden />
+      <div className="work-light" aria-hidden />
       <div className="work-inner">
         <div className="sec-head">
           <div className="lead">
@@ -25,9 +28,13 @@ export function Work() {
 
         <WorkGallery />
 
-        <div className="sec-foot" data-reveal="fade">
+        <div className="sec-foot work-foot" data-reveal="fade">
           <span className="ln" aria-hidden />
           <p>{t.rich("foot", richLight)}</p>
+          <a href="#contact" className="work-cta">
+            {nav("cta")}
+            <ArrowUpRight />
+          </a>
           <span className="ln" aria-hidden />
         </div>
       </div>

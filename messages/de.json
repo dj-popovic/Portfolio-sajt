@@ -114,26 +114,26 @@
     "items": {
       "coffee": {
         "value": "Editorialer Onlineshop für eine <b>kleine Kaffeerösterei</b>",
-        "name": "[Ember & Oak] — kleine Kaffeerösterei"
+        "what": "Kleine Kaffeerösterei"
       },
       "fintech": {
         "value": "Live-Analytics-Dashboard für ein <b>Fintech-Produkt</b>",
-        "name": "[Northwind] — Cashflow-Dashboard"
+        "what": "Cashflow-Dashboard"
       },
       "wellness": {
         "value": "Ein ruhiges tägliches Ritual für eine <b>Wellness-Marke</b>",
-        "name": "[Stillwater] — Achtsamkeits-App"
+        "what": "Achtsamkeits-App"
       },
       "food": {
         "value": "Bestellen auf Abruf für eine <b>Streetfood-Marke</b>",
-        "name": "[Tako] — Streetfood-Bestell-App"
+        "what": "Streetfood-Bestell-App"
       }
     },
     "window": {
-      "badge": "Interaktive Demo, in Code gebaut",
       "close": "Demo schließen",
       "hint": "Scroll und klick dich durch. Alles ist live.",
-      "openAria": "Demo öffnen: {name}"
+      "openAria": "Demo öffnen: {brand}, {what}",
+      "switch": "Konzepte"
     }
   },
   "process": {

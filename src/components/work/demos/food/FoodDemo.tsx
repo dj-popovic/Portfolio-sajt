@@ -2,7 +2,7 @@
 
 import { AnimatePresence, animate, motion, useDragControls, useReducedMotion } from "motion/react";
 import { createContext, useContext, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { PLACEHOLDER } from "@/lib/placeholders";
+import { ConceptMark } from "@/components/work/marks";
 import { PhoneFrame, useFitToWindow, useWideWindow } from "../Phone";
 import { Dish, type DishKind } from "./Dish";
 
@@ -353,12 +353,10 @@ export default function FoodDemo() {
 function Brand({ size = "lg" }: { size?: "lg" | "sm" }) {
   return (
     <span
-      className={`flex items-baseline gap-1.5 font-extrabold tracking-[-0.03em] text-(--red) ${size === "lg" ? "text-[22px]" : "text-[18px]"}`}
+      className={`flex items-center gap-2 font-extrabold tracking-[-0.03em] text-(--red) ${size === "lg" ? "text-[22px]" : "text-[18px]"}`}
     >
+      <ConceptMark kind="food" size={size === "lg" ? 28 : 20} />
       [Tako]
-      <span className={`font-semibold tracking-normal text-(--muted) ${size === "lg" ? "text-[11px]" : "text-[9px]"}`}>
-        {PLACEHOLDER.logo}
-      </span>
     </span>
   );
 }
@@ -398,7 +396,7 @@ function HeroCopy({ onOrder, jump }: { onOrder: () => void; jump: (id: string) =
         before it cools.
       </h1>
       <p className="mt-6 max-w-[30rem] text-[17px] leading-relaxed text-(--muted)">
-        Tacos, bowls and aguas frescas from Belgrade’s best street carts — at your door in about twenty minutes.
+        Tacos, bowls and aguas frescas from Belgrade’s best street carts, at your door in about twenty minutes.
       </p>
       <div className="mt-8 flex flex-wrap gap-3">
         <button
@@ -441,7 +439,7 @@ function Specials() {
     <section id="tk-specials" className="scroll-mt-20 py-14">
       <p className="text-[12.5px] font-extrabold tracking-[0.14em] text-(--red) uppercase">Tonight’s specials</p>
       <h2 className="mt-3 max-w-[24rem] text-[clamp(28px,3.6vw,42px)] leading-[1.02] font-extrabold tracking-[-0.03em]">
-        Tap add — it lands in the app’s cart.
+        Tap add. It lands in the app’s cart.
       </h2>
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
         {MENU.filter((m) => m.popular).map((m) => (
@@ -488,7 +486,7 @@ function How() {
       <ol className="mt-8 grid gap-4 sm:grid-cols-3">
         {[
           ["Pick a cart", "Thirty-eight street carts, one menu. Filter by whatever you’re craving."],
-          ["We ride it over", "Couriers pick up straight off the plancha — about twenty minutes door to door."],
+          ["We ride it over", "Couriers pick up straight off the plancha, about twenty minutes door to door."],
           ["Eat it hot", "Follow every turn on the map, then rate the cart, not the courier."],
         ].map(([t, d], i) => (
           <li key={t} className="rounded-[24px] border border-(--line) bg-white p-5">
@@ -914,7 +912,7 @@ function MenuScreen() {
       </ul>
       {items.length === 0 ? (
         <p className="px-6 py-8 text-center text-[12.5px] font-semibold text-(--muted)">
-          Nothing called “{q.trim()}” tonight — try “taco”.
+          Nothing called “{q.trim()}” tonight. Try “taco”.
         </p>
       ) : null}
     </div>
@@ -1053,7 +1051,7 @@ function CartSheet() {
                   onClick={() => add(oddTaco.item)}
                   className="mt-2 w-full rounded-xl bg-(--yellow)/60 px-3 py-2 text-left text-[11.5px] font-bold"
                 >
-                  One more {oddTaco.item.name} is free tonight — <span className="underline">add it</span>
+                  One more {oddTaco.item.name} is free tonight: <span className="underline">add it</span>
                 </button>
               ) : null}
               <div className="mt-3">

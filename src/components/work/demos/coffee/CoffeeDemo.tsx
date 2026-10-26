@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { BAGS, Bean, BagArt, Seal } from "./BagArt";
-import { PLACEHOLDER } from "@/lib/placeholders";
+import { ConceptMark } from "@/components/work/marks";
 
 /* [Ember & Oak] — a self-contained concept storefront. Content stays in
    English on purpose (fictional client brand). */
@@ -112,11 +112,8 @@ export default function CoffeeDemo() {
       {/* nav */}
       <nav className="sticky top-0 z-20 flex items-center justify-between gap-4 border-b border-(--ink)/8 bg-(--cream)/86 px-[clamp(20px,4vw,46px)] py-4 backdrop-blur-md">
         <span className={`${serif} flex items-center gap-2.5 text-[21px] tracking-[0.01em]`}>
-          <span className="grid size-[26px] place-items-center rounded-full bg-(--ink) text-[11px] text-(--cream)">
-            E
-          </span>
+          <ConceptMark kind="coffee" size={26} />
           [Ember&nbsp;&amp;&nbsp;Oak]
-          <span className="font-mono text-[10px] text-(--muted)">{PLACEHOLDER.logo}</span>
         </span>
         <span className="hidden gap-[26px] text-[13.5px] font-medium text-(--muted) md:flex">
           {["Shop", "Subscriptions", "Our story", "Journal"].map((l) => (
@@ -167,7 +164,7 @@ export default function CoffeeDemo() {
               >
                 <p className={`${serif} mb-3 text-[20px]`}>Your cart</p>
                 {cart.length === 0 ? (
-                  <p className="py-4 text-[13px] text-(--muted)">Empty for now — the roasts are below.</p>
+                  <p className="py-4 text-[13px] text-(--muted)">Empty for now. The roasts are below.</p>
                 ) : (
                   <ul className="flex flex-col gap-3">
                     {cart.map((l) => {
@@ -213,7 +210,7 @@ export default function CoffeeDemo() {
                 >
                   Checkout
                 </button>
-                <p className="mt-2 text-center text-[11px] text-(--muted)">Concept demo — no real checkout.</p>
+                <p className="mt-2 text-center text-[11px] text-(--muted)">Concept demo, no real checkout.</p>
               </motion.div>
             ) : null}
           </AnimatePresence>
@@ -232,7 +229,7 @@ export default function CoffeeDemo() {
             <em className="text-(--clay) italic">roasted to order.</em>
           </h1>
           <p className="mb-7 max-w-[42ch] text-[clamp(.98rem,1.2vw,1.12rem)] text-pretty text-(--muted)">
-            Single-origin beans we source ourselves and roast the morning they ship — so what lands on your doorstep
+            Single-origin beans we source ourselves and roast the morning they ship, so what lands on your doorstep
             tastes like it just left the drum.
           </p>
           <div className="flex flex-wrap items-center gap-4">
@@ -321,7 +318,7 @@ export default function CoffeeDemo() {
         <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
           <h2 className={`${serif} text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.05]`}>This week’s roasts</h2>
           <p className="max-w-[34ch] text-[14px] text-(--muted)">
-            Rotating selection — whatever’s tasting best right now.
+            Rotating selection: whatever’s tasting best right now.
           </p>
         </div>
         <div className="grid gap-[22px] md:grid-cols-3">
@@ -338,9 +335,9 @@ export default function CoffeeDemo() {
         ref={processRef}
         className="grid scroll-mt-20 items-center gap-[clamp(24px,4vw,56px)] border-y border-(--ink)/8 bg-(--paper) px-[clamp(20px,4vw,46px)] py-[clamp(30px,4vw,56px)] md:grid-cols-2"
       >
-        {/* TODO(photos): founders / cupping table — see docs/OPEN-ITEMS.md */}
+        {/* TODO(photos): founders / cupping table, see docs/OPEN-ITEMS.md */}
         <figure className="grid h-[clamp(240px,28vw,330px)] place-items-center rounded-xl bg-[repeating-linear-gradient(45deg,#E7D8C4_0_11px,#F0E4D5_11px_22px)] font-mono text-[11px] tracking-[0.04em] text-[#9A7B5E]">
-          [photo — founders / cupping table]
+          [photo: founders / cupping table]
         </figure>
         <div>
           <h2 className={`${serif} mb-4 text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.06]`}>
@@ -548,7 +545,7 @@ function RoastFinder({ onAdd }: { onAdd: (id: Coffee["id"], size: CartLine["size
                 onClick={() => onAdd(pick.id, "small")}
                 className="rounded-full bg-(--gold) px-5 py-2.5 text-[13.5px] font-semibold text-(--ink) transition-transform hover:-translate-y-0.5 active:scale-[0.97]"
               >
-                Add to cart — ${pick.price.small}
+                Add to cart · ${pick.price.small}
               </button>
             </motion.div>
           </AnimatePresence>
@@ -611,7 +608,7 @@ function SubscriptionBuilder() {
           <p className="mb-2 text-[12px] font-semibold tracking-[0.2em] text-(--clay-ink) uppercase">Subscriptions</p>
           <h2 className={`${serif} mb-4 text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.06]`}>Never run out on a Monday.</h2>
           <p className="max-w-[40ch] text-[15px] text-(--muted)">
-            Pick a rhythm, we’ll roast to it. Pause, skip or change beans anytime — 10% off every bag.
+            Pick a rhythm, we’ll roast to it. Pause, skip or change beans anytime. 10% off every bag.
           </p>
         </div>
         <div className="rounded-[22px] border border-(--ink)/10 bg-(--paper) p-[clamp(20px,3vw,32px)] shadow-[0_30px_60px_-36px_rgba(60,24,8,.4)]">
@@ -740,7 +737,9 @@ function CoffeeFooter() {
         )}
       </AnimatePresence>
       <div className="mt-[34px] flex flex-wrap justify-between gap-5 border-t border-(--cream)/14 pt-[22px] text-[12.5px] text-(--cream)/60">
-        <span>© [year] [Ember &amp; Oak] · {PLACEHOLDER.logo}</span>
+        <span className="flex items-center gap-2.5">
+          <ConceptMark kind="coffee" size={20} />© [year] [Ember &amp; Oak]
+        </span>
         <span>Instagram · TikTok · Newsletter</span>
       </div>
     </footer>

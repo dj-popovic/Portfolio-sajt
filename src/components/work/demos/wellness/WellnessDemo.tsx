@@ -10,7 +10,7 @@ import {
   type ReactNode,
   type SetStateAction,
 } from "react";
-import { PLACEHOLDER } from "@/lib/placeholders";
+import { ConceptMark } from "@/components/work/marks";
 import { PhoneFrame, useFitToWindow, useWideWindow } from "../Phone";
 
 /* [Stillwater] — sleep & breathing app concept: a landing page whose phone
@@ -47,14 +47,14 @@ const CHAPTERS: Array<{ screen: Exclude<Screen, "home">; kicker: string; title: 
       screen: "breathe",
       kicker: "01 · Breathe",
       title: "A ring that breathes with you.",
-      body: "In for four, hold for four, out for six. Follow the circle until your shoulders drop — the phone does the counting.",
+      body: "In for four, hold for four, out for six. Follow the circle until your shoulders drop. The phone does the counting.",
       note: "Try it on the phone →",
     },
     {
       screen: "sleep",
       kicker: "02 · Sleep",
       title: "Stories that fade out on their own.",
-      body: "Pick a story and a timer. The voice softens and the sound bed lowers as you drift off — no abrupt stop at minute thirty.",
+      body: "Pick a story and a timer. The voice softens and the sound bed lowers as you drift off. No abrupt stop at minute thirty.",
       note: "Press play →",
     },
     {
@@ -106,11 +106,8 @@ export default function WellnessDemo() {
 function Logo() {
   return (
     <span className="flex items-center gap-2.5 text-[17px] font-extrabold tracking-[-0.01em]">
-      <span className="relative grid size-7 place-items-center rounded-full bg-[radial-gradient(circle_at_35%_30%,#fff,#B9C6FF_55%,#8E7DF0)] shadow-[0_6px_16px_-6px_rgba(108,92,231,.6)]">
-        <span className="size-2.5 rounded-full bg-white/90" />
-      </span>
+      <ConceptMark kind="wellness" size={30} />
       [Stillwater]
-      <span className="text-[11px] font-semibold text-(--soft)">{PLACEHOLDER.logo}</span>
     </span>
   );
 }
@@ -442,8 +439,9 @@ function HomeScreen({ setScreen, setTrack }: { setScreen: SetScreen; setTrack: (
 
   return (
     <div className="px-5 pt-2">
-      <p className="text-[11.5px] font-bold text-(--soft)">
-        [Stillwater] · <span className="font-semibold">{PLACEHOLDER.logo}</span>
+      <p className="flex items-center gap-1.5 text-[11.5px] font-bold text-(--soft)">
+        <ConceptMark kind="wellness" size={15} />
+        [Stillwater]
       </p>
       <p className="mt-1 text-[22px] leading-[1.15] font-extrabold tracking-[-0.01em]">
         Good evening,
@@ -819,7 +817,7 @@ function ProgressScreen() {
         </svg>
         <div>
           <p className="text-[30px] leading-none font-extrabold">12 nights</p>
-          <p className="mt-1 text-[11.5px] font-semibold opacity-85">in a row — your longest yet</p>
+          <p className="mt-1 text-[11.5px] font-semibold opacity-85">in a row, your longest yet</p>
         </div>
       </div>
       <div className="mt-3 rounded-[24px] border border-(--line) bg-white/70 p-4">

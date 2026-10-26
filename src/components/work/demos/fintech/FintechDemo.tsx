@@ -10,7 +10,7 @@ import {
   useTransform,
 } from "motion/react";
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { PLACEHOLDER } from "@/lib/placeholders";
+import { ConceptMark } from "@/components/work/marks";
 
 /* [Northwind] — cash-flow dashboard concept. Copy stays English on purpose (fictional client). */
 
@@ -26,6 +26,12 @@ const THEME = {
   "--blue": "#3D7BF2",
   "--red": "#FF7A8A",
   "--amber": "#FFC857",
+  // the money-flow categories, stepped into one lightness band and checked for
+  // colour-blind separation against the panel (income · spending · taxes · savings)
+  "--f-in": "#1E9E78",
+  "--f-out": "#3B7BE6",
+  "--f-tax": "#C9559B",
+  "--f-save": "#C2871F",
   fontFamily: "var(--font-spacegrotesk), system-ui, sans-serif",
 } as CSSProperties;
 
@@ -77,7 +83,7 @@ const BURN_SPARK = series(9, 14, 30, 20, -0.6);
 const TX = [
   { id: 1, name: "Stripe payout", cat: "Revenue", amount: 12400, date: "Today" },
   { id: 2, name: "AWS", cat: "Cloud", amount: -2180, date: "Today" },
-  { id: 3, name: "Payroll — October", cat: "Payroll", amount: -9600, date: "Yesterday" },
+  { id: 3, name: "Payroll, October", cat: "Payroll", amount: -9600, date: "Yesterday" },
   { id: 4, name: "Invoice #2231 · [Client]", cat: "Revenue", amount: 5000, date: "Oct 20" },
   { id: 5, name: "Figma", cat: "Software", amount: -144, date: "Oct 19" },
   { id: 6, name: "Google Ads", cat: "Marketing", amount: -1250, date: "Oct 18" },
@@ -144,9 +150,8 @@ const NAV: Array<{ id: Tab; label: string; icon: ReactNode }> = [
 function Brand() {
   return (
     <span className="flex items-center gap-2.5 text-[15px] font-bold tracking-[-0.01em]">
-      <span className="size-[22px] rounded-[7px] bg-[linear-gradient(135deg,var(--mint),var(--teal))]" />
+      <ConceptMark kind="fintech" size={24} />
       [Northwind]
-      <span className="font-mono text-[10px] font-normal text-(--muted)">{PLACEHOLDER.logo}</span>
     </span>
   );
 }
@@ -320,7 +325,7 @@ function Count({ value }: { value: number }) {
     const controls = animate(mv, value, { duration: 1.2, ease: EASE });
     return () => controls.stop();
   }, [mv, value]);
-  return <motion.span className="tabular-nums">{text}</motion.span>;
+  return <motion.span>{text}</motion.span>;
 }
 
 function Spark({ values, color }: { values: number[]; color: string }) {
@@ -454,15 +459,11 @@ function RevenueChart({ range }: { range: Range }) {
           <p className="text-[13.5px] font-semibold">Net revenue</p>
           <p className="mt-0.5 text-[12px] text-(--muted)">{data.caption}</p>
         </div>
-        <p className="text-[20px] font-bold tracking-[-0.02em] tabular-nums">{compact(total)}</p>
+        <p className="text-[20px] font-bold tracking-[-0.02em]">{compact(total)}</p>
       </div>
       <div className="relative h-[190px] pl-10">
         {[1, 0.5, 0].map((f) => (
-          <div
-            key={f}
-            className="absolute right-0 left-10 border-t border-dashed border-(--line)"
-            style={{ bottom: `${f * 100}%` }}
-          >
+          <div key={f} className="absolute right-0 left-10 border-t border-(--line)" style={{ bottom: `${f * 100}%` }}>
             <span className="absolute -top-2 -left-10 w-8 text-right text-[10.5px] text-(--muted) tabular-nums">
               {f === 0 ? "$0" : compact(top * f)}
             </span>
@@ -479,7 +480,7 @@ function RevenueChart({ range }: { range: Range }) {
                 onPointerEnter={() => setHover(i)}
               >
                 <motion.i
-                  className="block w-full rounded-t-[5px] bg-[linear-gradient(180deg,var(--mint),var(--blue))]"
+                  className="mx-auto block w-full max-w-6 rounded-t-[4px] bg-[linear-gradient(180deg,var(--mint),var(--blue))]"
                   initial={{ height: 0 }}
                   animate={{ height: `${pct}%`, opacity: hover === null || hover === i ? 1 : 0.35 }}
                   transition={{ height: { duration: 0.7, delay: i * 0.015, ease: EASE }, opacity: { duration: 0.15 } }}
@@ -647,20 +648,20 @@ function Transactions() {
 type FlowNode = { id: string; label: string; amount: number; color: string };
 
 const SOURCES: FlowNode[] = [
-  { id: "stripe", label: "Stripe", amount: 41200, color: "var(--mint)" },
-  { id: "invoices", label: "Invoices", amount: 18300, color: "var(--mint)" },
-  { id: "interest", label: "Interest", amount: 2500, color: "var(--mint)" },
+  { id: "stripe", label: "Stripe", amount: 41200, color: "var(--f-in)" },
+  { id: "invoices", label: "Invoices", amount: 18300, color: "var(--f-in)" },
+  { id: "interest", label: "Interest", amount: 2500, color: "var(--f-in)" },
 ];
 const SINKS: FlowNode[] = [
-  { id: "payroll", label: "Payroll", amount: 28800, color: "var(--teal)" },
-  { id: "cloud", label: "Cloud", amount: 6540, color: "var(--teal)" },
-  { id: "marketing", label: "Marketing", amount: 5100, color: "var(--teal)" },
-  { id: "taxes", label: "Taxes", amount: 9200, color: "var(--blue)" },
-  { id: "savings", label: "Savings", amount: 12360, color: "var(--amber)" },
+  { id: "payroll", label: "Payroll", amount: 28800, color: "var(--f-out)" },
+  { id: "cloud", label: "Cloud", amount: 6540, color: "var(--f-out)" },
+  { id: "marketing", label: "Marketing", amount: 5100, color: "var(--f-out)" },
+  { id: "taxes", label: "Taxes", amount: 9200, color: "var(--f-tax)" },
+  { id: "savings", label: "Savings", amount: 12360, color: "var(--f-save)" },
 ];
 const FLOW_TOTAL = SOURCES.reduce((s, n) => s + n.amount, 0);
 const SPENT = SINKS.filter((s) => s.id !== "savings").reduce((s, n) => s + n.amount, 0);
-const HUB = { x0: 300, x1: 340, top: 70, h: 180, mid: 160 };
+const HUB = { top: 70, h: 180, mid: 160 };
 
 // stack a column of nodes around the hub's middle, and their bands inside the hub
 function column(nodes: FlowNode[], gap: number) {
@@ -679,6 +680,11 @@ const LEFT = column(SOURCES, 34);
 const RIGHT = column(SINKS, 26);
 type Placed = (typeof LEFT)[number];
 
+// where things sit across: the inflow nodes end at xl, the hub runs hub0–hub1, the outflow nodes start at xr
+type Geo = { w: number; xl: number; hub0: number; hub1: number; xr: number; labels: boolean };
+const WIDE: Geo = { w: 680, xl: 124, hub0: 300, hub1: 340, xr: 516, labels: true };
+const SLIM: Geo = { w: 330, xl: 14, hub0: 150, hub1: 180, xr: 316, labels: false };
+
 const ribbon = (xa: number, ya: number, xb: number, yb: number, h: number) => {
   const xm = (xa + xb) / 2;
   return `M${xa} ${ya}C${xm} ${ya} ${xm} ${yb} ${xb} ${yb}L${xb} ${yb + h}C${xm} ${yb + h} ${xm} ${ya + h} ${xa} ${ya + h}Z`;
@@ -688,11 +694,7 @@ const spine = (xa: number, ya: number, xb: number, yb: number) => {
   return `M${xa} ${ya}C${xm} ${ya} ${xm} ${yb} ${xb} ${yb}`;
 };
 
-function Flows() {
-  const [focus, setFocus] = useState<string | null>(null);
-  const [rules, setRules] = useState({ taxes: true, alert: true, sweep: false });
-  const focused = [...LEFT, ...RIGHT].find((n) => n.id === focus);
-
+function Sankey({ geo, focus, setFocus }: { geo: Geo; focus: string | null; setFocus: (id: string | null) => void }) {
   const stream = (n: Placed, area: string, line: string) => (
     <g
       key={n.id}
@@ -703,7 +705,7 @@ function Flows() {
       <path
         d={area}
         fill={n.color}
-        fillOpacity={focus === n.id ? 0.55 : 0.3}
+        fillOpacity={focus === n.id ? 0.6 : 0.34}
         style={{ transition: "fill-opacity .2s" }}
       />
       <path
@@ -716,10 +718,93 @@ function Flows() {
       />
     </g>
   );
+  const mid = (geo.hub0 + geo.hub1) / 2;
+  return (
+    <svg
+      viewBox={`0 0 ${geo.w} 320`}
+      className="h-auto w-full"
+      role="img"
+      aria-label="Money flowing from income sources through the operating account into spending, taxes and savings"
+    >
+      {LEFT.map((n) =>
+        stream(n, ribbon(geo.xl, n.y, geo.hub0, n.hubY, n.h), spine(geo.xl, n.y + n.h / 2, geo.hub0, n.hubY + n.h / 2)),
+      )}
+      {RIGHT.map((n) =>
+        stream(n, ribbon(geo.hub1, n.hubY, geo.xr, n.y, n.h), spine(geo.hub1, n.hubY + n.h / 2, geo.xr, n.y + n.h / 2)),
+      )}
+      <rect
+        x={geo.hub0}
+        y={HUB.top - 6}
+        width={geo.hub1 - geo.hub0}
+        height={HUB.h + 12}
+        rx="10"
+        fill="var(--panel2)"
+        stroke="var(--line)"
+      />
+      <text x={mid} y={HUB.top + HUB.h + 28} textAnchor="middle" fontSize="11.5" fill="var(--muted)">
+        Operating
+      </text>
+      {LEFT.map((n) => (
+        <g key={n.id}>
+          <rect x={geo.xl - 8} y={n.y} width="8" height={Math.max(2, n.h)} rx="2" fill={n.color} />
+          {geo.labels ? (
+            <text x={geo.xl - 18} y={n.y + n.h / 2 + 4} textAnchor="end" fontSize="12.5" fill="var(--text)">
+              {n.label} <tspan fill="var(--muted)">{compact(n.amount)}</tspan>
+            </text>
+          ) : null}
+        </g>
+      ))}
+      {RIGHT.map((n) => (
+        <g key={n.id}>
+          <rect x={geo.xr} y={n.y} width="8" height={Math.max(2, n.h)} rx="2" fill={n.color} />
+          {geo.labels ? (
+            <text x={geo.xr + 18} y={n.y + n.h / 2 + 4} fontSize="12.5" fill="var(--text)">
+              {n.label} <tspan fill="var(--muted)">{compact(n.amount)}</tspan>
+            </text>
+          ) : null}
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+/** Narrow panels: the chart drops its labels and this list carries them (and doubles as the table). */
+function FlowLegend({ focus, setFocus }: { focus: string | null; setFocus: (id: string | null) => void }) {
+  const list = (title: string, nodes: FlowNode[]) => (
+    <div>
+      <p className="mb-1.5 text-[10.5px] tracking-[0.12em] text-(--muted) uppercase">{title}</p>
+      <ul className="grid gap-1">
+        {nodes.map((n) => (
+          <li
+            key={n.id}
+            onPointerEnter={() => setFocus(n.id)}
+            onPointerLeave={() => setFocus(null)}
+            className={`flex items-center gap-2 rounded-lg px-1.5 py-1 text-[12.5px] transition-colors ${focus === n.id ? "bg-(--panel2)" : ""}`}
+          >
+            <span className="size-2.5 shrink-0 rounded-[3px]" style={{ background: n.color }} />
+            <span className="flex-1">{n.label}</span>
+            <span className="text-(--muted) tabular-nums">{compact(n.amount)}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+  return (
+    <div className="mt-3 grid grid-cols-2 gap-4">
+      {list("In", SOURCES)}
+      {list("Out", SINKS)}
+    </div>
+  );
+}
+
+function Flows() {
+  const [focus, setFocus] = useState<string | null>(null);
+  const [rules, setRules] = useState({ taxes: true, alert: true, sweep: false });
+  const focused = [...LEFT, ...RIGHT].find((n) => n.id === focus);
 
   return (
     <div className="grid gap-4 @4xl/main:grid-cols-[minmax(0,1fr)_300px]">
-      <Panel className="min-w-0 p-5">
+      <Panel className="@container/flow min-w-0 p-5">
         <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
           <div>
             <p className="text-[13.5px] font-semibold">Where October’s money went</p>
@@ -731,67 +816,24 @@ function Flows() {
           </div>
           <div className="flex gap-2 text-[12px]">
             {[
-              ["In", compact(FLOW_TOTAL), "text-(--mint)"],
-              ["Out", compact(SPENT), "text-(--text)"],
-              ["Saved", compact(FLOW_TOTAL - SPENT), "text-(--amber)"],
-            ].map(([k, v, c]) => (
+              ["In", compact(FLOW_TOTAL)],
+              ["Out", compact(SPENT)],
+              ["Saved", compact(FLOW_TOTAL - SPENT)],
+            ].map(([k, v]) => (
               <span key={k} className="rounded-xl bg-(--panel2) px-3 py-1.5">
                 <span className="text-(--muted)">{k} </span>
-                <b className={`font-semibold ${c}`}>{v}</b>
+                <b className="font-semibold text-(--text)">{v}</b>
               </span>
             ))}
           </div>
         </div>
-        <div className="-mx-2 overflow-x-auto px-2">
-          <svg
-            viewBox="0 0 680 320"
-            className="h-auto w-full min-w-[560px]"
-            role="img"
-            aria-label="Money flowing from income sources through the operating account into spending and savings"
-          >
-            {LEFT.map((n) =>
-              stream(n, ribbon(124, n.y, HUB.x0, n.hubY, n.h), spine(124, n.y + n.h / 2, HUB.x0, n.hubY + n.h / 2)),
-            )}
-            {RIGHT.map((n) =>
-              stream(n, ribbon(HUB.x1, n.hubY, 516, n.y, n.h), spine(HUB.x1, n.hubY + n.h / 2, 516, n.y + n.h / 2)),
-            )}
-            <rect
-              x={HUB.x0}
-              y={HUB.top - 6}
-              width={HUB.x1 - HUB.x0}
-              height={HUB.h + 12}
-              rx="10"
-              fill="var(--panel2)"
-              stroke="var(--line)"
-            />
-            <text
-              x={(HUB.x0 + HUB.x1) / 2}
-              y={HUB.top + HUB.h + 28}
-              textAnchor="middle"
-              fontSize="11.5"
-              fill="var(--muted)"
-            >
-              Operating
-            </text>
-            {LEFT.map((n) => (
-              <g key={n.id}>
-                <rect x="116" y={n.y} width="8" height={Math.max(2, n.h)} rx="2" fill={n.color} />
-                <text x="106" y={n.y + n.h / 2 + 4} textAnchor="end" fontSize="12.5" fill="var(--text)">
-                  {n.label} <tspan fill="var(--muted)">{compact(n.amount)}</tspan>
-                </text>
-              </g>
-            ))}
-            {RIGHT.map((n) => (
-              <g key={n.id}>
-                <rect x="516" y={n.y} width="8" height={Math.max(2, n.h)} rx="2" fill={n.color} />
-                <text x="534" y={n.y + n.h / 2 + 4} fontSize="12.5" fill="var(--text)">
-                  {n.label} <tspan fill="var(--muted)">{compact(n.amount)}</tspan>
-                </text>
-              </g>
-            ))}
-          </svg>
+        <div className="hidden @min-[30rem]/flow:block">
+          <Sankey geo={WIDE} focus={focus} setFocus={setFocus} />
         </div>
-        <p className="mt-2 text-[11.5px] text-(--muted) @2xl/main:hidden">Swipe to follow the money →</p>
+        <div className="@min-[30rem]/flow:hidden">
+          <Sankey geo={SLIM} focus={focus} setFocus={setFocus} />
+          <FlowLegend focus={focus} setFocus={setFocus} />
+        </div>
       </Panel>
       <Panel className="p-5">
         <p className="mb-1 text-[13.5px] font-semibold">Automations</p>
@@ -877,7 +919,7 @@ function Cards() {
           role="button"
           tabIndex={0}
           aria-pressed={flipped}
-          aria-label="Virtual card — flip to see details"
+          aria-label="Virtual card: flip to see details"
           style={{ rotateX: srx, rotateY: sry, transformStyle: "preserve-3d" }}
           className="relative aspect-[1.586] w-full max-w-[370px] cursor-pointer rounded-[20px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--mint)"
         >
@@ -894,7 +936,7 @@ function Cards() {
               <div className="pointer-events-none absolute -right-16 -bottom-20 size-56 rounded-full bg-(--mint)/15 blur-2xl" />
               <div className="relative flex items-center justify-between">
                 <span className="flex items-center gap-2 text-[14px] font-bold">
-                  <span className="size-[18px] rounded-[6px] bg-[linear-gradient(135deg,var(--mint),var(--teal))]" />
+                  <ConceptMark kind="fintech" size={20} />
                   [Northwind]
                 </span>
                 <span className="text-[10.5px] tracking-[0.16em] text-(--muted) uppercase">Virtual</span>
@@ -923,7 +965,7 @@ function Cards() {
                   •••
                 </span>
               </div>
-              <p className="mt-4 text-[11px] text-(--muted)">Concept data — not a real card.</p>
+              <p className="mt-4 text-[11px] text-(--muted)">Concept data, not a real card.</p>
             </div>
           </motion.div>
           <AnimatePresence>

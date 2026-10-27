@@ -216,8 +216,9 @@ export function ConceptCard({
       if (phone) phone.style.transform = "";
       chipEls.forEach((c) => (c.style.translate = ""));
     };
-    // keyboard focus plays it too
-    const onFocus = () => el.matches(":focus-visible") && setActive(true);
+    // keyboard focus plays it too (not focus handed back after a mouse click: InputModality)
+    const onFocus = () =>
+      document.documentElement.dataset.input !== "pointer" && el.matches(":focus-visible") && setActive(true);
     const onBlur = () => setActive(false);
 
     el.addEventListener("pointerenter", onEnter);

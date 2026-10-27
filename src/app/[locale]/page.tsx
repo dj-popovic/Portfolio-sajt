@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { BriefProvider } from "@/components/brief/BriefProvider";
+import { InputModality } from "@/components/layout/InputModality";
 import { Nav } from "@/components/layout/Nav";
 import { MotionPreferences } from "@/components/motion/MotionPreferences";
 import { Reveals } from "@/components/motion/Reveals";
@@ -40,6 +41,7 @@ export default function HomePage() {
           </main>
           <Footer />
           <Reveals />
+          <InputModality />
         </BriefProvider>
       </MotionPreferences>
     </SmoothScroll>

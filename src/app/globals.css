@@ -189,6 +189,13 @@
   }
 }
 
+/* While the mouse is in charge, focus a script hands back (a window closing into its card, even
+   by Esc) shows no ring; the next Tab brings rings back (InputModality). Unlayered, so it outranks
+   every component's ring. Text fields keep theirs: they show where typing goes. */
+html[data-input="pointer"] :focus-visible:not(input, textarea, select) {
+  outline-color: transparent;
+}
+
 /* Card tilt angles change on every pointer move; non-inheriting, so only the card restyles. */
 @property --rx {
   syntax: "<angle>";

@@ -134,15 +134,16 @@
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+/* a round glass button: just the cross (Esc is announced, not printed) */
 .ww-close {
-  display: inline-flex;
+  display: grid;
   flex: none;
-  align-items: center;
-  gap: 8px;
+  place-items: center;
+  width: 38px;
   height: 38px;
-  padding: 0 12px 0 14px;
+  padding: 0;
   border: 0;
-  border-radius: 999px;
+  border-radius: 50%;
   background: rgb(255 255 255 / 0.06);
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
   color: color-mix(in oklab, var(--text) 78%, transparent);
@@ -152,17 +153,17 @@
     color 0.2s ease,
     box-shadow 0.2s ease;
 }
-.ww-esc {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.06em;
-  color: color-mix(in oklab, var(--text) 50%, transparent);
+.ww-close svg {
+  transition: transform 0.35s var(--ease-out-quart);
 }
 @media (hover: hover) {
   .ww-close:hover {
     background: color-mix(in oklab, var(--accent) 16%, transparent);
     box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 45%, transparent);
     color: var(--text);
+  }
+  .ww-close:hover svg {
+    transform: rotate(90deg);
   }
 }
 .ww-body {
@@ -268,14 +269,6 @@
   }
   .ww-switch button {
     width: 32px;
-  }
-  .ww-esc {
-    display: none;
-  }
-  .ww-close {
-    width: 38px;
-    padding: 0;
-    justify-content: center;
   }
 }
 @media (max-width: 420px) {

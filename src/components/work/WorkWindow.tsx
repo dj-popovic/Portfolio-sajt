@@ -290,10 +290,14 @@ export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWind
               </button>
             ))}
           </div>
-          <button ref={closeBtn} className="ww-close" type="button" onClick={close} aria-label={t("window.close")}>
-            <span className="ww-esc" aria-hidden>
-              Esc
-            </span>
+          <button
+            ref={closeBtn}
+            className="ww-close"
+            type="button"
+            onClick={close}
+            aria-label={t("window.close")}
+            aria-keyshortcuts="Escape"
+          >
             <CloseIcon size={16} />
           </button>
         </div>

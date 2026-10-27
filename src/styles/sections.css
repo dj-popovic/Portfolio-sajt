@@ -2291,6 +2291,9 @@
 }
 
 /* ------------------------------------------------------------ PROCESS */
+/* build: the four steps as a thread of light through panes of liquid glass
+   (ProcessJourney). Big screens: pinned, the panes travel past on a line;
+   smaller ones: a rail. Without motion (or script) everything is lit. */
 .process {
   position: relative;
   background: var(--base);
@@ -2311,199 +2314,464 @@
 .process-inner {
   position: relative;
   z-index: 1;
-  max-width: 1040px;
+  max-width: 1240px;
   margin: 0 auto;
 }
 .process-head {
-  max-width: 760px;
-  margin-bottom: clamp(36px, 5.5vh, 64px); /* build: scale */
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px 56px;
+  margin-bottom: clamp(34px, 5.5vh, 60px); /* build: scale */
 }
 .process .sec-title {
-  margin-top: 22px;
+  max-width: 660px;
 }
 .process-sub {
-  margin-top: 20px;
-  max-width: 52ch;
+  max-width: 44ch;
   color: var(--muted);
-  font-size: clamp(1rem, 1.2vw, 1.12rem);
+  font-size: clamp(0.98rem, 1.1vw, 1.08rem);
   line-height: 1.6;
   text-wrap: pretty;
 }
-.timeline {
+
+.journey {
+  --node: 26px; /* the glass lens on the line */
+  --node-x: 14px; /* its centre from a step's left edge */
+  --chip: 30px; /* the phase label; the line runs through its middle */
+  --gap: clamp(16px, 1.6vw, 24px);
   position: relative;
-  padding-left: 4px;
+  isolation: isolate;
 }
-.tl-rail {
+/* warm light behind the glass (ProcessJourney moves it with the head of the thread) */
+.jy-lights {
   position: absolute;
-  left: 21px;
-  top: 14px;
-  bottom: 14px;
-  width: 2px;
-  background: color-mix(in oklab, var(--text) 13%, transparent);
-  border-radius: 2px;
-  overflow: visible;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
 }
-.tl-fill {
+.jy-lights span {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0;
-  width: 3px;
-  height: 0;
-  border-radius: 3px;
-  background: linear-gradient(180deg, var(--accent2), var(--accent) 55%, var(--color-flame));
-  box-shadow: 0 0 14px 1px color-mix(in oklab, var(--accent) 45%, transparent);
-}
-/* soft travelling highlight at the leading edge of the fill */
-.tl-fill::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -6px;
-  transform: translateX(-50%);
-  width: 13px;
-  height: 13px;
+  left: 0;
+  top: 58%;
+  width: 560px;
+  aspect-ratio: 1;
+  margin: -280px 0 0 -280px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    color-mix(in oklab, var(--accent2) 90%, #fff) 0%,
-    var(--accent) 45%,
-    transparent 72%
-  );
-  filter: blur(0.3px);
-  opacity: 0.9;
+  will-change: transform;
 }
-.tl-steps {
+.jy-lights .a {
+  background: radial-gradient(closest-side, rgb(255 107 53 / 0.48), rgb(255 107 53 / 0.13) 55%, transparent);
+}
+.jy-lights .b {
+  width: 440px;
+  margin: -220px 0 0 -220px;
+  background: radial-gradient(closest-side, rgb(255 182 39 / 0.3), rgb(255 182 39 / 0.08) 55%, transparent);
+}
+.journey[data-axis="y"] .jy-lights span {
+  left: 62%;
+  top: 0;
+}
+.process:not([data-journey]) .jy-lights .a {
+  left: 24%;
+}
+.process:not([data-journey]) .jy-lights .b {
+  left: 76%;
+  top: 40%;
+}
+
+.jy-track {
+  position: relative;
+}
+.jy-steps {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gap);
+}
+.jy-step {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: clamp(32px, 5.5vh, 64px); /* build: scale */
+  padding-top: calc(var(--chip) + 22px);
 }
-.tl-step {
-  position: relative;
-  padding-left: 74px;
-}
-.tl-node {
+
+/* the line: ProcessJourney lays it through the node centres; this is the no-script fallback */
+.jy-line {
   position: absolute;
-  left: 13px;
-  top: 6px;
+  z-index: 0;
+  left: var(--node-x);
+  right: 0;
+  top: calc(var(--chip) / 2 - 1px);
+  height: 2px;
+  border-radius: 2px;
+  background: color-mix(in oklab, var(--text) 14%, transparent);
+  pointer-events: none;
+}
+.jy-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  transform-origin: 0 0;
+  background: linear-gradient(90deg, var(--accent2), var(--accent) 55%, var(--color-flame));
+  box-shadow: 0 0 14px 1px color-mix(in oklab, var(--accent) 50%, transparent);
+}
+.journey[data-axis="y"] .jy-fill {
+  background: linear-gradient(180deg, var(--accent2), var(--accent) 55%, var(--color-flame));
+}
+/* drawn by the script from nothing (an inline transform takes over) */
+.process[data-journey] .journey[data-axis="x"] .jy-fill {
+  transform: scaleX(0);
+}
+.process[data-journey] .journey[data-axis="y"] .jy-fill {
+  transform: scaleY(0);
+}
+/* the bright head of the thread */
+.jy-head {
+  position: absolute;
+  left: 0;
+  top: 50%;
   width: 18px;
   height: 18px;
+  margin: -9px 0 0 -9px;
   border-radius: 50%;
-  background: var(--base);
-  border: 2px solid color-mix(in oklab, var(--text) 22%, transparent);
+  background: radial-gradient(circle, #fff6e8 0%, var(--accent2) 26%, rgb(255 107 53 / 0.55) 52%, transparent 72%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.journey[data-axis="y"] .jy-head {
+  left: 50%;
+  top: 0;
+}
+
+/* a lens of glass on the line, its core lit when the thread reaches it */
+.jy-node {
+  position: absolute;
   z-index: 2;
-  transition:
-    border-color 0.45s ease,
-    box-shadow 0.45s ease,
-    background 0.45s ease,
-    transform 0.45s ease;
-}
-.tl-step.active .tl-node {
-  border-color: var(--accent);
-  background: radial-gradient(circle, var(--accent2), var(--accent) 70%);
+  left: var(--node-x);
+  top: calc(var(--chip) / 2);
+  width: var(--node);
+  height: var(--node);
+  margin: calc(var(--node) / -2) 0 0 calc(var(--node) / -2);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgb(255 255 255 / 0.24), rgb(255 255 255 / 0.05) 58%, rgb(255 255 255 / 0.02)),
+    color-mix(in oklab, var(--base) 72%, transparent);
+  -webkit-backdrop-filter: blur(6px) saturate(1.6);
+  backdrop-filter: blur(6px) saturate(1.6);
   box-shadow:
-    0 0 0 5px color-mix(in oklab, var(--accent) 16%, transparent),
-    0 0 18px 2px color-mix(in oklab, var(--accent) 45%, transparent);
-  transform: scale(1.06);
+    inset 0 1px 0 rgb(255 255 255 / 0.28),
+    inset 0 0 0 1px rgb(255 255 255 / 0.13),
+    0 8px 18px -8px rgb(0 0 0 / 0.9);
 }
-.tl-meta {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-.tl-num {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.5rem, 2.4vw, 1.9rem); /* build: scale */
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: color-mix(in oklab, var(--text) 38%, transparent); /* build: contrast (WCAG AA) */
-  transition: color 0.45s ease;
-}
-.tl-step.active .tl-num {
-  color: var(--accent); /* build: solid, no gradient text */
-}
-.tl-phase {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: color-mix(in oklab, var(--text) 50%, transparent); /* build: contrast (WCAG AA) */
-  padding: 6px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--hairline);
+.jy-node i {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--text) 26%, transparent);
   transition:
-    color 0.45s ease,
-    border-color 0.45s ease;
+    background 0.4s ease,
+    box-shadow 0.4s ease,
+    transform 0.4s var(--ease-ember);
 }
-.tl-step.active .tl-phase {
-  color: color-mix(in oklab, var(--accent2) 70%, var(--text));
-  border-color: color-mix(in oklab, var(--accent) 35%, transparent);
+.jy-step.is-lit .jy-node i,
+.process:not([data-journey]) .jy-node i {
+  background: radial-gradient(circle at 40% 35%, #fff4e4, var(--accent2) 45%, var(--accent));
+  box-shadow:
+    0 0 10px 2px rgb(255 107 53 / 0.65),
+    0 0 24px 6px rgb(255 107 53 / 0.22);
+  transform: scale(1.14);
 }
-.tl-step h3 {
-  text-wrap: balance; /* build */
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.25rem, 1.9vw, 1.6rem); /* build: scale */
-  letter-spacing: -0.01em;
-  margin: 0 0 12px;
-  color: color-mix(in oklab, var(--text) 62%, transparent);
-  transition: color 0.45s ease;
+/* the step you're on keeps a slow ping going */
+.jy-step.is-on .jy-node::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgb(255 107 53 / 0.6);
+  animation: jyPing 2.4s var(--ease-out-quart) infinite;
 }
-.tl-step.active h3 {
-  color: var(--text);
+@keyframes jyPing {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  80%,
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
 }
-.tl-step p {
-  font-size: clamp(1rem, 1.15vw, 1.1rem);
-  line-height: 1.6;
-  max-width: 52ch;
-  color: color-mix(in oklab, var(--text) 52%, transparent);
-  text-wrap: pretty;
-  transition: color 0.45s ease;
-}
-.tl-step.active p {
-  color: color-mix(in oklab, var(--text) 76%, transparent);
-}
-.tl-deliver {
+
+/* the phase, a station sign on the line (and a jump to its step) */
+.jy-phase {
+  position: absolute;
+  z-index: 1;
+  left: calc(var(--node-x) + var(--node) / 2 + 10px);
+  top: 0;
+  height: var(--chip);
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  margin-top: 16px;
-  font-size: 13.5px;
-  color: color-mix(in oklab, var(--text) 50%, transparent); /* build: contrast (WCAG AA) */
-  transition: color 0.45s ease;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: color-mix(in oklab, var(--text) 58%, transparent);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.02)),
+    color-mix(in oklab, var(--base) 88%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(1.6);
+  backdrop-filter: blur(10px) saturate(1.6);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.1),
+    inset 0 0 0 1px rgb(255 255 255 / 0.08);
+  cursor: pointer;
+  transition:
+    color 0.35s ease,
+    box-shadow 0.35s ease;
 }
-.tl-deliver b {
-  color: color-mix(in oklab, var(--text) 70%, transparent);
+.jy-step.is-lit .jy-phase,
+.process:not([data-journey]) .jy-phase {
+  color: color-mix(in oklab, var(--accent2) 78%, var(--text));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.12),
+    inset 0 0 0 1px color-mix(in oklab, var(--accent) 42%, transparent);
+}
+@media (hover: hover) {
+  .jy-phase:hover {
+    color: var(--text);
+  }
+}
+
+/* the step, on a pane of the house glass */
+.jy-pane {
+  position: relative;
+  isolation: isolate;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(20px, 2vw, 28px);
+  border-radius: 24px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.085), rgb(255 255 255 / 0.02) 46%, rgb(255 255 255 / 0.04)),
+    color-mix(in oklab, var(--base) 42%, transparent);
+  -webkit-backdrop-filter: blur(22px) saturate(1.7) brightness(0.96);
+  backdrop-filter: blur(22px) saturate(1.7) brightness(0.96);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.15),
+    inset 0 22px 34px -30px rgb(255 255 255 / 0.15),
+    inset 0 -28px 44px -36px rgb(255 140 60 / 0.28),
+    inset 0 -1px 1px rgb(255 255 255 / 0.05),
+    0 30px 60px -34px rgb(0 0 0 / 0.85);
+}
+/* the rim catches the light like a lens, warmer on the step you're on */
+.jy-pane::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    140deg,
+    rgb(255 255 255 / 0.34),
+    rgb(255 255 255 / 0.06) 30%,
+    rgb(255 255 255 / 0.02) 62%,
+    rgb(255 186 130 / 0.22)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.jy-step.is-on .jy-pane::before {
+  background: linear-gradient(
+    140deg,
+    rgb(255 214 170 / 0.6),
+    rgb(255 255 255 / 0.08) 32%,
+    rgb(255 255 255 / 0.03) 60%,
+    rgb(255 120 60 / 0.55)
+  );
+}
+/* a soft light follows the pointer across the glass */
+.jy-pane::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 0%),
+    rgb(255 107 53 / 0.2),
+    rgb(194 58 24 / 0.08) 48%,
+    transparent 74%
+  );
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .jy-pane:hover::after {
+    opacity: 1;
+  }
+}
+.jy-pane > * {
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.5s ease;
+}
+/* steps the thread hasn't reached yet wait, dimmed */
+.process[data-journey] .jy-step:not(.is-lit) .jy-pane > * {
+  opacity: 0.42;
+}
+
+/* the number: an odometer wheel that rolls up to the step (--roll, 0 → 1) */
+.jy-num {
+  --line: 1.06em;
+  display: flex;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 4.2vw, 3.7rem);
+  line-height: var(--line);
+  letter-spacing: -0.03em;
+  color: color-mix(in oklab, var(--text) 30%, transparent);
+  margin-bottom: clamp(16px, 2.4vh, 26px);
+  -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+  transition: color 0.5s ease;
+}
+.jy-step.is-lit .jy-num,
+.process:not([data-journey]) .jy-num {
+  color: var(--accent); /* build: solid, no gradient text */
+}
+.jy-num > span {
+  display: block;
+  height: var(--line);
+}
+.jy-digit {
+  overflow: hidden;
+}
+.jy-wheel {
+  display: block;
+  transform: translate3d(0, calc((10 + var(--n)) * var(--roll, 1) * var(--line) * -1), 0);
+}
+.jy-wheel > span {
+  display: block;
+  height: var(--line);
+}
+.process[data-journey] .jy-step {
+  --roll: 0; /* rolled up as the thread comes (ProcessJourney) */
+}
+.jy-pane h3 {
+  font-family: var(--font-display);
   font-weight: 600;
-  margin-left: 0.4em;
+  font-size: clamp(1.1rem, 1.45vw, 1.36rem); /* build: scale */
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  margin: 0 0 12px;
 }
-.tl-deliver {
+.jy-body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: color-mix(in oklab, var(--text) 72%, transparent);
+  text-wrap: pretty;
+  margin: 0 0 22px;
+}
+.jy-deliver {
+  display: flex;
   align-items: baseline;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgb(255 255 255 / 0.08);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: color-mix(in oklab, var(--text) 62%, transparent); /* build: contrast (WCAG AA) */
 }
-.tl-deliver .ar {
+.jy-deliver b {
+  color: var(--text);
+  font-weight: 600;
+}
+.jy-arrow {
   color: var(--accent);
 }
-.tl-step.active .tl-deliver {
-  color: color-mix(in oklab, var(--text) 64%, transparent);
+
+/* ---- the track: big screens, pinned (ProcessJourney) ---- */
+.process[data-journey="track"] {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: safe center; /* a short screen loses the bottom, never the title */
+  padding-top: clamp(84px, 11vh, 112px);
+  padding-bottom: clamp(32px, 6vh, 64px);
+}
+.process[data-journey="track"] .process-inner {
+  width: 100%;
+}
+.process[data-journey="track"] .jy-track {
+  width: max-content;
+  will-change: transform;
+}
+.process[data-journey="track"] .jy-steps {
+  display: flex;
+}
+.process[data-journey="track"] .jy-step {
+  width: clamp(400px, 37vw, 540px);
+}
+.process[data-journey="track"] .jy-pane {
+  min-height: clamp(240px, 38vh, 350px);
+}
+.process[data-journey="track"] .jy-step:not(.is-on) .jy-pane {
+  cursor: pointer;
+}
+
+/* ---- the rail: smaller screens ---- */
+@media (max-width: 1023px) {
+  .journey {
+    --node-x: 13px;
+  }
+  .jy-steps {
+    grid-template-columns: 1fr;
+    gap: clamp(30px, 5vh, 44px);
+  }
+  .jy-step {
+    padding: 0 0 0 calc(var(--node-x) + var(--node) / 2 + 16px);
+  }
+  .jy-phase {
+    position: relative;
+    left: auto;
+    top: auto;
+    align-self: flex-start;
+    margin-bottom: 14px;
+  }
+  .jy-line {
+    left: calc(var(--node-x) - 1px);
+    right: auto;
+    top: calc(var(--chip) / 2);
+    bottom: 0;
+    width: 2px;
+    height: auto;
+  }
+  .jy-body {
+    font-size: 14.5px;
+  }
 }
 @media (max-width: 560px) {
-  .tl-step {
-    padding-left: 60px;
-  }
-  .tl-rail {
-    left: 15px;
-  }
-  .tl-node {
-    left: 7px;
-  }
-  .tl-meta {
-    flex-wrap: wrap;
-    gap: 10px;
+  .jy-pane {
+    border-radius: 20px;
   }
 }
 

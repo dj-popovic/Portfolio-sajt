@@ -139,30 +139,31 @@
   "process": {
     "title": "Vom ersten Call bis <glow>live</glow> in vier Schritten.",
     "sub": "Keine Übergaben, keine Zwischenhändler. Dieselben zwei Leute begleiten dein Projekt den ganzen Weg. So läuft es meistens ab.",
+    "goTo": "Zu Schritt {n}: {phase}",
     "steps": {
       "discover": {
         "phase": "Verstehen",
         "title": "Wir lernen das Projekt kennen.",
         "body": "Ein Kickoff, um dein Business, deine Zielgruppe und deine Ziele zu verstehen: wie Erfolg aussieht und was bisher im Weg stand. Keine Vorlagen, keine Annahmen.",
-        "deliver": "Du bekommst <b>[ein klares Briefing & einen Zeitplan]</b>"
+        "deliver": "Du bekommst <b>ein klares Briefing & einen Zeitplan</b>"
       },
       "design": {
         "phase": "Design",
         "title": "Wir gestalten Look & Feel.",
         "body": "Erst die Markenrichtung, dann jeder Screen als klickbarer Prototyp, damit du alles durchklicken und spüren kannst, lange bevor eine Zeile Code entsteht.",
-        "deliver": "Am Ende steht <b>[ein interaktiver Prototyp]</b>"
+        "deliver": "Am Ende steht <b>ein interaktiver Prototyp</b>"
       },
       "build": {
         "phase": "Umsetzung",
         "title": "Wir machen es real, von A bis Z.",
         "body": "Wir entwickeln alles selbst: schnell, animiert und für lange gebaut. Und wir halten dich mit funktionierenden Previews auf dem Laufenden, nicht mit Status-Mails.",
-        "deliver": "Du siehst <b>[jede Woche Live-Builds]</b>"
+        "deliver": "Du siehst <b>jede Woche Live-Builds</b>"
       },
       "launch": {
         "phase": "Launch & Wachstum",
         "title": "Wir launchen und helfen beim Wachsen.",
         "body": "Wir gehen live, übergeben dir die Schlüssel und bleiben mit einem Marketingplan an Bord, damit es die richtigen Leute erreicht. Ein Plan statt Bauchgefühl.",
-        "deliver": "Du bekommst <b>[einen Launch- & Wachstumsplan]</b>"
+        "deliver": "Du bekommst <b>einen Launch- & Wachstumsplan</b>"
       }
     }
   },

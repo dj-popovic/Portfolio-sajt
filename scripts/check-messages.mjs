@@ -32,6 +32,8 @@ const values = {
   nameTwo: "b",
   time: "10:00",
   mood: "m",
+  n: 1,
+  phase: "p",
 };
 const tags = { b: (c) => c, glow: (c) => c, br: () => "", city: (c) => c, year: () => "2026" };
 

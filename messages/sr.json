@@ -139,30 +139,31 @@
   "process": {
     "title": "Od prvog poziva do <glow>lansiranja</glow> u četiri koraka.",
     "sub": "Bez prosleđivanja i posrednika. Isto dvoje ljudi vodi vaš projekat celim putem. Evo kako izrada obično izgleda.",
+    "goTo": "Idi na korak {n}: {phase}",
     "steps": {
       "discover": {
         "phase": "Upoznavanje",
         "title": "Upoznajemo vaš posao.",
         "body": "Uvodni sastanak da razumemo vaš posao, publiku i ciljeve: kako izgleda uspeh i šta vas je do sada sputavalo. Bez šablona, bez pretpostavki.",
-        "deliver": "Dobijate <b>[jasan brif i rokove]</b>"
+        "deliver": "Dobijate <b>jasan brif i rokove</b>"
       },
       "design": {
         "phase": "Dizajn",
         "title": "Oblikujemo izgled i osećaj.",
         "body": "Prvo pravac brenda, pa svaki ekran, dizajniran i prototipovan tako da možete da ga isprobate i osetite mnogo pre prve linije koda.",
-        "deliver": "Odobravate <b>[interaktivni prototip]</b>"
+        "deliver": "Odobravate <b>interaktivni prototip</b>"
       },
       "build": {
         "phase": "Razvoj",
         "title": "Oživljavamo sve, od A do Š.",
         "body": "Sve razvijamo sami: brzo, animirano i da traje. U toku ste uz verzije koje rade, a ne uz mejlove o statusu.",
-        "deliver": "Vidite <b>[nove verzije svake nedelje]</b>"
+        "deliver": "Vidite <b>nove verzije svake nedelje</b>"
       },
       "launch": {
         "phase": "Lansiranje i rast",
         "title": "Lansiramo, pa pomažemo da raste.",
         "body": "Lansiramo, predajemo vam ključeve i ostajemo uz vas sa marketing planom, da projekat stigne do pravih ljudi. Plan, a ne nagađanje.",
-        "deliver": "Dobijate <b>[plan lansiranja i rasta]</b>"
+        "deliver": "Dobijate <b>plan lansiranja i rasta</b>"
       }
     }
   },

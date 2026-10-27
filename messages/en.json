@@ -139,30 +139,31 @@
   "process": {
     "title": "From first call to <glow>live</glow> in four steps.",
     "sub": "No handoffs, no middle-men. The same two people carry your project the whole way. Here’s how a build usually goes.",
+    "goTo": "Go to step {n}: {phase}",
     "steps": {
       "discover": {
         "phase": "Discover",
         "title": "We get to know the work.",
         "body": "A kickoff to understand your business, audience and goals: what success looks like, and what’s gotten in the way so far. No templates, no assumptions.",
-        "deliver": "You leave with <b>[a clear brief & timeline]</b>"
+        "deliver": "You leave with <b>a clear brief & timeline</b>"
       },
       "design": {
         "phase": "Design",
         "title": "We shape how it looks and feels.",
         "body": "Brand direction, then every screen, designed and prototyped so you can click through and feel it long before a line of code is written.",
-        "deliver": "You approve <b>[an interactive prototype]</b>"
+        "deliver": "You approve <b>an interactive prototype</b>"
       },
       "build": {
         "phase": "Build",
         "title": "We make it real, end-to-end.",
         "body": "We develop the whole thing ourselves: fast, animated and built to last. You stay in the loop with working previews, not status emails.",
-        "deliver": "You see <b>[live builds every week]</b>"
+        "deliver": "You see <b>live builds every week</b>"
       },
       "launch": {
         "phase": "Launch & grow",
         "title": "We ship it, then help it grow.",
         "body": "We launch, hand over the keys, and stick around with a marketing plan to get it in front of the right people. A plan, not guesswork.",
-        "deliver": "You get <b>[a launch + growth plan]</b>"
+        "deliver": "You get <b>a launch + growth plan</b>"
       }
     }
   },

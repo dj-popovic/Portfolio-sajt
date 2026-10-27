@@ -7,7 +7,7 @@ import { cn } from "@/lib/cn";
 // can appear any number of times on the page); the glyph is drawn on 32×32.
 
 const MARKS: Record<DemoKey, { tile: string; round?: boolean; glyph: ReactNode }> = {
-  // [Ember & Oak]: a coffee bean with an ember-red crease, inside an oak ring
+  // Copper & Oak: a coffee bean with a copper crease, on dark oak in a thin ring
   coffee: {
     tile: "radial-gradient(circle at 34% 28%, #4a3324, #2b1d14 72%)",
     round: true,
@@ -27,7 +27,7 @@ const MARKS: Record<DemoKey, { tile: string; round?: boolean; glyph: ReactNode }
       </>
     ),
   },
-  // [Northwind]: an N whose last stroke climbs into an arrow (north, and up)
+  // Northbound: an N whose last stroke climbs into an arrow (north, and up)
   fintech: {
     tile: "linear-gradient(140deg, #34e1b4, #1fa6c9)",
     glyph: (
@@ -41,7 +41,7 @@ const MARKS: Record<DemoKey, { tile: string; round?: boolean; glyph: ReactNode }
       />
     ),
   },
-  // [Stillwater]: a crescent moon over still water
+  // Stillwater: a crescent moon over still water
   wellness: {
     tile: "linear-gradient(160deg, #9a8cf5, #6c5ce7 55%, #4f6fe0)",
     glyph: (
@@ -53,7 +53,7 @@ const MARKS: Record<DemoKey, { tile: string; round?: boolean; glyph: ReactNode }
       </>
     ),
   },
-  // [Tako]: a street taco, tipped on its side, filling peeking out of the shell
+  // Tako: a street taco, tipped on its side, filling peeking out of the shell
   food: {
     tile: "linear-gradient(140deg, #ff6b35, #e63946)",
     glyph: (

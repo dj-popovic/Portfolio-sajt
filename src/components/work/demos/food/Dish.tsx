@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 
-// Flat food illustrations for [Tako] (64×64). Stand-ins until real food photography exists.
+// Flat food illustrations for Tako (64×64). Stand-ins until real food photography exists.
 
 export type DishKind = "taco" | "fish" | "bowl" | "verde" | "elote" | "churros" | "horchata" | "jamaica";
 

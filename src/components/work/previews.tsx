@@ -26,7 +26,7 @@ const icon = (d: ReactNode, props: { size?: number; stroke?: number; className?:
   </svg>
 );
 
-/* ------------------------------------------------------------ [Ember & Oak] */
+/* ------------------------------------------------------------- Copper & Oak */
 
 const ROASTS = [
   {
@@ -35,7 +35,7 @@ const ROASTS = [
     roast: 1,
     label: "Light",
     price: 19,
-    notes: "[Origin] · washed · cocoa, plum, honey",
+    notes: "Rwanda · washed · cocoa, plum, honey",
   },
   {
     id: "dusk",
@@ -43,9 +43,16 @@ const ROASTS = [
     roast: 3,
     label: "Dark",
     price: 21,
-    notes: "[Origin] · natural · berry, cane, cacao nib",
+    notes: "Ethiopia · natural · berry, cane, cacao nib",
   },
-  { id: "no6", name: "No. 6", roast: 2, label: "Medium", price: 22, notes: "[Origin] blend · caramel, citrus, almond" },
+  {
+    id: "no6",
+    name: "No. 6",
+    roast: 2,
+    label: "Medium",
+    price: 22,
+    notes: "Brazil & Colombia · caramel, citrus, almond",
+  },
 ] as const;
 
 export function CoffeePreview() {
@@ -54,7 +61,7 @@ export function CoffeePreview() {
       <div className="cf-nav">
         <span className="cf-brand">
           <ConceptMark kind="coffee" size={26} />
-          [Ember&nbsp;&amp;&nbsp;Oak]
+          Copper&nbsp;&amp;&nbsp;Oak
         </span>
         <span className="cf-links">
           <span>Shop</span>
@@ -82,7 +89,7 @@ export function CoffeePreview() {
       <div className="pv-track">
         <div className="cf-hero">
           <div>
-            <p className="cf-kicker">Roasted in [city] · since [year]</p>
+            <p className="cf-kicker">Roasted in Novi Sad · since 2016</p>
             <h3>
               Small-batch coffee,
               <br />
@@ -114,7 +121,7 @@ export function CoffeePreview() {
         <div className="cf-marquee">
           <div className="cf-marquee-run">
             {Array.from({ length: 2 }).flatMap((_, k) =>
-              ["Direct trade", "Roasted to order", "Compostable bags", "Free shipping over [$X]"].map((s) => (
+              ["Direct trade", "Roasted to order", "Compostable bags", "Free shipping over $40"].map((s) => (
                 <span key={`${k}${s}`}>
                   {s}
                   <i>✦</i>
@@ -179,7 +186,7 @@ export function CoffeePreview() {
   );
 }
 
-/* --------------------------------------------------------------- [Northwind] */
+/* ---------------------------------------------------------------- Northbound */
 
 // same deterministic series idea as the demo, so the bars never jump around
 function series(seed: number, n: number, base: number, swing: number, trend: number) {
@@ -205,7 +212,7 @@ const TXS = [
   ["S", "Stripe payout", "Revenue · Today", "+$12,400", true],
   ["A", "AWS", "Cloud · Today", "−$2,180", false],
   ["P", "Payroll, October", "Payroll · Yesterday", "−$9,600", false],
-  ["I", "Invoice #2231 · [Client]", "Revenue · Oct 20", "+$5,000", true],
+  ["I", "Invoice #2231 · Fieldwork", "Revenue · Oct 20", "+$5,000", true],
   ["F", "Figma", "Software · Oct 19", "−$144", false],
   ["G", "Google Ads", "Marketing · Oct 18", "−$1,250", false],
 ] as const;
@@ -417,7 +424,7 @@ function PhoneShell({
   );
 }
 
-/* -------------------------------------------------------------- [Stillwater] */
+/* ---------------------------------------------------------------- Stillwater */
 
 const MOODS = [
   ["Calm", "M8 10h1.8M14.2 10H16", "M8.5 14.5q3.5 2.6 7 0"],
@@ -462,7 +469,7 @@ export function WellnessPhone() {
       <div className="pv-scr sw-home">
         <p className="sw-brand">
           <ConceptMark kind="wellness" size={15} />
-          [Stillwater]
+          Stillwater
         </p>
         <p className="sw-hello">
           Good evening,
@@ -546,7 +553,7 @@ export function WellnessPhone() {
         <div className="sw-sleep-head">
           <span>
             <b>Deep Sleep</b>
-            <small>Narrated by [Voice] · 22 min</small>
+            <small>Narrated by Mira Holt · 22 min</small>
           </span>
           <span className="sw-eq">
             <i />
@@ -583,7 +590,7 @@ export function WellnessPhone() {
   );
 }
 
-/** Floating glass chips beside the [Stillwater] phone. */
+/** Floating glass chips beside the Stillwater phone. */
 export function WellnessChips() {
   return (
     <>
@@ -609,7 +616,7 @@ export function WellnessChips() {
   );
 }
 
-/* -------------------------------------------------------------------- [Tako] */
+/* ---------------------------------------------------------------------- Tako */
 
 const TK_ITEMS: Array<[string, string, string, DishKind, string, boolean]> = [
   ["Al Pastor", "pineapple · cilantro", "$4.50", "taco", "#FFE1C7", true],
@@ -630,7 +637,7 @@ export function FoodPhone() {
           </span>
           <span className="tk-brand">
             <ConceptMark kind="food" size={18} />
-            [Tako]
+            Tako
           </span>
           <span className="tk-bag">
             {icon(
@@ -722,7 +729,7 @@ export function FoodPhone() {
         <div className="tk-sheet">
           <i className="tk-grab" />
           <p className="tk-sheet-title">Your order</p>
-          <p className="tk-sheet-sub">from [Tako] Dorćol · about 20 min</p>
+          <p className="tk-sheet-sub">from Tako Dorćol · about 20 min</p>
           {[
             ["Al Pastor", "taco", "#FFE1C7", "2"],
             ["Elote", "elote", "#FFF0C2", "1"],
@@ -789,9 +796,9 @@ export function FoodPhone() {
           </span>
         </div>
         {[
-          ["Order placed", "[Tako] Dorćol has it", "done"],
+          ["Order placed", "Tako Dorćol has it", "done"],
           ["On the plancha", "Tortillas are hitting the heat", "done"],
-          ["On the way", "[Courier] is riding over", "now"],
+          ["On the way", "Luka is riding over", "now"],
           ["Delivered", "Buen provecho!", "next"],
         ].map(([t, s, state], i) => (
           <div className={`tk-step-row ${state}`} key={t}>
@@ -808,7 +815,7 @@ export function FoodPhone() {
   );
 }
 
-/** Floating glass chips beside the [Tako] phone. */
+/** Floating glass chips beside the Tako phone. */
 export function FoodChips() {
   return (
     <>

@@ -3,9 +3,10 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { BAGS, Bean, BagArt, Seal } from "./BagArt";
+import { CuppingTable } from "./CuppingTable";
 import { ConceptMark } from "@/components/work/marks";
 
-/* [Ember & Oak] — a self-contained concept storefront. Content stays in
+/* Copper & Oak, a self-contained concept storefront. Content stays in
    English on purpose (fictional client brand). */
 
 type Coffee = {
@@ -26,7 +27,7 @@ const COFFEES: Coffee[] = [
     name: "Sunday",
     roast: 1,
     roastLabel: "Light",
-    origin: "[Origin] · washed",
+    origin: "Rwanda · washed",
     notes: ["cocoa", "plum", "honey"],
     price: { small: 19, large: 62 },
     method: ["filter"],
@@ -37,7 +38,7 @@ const COFFEES: Coffee[] = [
     name: "Dusk",
     roast: 3,
     roastLabel: "Dark",
-    origin: "[Origin] · natural",
+    origin: "Ethiopia · natural",
     notes: ["berry", "cane", "cacao nib"],
     price: { small: 21, large: 68 },
     method: ["espresso", "press"],
@@ -48,7 +49,7 @@ const COFFEES: Coffee[] = [
     name: "No. 6",
     roast: 2,
     roastLabel: "Medium",
-    origin: "[Origin] blend",
+    origin: "Brazil & Colombia blend",
     notes: ["caramel", "citrus", "almond"],
     price: { small: 22, large: 72 },
     method: ["filter", "espresso", "press"],
@@ -113,7 +114,7 @@ export default function CoffeeDemo() {
       <nav className="sticky top-0 z-20 flex items-center justify-between gap-4 border-b border-(--ink)/8 bg-(--cream)/86 px-[clamp(20px,4vw,46px)] py-4 backdrop-blur-md">
         <span className={`${serif} flex items-center gap-2.5 text-[21px] tracking-[0.01em]`}>
           <ConceptMark kind="coffee" size={26} />
-          [Ember&nbsp;&amp;&nbsp;Oak]
+          Copper&nbsp;&amp;&nbsp;Oak
         </span>
         <span className="hidden gap-[26px] text-[13.5px] font-medium text-(--muted) md:flex">
           {["Shop", "Subscriptions", "Our story", "Journal"].map((l) => (
@@ -221,7 +222,7 @@ export default function CoffeeDemo() {
       <header className="grid items-center gap-[clamp(24px,4vw,56px)] px-[clamp(20px,4vw,46px)] pt-[clamp(38px,5vw,68px)] pb-[clamp(30px,4vw,52px)] md:grid-cols-[1.05fr_.95fr]">
         <div>
           <p className="mb-[18px] text-[12px] font-semibold tracking-[0.2em] text-(--clay-ink) uppercase">
-            Roasted in [city] · since [year]
+            Roasted in Novi Sad · since 2016
           </p>
           <h1 className={`${serif} mb-5 text-[clamp(2.6rem,5vw,4.2rem)] leading-[1.02] tracking-[-0.01em]`}>
             Small-batch coffee,
@@ -303,7 +304,7 @@ export default function CoffeeDemo() {
       <div className="overflow-hidden border-y border-(--ink)/10 bg-(--ink) text-(--cream)">
         <div className="coffee-marquee flex w-max gap-10 py-3.5 whitespace-nowrap">
           {Array.from({ length: 2 }).flatMap((_, k) =>
-            ["Direct trade", "Roasted to order", "Compostable bags", "Free shipping over [$X]"].map((s) => (
+            ["Direct trade", "Roasted to order", "Compostable bags", "Free shipping over $40"].map((s) => (
               <span key={`${k}-${s}`} className={`${serif} inline-flex items-center gap-10 text-[16px]`}>
                 {s}
                 <span className="text-[12px] text-(--gold)">✦</span>
@@ -335,17 +336,16 @@ export default function CoffeeDemo() {
         ref={processRef}
         className="grid scroll-mt-20 items-center gap-[clamp(24px,4vw,56px)] border-y border-(--ink)/8 bg-(--paper) px-[clamp(20px,4vw,46px)] py-[clamp(30px,4vw,56px)] md:grid-cols-2"
       >
-        {/* TODO(photos): founders / cupping table, see docs/OPEN-ITEMS.md */}
-        <figure className="grid h-[clamp(240px,28vw,330px)] place-items-center rounded-xl bg-[repeating-linear-gradient(45deg,#E7D8C4_0_11px,#F0E4D5_11px_22px)] font-mono text-[11px] tracking-[0.04em] text-[#9A7B5E]">
-          [photo: founders / cupping table]
+        <figure className="h-[clamp(240px,28vw,330px)] overflow-hidden rounded-xl shadow-[0_24px_50px_-30px_rgba(60,24,8,.55)]">
+          <CuppingTable className="block h-full w-full" />
         </figure>
         <div>
           <h2 className={`${serif} mb-4 text-[clamp(1.8rem,3vw,2.6rem)] leading-[1.06]`}>
             We only sell what we’d brew at home.
           </h2>
           <p className="mb-3.5 max-w-[46ch] text-[15px] text-(--muted)">
-            [Ember &amp; Oak] started as two people, one drum roaster and a stubborn idea: coffee should reach you
-            fresh, not after a month on a shelf.
+            Copper &amp; Oak started as two people, one drum roaster and a stubborn idea: coffee should reach you fresh,
+            not after a month on a shelf.
           </p>
           <ol className="mt-5 grid gap-3 text-[14px]">
             {[
@@ -363,9 +363,9 @@ export default function CoffeeDemo() {
           </ol>
           <div className="mt-6 flex gap-[34px]">
             {[
-              ["[14]", "Origins"],
-              ["[48h]", "Roast to door"],
-              ["[100%]", "Compostable"],
+              ["14", "Origins"],
+              ["48h", "Roast to door"],
+              ["100%", "Compostable"],
             ].map(([n, l]) => (
               <div key={l}>
                 <div className={`${serif} text-[30px] text-(--clay)`}>{n}</div>
@@ -738,7 +738,7 @@ function CoffeeFooter() {
       </AnimatePresence>
       <div className="mt-[34px] flex flex-wrap justify-between gap-5 border-t border-(--cream)/14 pt-[22px] text-[12.5px] text-(--cream)/60">
         <span className="flex items-center gap-2.5">
-          <ConceptMark kind="coffee" size={20} />© [year] [Ember &amp; Oak]
+          <ConceptMark kind="coffee" size={20} />© 2026 Copper &amp; Oak
         </span>
         <span>Instagram · TikTok · Newsletter</span>
       </div>

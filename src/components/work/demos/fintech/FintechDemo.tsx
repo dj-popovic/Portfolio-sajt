@@ -12,7 +12,7 @@ import {
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { ConceptMark } from "@/components/work/marks";
 
-/* [Northwind] — cash-flow dashboard concept. Copy stays English on purpose (fictional client). */
+/* Northbound, a cash-flow dashboard concept. Copy stays English on purpose (fictional client). */
 
 const THEME = {
   "--bg": "#0B1220",
@@ -84,7 +84,7 @@ const TX = [
   { id: 1, name: "Stripe payout", cat: "Revenue", amount: 12400, date: "Today" },
   { id: 2, name: "AWS", cat: "Cloud", amount: -2180, date: "Today" },
   { id: 3, name: "Payroll, October", cat: "Payroll", amount: -9600, date: "Yesterday" },
-  { id: 4, name: "Invoice #2231 · [Client]", cat: "Revenue", amount: 5000, date: "Oct 20" },
+  { id: 4, name: "Invoice #2231 · Fieldwork", cat: "Revenue", amount: 5000, date: "Oct 20" },
   { id: 5, name: "Figma", cat: "Software", amount: -144, date: "Oct 19" },
   { id: 6, name: "Google Ads", cat: "Marketing", amount: -1250, date: "Oct 18" },
   { id: 7, name: "Interest", cat: "Treasury", amount: 412, date: "Oct 17" },
@@ -151,7 +151,7 @@ function Brand() {
   return (
     <span className="flex items-center gap-2.5 text-[15px] font-bold tracking-[-0.01em]">
       <ConceptMark kind="fintech" size={24} />
-      [Northwind]
+      Northbound
     </span>
   );
 }
@@ -209,7 +209,7 @@ function Sidebar({ tab, setTab }: { tab: Tab; setTab: (t: Tab) => void }) {
       </nav>
       <div className="mt-auto rounded-2xl border border-(--line) bg-(--panel) p-3.5">
         <p className="text-[10.5px] tracking-[0.14em] text-(--muted) uppercase">Company</p>
-        <p className="mt-1 text-[13.5px] font-semibold">[Company] Ltd.</p>
+        <p className="mt-1 text-[13.5px] font-semibold">Lumen Labs Ltd.</p>
         <p className="mt-2 flex items-center gap-2 text-[12px] text-(--mint)">
           <span className="size-1.5 rounded-full bg-(--mint) shadow-[0_0_8px_var(--mint)]" />
           Synced 2 min ago
@@ -937,7 +937,7 @@ function Cards() {
               <div className="relative flex items-center justify-between">
                 <span className="flex items-center gap-2 text-[14px] font-bold">
                   <ConceptMark kind="fintech" size={20} />
-                  [Northwind]
+                  Northbound
                 </span>
                 <span className="text-[10.5px] tracking-[0.16em] text-(--muted) uppercase">Virtual</span>
               </div>

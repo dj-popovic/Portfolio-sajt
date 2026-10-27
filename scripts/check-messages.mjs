@@ -5,7 +5,7 @@ import { readFileSync } from "node:fs";
 import { IntlMessageFormat } from "intl-messageformat";
 
 const LOCALES = ["en", "sr", "ru", "de"];
-const KEEP = ["<logo>", "[Novi Sad]", "[Ember & Oak]", "[Northwind]", "[Stillwater]", "[Tako]"];
+const KEEP = ["<logo>", "[Novi Sad]"];
 const load = (l) => JSON.parse(readFileSync(new URL(`../messages/${l}.json`, import.meta.url), "utf8"));
 const en = load("en");
 const problems = [];
@@ -24,7 +24,7 @@ const signature = (s) => {
 const values = {
   name: "x",
   role: "r",
-  brand: "[b]",
+  brand: "b",
   what: "w",
   current: 1,
   total: 4,

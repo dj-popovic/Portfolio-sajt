@@ -61,7 +61,7 @@ export function BagArt({
         fill={theme.accent}
         fontFamily="var(--font-inter)"
       >
-        [EMBER &amp; OAK]
+        COPPER &amp; OAK
       </text>
       <text x="100" y="146" textAnchor="middle" fontSize="27" fill={theme.ink} fontFamily="var(--font-dmserif)">
         {name}
@@ -116,7 +116,7 @@ export function Seal({ className }: { className?: string }) {
         <textPath href="#seal-circle">ROASTED TO ORDER · SMALL BATCH ·</textPath>
       </text>
       <text x="60" y="68" textAnchor="middle" fontSize="24" fill="#C8862E" fontFamily="var(--font-dmserif)">
-        E&amp;O
+        C&amp;O
       </text>
     </svg>
   );

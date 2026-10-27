@@ -3,7 +3,7 @@
    (Everything else lives in the demo components as Tailwind classes.)
    =================================================================== */
 
-/* ---------- [Ember & Oak] coffee ---------- */
+/* ---------- Copper & Oak (coffee) ---------- */
 @keyframes coffeeFloat {
   0%,
   100% {
@@ -81,7 +81,7 @@
   outline-offset: 3px;
 }
 
-/* ---------- [Northwind] fintech ---------- */
+/* ---------- Northbound (fintech) ---------- */
 @keyframes finFlow {
   to {
     stroke-dashoffset: -16;
@@ -126,7 +126,7 @@
   outline-offset: 3px;
 }
 
-/* ---------- [Stillwater] wellness ---------- */
+/* ---------- Stillwater (wellness) ---------- */
 @keyframes swBreathe {
   0%,
   100% {
@@ -168,7 +168,7 @@
   animation: swEq 0.9s ease-in-out infinite;
 }
 
-/* ---------- [Tako] street food ---------- */
+/* ---------- Tako (street food) ---------- */
 .tk-scroll {
   scrollbar-width: none;
 }

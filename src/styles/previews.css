@@ -65,7 +65,7 @@
   }
 }
 
-/* ---------- [Ember & Oak] ---------- */
+/* ---------- Copper & Oak ---------- */
 .pv-coffee {
   background: #f4ebdd;
   color: #2b1d14;
@@ -467,7 +467,7 @@
   box-shadow: 0 18px 40px -16px rgb(0 0 0 / 0.6);
 }
 
-/* ---------- [Northwind] ---------- */
+/* ---------- Northbound ---------- */
 .pv-fintech {
   background: #0b1220;
   color: #e6edf7;
@@ -1026,7 +1026,7 @@
   transform: translateX(-22px);
 }
 
-/* ---------- [Stillwater] ---------- */
+/* ---------- Stillwater ---------- */
 .pv-sw {
   --frame: #221e3f;
   --island: #14112a;
@@ -1446,7 +1446,7 @@
   color: #6c5ce7;
 }
 
-/* ---------- [Tako] ---------- */
+/* ---------- Tako ---------- */
 .pv-tk {
   --frame: #1b1410;
   --island: #0e0a08;

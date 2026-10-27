@@ -13,7 +13,7 @@ import {
 import { ConceptMark } from "@/components/work/marks";
 import { PhoneFrame, useFitToWindow, useWideWindow } from "../Phone";
 
-/* [Stillwater] — sleep & breathing app concept: a landing page whose phone
+/* Stillwater, a sleep & breathing app concept: a landing page whose phone
    actually works. Copy stays English on purpose (fictional client). */
 
 const THEME = {
@@ -61,7 +61,7 @@ const CHAPTERS: Array<{ screen: Exclude<Screen, "home">; kicker: string; title: 
       screen: "progress",
       kicker: "03 · Rhythm",
       title: "Streaks without the guilt.",
-      body: "Miss a night and nothing breaks. [Stillwater] counts what you did, not what you didn’t.",
+      body: "Miss a night and nothing breaks. Stillwater counts what you did, not what you didn’t.",
       note: "12 nights and counting →",
     },
   ];
@@ -92,7 +92,7 @@ export default function WellnessDemo() {
       <Pricing />
       <Cta />
       <footer className="flex flex-wrap items-center justify-between gap-3 px-[clamp(18px,5vw,64px)] pt-4 pb-12 text-[12.5px] text-(--muted)">
-        <span>© 2026 [Stillwater] · a concept app, not a real product</span>
+        <span>© 2026 Stillwater · a concept app, not a real product</span>
         <span className="flex gap-5">
           <span>Privacy</span>
           <span>Terms</span>
@@ -107,7 +107,7 @@ function Logo() {
   return (
     <span className="flex items-center gap-2.5 text-[17px] font-extrabold tracking-[-0.01em]">
       <ConceptMark kind="wellness" size={30} />
-      [Stillwater]
+      Stillwater
     </span>
   );
 }
@@ -441,7 +441,7 @@ function HomeScreen({ setScreen, setTrack }: { setScreen: SetScreen; setTrack: (
     <div className="px-5 pt-2">
       <p className="flex items-center gap-1.5 text-[11.5px] font-bold text-(--soft)">
         <ConceptMark kind="wellness" size={15} />
-        [Stillwater]
+        Stillwater
       </p>
       <p className="mt-1 text-[22px] leading-[1.15] font-extrabold tracking-[-0.01em]">
         Good evening,
@@ -693,7 +693,7 @@ function SleepScreen({ track, setTrack }: { track: Track; setTrack: (t: Track) =
       <div className="mt-3 flex items-end justify-between">
         <div>
           <p className="text-[18px] leading-tight font-extrabold">{track.title}</p>
-          <p className="text-[11.5px] font-semibold text-(--soft)">Narrated by [Voice] · {track.minutes} min</p>
+          <p className="text-[11.5px] font-semibold text-(--soft)">Narrated by Mira Holt · {track.minutes} min</p>
         </div>
         <span className="flex h-6 items-end gap-[3px]" aria-hidden>
           {[0, 1, 2, 3].map((i) => (

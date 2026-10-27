@@ -6,7 +6,7 @@ import { ConceptMark } from "@/components/work/marks";
 import { PhoneFrame, useFitToWindow, useWideWindow } from "../Phone";
 import { Dish, type DishKind } from "./Dish";
 
-/* [Tako] — street-food delivery app concept. The landing page and the phone
+/* Tako, a street-food delivery app concept. The landing page and the phone
    share one cart. Copy stays English on purpose (fictional client). */
 
 const THEME = {
@@ -304,7 +304,7 @@ export default function FoodDemo() {
         )}
         <CtaBand onOrder={focusPhone} />
         <footer className="flex flex-wrap items-center justify-between gap-3 px-[clamp(18px,5vw,64px)] pt-4 pb-12 text-[12.5px] font-semibold text-(--muted)">
-          <span>© 2026 [Tako] · a concept app, not a real delivery service</span>
+          <span>© 2026 Tako · a concept app, not a real delivery service</span>
           <span className="flex gap-5">
             <span>Couriers</span>
             <span>Privacy</span>
@@ -356,7 +356,7 @@ function Brand({ size = "lg" }: { size?: "lg" | "sm" }) {
       className={`flex items-center gap-2 font-extrabold tracking-[-0.03em] text-(--red) ${size === "lg" ? "text-[22px]" : "text-[18px]"}`}
     >
       <ConceptMark kind="food" size={size === "lg" ? 28 : 20} />
-      [Tako]
+      Tako
     </span>
   );
 }
@@ -997,7 +997,7 @@ function CartSheet() {
               Close
             </button>
           </div>
-          <p className="text-[11px] font-semibold text-(--muted)">from [Tako] Dorćol · about 20 min</p>
+          <p className="text-[11px] font-semibold text-(--muted)">from Tako Dorćol · about 20 min</p>
 
           {totals.count === 0 ? (
             <div className="grid place-items-center py-8 text-center">
@@ -1106,9 +1106,9 @@ function CartSheet() {
 
 const ROUTE = "M34 132C62 132 64 104 92 98S128 74 150 70S196 52 214 30";
 const STEPS = [
-  { at: 0, label: "Order placed", sub: "[Tako] Dorćol has it" },
+  { at: 0, label: "Order placed", sub: "Tako Dorćol has it" },
   { at: 3, label: "On the plancha", sub: "Tortillas are hitting the heat" },
-  { at: 7, label: "On the way", sub: "[Courier] is riding over" },
+  { at: 7, label: "On the way", sub: "Luka is riding over" },
   { at: 19, label: "Delivered", sub: "Buen provecho!" },
 ];
 const TRIP = { start: 7, end: 19 };

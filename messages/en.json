@@ -231,8 +231,6 @@
     "lede": "A few quick questions, one at a time, no pressure. However half-formed the idea, we’d love to hear it.",
     "founders": "The <b>two of us</b> read every message and usually reply within a day.",
     "foundersMeta": "{nameOne} & {nameTwo} · co-founders",
-    "avatar1": "[founder photo 1]",
-    "avatar2": "[founder photo 2]",
     "step": "Step <b>{current}</b> / {total}",
     "back": "Back",
     "next": "Next",
@@ -262,7 +260,7 @@
         "q": "So we can plan",
         "ask": "Timeline & budget?",
         "hint": "Rough is fine. Pick what’s closest, or tell us in your own words.",
-        "placeholder": "e.g. launch by autumn, ~[budget]",
+        "placeholder": "e.g. launch by autumn, flexible on budget",
         "error": "Pick one of the options, or write a few words.",
         "chips": ["ASAP", "1–3 months", "Just exploring", "Flexible"]
       },

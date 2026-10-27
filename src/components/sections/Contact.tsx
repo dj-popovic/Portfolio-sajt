@@ -4,8 +4,24 @@ import { ConvoFlow } from "@/components/contact/ConvoFlow";
 import { PLACEHOLDER } from "@/lib/placeholders";
 import { richDark } from "@/lib/rich";
 
+// no photos here (the owners' call): each founder is a lens of glass with their craft in it
+const PenGlyph = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" aria-hidden>
+    <path d="M12 3.5 18.5 13 12 20.5 5.5 13 12 3.5Z" strokeLinejoin="round" />
+    <path d="M12 3.5v8.2" />
+    <circle cx="12" cy="13.2" r="1.6" />
+  </svg>
+);
+const CodeGlyph = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" aria-hidden>
+    <path d="m8.5 7.5-4.5 4.5 4.5 4.5M15.5 7.5l4.5 4.5-4.5 4.5" strokeLinejoin="round" />
+    <path d="m13.4 5.5-2.8 13" />
+  </svg>
+);
+
 export function Contact() {
   const t = useTranslations("contact");
+  const ta = useTranslations("about.people");
 
   return (
     <section className="contact" id="contact" data-screen-label="Contact">
@@ -20,14 +36,13 @@ export function Contact() {
               {t("lede")}
             </p>
 
-            <div className="founders" data-reveal="fade" data-reveal-delay="0.25">
+            <div className="founders glass" data-reveal="fade" data-reveal-delay="0.25">
               <div className="founder-avatars">
-                {/* TODO(photos): founder avatars — see docs/OPEN-ITEMS.md */}
-                <span className="founder-avatar" role="img" aria-label={t("avatar1")}>
-                  {t("avatar1")}
+                <span className="founder-avatar" role="img" aria-label={`${PLACEHOLDER.nameOne}, ${ta("one.role")}`}>
+                  <PenGlyph />
                 </span>
-                <span className="founder-avatar" role="img" aria-label={t("avatar2")}>
-                  {t("avatar2")}
+                <span className="founder-avatar" role="img" aria-label={`${PLACEHOLDER.nameTwo}, ${ta("two.role")}`}>
+                  <CodeGlyph />
                 </span>
               </div>
               <div className="said">
@@ -40,7 +55,14 @@ export function Contact() {
             </div>
           </div>
 
-          <ConvoFlow />
+          <div className="convo-stage">
+            {/* warm light behind the glass form, for it to bend */}
+            <div className="convo-lights" aria-hidden>
+              <span className="a" />
+              <span className="b" />
+            </div>
+            <ConvoFlow />
+          </div>
         </div>
       </div>
     </section>

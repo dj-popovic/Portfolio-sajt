@@ -231,8 +231,6 @@
     "lede": "Nekoliko kratkih pitanja, jedno po jedno, bez pritiska. Koliko god ideja bila nedorečena, rado ćemo je čuti.",
     "founders": "<b>Nas dvoje</b> čitamo svaku poruku i obično odgovaramo u roku od jednog dana.",
     "foundersMeta": "{nameOne} i {nameTwo} · suosnivači",
-    "avatar1": "[fotografija osnivača 1]",
-    "avatar2": "[fotografija osnivača 2]",
     "step": "Korak <b>{current}</b> / {total}",
     "back": "Nazad",
     "next": "Dalje",
@@ -262,7 +260,7 @@
         "q": "Da bismo planirali",
         "ask": "Rokovi i budžet?",
         "hint": "Okvirno je sasvim u redu. Izaberite ono što je najbliže ili nam recite svojim rečima.",
-        "placeholder": "npr. lansiranje do jeseni, ~[budžet]",
+        "placeholder": "npr. lansiranje do jeseni, budžet je fleksibilan",
         "error": "Izaberite jednu od opcija ili napišite nekoliko reči.",
         "chips": ["Što pre", "1–3 meseca", "Samo istražujem", "Fleksibilno"]
       },

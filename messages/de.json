@@ -231,8 +231,6 @@
     "lede": "Ein paar kurze Fragen, eine nach der anderen, ganz ohne Druck. Egal wie unfertig die Idee ist, wir hören sie gern.",
     "founders": "<b>Wir beide</b> lesen jede Nachricht und antworten meistens innerhalb eines Tages.",
     "foundersMeta": "{nameOne} & {nameTwo} · Co-Founder",
-    "avatar1": "[Foto 1]",
-    "avatar2": "[Foto 2]",
     "step": "Schritt <b>{current}</b> / {total}",
     "back": "Zurück",
     "next": "Weiter",
@@ -262,7 +260,7 @@
         "q": "Damit wir planen können",
         "ask": "Zeitrahmen & Budget?",
         "hint": "Grob reicht. Wähl, was am nächsten kommt, oder sag es in deinen Worten.",
-        "placeholder": "z. B. Launch bis Herbst, ~[Budget]",
+        "placeholder": "z. B. Launch bis Herbst, Budget flexibel",
         "error": "Wähl eine der Optionen oder schreib ein paar Worte.",
         "chips": ["So bald wie möglich", "1–3 Monate", "Erst mal umschauen", "Flexibel"]
       },

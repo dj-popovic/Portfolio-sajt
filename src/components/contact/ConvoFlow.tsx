@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent, type PointerEvent } from "react";
 import { useBrief } from "@/components/brief/BriefProvider";
 import { BackIcon, CloseIcon } from "@/components/ui/icons";
 import { CONTACT_ENDPOINT, EMAIL_PATTERN, LIMITS, type ContactPayload, type ContactResponse } from "@/lib/contact";
@@ -116,15 +116,47 @@ export function ConvoFlow() {
 
   const done = status === "done";
   const errorId = `convo-err-${step}`;
+  const current = String(done ? STEPS.length : index + 1).padStart(2, "0");
+
+  // a soft light follows the pointer across the glass
+  const onPointerMove = (e: PointerEvent<HTMLFormElement>) => {
+    if (e.pointerType !== "mouse") return;
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty("--mx", `${(((e.clientX - r.left) / r.width) * 100).toFixed(1)}%`);
+    e.currentTarget.style.setProperty("--my", `${(((e.clientY - r.top) / r.height) * 100).toFixed(1)}%`);
+  };
 
   return (
-    <form className="convo" id="convo" onSubmit={onSubmit} noValidate aria-live="polite" data-reveal-item>
+    <form
+      className="convo"
+      id="convo"
+      onSubmit={onSubmit}
+      onPointerMove={onPointerMove}
+      noValidate
+      aria-live="polite"
+      data-reveal-item
+    >
       <div className="convo-head">
         <span className="convo-step">
           {t.rich("step", {
-            current: String(done ? STEPS.length : index + 1).padStart(2, "0"),
+            current,
             total: String(STEPS.length).padStart(2, "0"),
-            b: (c) => <b>{c}</b>,
+            // the step number rolls over like a counter
+            b: () => (
+              <b className="convo-n">
+                <AnimatePresence mode="popLayout" initial={false}>
+                  <motion.span
+                    key={current}
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: "-100%", opacity: 0 }}
+                    transition={{ duration: 0.32, ease: EASE }}
+                  >
+                    {current}
+                  </motion.span>
+                </AnimatePresence>
+              </b>
+            ),
           })}
         </span>
         <div className="convo-progress" aria-hidden>

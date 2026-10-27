@@ -178,7 +178,7 @@
       "basic": {
         "name": "Basic",
         "tag": "A single-page or smaller website. Clean, custom and unmistakably ours.",
-        "hint": "[From €X, shared in our chat]",
+        "hint": "Pricing shared in our first chat",
         "cta": "Start a project",
         "includes": [
           "Custom responsive design in our style",
@@ -191,7 +191,7 @@
       "pro": {
         "name": "Pro",
         "tag": "A larger, multi-page website in our signature animated style. The full experience.",
-        "hint": "[From €X, shared in our chat]",
+        "hint": "Pricing shared in our first chat",
         "cta": "Start a project",
         "includes": [
           "Fully bespoke design, multiple pages",
@@ -203,7 +203,7 @@
       "custom": {
         "name": "Custom",
         "tag": "Apps & bespoke products, for when you need more than a website.",
-        "hint": "[Scoped per project in our chat]",
+        "hint": "Scoped and priced per project",
         "cta": "Let’s scope it",
         "includes": [
           "Scope tailored per project",

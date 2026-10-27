@@ -178,7 +178,7 @@
       "basic": {
         "name": "Basic",
         "tag": "Eine One-Page- oder kleinere Website. Klar, individuell und unverkennbar wir.",
-        "hint": "[Ab X €, mehr dazu im Gespräch]",
+        "hint": "Den Preis nennen wir im ersten Gespräch",
         "cta": "Projekt starten",
         "includes": [
           "Individuelles, responsives Design in unserem Stil",
@@ -191,7 +191,7 @@
       "pro": {
         "name": "Pro",
         "tag": "Eine größere, mehrseitige Website in unserem typischen animierten Stil. Das volle Erlebnis.",
-        "hint": "[Ab X €, mehr dazu im Gespräch]",
+        "hint": "Den Preis nennen wir im ersten Gespräch",
         "cta": "Projekt starten",
         "includes": [
           "Komplett maßgeschneidertes Design, mehrere Seiten",
@@ -203,7 +203,7 @@
       "custom": {
         "name": "Custom",
         "tag": "Apps & maßgeschneiderte Produkte für alles, was über eine Website hinausgeht.",
-        "hint": "[Umfang klären wir pro Projekt im Gespräch]",
+        "hint": "Umfang und Preis klären wir pro Projekt",
         "cta": "Lass uns planen",
         "includes": [
           "Umfang individuell pro Projekt",

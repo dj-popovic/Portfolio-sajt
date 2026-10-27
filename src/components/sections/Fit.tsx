@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { ADDONS, PACKAGES } from "@/lib/brief";
 import { AddonChips, PackageButton, PackageCard } from "@/components/sections/FitInteractive";
 import { PanelClip } from "@/components/motion/PanelClip";
+import { SectionLight } from "@/components/motion/SectionLight";
 import { CheckIcon } from "@/components/ui/icons";
 import { cn } from "@/lib/cn";
 import { richLight } from "@/lib/rich";
@@ -17,6 +18,7 @@ export function Fit() {
     <section className="fit" id="fit" data-screen-label="Find your fit">
       <PanelClip />
       <div className="fit-amb" aria-hidden />
+      <SectionLight className="fit-light" />
       <div className="fit-inner">
         <div className="fit-head">
           <h2 className="fit-title" data-reveal="title">
@@ -28,6 +30,11 @@ export function Fit() {
         </div>
 
         <div className="fit-grid" data-reveal-group data-reveal-stagger="0.06">
+          {/* warm light behind the frosted glass, for it to bend */}
+          <div className="fit-lights" aria-hidden>
+            <span className="a" />
+            <span className="b" />
+          </div>
           {PACKAGES.map((key) => {
             const featured = key === "pro";
             const includes = t.raw(`packages.${key}.includes`) as string[];
@@ -50,7 +57,7 @@ export function Fit() {
                 </div>
                 <p className="pkg-tag">{t(`packages.${key}.tag`)}</p>
 
-                {/* "Let's talk" for now; a "From €X" line drops into .price-hint later */}
+                {/* "Let's talk" for now; a "From €X" line can replace the hint once prices are set */}
                 <div className="pkg-price">
                   <span className="price-note">{t("investment")}</span>
                   <span className="price-val">{t("price")}</span>

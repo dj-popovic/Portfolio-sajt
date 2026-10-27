@@ -178,7 +178,7 @@
       "basic": {
         "name": "Basic",
         "tag": "Sajt od jedne stranice ili manji sajt. Čist, rađen po meri i nepogrešivo naš.",
-        "hint": "[Od X €, dogovaramo u razgovoru]",
+        "hint": "Cenu delimo u prvom razgovoru",
         "cta": "Započnite projekat",
         "includes": [
           "Responzivan dizajn po meri, u našem stilu",
@@ -191,7 +191,7 @@
       "pro": {
         "name": "Pro",
         "tag": "Veći sajt sa više stranica, u našem prepoznatljivom animiranom stilu. Potpuni doživljaj.",
-        "hint": "[Od X €, dogovaramo u razgovoru]",
+        "hint": "Cenu delimo u prvom razgovoru",
         "cta": "Započnite projekat",
         "includes": [
           "Potpuno unikatan dizajn, više stranica",
@@ -203,7 +203,7 @@
       "custom": {
         "name": "Custom",
         "tag": "Aplikacije i proizvodi po meri, kad vam treba više od sajta.",
-        "hint": "[Obim dogovaramo za svaki projekat posebno]",
+        "hint": "Obim i cenu određujemo za svaki projekat",
         "cta": "Hajde da procenimo",
         "includes": [
           "Obim prilagođen svakom projektu",

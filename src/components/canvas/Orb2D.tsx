@@ -15,7 +15,7 @@ const mix = (a: number, b: number, t: number) => a + (b - a) * t;
 const GRAIN = [92, 74, 64];
 const EMBER = [255, 107, 53];
 const AMBER = [255, 182, 39];
-function fill(e: number) {
+export function dotFill(e: number) {
   const t1 = smooth(0.04, 0.42, e);
   const t2 = smooth(0.58, 0.98, e);
   const c = GRAIN.map((g, i) => Math.round(mix(mix(g, EMBER[i], t1), AMBER[i], t2)));
@@ -39,7 +39,7 @@ export function Orb2D({ className, live }: { className?: string; live: boolean }
     const count = window.innerWidth < 760 ? 4200 : 7000;
     const { pos, seed } = buildOrb(count);
     const [lx, ly, lz] = ORB.light;
-    const fills = Array.from({ length: LEVELS }, (_, i) => fill(i / (LEVELS - 1)));
+    const fills = Array.from({ length: LEVELS }, (_, i) => dotFill(i / (LEVELS - 1)));
     const buckets: number[][] = Array.from({ length: LEVELS }, () => []);
     const px = new Float32Array(count * 3);
 

@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
-import { FooterEmbers } from "@/components/canvas/FooterEmbers";
-import { BackToTop, CopyrightYear, StudioStatus } from "@/components/layout/FooterLive";
+import { FooterHorizon } from "@/components/layout/FooterHorizon";
+import { BackToTop, CopyEmail, CopyrightYear, StudioStatus } from "@/components/layout/FooterLive";
 import { PLACEHOLDER } from "@/lib/placeholders";
 
 const STUDIO_LINKS = ["about", "services", "work", "process"] as const;
@@ -8,19 +8,21 @@ const STUDIO_LINKS = ["about", "services", "work", "process"] as const;
 export function Footer() {
   const t = useTranslations("footer");
   const tn = useTranslations("nav");
+  // TODO(name): real address once the studio name/domain exist
+  const email = `hello@${PLACEHOLDER.studio}.com`;
 
   return (
     <footer className="footer" id="footer" data-screen-label="Footer">
       <div className="footer-glow" aria-hidden />
-      <FooterEmbers className="footer-embers" />
+      <FooterHorizon className="footer-horizon" />
 
       <div className="footer-inner">
         <div className="f-top">
-          <div className="f-cta">
-            {/* TODO(name): real address once the studio name/domain exist */}
-            <a className="f-email block" data-reveal="title" href={`mailto:hello@${PLACEHOLDER.studio}.com`}>
+          <div className="f-cta" data-reveal="title">
+            <a className="f-email" href={`mailto:${email}`}>
               hello@<span className="ph">{PLACEHOLDER.studio}</span>.com
             </a>
+            <CopyEmail email={email} />
           </div>
           <div className="f-nav" data-reveal="fade" data-reveal-delay="0.15">
             <div className="f-col">
@@ -54,24 +56,25 @@ export function Footer() {
           </div>
         </div>
 
+        {/* room for the horizon's crown to rise into */}
         <div className="f-atmosphere" aria-hidden />
 
         <div className="f-base">
           <StudioStatus />
-          <span className="f-meta">
+          <span className="f-meta glass">
             <span className="logo-mark" aria-hidden>
               ★
             </span>
             <span>{t.rich("meta", { year: () => <CopyrightYear /> })}</span>
           </span>
           <div className="f-social">
-            <a href="#" aria-label={t("social.instagram")}>
+            <a className="glass" href="#" aria-label={t("social.instagram")}>
               IG
             </a>
-            <a href="#" aria-label={t("social.x")}>
+            <a className="glass" href="#" aria-label={t("social.x")}>
               X
             </a>
-            <a href="#" aria-label={t("social.linkedin")}>
+            <a className="glass" href="#" aria-label={t("social.linkedin")}>
               in
             </a>
             <BackToTop label={t("top")} />

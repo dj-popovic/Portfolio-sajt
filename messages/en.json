@@ -282,6 +282,8 @@
     "failed": "Something went wrong sending that. Try again in a moment, or email us directly."
   },
   "footer": {
+    "copy": "Copy email",
+    "copied": "Copied",
     "studio": "Studio",
     "elsewhere": "Elsewhere",
     "journal": "Read the journal",

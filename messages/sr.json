@@ -282,6 +282,8 @@
     "failed": "Nešto nije u redu sa slanjem. Pokušajte ponovo za trenutak ili nam pišite direktno na mejl."
   },
   "footer": {
+    "copy": "Kopiraj adresu",
+    "copied": "Kopirano",
     "studio": "Studio",
     "elsewhere": "Na mrežama",
     "journal": "Čitajte blog",

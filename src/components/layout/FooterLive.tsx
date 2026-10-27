@@ -1,8 +1,10 @@
 "use client";
 
+import { AnimatePresence, motion } from "motion/react";
 import { useTranslations } from "next-intl";
-import { useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useScroll } from "@/components/motion/SmoothScroll";
+import { CheckIcon, CopyIcon } from "@/components/ui/icons";
 import { STUDIO_TIME_ZONE } from "@/lib/placeholders";
 
 const timeParts = new Intl.DateTimeFormat("en-GB", {
@@ -41,7 +43,7 @@ export function StudioStatus() {
   const mood = !known ? moods[0] : hour >= 1 && hour < 6 ? t("moodNight") : moods[minute % moods.length];
 
   return (
-    <span className="f-status">
+    <span className="f-status glass">
       <span className="pulse" aria-hidden />
       <span>
         {t.rich("status", {
@@ -73,11 +75,48 @@ export function BackToTop({ label }: { label: string }) {
       onComplete: () => document.querySelector<HTMLElement>(".nav-logo")?.focus({ preventScroll: true }),
     });
   return (
-    <button className="f-top-btn" type="button" onClick={toTop}>
+    <button className="f-top-btn glass" type="button" onClick={toTop}>
       {label}
       <span className="arr" aria-hidden>
         ↑
       </span>
+    </button>
+  );
+}
+
+/** Copies the studio's address, and says so for a moment. */
+export function CopyEmail({ email }: { email: string }) {
+  const t = useTranslations("footer");
+  const [copied, setCopied] = useState(false);
+  const timer = useRef(0);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch {
+      return; // no clipboard (an insecure page, a denied permission): the link still mails
+    }
+    setCopied(true);
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setCopied(false), 1800);
+  };
+
+  return (
+    <button className="f-copy glass" type="button" onClick={copy} aria-live="polite">
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          key={copied ? "done" : "copy"}
+          className="f-copy-in"
+          initial={{ opacity: 0, y: 8, filter: "blur(4px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -8, filter: "blur(4px)" }}
+          transition={{ duration: 0.22, ease: [0.25, 1, 0.5, 1] }}
+        >
+          {copied ? <CheckIcon size={15} /> : <CopyIcon />}
+          {copied ? t("copied") : t("copy")}
+        </motion.span>
+      </AnimatePresence>
     </button>
   );
 }

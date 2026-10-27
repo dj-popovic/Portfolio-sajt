@@ -282,6 +282,8 @@
     "failed": "Beim Senden ist etwas schiefgelaufen. Versuch es gleich noch mal oder schreib uns direkt eine E-Mail."
   },
   "footer": {
+    "copy": "E-Mail kopieren",
+    "copied": "Kopiert",
     "studio": "Studio",
     "elsewhere": "Anderswo",
     "journal": "Zum Journal",

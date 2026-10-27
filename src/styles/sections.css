@@ -3597,6 +3597,7 @@
 
 /* ------------------------------------------------------------- FOOTER */
 .footer {
+  --atmo: clamp(170px, 26vh, 300px); /* the open band the horizon rises into */
   position: relative;
   background: var(--darkest);
   color: var(--text);
@@ -3641,23 +3642,59 @@
   padding-bottom: clamp(40px, 6vh, 64px); /* build: scale */
   border-bottom: 1px solid var(--hairline);
 }
+/* build: the address with a copy button beside it (a glass pill) */
+.f-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 18px;
+}
 .f-email {
   display: inline-block;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: clamp(1.5rem, 3.2vw, 2.4rem); /* build: scale */
-  line-height: 1.05;
+  line-height: 1.12;
   letter-spacing: -0.02em;
   color: var(--text);
   text-decoration: none;
   overflow-wrap: anywhere;
+  /* an ember underline draws in on hover */
+  background: linear-gradient(90deg, var(--accent2), var(--accent)) 0 100% / 0% 2px no-repeat;
   transition:
     color 0.3s ease,
-    text-shadow 0.3s ease,
-    transform 0.3s ease;
+    background-size 0.5s var(--ease-out-quart);
 }
 .f-email:hover {
   color: var(--accent); /* build: solid, no gradient text or glow */
+  background-size: 100% 2px;
+}
+.f-copy {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: color-mix(in oklab, var(--text) 80%, transparent);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.f-copy-in {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.f-copy svg {
+  color: var(--accent2);
+}
+@media (hover: hover) {
+  .f-copy:hover {
+    color: var(--text);
+  }
 }
 .f-email .ph {
   color: color-mix(in oklab, var(--text) 40%, transparent);
@@ -3686,30 +3723,67 @@
   gap: 11px;
 }
 .f-col a {
+  position: relative;
+  display: inline-block;
   font-size: 15px;
   color: color-mix(in oklab, var(--text) 74%, transparent);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.3s var(--ease-out-quart);
+}
+/* an ember dot slides in before the link you're on */
+.f-col a::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px 1px rgb(255 107 53 / 0.6);
+  opacity: 0;
+  transform: scale(0.3);
+  transition:
+    opacity 0.25s ease,
+    transform 0.3s var(--ease-out-quart);
 }
 .f-col a:hover {
   color: var(--accent2);
 }
-.footer-embers {
+@media (hover: hover) {
+  .f-col a:hover {
+    color: var(--text);
+    transform: translateX(14px);
+  }
+  .f-col a:hover::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* the hero's orb again, risen huge behind the bottom edge (FooterHorizon) */
+.footer-horizon {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 68%;
+  height: calc(var(--atmo) + 170px); /* the band under the links: room for the crown, then the pills */
   z-index: 1;
-  width: 100%;
+  pointer-events: none;
+}
+.footer-horizon canvas {
   display: block;
+  width: 100%;
+  height: 100%;
 }
 /* build: the centred "<logo> · wordmark" pill is gone — the brief keeps only
    the small <logo> by the copyright; this band is just breathing room */
 .f-atmosphere {
   position: relative;
   z-index: 2;
-  height: clamp(150px, 22vh, 250px);
+  height: var(--atmo);
   margin-top: clamp(28px, 4vh, 48px);
   pointer-events: none;
 }
@@ -3725,12 +3799,16 @@
   margin-top: -2px;
   text-shadow: 0 1px 10px var(--darkest);
 }
+/* build: the status, the socials and back-to-top are glass pills over the horizon */
 .f-status {
   display: inline-flex;
   align-items: center;
   gap: 11px;
+  min-height: 42px;
+  padding: 0 18px 0 16px;
+  border-radius: 999px;
   font-size: 14px;
-  color: color-mix(in oklab, var(--text) 70%, transparent);
+  color: color-mix(in oklab, var(--text) 74%, transparent);
 }
 .f-status .pulse {
   width: 8px;
@@ -3765,8 +3843,11 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  min-height: 42px;
+  padding: 0 18px 0 10px;
+  border-radius: 999px;
   font-size: 13px;
-  color: var(--muted);
+  color: color-mix(in oklab, var(--text) 66%, transparent);
   letter-spacing: 0.02em;
 }
 .f-meta .logo-mark {
@@ -3781,38 +3862,38 @@
   gap: 8px;
 }
 .f-social a {
-  font-size: 13.5px;
-  color: color-mix(in oklab, var(--text) 70%, transparent);
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 600;
+  color: color-mix(in oklab, var(--text) 74%, transparent);
   text-decoration: none;
-  padding: 8px 13px;
-  border-radius: 999px;
-  border: 1px solid var(--hairline);
   transition:
     color 0.2s ease,
-    border-color 0.2s ease,
-    background 0.2s ease;
+    transform 0.25s var(--ease-out-quart);
 }
-.f-social a:hover {
-  color: var(--text);
-  border-color: color-mix(in oklab, var(--accent) 40%, transparent);
-  background: color-mix(in oklab, var(--accent) 9%, transparent);
+@media (hover: hover) {
+  .f-social a:hover {
+    color: var(--accent2);
+    transform: translateY(-2px);
+  }
 }
 .f-top-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  height: 42px;
   font-weight: 600;
   font-size: 14px;
   color: var(--text);
-  padding: 11px 18px;
+  padding: 0 10px 0 18px;
+  border: 0;
   border-radius: 999px;
   cursor: pointer;
-  background: color-mix(in oklab, var(--surface) 60%, transparent);
-  border: 1px solid var(--hairline);
-  transition:
-    transform 0.16s ease-out,
-    border-color 0.2s ease,
-    background 0.2s ease;
+  transition: transform 0.16s ease-out;
 }
 .f-top-btn .arr {
   display: grid;
@@ -3823,10 +3904,6 @@
   background: linear-gradient(180deg, color-mix(in oklab, var(--accent2) 30%, var(--accent)), var(--accent));
   color: var(--color-char);
   transition: transform 0.25s ease;
-}
-.f-top-btn:hover {
-  border-color: color-mix(in oklab, var(--accent) 42%, transparent);
-  background: color-mix(in oklab, var(--surface) 90%, transparent);
 }
 /* build: movement only with a real hover; press feedback */
 @media (hover: hover) {
@@ -3844,6 +3921,21 @@
   }
 }
 @media (max-width: 560px) {
+  .footer {
+    --atmo: clamp(110px, 16vh, 170px);
+  }
+  .footer-horizon {
+    height: calc(var(--atmo) + 250px); /* the pills wrap onto three rows */
+  }
+  /* a long mood wraps: the pill becomes a rounded box */
+  .f-status,
+  .f-meta {
+    border-radius: 20px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    text-align: left;
+    text-wrap: balance;
+  }
   .f-base {
     justify-content: center;
     text-align: center;

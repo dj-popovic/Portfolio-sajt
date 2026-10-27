@@ -6,7 +6,14 @@ import { gsap, prefersReducedMotion, ScrollTrigger } from "@/lib/gsap";
 
 type ScrollTarget = string | HTMLElement | number;
 
-type ScrollOptions = { offset?: number; immediate?: boolean; duration?: number; onComplete?: () => void };
+type ScrollOptions = {
+  offset?: number;
+  immediate?: boolean;
+  duration?: number;
+  /** move the page even while it's held (the demo window lining up the card it closes into) */
+  force?: boolean;
+  onComplete?: () => void;
+};
 
 type ScrollApi = {
   /** smooth-scroll to a selector, element or y position */
@@ -79,14 +86,15 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
         offset: opts?.offset ?? 0,
         immediate: opts?.immediate,
         duration: opts?.duration ?? 1.3,
+        force: opts?.force,
         onComplete: opts?.onComplete,
       });
     };
     return {
       scrollTo: (target, opts) => {
         // a stopped Lenis ignores scrollTo (say, a link in the menu while the menu
-        // holds the page): it runs as soon as the page is let go
-        if (locks.current > 0 && lenisRef.current) {
+        // holds the page): it runs as soon as the page is let go, unless forced
+        if (locks.current > 0 && lenisRef.current && !opts?.force) {
           pending.current = { target, opts };
           return;
         }

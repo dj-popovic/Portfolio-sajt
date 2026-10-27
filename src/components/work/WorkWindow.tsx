@@ -3,13 +3,13 @@
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { motion } from "motion/react";
-import { useEffect, useRef, useState, type ComponentType } from "react";
+import { useEffect, useEffectEvent, useRef, useState, type ComponentType } from "react";
 import { createPortal } from "react-dom";
 import { useScroll } from "@/components/motion/SmoothScroll";
 import { CloseIcon } from "@/components/ui/icons";
 import { CONCEPT, DEMO_KEYS, type DemoKey } from "@/components/work/concepts";
 import { ConceptMark } from "@/components/work/marks";
-import { gsap, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, prefersReducedMotion, ScrollTrigger } from "@/lib/gsap";
 import { overlay } from "@/lib/overlay";
 
 function Loading() {
@@ -30,6 +30,8 @@ const DEMOS: Record<DemoKey, ComponentType> = {
 
 type Inset = { top: number; right: number; bottom: number; left: number; r: number };
 
+const HEADER = 76; // the fixed header, kept clear when a card is lined up
+
 type WorkWindowProps = {
   demo: DemoKey;
   /** the card it opened from */
@@ -42,9 +44,10 @@ type WorkWindowProps = {
 
 /**
  * The opened concept: grows out of its card's preview, dims the page and
- * closes back into the card of whichever concept is showing. The bar says
- * whose site it is and switches between the four without closing. Modal:
- * focus stays inside, Esc closes, the page holds still behind it.
+ * closes back into the card of whichever concept is showing, shrinking onto
+ * its preview and fading as it lands. The bar says whose site it is and
+ * switches between the four without closing. Modal: focus stays inside, Esc
+ * closes, the page holds still behind it.
  */
 export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWindowProps) {
   const t = useTranslations("work");
@@ -56,8 +59,9 @@ export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWind
   const closeBtn = useRef<HTMLButtonElement>(null);
   const closing = useRef(false);
   const covering = useRef(false);
+  const opening = useRef<gsap.core.Tween | null>(null);
   const [shown, setShown] = useState<DemoKey>(demo);
-  // which concept is showing, for the cleanup that runs after the last render
+  // which concept is showing, for closing (Esc is wired once) and the cleanup after the last render
   const shownRef = useRef<DemoKey>(demo);
   const [hintGone, setHintGone] = useState(false);
   const Demo = DEMOS[shown];
@@ -94,30 +98,64 @@ export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWind
     overlay.pop();
   };
 
+  // switching concepts can leave the card it closes into off screen: line it up
+  // behind the scrim first (the page is held, so this is forced)
+  const lineUp = (card: HTMLElement) => {
+    const r = card.getBoundingClientRect();
+    const room = window.innerHeight - HEADER;
+    const by = r.height < room ? r.top - HEADER - (room - r.height) / 2 : r.top - HEADER - 12;
+    scroll.scrollTo(window.scrollY + by, { immediate: true, force: true });
+    // scrubbed entrances catch up with the jump at once, so the card is where it rests
+    ScrollTrigger.update();
+    ScrollTrigger.getAll().forEach((st) => {
+      const scrub = st.getTween(); // 0 when it doesn't scrub
+      if (scrub) scrub.progress(1);
+    });
+  };
+
   function close() {
     if (closing.current) return;
     closing.current = true;
     uncover();
+    opening.current?.kill();
     const f = frame.current;
+    const card = cardOf(shownRef.current);
+    if (card && !onScreen(card)) lineUp(card);
     if (!f || prefersReducedMotion()) return onClose();
-    const content = f.querySelectorAll(".ww-bar > *, .ww-content");
-    gsap.to(content, { opacity: 0, duration: 0.14 });
-    gsap.to(scrim.current, { opacity: 0, duration: 0.4, ease: "power2.inOut" });
-    const card = cardOf(shown);
-    if (card && onScreen(card)) {
-      // back into the card of the concept that's showing
-      const state = { top: 0, right: 0, bottom: 0, left: 0, r: 24 };
-      gsap.to(state, {
-        ...insetOf(card),
-        duration: 0.5,
-        ease: "power3.inOut",
-        onUpdate: () => paint(f, state),
-        onComplete: onClose,
-      });
-    } else {
+    if (root.current) root.current.style.pointerEvents = "none";
+    gsap.to(scrim.current, { opacity: 0, duration: 0.45, ease: "power2.inOut" });
+    const media = card?.querySelector(".cc-media")?.getBoundingClientRect();
+    if (!media?.width) {
       gsap.to(f, { opacity: 0, scale: 0.96, duration: 0.32, ease: "power2.in", onComplete: onClose });
+      return;
     }
+    // onto the card's preview: scaled to fit it (cropped to its shape, never
+    // squashed), fading as it lands so the card is what's left
+    f.style.clipPath = "";
+    const from = f.getBoundingClientRect();
+    const end = Math.max(media.width / from.width, media.height / from.height);
+    const cropX = (from.width - media.width / end) / 2;
+    const cropY = from.height - media.height / end;
+    const x = media.left - from.left - cropX * end;
+    const y = media.top - from.top;
+    const state = { p: 0 };
+    f.style.transformOrigin = "0 0";
+    gsap.to(state, {
+      p: 1,
+      duration: 0.5,
+      ease: "power3.inOut",
+      onUpdate: () => {
+        const { p } = state;
+        const k = 1 + (end - 1) * p;
+        f.style.transform = `translate3d(${(x * p).toFixed(2)}px, ${(y * p).toFixed(2)}px, 0) scale(${k.toFixed(4)})`;
+        paint(f, { top: 0, right: cropX * p, bottom: cropY * p, left: cropX * p, r: (24 - 6 * p) / k });
+      },
+      onComplete: onClose,
+    });
+    gsap.to(f, { opacity: 0, duration: 0.42, delay: 0.08, ease: "power2.in" });
   }
+  // Esc is wired once, when the window opens: it closes whatever is showing by then
+  const onEscape = useEffectEvent(() => close());
 
   // another concept, in place: the content dips out, the next one rises in
   function go(key: DemoKey) {
@@ -166,7 +204,7 @@ export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWind
         { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", stagger: 0.05, delay: 0.25 },
       );
       gsap.fromTo(f.querySelector(".ww-content"), { opacity: 0 }, { opacity: 1, duration: 0.35, delay: 0.22 });
-      gsap.to(state, {
+      opening.current = gsap.to(state, {
         top: 0,
         right: 0,
         bottom: 0,
@@ -184,7 +222,7 @@ export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWind
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
-        close();
+        onEscape();
       }
       if (e.key !== "Tab" || !root.current) return;
       const items = root.current.querySelectorAll<HTMLElement>(

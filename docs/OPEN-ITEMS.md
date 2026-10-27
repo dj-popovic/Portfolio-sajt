@@ -6,15 +6,14 @@ Things that are intentionally unfinished, and why. Search the code for `TODO(` t
 
 The site is built so photos drop in without layout changes. Until then the slots show `[bracketed]` placeholders.
 
-| Where                                                               | What                                                                                                                                                                  | Why it matters                                                                                                                                      |
-| ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Contact — two round avatars (`src/components/sections/Contact.tsx`) | Square portraits of both founders — **or** drop photos here too (About no longer uses them, see below) and show initials                                              | "The two of us read every message" feels truer with faces (or at least names) next to it; it's the trust moment right before someone writes to you. |
-| Work — coffee concept (Copper & Oak)                                | Optional: a real cupping-table or roastery photo for the story block (drawn for now in `demos/coffee/CuppingTable.tsx`) and real bag shots to replace the drawn bags. | The drawings already carry the shop; real photos would make the concept read even more like finished client work.                                   |
-| Work — street-food concept (Tako)                                   | Optional: dish photos (tacos, bowls, drinks; top-down or 3/4) to replace the flat illustrations in `demos/food/Dish.tsx`                                              | Food apps live or die on appetite appeal. The illustrations work, but real food photography is what makes people hungry.                            |
-| Work — wellness concept (Stillwater)                                | Optional: 2–3 calm ambient images (water, sky, texture)                                                                                                               | Nice to have — the app UI already carries itself.                                                                                                   |
-| Social share (OG) image                                             | 1200×630 with the final logo                                                                                                                                          | Shown when the link is shared in chats/social. Needs the name/logo first.                                                                           |
+| Where                                | What                                                                                                                                                                  | Why it matters                                                                                                           |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Work — coffee concept (Copper & Oak) | Optional: a real cupping-table or roastery photo for the story block (drawn for now in `demos/coffee/CuppingTable.tsx`) and real bag shots to replace the drawn bags. | The drawings already carry the shop; real photos would make the concept read even more like finished client work.        |
+| Work — street-food concept (Tako)    | Optional: dish photos (tacos, bowls, drinks; top-down or 3/4) to replace the flat illustrations in `demos/food/Dish.tsx`                                              | Food apps live or die on appetite appeal. The illustrations work, but real food photography is what makes people hungry. |
+| Work — wellness concept (Stillwater) | Optional: 2–3 calm ambient images (water, sky, texture)                                                                                                               | Nice to have — the app UI already carries itself.                                                                        |
+| Social share (OG) image              | 1200×630 with the final logo                                                                                                                                          | Shown when the link is shared in chats/social. Needs the name/logo first.                                                |
 
-About uses no photos any more: the founders are 3D name cards with their tools (decided in the About redesign).
+About uses no photos any more: the founders are 3D name cards with their tools (decided in the About redesign). Contact doesn't either (the owners' call): each founder is a lens of glass with their craft drawn in it.
 
 Image licensing: use photos you own or that are explicitly licensed for commercial use.
 
@@ -39,7 +38,7 @@ Image licensing: use photos you own or that are explicitly licensed for commerci
 
 ## 4. Prices
 
-"Let's talk" everywhere for now. When decided, put "From €X" into `fit.packages.*.hint` in each language file — the layout already has the slot.
+"Let's talk" everywhere for now, with "Pricing shared in our first chat" under it (Custom: "Scoped and priced per project"). When prices are decided, put "From €X" into `fit.packages.*.hint` in each language file; the layout already has the slot.
 
 ## 5. Contact backend
 

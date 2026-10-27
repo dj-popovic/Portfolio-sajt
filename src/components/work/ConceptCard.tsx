@@ -8,7 +8,13 @@ import { cn } from "@/lib/cn";
 
 const WEB_W = 960; // the sites' page width in the previews (previews.tsx)
 const PHONE = { w: 300, h: 640 }; // the phones' size
-const SCROLL_SPEED = 260; // page px per second while a site preview plays by itself
+// a site preview on hover scrolls itself at an even pace: page px per second
+// (of the 960px replica), and how quickly it gets going and comes to a stop
+const SCROLL_SPEED = 320;
+const RETURN_SPEED = 1200; // back to the top once the pointer leaves
+const ACCEL = 1600; // px/s² to pick up speed (or turn round)
+const BRAKE = 900; // px/s² to settle at either end
+const REST = [900, 1200]; // ms it rests at the top and at the bottom
 const DWELL = [2400, 4200, 3600]; // ms on each phone screen while it plays
 
 type ConceptCardProps = {
@@ -31,10 +37,11 @@ type ConceptCardProps = {
 /**
  * One concept, as a pane of the dark card material (the founder cards')
  * around a live preview. Pointer: the card tilts and catches the light, an
- * "Open" pill trails the cursor; a site preview scrolls to wherever the
- * pointer is (and plays on by itself when it rests), an app's phone runs
- * through its screens while its chips drift with the pointer. Touch: the
- * preview plays while the card is in view. Reduced motion: still.
+ * "Open" pill trails the cursor; a site preview scrolls itself down the page
+ * and back at an even pace (never tied to the pointer, which can be too
+ * quick), an app's phone runs through its screens while its chips drift with
+ * the pointer. Touch: the preview plays while the card is in view. Reduced
+ * motion: still.
  */
 export function ConceptCard({
   demo,
@@ -69,13 +76,16 @@ export function ConceptCard({
     // ---- fit the replica to the card
     let k = 0.6;
     let maxScroll = 0;
+    // layout px of the 960px page: the card's tilt and its entrance don't change them
+    const measure = () => {
+      if (track && view) maxScroll = Math.max(0, track.offsetHeight - view.clientHeight / k);
+    };
     const fit = () => {
       if (web && view && track) {
         k = view.clientWidth / WEB_W;
         el.style.setProperty("--k", k.toFixed(4));
         el.style.setProperty("--vh", `${(view.clientHeight / k).toFixed(1)}px`);
-        const page = track.getBoundingClientRect().height / k;
-        maxScroll = Math.max(0, page - view.clientHeight / k);
+        measure();
       } else if (phone) {
         const pk = Math.min((media.clientHeight - 30) / PHONE.h, (media.clientWidth * 0.46) / PHONE.w);
         el.style.setProperty("--pk", pk.toFixed(4));
@@ -85,32 +95,37 @@ export function ConceptCard({
     ro.observe(media);
     fit();
 
-    // ---- a site scrolling: follows the pointer, plays on by itself when the pointer rests
+    // ---- a site scrolling itself: down the page, a rest, back up, a rest, while
+    // it plays; home to the top when it stops. Speed eases in and out (never a
+    // jolt, even turning round mid-way), and it settles at each end.
     let active = false;
     let y = 0;
-    let target = 0;
-    let dir = 1;
-    let following = 0; // until when the pointer leads
-    let resting = 0; // a pause at either end
+    let v = 0;
+    let down = false; // heading for the bottom (else the top)
+    let restUntil = 0;
     let raf = 0;
     let last = 0;
     const loop = (now: number) => {
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
-      if (active && !reduce && now > following && now > resting) {
-        target += dir * SCROLL_SPEED * dt;
-        if (target >= maxScroll || target <= 0) {
-          target = Math.min(maxScroll, Math.max(0, target));
-          dir = target <= 0 ? 1 : -1;
-          resting = now + 900;
-        }
-      }
-      if (!active) target = 0;
-      y += (target - y) * (1 - Math.exp(-dt * 8));
-      if (Math.abs(target - y) < 0.3) y = target;
+      if (!active) down = false;
+      else if (now > restUntil && v === 0 && y === (down ? maxScroll : 0)) down = !down;
+      const goal = down ? maxScroll : 0;
+      const cruise = active ? SCROLL_SPEED : RETURN_SPEED;
+      const d = goal - y;
+      // as fast as it may go, and slow enough to stop at the goal
+      const want = Math.sign(d) * Math.min(cruise, Math.sqrt(2 * BRAKE * Math.abs(d)));
+      v += Math.max(-ACCEL * dt, Math.min(ACCEL * dt, want - v));
+      const next = Math.min(maxScroll, Math.max(0, y + v * dt));
+      if (Math.abs(d) < 0.5 || (goal - next) * d <= 0) {
+        // there: settle, and rest a moment before turning round
+        if (y !== goal || v !== 0) restUntil = now + REST[down ? 1 : 0];
+        y = goal;
+        v = 0;
+      } else y = next;
       if (track) track.style.transform = `translate3d(0, ${(-y).toFixed(2)}px, 0)`;
       if (thumb) thumb.style.transform = `translateY(${maxScroll ? ((y / maxScroll) * 257).toFixed(1) : 0}%)`;
-      raf = active || y !== target ? requestAnimationFrame(loop) : 0;
+      raf = active || y !== 0 ? requestAnimationFrame(loop) : 0;
     };
     const kick = () => {
       if (raf || !web) return;
@@ -137,8 +152,11 @@ export function ConceptCard({
       if (reduce) return;
       if (web) {
         if (on) {
-          dir = 1;
-          resting = performance.now() + 500;
+          measure(); // the page may have grown since (fonts, images)
+          // a beat before it starts from the top (a pointer passing over doesn't set it off);
+          // caught on its way home, it heads straight back down
+          restUntil = performance.now() + 160;
+          if (y > 0) down = true;
         }
         kick();
       } else {
@@ -159,7 +177,6 @@ export function ConceptCard({
     io.observe(el);
 
     // ---- pointer
-    let lastY = -1;
     const onEnter = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
       setActive(true);
@@ -182,14 +199,6 @@ export function ConceptCard({
       if (reduce) return;
       el.style.setProperty("--rx", `${((0.5 - py) * 5).toFixed(2)}deg`);
       el.style.setProperty("--ry", `${((px - 0.5) * 7).toFixed(2)}deg`);
-      // the site follows the pointer down the preview
-      if (web && inside && Math.abs(e.clientY - lastY) > 1.5) {
-        const f = Math.min(1, Math.max(0, (e.clientY - m.top - m.height * 0.12) / (m.height * 0.76)));
-        target = f * maxScroll;
-        following = performance.now() + 1400;
-        kick();
-      }
-      lastY = e.clientY;
       // the phone turns a little and its chips drift, at different depths
       if (phone)
         phone.style.transform = `rotateY(${((px - 0.5) * 14).toFixed(2)}deg) rotateX(${((0.5 - py) * 8).toFixed(2)}deg)`;
@@ -206,7 +215,6 @@ export function ConceptCard({
       el.style.setProperty("--ry", "0deg");
       if (phone) phone.style.transform = "";
       chipEls.forEach((c) => (c.style.translate = ""));
-      lastY = -1;
     };
     // keyboard focus plays it too
     const onFocus = () => el.matches(":focus-visible") && setActive(true);

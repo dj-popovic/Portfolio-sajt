@@ -875,6 +875,23 @@ function Flows() {
 
 /* ---------- Cards: a virtual card you can tilt, flip and freeze ---------- */
 
+function Snowflake() {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      className="size-3.5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      aria-hidden
+    >
+      <path d="M8 1.5v13M13.63 4.75 2.37 11.25M13.63 11.25 2.37 4.75" />
+      <path d="M9.7 2.7 8 4.4 6.3 2.7M13.44 6.82l-2.32-.62.62-2.32M11.74 12.12l-.62-2.32 2.32-.62M6.3 13.3 8 11.6l1.7 1.7M2.56 9.18l2.32.62-.62 2.32M4.26 3.88l.62 2.32-2.32.62" />
+    </svg>
+  );
+}
+
 function Cards() {
   const [flipped, setFlipped] = useState(false);
   const [frozen, setFrozen] = useState(false);
@@ -904,83 +921,88 @@ function Cards() {
 
   return (
     <div className="grid gap-4 @3xl/main:grid-cols-[1.1fr_.9fr]">
-      <Panel className="grid place-items-center gap-7 overflow-hidden px-5 py-9 [perspective:1100px]">
-        <motion.div
-          ref={card}
-          onPointerMove={onMove}
-          onPointerLeave={reset}
-          onClick={() => setFlipped((f) => !f)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              setFlipped((f) => !f);
-            }
-          }}
-          role="button"
-          tabIndex={0}
-          aria-pressed={flipped}
-          aria-label="Virtual card: flip to see details"
-          style={{ rotateX: srx, rotateY: sry, transformStyle: "preserve-3d" }}
-          className="relative aspect-[1.586] w-full max-w-[370px] cursor-pointer rounded-[20px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--mint)"
-        >
+      <Panel className="grid place-items-center gap-7 overflow-hidden px-5 py-9">
+        {/* the badge sits beside the card, not in its 3D space: a flipping card would cut through it */}
+        <div className="relative w-full max-w-[370px] [perspective:1100px]">
           <motion.div
-            animate={{ rotateY: flipped ? 180 : 0 }}
-            transition={{ duration: 0.7, ease: EASE }}
-            style={{ transformStyle: "preserve-3d" }}
-            className="absolute inset-0"
+            ref={card}
+            onPointerMove={onMove}
+            onPointerLeave={reset}
+            onClick={() => setFlipped((f) => !f)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setFlipped((f) => !f);
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-pressed={flipped}
+            aria-label="Virtual card: flip to see details"
+            style={{ rotateX: srx, rotateY: sry, transformStyle: "preserve-3d" }}
+            className="relative aspect-[1.586] w-full cursor-pointer rounded-[20px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--mint)"
           >
-            <div
-              className={`absolute inset-0 overflow-hidden rounded-[20px] bg-[linear-gradient(135deg,#123C4A,#0E2236_55%,#1B1240)] p-6 transition-[filter] duration-500 ${frost} shadow-[0_40px_60px_-30px_rgba(0,0,0,.8),inset_0_0_0_1px_rgba(255,255,255,.08)] [backface-visibility:hidden]`}
+            <motion.div
+              animate={{ rotateY: flipped ? 180 : 0 }}
+              transition={{ duration: 0.7, ease: EASE }}
+              style={{ transformStyle: "preserve-3d" }}
+              className="absolute inset-0"
             >
-              <motion.div className="pointer-events-none absolute inset-0" style={{ background: glare }} />
-              <div className="pointer-events-none absolute -right-16 -bottom-20 size-56 rounded-full bg-(--mint)/15 blur-2xl" />
-              <div className="relative flex items-center justify-between">
-                <span className="flex items-center gap-2 text-[14px] font-bold">
-                  <ConceptMark kind="fintech" size={20} />
-                  Northbound
-                </span>
-                <span className="text-[10.5px] tracking-[0.16em] text-(--muted) uppercase">Virtual</span>
+              <div
+                className={`absolute inset-0 overflow-hidden rounded-[20px] bg-[linear-gradient(135deg,#123C4A,#0E2236_55%,#1B1240)] p-6 transition-[filter] duration-500 ${frost} shadow-[0_40px_60px_-30px_rgba(0,0,0,.8),inset_0_0_0_1px_rgba(255,255,255,.08)] [backface-visibility:hidden]`}
+              >
+                <motion.div className="pointer-events-none absolute inset-0" style={{ background: glare }} />
+                <div className="pointer-events-none absolute -right-16 -bottom-20 size-56 rounded-full bg-(--mint)/15 blur-2xl" />
+                <div className="relative flex items-center justify-between">
+                  <span className="flex items-center gap-2 text-[14px] font-bold">
+                    <ConceptMark kind="fintech" size={20} />
+                    Northbound
+                  </span>
+                  <span className="text-[10.5px] tracking-[0.16em] text-(--muted) uppercase">Virtual</span>
+                </div>
+                <div className="relative mt-7 h-9 w-12 rounded-md bg-[linear-gradient(135deg,#E7C76D,#B8913C)] shadow-[inset_0_0_0_1px_rgba(0,0,0,.15)]" />
+                <p className="relative mt-5 font-mono text-[clamp(13px,4vw,17px)] tracking-[0.18em]">
+                  •••• •••• •••• 4821
+                </p>
+                <div className="relative mt-3 flex justify-between text-[11px] text-(--muted)">
+                  <span>ANA KOVAČ</span>
+                  <span>Tap to flip</span>
+                </div>
               </div>
-              <div className="relative mt-7 h-9 w-12 rounded-md bg-[linear-gradient(135deg,#E7C76D,#B8913C)] shadow-[inset_0_0_0_1px_rgba(0,0,0,.15)]" />
-              <p className="relative mt-5 font-mono text-[clamp(13px,4vw,17px)] tracking-[0.18em]">
-                •••• •••• •••• 4821
-              </p>
-              <div className="relative mt-3 flex justify-between text-[11px] text-(--muted)">
-                <span>ANA KOVAČ</span>
-                <span>Tap to flip</span>
+              <div
+                className={`absolute inset-0 overflow-hidden rounded-[20px] bg-[linear-gradient(135deg,#0E2236,#123C4A)] p-6 shadow-[inset_0_0_0_1px_rgba(255,255,255,.08)] transition-[filter] duration-500 [transform:rotateY(180deg)] [backface-visibility:hidden] ${frost}`}
+              >
+                <div className="-mx-6 mt-1 h-10 bg-black/55" />
+                <p className="mt-5 font-mono text-[clamp(12px,3.8vw,16px)] tracking-[0.16em]">4921 7730 1186 4821</p>
+                <div className="mt-4 flex gap-8 text-[12px]">
+                  <span>
+                    <span className="block text-[10.5px] tracking-[0.12em] text-(--muted) uppercase">Expires</span>
+                    09/29
+                  </span>
+                  <span>
+                    <span className="block text-[10.5px] tracking-[0.12em] text-(--muted) uppercase">CVC</span>
+                    •••
+                  </span>
+                </div>
+                <p className="mt-4 text-[11px] text-(--muted)">Concept data, not a real card.</p>
               </div>
-            </div>
-            <div
-              className={`absolute inset-0 overflow-hidden rounded-[20px] bg-[linear-gradient(135deg,#0E2236,#123C4A)] p-6 shadow-[inset_0_0_0_1px_rgba(255,255,255,.08)] transition-[filter] duration-500 [transform:rotateY(180deg)] [backface-visibility:hidden] ${frost}`}
-            >
-              <div className="-mx-6 mt-1 h-10 bg-black/55" />
-              <p className="mt-5 font-mono text-[clamp(12px,3.8vw,16px)] tracking-[0.16em]">4921 7730 1186 4821</p>
-              <div className="mt-4 flex gap-8 text-[12px]">
-                <span>
-                  <span className="block text-[10.5px] tracking-[0.12em] text-(--muted) uppercase">Expires</span>
-                  09/29
-                </span>
-                <span>
-                  <span className="block text-[10.5px] tracking-[0.12em] text-(--muted) uppercase">CVC</span>
-                  •••
-                </span>
-              </div>
-              <p className="mt-4 text-[11px] text-(--muted)">Concept data, not a real card.</p>
-            </div>
+            </motion.div>
           </motion.div>
           <AnimatePresence>
             {frozen ? (
               <motion.span
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="absolute inset-x-0 -top-4 z-10 mx-auto w-max rounded-full bg-white px-3.5 py-1.5 text-[12.5px] font-bold text-(--bg) shadow-lg"
+                initial={{ opacity: 0, scale: 0.8, y: 4 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: 4 }}
+                transition={{ duration: 0.25, ease: EASE }}
+                className="pointer-events-none absolute inset-x-0 -top-4 z-10 mx-auto flex w-max items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-[12.5px] font-bold text-(--bg) shadow-[0_10px_24px_-8px_rgba(0,0,0,.6)]"
               >
-                ❄ Frozen
+                <Snowflake />
+                Frozen
               </motion.span>
             ) : null}
           </AnimatePresence>
-        </motion.div>
+        </div>
         <div className="flex flex-wrap justify-center gap-3">
           <button
             type="button"

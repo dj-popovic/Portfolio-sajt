@@ -3713,13 +3713,16 @@
   display: inline-block;
 }
 /* glass tracks that fill as the conversation moves on */
+/* build: on the narrowest phones the tracks give way to the step counter */
 .convo-progress {
   display: flex;
   gap: 7px;
+  min-width: 0;
 }
 .convo-progress i {
   position: relative;
   width: 30px;
+  min-width: 10px;
   height: 6px;
   border-radius: 999px;
   overflow: hidden;
@@ -3907,7 +3910,7 @@
 }
 @media (max-width: 920px) {
   .contact-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 44px;
   }
   .presence {

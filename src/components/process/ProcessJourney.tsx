@@ -129,13 +129,16 @@ export function ProcessJourney({ children }: { children: ReactNode }) {
           run = (at[1] - at[0]) * 0.42;
           readX = at[0] + el.clientWidth * AHEAD;
           maxShift = Math.max(0, track.offsetWidth - el.clientWidth);
-          travel = at[at.length - 1] - at[0] + run;
+          travel = at[at.length - 1] - at[0];
         };
         size();
+        // the first step rolls up as the section comes up the screen and lights as the pin
+        // takes hold, so the section never sits pinned with nothing on; the pin draws the rest
+        const approach = { a: 0 };
         const state = { p: 0 };
-        const headAt = (p: number) => geo.at[0] - run + travel * Math.min(1, p / HOLD);
+        const headAt = () => geo.at[0] - run * (1 - approach.a) + travel * Math.min(1, state.p / HOLD);
         const render = () => {
-          const h = headAt(state.p);
+          const h = headAt();
           const shift = Math.min(0, Math.max(-maxShift, readX - h));
           track.style.transform = `translate3d(${shift.toFixed(1)}px, 0, 0)`;
           paint(h, shift);
@@ -155,13 +158,19 @@ export function ProcessJourney({ children }: { children: ReactNode }) {
             onRefresh: render,
           },
         });
+        gsap.to(approach, {
+          a: 1,
+          ease: "none",
+          onUpdate: render,
+          scrollTrigger: { trigger: section, start: "top 75%", end: "top top", scrub: 0.6, onRefresh: render },
+        });
         render();
         redraw = render;
         jumpTo.current = (i) => {
           const st = tween.scrollTrigger;
           if (!st) return;
           // just past the step's node: lit, its number rolled up
-          const p = clamp01(((geo.at[i] + 6 - (geo.at[0] - run)) / travel) * HOLD);
+          const p = clamp01(((geo.at[i] + 6 - geo.at[0]) / travel) * HOLD);
           scroll.scrollTo(st.start + p * (st.end - st.start));
         };
         return () => {

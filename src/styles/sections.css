@@ -2760,6 +2760,56 @@
 .process[data-journey="track"] .jy-step:not(.is-on) .jy-pane {
   cursor: pointer;
 }
+/* build: the intro line sits beside the title, so the head stays one row high */
+.process[data-journey="track"] .process-head {
+  flex-wrap: nowrap;
+}
+.process[data-journey="track"] .process-sub {
+  flex: 0 1 38ch;
+  min-width: 240px;
+  font-size: clamp(0.88rem, 1.05vw, 1.05rem);
+}
+/* build: shorter laptop screens: the pinned track a size smaller, so the panes never lose their foot */
+@media (max-height: 760px) {
+  .process[data-journey="track"] {
+    padding-top: 76px;
+    padding-bottom: 22px;
+  }
+  .process[data-journey="track"] .sec-title {
+    font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+  }
+  .process[data-journey="track"] .process-sub {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+  .process[data-journey="track"] .process-head {
+    margin-bottom: 22px;
+  }
+  .process[data-journey="track"] .jy-step {
+    padding-top: calc(var(--chip) + 14px);
+  }
+  .process[data-journey="track"] .jy-pane {
+    min-height: 0;
+    padding: 18px 20px;
+  }
+  .process[data-journey="track"] .jy-num {
+    margin-bottom: 10px;
+    font-size: clamp(2.1rem, 6.2vh, 3rem);
+  }
+  .process[data-journey="track"] .jy-pane h3 {
+    margin-bottom: 8px;
+    font-size: clamp(1rem, 2.6vh, 1.2rem);
+  }
+  .process[data-journey="track"] .jy-body {
+    margin-bottom: 14px;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .process[data-journey="track"] .jy-deliver {
+    padding-top: 12px;
+    font-size: 12.5px;
+  }
+}
 
 /* ---- the rail: smaller screens ---- */
 @media (max-width: 1023px) {

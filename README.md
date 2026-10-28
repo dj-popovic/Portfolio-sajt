@@ -46,7 +46,7 @@ node scripts/shoot.mjs http://localhost:3100 .shots /
 
 - **Languages:** every message file has the same keys, ICU arguments and tags as `en.json`; layouts were checked at 390/768/1440 px in all four languages.
 - **Reduced motion:** no pins, scrubs or loops; state changes keep short fades. Motion (`motion/react`) follows the OS setting via `MotionConfig`.
-- **Accessibility:** keyboard-only flow (skip link, visible focus, focus trap + Esc in demo windows), axe-core clean apart from the colour items listed in `docs/OPEN-ITEMS.md`.
+- **Accessibility:** keyboard-only flow (skip link, visible focus, focus trap + Esc in demo windows), axe-core clean on the page, inside the demo windows, and through the fit finder and the Contact conversation.
 - **Performance:** the 3D scene and each demo load lazily; fonts preload only their Latin subset (other scripts load on demand).
 
 ## Deploy

@@ -38,13 +38,27 @@ Image licensing: use photos you own or that are explicitly licensed for commerci
 
 ## 4. Prices
 
-"Let's talk" everywhere for now, with "Pricing shared in our first chat" under it (Custom: "Scoped and priced per project"). When prices are decided, put "From €X" into `fit.packages.*.hint` in each language file; the layout already has the slot.
+Decided so far: two packages get a fixed price and one stays custom. Basic and Pro are the pair (Custom already reads "Scoped and priced per project"); the amounts are still to be agreed.
+
+Until then every card says "Let's talk" (one shared `fit.price`), with "Pricing shared in our first chat" under it. When the prices are set, give Basic and Pro their own price in each language file (read in `Fit.tsx`, where a comment marks the spot), change their hints to say the price is fixed, and keep Custom on "Let's talk".
 
 ## 5. Contact backend
 
-Being built separately — see [CONTACT_API.md](./CONTACT_API.md). The current `/api/contact` is a **stub that does not deliver messages**.
+Being built separately — see [CONTACT_API.md](./CONTACT_API.md). The current `/api/contact` is a **stub that does not deliver messages**. The conversation in Contact sends the same payload the form did (the four answers, the package and add-ons picked in Find your fit, the language).
 
-## 6. Translations
+## 6. Booking a call — mockup only
+
+A mockup of a booking step in the site's look, not built into the site yet: <https://claude.ai/artifact/TsS9Q4ErHmiUt9RRrn3f1q> (private until it's shared from its Share menu). The idea: Cal.com behind our own design, offered once the brief is sent.
+
+To decide together:
+
+- **Hours.** The mockup shows sample hours only.
+- **Call lengths.** The mockup offers a 20-minute intro and a 45-minute deep dive.
+- **Who joins.** Sometimes one of you, sometimes both. Cal.com's free plan covers one person; letting visitors pick either of you (round-robin) or book you both at once (collective) needs its Teams plan (about $12–16 per person a month according to third-party pricing pages; cal.com itself couldn't be reached from here to confirm) or a self-hosted Cal.com.
+- **How much of the look is ours.** Cal.com's embed takes our colours and fonts; a booking UI drawn entirely by us, like the mockup, goes through its API, so check what the chosen plan allows.
+- The privacy policy will need to name the booking service (section 9).
+
+## 7. Translations
 
 SR (Latin), RU and DE were drafted by Claude and need a native-speaker pass before launch. Choices worth a second look:
 
@@ -56,7 +70,7 @@ SR (Latin), RU and DE were drafted by Claude and need a native-speaker pass befo
 
 All four files must keep the same keys, ICU arguments and rich tags, and every string must parse — `npm run check:messages` checks exactly that after any edit.
 
-## 7. Contrast — done
+## 8. Contrast — done
 
 Small text from the design palette was nudged up to WCAG AA (4.5:1 for normal text, 3:1 for large text) without changing the look. axe-core now reports no contrast violations. Every change is marked `build: contrast (WCAG AA)` in `src/styles/sections.css`.
 
@@ -83,12 +97,11 @@ Still flagged by the Impeccable detector, on purpose:
 - The pulsing dot next to the footer's local clock. It marks a live value, so it stays.
 - Inter as the body font: a brief decision.
 - Striped image placeholders inside the previews and the coffee concept. They go away with the photos (section 1).
-- The 8.5px "[founder photo]" labels in the Contact avatars. They go away with the photos too.
 
-## 8. Legal (likely needed before launch)
+## 9. Legal (likely needed before launch)
 
-With a contact form and a German audience: a privacy policy (GDPR) and probably an Impressum. Not designed yet.
+With a contact form and a German audience: a privacy policy (GDPR) and probably an Impressum. Not designed yet. Once booking is in, the privacy policy names the booking service too (the owners asked to leave that for later).
 
-## 9. Later
+## 10. Later
 
 - Testimonials / social proof section (reserved in the brief, add when there are clients).

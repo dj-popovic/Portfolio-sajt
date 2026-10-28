@@ -232,15 +232,27 @@
     "founders": "The <b>two of us</b> read every message and usually reply within a day.",
     "foundersMeta": "{nameOne} & {nameTwo} · co-founders",
     "step": "Step <b>{current}</b> / {total}",
-    "back": "Back",
     "next": "Next",
     "send": "Send it",
     "sending": "Sending…",
     "startOver": "Start over",
-    "answerLabel": "Your answer",
     "attached": "Starting point",
-    "attachedAddons": "Add-ons",
     "removeAttachment": "Remove",
+    "chat": {
+      "log": "Our conversation",
+      "edit": "Change your answer: {answer}"
+    },
+    "brief": {
+      "title": "Your brief",
+      "hint": "It fills in as we talk.",
+      "from": "From",
+      "project": "Project",
+      "when": "Timeline",
+      "reply": "Reply to",
+      "pick": "Pick a package",
+      "for": "For {nameOne} & {nameTwo}",
+      "stamp": "Sent"
+    },
     "steps": {
       "name": {
         "q": "First things first",

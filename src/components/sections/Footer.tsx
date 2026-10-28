@@ -26,7 +26,7 @@ export function Footer() {
           </div>
           <div className="f-nav" data-reveal="fade" data-reveal-delay="0.15">
             <div className="f-col">
-              <h4>{t("studio")}</h4>
+              <h3>{t("studio")}</h3>
               <ul>
                 {STUDIO_LINKS.map((id) => (
                   <li key={id}>
@@ -36,7 +36,7 @@ export function Footer() {
               </ul>
             </div>
             <div className="f-col">
-              <h4>{t("elsewhere")}</h4>
+              <h3>{t("elsewhere")}</h3>
               <ul>
                 {/* TODO(links): real profile URLs */}
                 <li>

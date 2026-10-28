@@ -38,10 +38,29 @@ export function FooterHorizon({ className }: { className?: string }) {
       { rootMargin: "200px 0px" },
     );
     io.observe(el);
+    // a brief sent in Contact: the crown answers with a ripple once it's in view
+    let welcome = 0;
+    const greet = new IntersectionObserver(
+      ([entry]) => {
+        window.clearTimeout(welcome);
+        if (!entry.isIntersecting || !horizon.welcome) return;
+        welcome = window.setTimeout(() => {
+          horizon.welcome = false;
+          const r = el.getBoundingClientRect();
+          const L = horizonLayout(r.width, r.height);
+          rippleOnHorizon(L.x, L.y - L.r + 6, L);
+        }, 700);
+      },
+      { threshold: 0.5 },
+    );
+    if (mode !== "still") greet.observe(el);
     if (mode === "still") {
       horizon.started = true;
       horizon.intro = 1;
-      return () => io.disconnect();
+      return () => {
+        io.disconnect();
+        greet.disconnect();
+      };
     }
 
     // the dots gather in once a good part of it is on screen
@@ -78,6 +97,8 @@ export function FooterHorizon({ className }: { className?: string }) {
     footer.addEventListener("pointerdown", tap);
     return () => {
       io.disconnect();
+      greet.disconnect();
+      window.clearTimeout(welcome);
       start.disconnect();
       footer.removeEventListener("pointermove", move);
       footer.removeEventListener("pointerleave", leave);

@@ -22,6 +22,10 @@ export type ContactResponse =
 
 export const CONTACT_ENDPOINT = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT || "/api/contact";
 
+/** The conversation's questions, in order (Contact) */
+export const CONTACT_STEPS = ["name", "project", "timeline", "email"] as const;
+export type ContactStep = (typeof CONTACT_STEPS)[number];
+
 export const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export const LIMITS = {

@@ -21,12 +21,33 @@ type Dot = {
   oy: number;
   /** warmed by the pointer, cooling off */
   heat: number;
+  /** thrown out by a burst, slowing to the drift */
+  bx: number;
+  by: number;
 };
+
+// Things the page asks of the dots, in viewport px, taken up on the next frame.
+const bursts: Array<{ x: number; y: number; w: number; h: number; n: number }> = [];
+const stirs: Array<{ x: number; y: number }> = [];
+
+/** A cloud of the orb's dots out of a box on the page (a sent brief's stub): they scatter, then drift with the rest. */
+export function burstDots(box: DOMRect, n = 150) {
+  bursts.push({ x: box.left, y: box.top, w: box.width, h: box.height, n });
+}
+
+/** Warm the dots around a point (someone typing there): they lean in and glow. */
+export function stirDots(x: number, y: number) {
+  if (stirs.length < 8) stirs.push({ x, y });
+}
+
+// the most a burst may add to the field before its oldest dots give way
+const EXTRA = 420;
 
 /**
  * Loose dots of the orb drifting up behind Contact: the same small square
  * stipple and colour ramp (grain → ember → amber), twinkling a little. Near
- * the pointer they part and warm up, as on the orb.
+ * the pointer they part and warm up, as on the orb; they lean in and glow
+ * while someone types, and a sent brief bursts into them (burstDots).
  */
 export function ContactParticles({ className }: { className?: string }) {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -44,6 +65,7 @@ export function ContactParticles({ className }: { className?: string }) {
     let W = 0;
     let H = 0;
     let dots: Dot[] = [];
+    let base = 0;
     let raf = 0;
     let visible = false;
     const pointer = { x: -9999, y: -9999, active: false };
@@ -58,6 +80,7 @@ export function ContactParticles({ className }: { className?: string }) {
       canvas.height = Math.floor(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const n = Math.min(170, Math.floor((W * H) / 9000));
+      base = n;
       dots = Array.from({ length: n }, () => ({
         x: Math.random() * W,
         y: Math.random() * H,
@@ -70,8 +93,42 @@ export function ContactParticles({ className }: { className?: string }) {
         ox: 0,
         oy: 0,
         heat: 0,
+        bx: 0,
+        by: 0,
       }));
       if (reduce) draw(0);
+    }
+
+    // a burst: dots born inside the box, thrown out (mostly up, like embers), hot
+    function takeBursts() {
+      if (!bursts.length || !canvas) return;
+      const r = canvas.getBoundingClientRect();
+      for (const b of bursts.splice(0)) {
+        const cx = b.x + b.w / 2 - r.left;
+        const cy = b.y + b.h / 2 - r.top;
+        for (let i = 0; i < b.n; i++) {
+          const x = b.x - r.left + Math.random() * b.w;
+          const y = b.y - r.top + Math.random() * b.h;
+          const a = Math.atan2(y - cy, x - cx);
+          const speed = 1.2 + Math.random() * 3.4;
+          dots.push({
+            x,
+            y,
+            s: 1.3 + Math.random() * 1.4,
+            vx: (Math.random() - 0.5) * 0.08,
+            vy: -0.04 - Math.random() * 0.14,
+            e: 0.35 + Math.random() * 0.6,
+            ph: Math.random() * Math.PI * 2,
+            sp: 0.5 + Math.random() * 1.2,
+            ox: 0,
+            oy: 0,
+            heat: 1,
+            bx: Math.cos(a) * speed * 0.8,
+            by: Math.sin(a) * speed * 0.5 - 1.6 - Math.random() * 1.8,
+          });
+        }
+      }
+      if (dots.length > base + EXTRA) dots.splice(base, dots.length - base - EXTRA);
     }
 
     function draw(now: number) {
@@ -79,11 +136,16 @@ export function ContactParticles({ className }: { className?: string }) {
       ctx.clearRect(0, 0, W, H);
       ctx.globalCompositeOperation = "lighter";
       const t = now * 0.001;
+      takeBursts();
+      const r = stirs.length ? canvas?.getBoundingClientRect() : null;
+      const stir = r ? stirs.splice(0).map((p) => ({ x: p.x - r.left, y: p.y - r.top })) : [];
       for (const b of buckets) b.length = 0;
       for (const d of dots) {
         if (!reduce) {
-          d.x += d.vx;
-          d.y += d.vy;
+          d.x += d.vx + d.bx;
+          d.y += d.vy + d.by;
+          d.bx *= 0.955;
+          d.by *= 0.955;
           if (d.y < -6) {
             d.y = H + 6;
             d.x = Math.random() * W;
@@ -106,6 +168,19 @@ export function ContactParticles({ className }: { className?: string }) {
             ty = (dy / dist) * f * 30;
             d.heat = Math.min(1, d.heat + f * 0.12);
           }
+        }
+        // someone typing: the dots near the field lean in and glow
+        for (const p of stir) {
+          const dx = p.x - d.x;
+          const dy = p.y - d.y;
+          const R = 220;
+          const d2 = dx * dx + dy * dy;
+          if (d2 > R * R) continue;
+          const dist = Math.sqrt(d2) || 1;
+          const f = 1 - dist / R;
+          tx += (dx / dist) * f * 14;
+          ty += (dy / dist) * f * 14;
+          d.heat = Math.min(1, d.heat + f * 0.3);
         }
         d.ox += (tx - d.ox) * 0.08;
         d.oy += (ty - d.oy) * 0.08;

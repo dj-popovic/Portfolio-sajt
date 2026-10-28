@@ -78,6 +78,8 @@ export const horizon = {
   started: false,
   /** 0 → 1 over HORIZON.gather seconds once started (time, not scroll: it always completes) */
   intro: 0,
+  /** a brief was just sent: the next time the footer shows, its crown answers with a ripple */
+  welcome: false,
   /** pointer in canvas px, and whether it is over the footer */
   pointer: { x: -9999, y: -9999, over: false },
   /** object-space direction of the last tap and its age in seconds (< 0: none) */

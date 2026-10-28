@@ -232,15 +232,27 @@
     "founders": "<b>Мы вдвоём</b> читаем каждое сообщение и обычно отвечаем в течение дня.",
     "foundersMeta": "{nameOne} и {nameTwo} · сооснователи",
     "step": "Шаг <b>{current}</b> / {total}",
-    "back": "Назад",
     "next": "Далее",
     "send": "Отправить",
     "sending": "Отправляем…",
     "startOver": "Начать заново",
-    "answerLabel": "Ваш ответ",
     "attached": "Отправная точка",
-    "attachedAddons": "Дополнения",
     "removeAttachment": "Убрать",
+    "chat": {
+      "log": "Наш разговор",
+      "edit": "Изменить ответ: {answer}"
+    },
+    "brief": {
+      "title": "Ваш бриф",
+      "hint": "Заполняется по ходу разговора.",
+      "from": "От",
+      "project": "Проект",
+      "when": "Сроки",
+      "reply": "Ответ на",
+      "pick": "Выбрать пакет",
+      "for": "Для {nameOne} и {nameTwo}",
+      "stamp": "Отправлено"
+    },
     "steps": {
       "name": {
         "q": "Для начала",

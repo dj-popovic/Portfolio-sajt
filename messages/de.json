@@ -232,15 +232,27 @@
     "founders": "<b>Wir beide</b> lesen jede Nachricht und antworten meistens innerhalb eines Tages.",
     "foundersMeta": "{nameOne} & {nameTwo} · Co-Founder",
     "step": "Schritt <b>{current}</b> / {total}",
-    "back": "Zurück",
     "next": "Weiter",
     "send": "Abschicken",
     "sending": "Wird gesendet…",
     "startOver": "Neu starten",
-    "answerLabel": "Deine Antwort",
     "attached": "Startpunkt",
-    "attachedAddons": "Extras",
     "removeAttachment": "Entfernen",
+    "chat": {
+      "log": "Unser Gespräch",
+      "edit": "Antwort ändern: {answer}"
+    },
+    "brief": {
+      "title": "Dein Briefing",
+      "hint": "Füllt sich, während wir reden.",
+      "from": "Von",
+      "project": "Projekt",
+      "when": "Zeitrahmen",
+      "reply": "Antwort an",
+      "pick": "Paket wählen",
+      "for": "Für {nameOne} & {nameTwo}",
+      "stamp": "Gesendet"
+    },
     "steps": {
       "name": {
         "q": "Das Wichtigste zuerst",

@@ -232,15 +232,27 @@
     "founders": "<b>Nas dvoje</b> čitamo svaku poruku i obično odgovaramo u roku od jednog dana.",
     "foundersMeta": "{nameOne} i {nameTwo} · suosnivači",
     "step": "Korak <b>{current}</b> / {total}",
-    "back": "Nazad",
     "next": "Dalje",
     "send": "Pošalji",
     "sending": "Šalje se…",
     "startOver": "Počni ispočetka",
-    "answerLabel": "Vaš odgovor",
     "attached": "Početna tačka",
-    "attachedAddons": "Dodaci",
     "removeAttachment": "Ukloni",
+    "chat": {
+      "log": "Naš razgovor",
+      "edit": "Promenite odgovor: {answer}"
+    },
+    "brief": {
+      "title": "Vaš brif",
+      "hint": "Popunjava se dok razgovaramo.",
+      "from": "Od",
+      "project": "Projekat",
+      "when": "Rokovi",
+      "reply": "Odgovor na",
+      "pick": "Izaberite paket",
+      "for": "Za {nameOne} i {nameTwo}",
+      "stamp": "Poslato"
+    },
     "steps": {
       "name": {
         "q": "Za početak",

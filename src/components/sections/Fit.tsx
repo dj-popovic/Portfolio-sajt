@@ -1,6 +1,13 @@
 import { useTranslations } from "next-intl";
 import { ADDONS, PACKAGES } from "@/lib/brief";
-import { AddonChips, PackageButton, PackageCard } from "@/components/sections/FitInteractive";
+import {
+  AddonChips,
+  FitBadge,
+  FitFinder,
+  FitGrid,
+  PackageButton,
+  PackageCard,
+} from "@/components/sections/FitInteractive";
 import { PanelClip } from "@/components/motion/PanelClip";
 import { SectionLight } from "@/components/motion/SectionLight";
 import { CheckIcon } from "@/components/ui/icons";
@@ -29,35 +36,36 @@ export function Fit() {
           </p>
         </div>
 
-        <div className="fit-grid" data-reveal-group data-reveal-stagger="0.06">
-          {/* warm light behind the frosted glass, for it to bend */}
+        <FitFinder />
+
+        <FitGrid className="fit-grid" data-reveal-group data-reveal-stagger="0.06">
+          {/* warm light behind the frosted glass, for it to bend; the spot follows your fit */}
           <div className="fit-lights" aria-hidden>
             <span className="a" />
             <span className="b" />
+            <span className="spot" />
           </div>
-          {PACKAGES.map((key) => {
+          {PACKAGES.map((key, index) => {
             const featured = key === "pro";
             const includes = t.raw(`packages.${key}.includes`) as string[];
             return (
               <PackageCard
                 key={key}
+                pkg={key}
                 className={cn("pkg", featured && "featured")}
                 data-card
                 data-reveal-item
                 data-ignite={featured || undefined}
               >
+                {/* the ember beam runs round Pro's rim, or round your fit's */}
+                <span className="pkg-beam" aria-hidden />
                 <div className="pkg-kicker">
                   <h3 className="pkg-name">{t(`packages.${key}.name`)}</h3>
-                  {featured ? (
-                    <span className="pkg-badge">
-                      <span className="spark" aria-hidden />
-                      {t("popular")}
-                    </span>
-                  ) : null}
+                  <FitBadge pkg={key} popular={featured ? t("popular") : undefined} label={t("yourFit")} />
                 </div>
                 <p className="pkg-tag">{t(`packages.${key}.tag`)}</p>
 
-                {/* "Let's talk" for now; a "From €X" line can replace the hint once prices are set */}
+                {/* "Let's talk" for now: Basic and Pro get their fixed prices here once they're set, Custom keeps it */}
                 <div className="pkg-price">
                   <span className="price-note">{t("investment")}</span>
                   <span className="price-val">{t("price")}</span>
@@ -76,11 +84,13 @@ export function Fit() {
                   ))}
                 </ul>
 
-                <PackageButton pkg={key}>{t(`packages.${key}.cta`)}</PackageButton>
+                <PackageButton pkg={key} name={t(`packages.${key}.name`)} index={index}>
+                  {t(`packages.${key}.cta`)}
+                </PackageButton>
               </PackageCard>
             );
           })}
-        </div>
+        </FitGrid>
 
         <div className="fit-addons" data-reveal="fade">
           <span className="addons-lead">

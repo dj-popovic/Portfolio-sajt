@@ -173,6 +173,7 @@
     "investment": "Investment",
     "price": "Let’s talk",
     "popular": "Most popular",
+    "yourFit": "Your fit",
     "plus": "Everything in <b>Basic</b>, plus:",
     "packages": {
       "basic": {
@@ -224,6 +225,28 @@
         "cms": "CMS",
         "analytics": "Analytics"
       }
+    },
+    "finder": {
+      "lead": "Not sure where to start? Three quick taps.",
+      "step": "<b>{current}</b> / {total}",
+      "make": {
+        "q": "What are we making?",
+        "small": "A smaller site",
+        "bigger": "A bigger site",
+        "app": "An app or product"
+      },
+      "motion": {
+        "q": "How much motion?",
+        "light": "Light and tasteful",
+        "full": "The full show"
+      },
+      "brand": {
+        "q": "Got a brand yet?",
+        "yes": "Yes, we do",
+        "no": "Not yet"
+      },
+      "result": "We’d start with <b>{name}</b>.",
+      "again": "Start over"
     }
   },
   "contact": {

@@ -173,6 +173,7 @@
     "investment": "Investition",
     "price": "Lass uns reden",
     "popular": "Am beliebtesten",
+    "yourFit": "Für dich",
     "plus": "Alles aus <b>Basic</b>, plus:",
     "packages": {
       "basic": {
@@ -224,6 +225,28 @@
         "cms": "CMS",
         "analytics": "Analytics"
       }
+    },
+    "finder": {
+      "lead": "Nicht sicher, wo du anfangen sollst? Drei schnelle Klicks.",
+      "step": "<b>{current}</b> / {total}",
+      "make": {
+        "q": "Was bauen wir?",
+        "small": "Eine kleinere Website",
+        "bigger": "Eine größere Website",
+        "app": "Eine App oder ein Produkt"
+      },
+      "motion": {
+        "q": "Wie viel Bewegung?",
+        "light": "Leicht und stilvoll",
+        "full": "Die volle Show"
+      },
+      "brand": {
+        "q": "Hast du schon eine Marke?",
+        "yes": "Ja, haben wir",
+        "no": "Noch nicht"
+      },
+      "result": "Wir würden mit <b>{name}</b> starten.",
+      "again": "Neu starten"
     }
   },
   "contact": {

@@ -173,6 +173,7 @@
     "investment": "Investicija",
     "price": "Razgovarajmo",
     "popular": "Najpopularniji",
+    "yourFit": "Za vas",
     "plus": "Sve iz paketa <b>Basic</b>, plus:",
     "packages": {
       "basic": {
@@ -224,6 +225,28 @@
         "cms": "CMS",
         "analytics": "Analitika"
       }
+    },
+    "finder": {
+      "lead": "Ne znate odakle da krenete? Tri brza klika.",
+      "step": "<b>{current}</b> / {total}",
+      "make": {
+        "q": "Šta pravimo?",
+        "small": "Manji sajt",
+        "bigger": "Veći sajt",
+        "app": "Aplikaciju ili proizvod"
+      },
+      "motion": {
+        "q": "Koliko pokreta?",
+        "light": "Lagano, sa ukusom",
+        "full": "Puna predstava"
+      },
+      "brand": {
+        "q": "Imate li već brend?",
+        "yes": "Imamo",
+        "no": "Još nemamo"
+      },
+      "result": "Mi bismo krenuli od paketa <b>{name}</b>.",
+      "again": "Ispočetka"
     }
   },
   "contact": {

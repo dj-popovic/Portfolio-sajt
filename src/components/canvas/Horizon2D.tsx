@@ -14,7 +14,7 @@ const smooth = (a: number, b: number, x: number) => {
 /**
  * The footer's horizon on a 2D canvas, for when there is no WebGL: the same
  * crown of dots with the orb's colour ramp (as Orb2D draws the orb). It
- * turns and rises without WebGL; under reduced motion it is one still frame.
+ * turns and gathers in without WebGL; under reduced motion it is one still frame.
  */
 export function Horizon2D({ className, live }: { className?: string; live: boolean }) {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -41,7 +41,7 @@ export function Horizon2D({ className, live }: { className?: string; live: boole
       ctx.clearRect(0, 0, W, H);
       ctx.globalCompositeOperation = "lighter";
       const L = horizonLayout(W, H);
-      const rise = live ? horizon.rise : 1;
+      const intro = live ? horizon.intro : 1;
       const c = Math.cos(horizon.yaw);
       const s = Math.sin(horizon.yaw);
       for (const b of buckets) b.length = 0;
@@ -54,17 +54,21 @@ export function Horizon2D({ className, live }: { className?: string; live: boole
         const vz = -s * x + c * z;
         const facing = smooth(-0.3, 0.25, vz);
         if (facing <= 0) continue;
-        const own = smooth(seed[i * 4 + 2] * 0.35, seed[i * 4 + 2] * 0.35 + 0.65, rise);
-        if (own <= 0.02) continue;
+        // the gather, as the WebGL horizon does it: in from a loose cloud below, a little
+        // apart, quick at first and settling; its fade-in dithered dot by dot
+        const gather = 1 - Math.pow(1 - Math.min(1, Math.max(0, (intro - seed[i * 4 + 2] * 0.3) / 0.7)), 3);
+        if (gather < 0.12 + ((i * 0.618034) % 1) * 0.5) continue;
+        const drift = seed[i * 4 + 3] * Math.PI * 2;
+        const far = (70 + seed[i * 4 + 1] * 240) * (1 - gather);
         const light = Math.pow(Math.max(0, vx * lx + y * ly + vz * lz), 0.9);
         const thr = seed[i * 4];
         let show = smooth(thr - 0.07, thr + 0.07, light * 1.06 + 0.05);
         if (thr < 0.06) show = Math.max(show, 0.5);
-        if (show * facing * own < 0.5) continue;
-        const sy = L.y - y * L.r + (1 - own) * L.r * 0.24;
+        if (show * facing < 0.5) continue;
+        const sy = L.y - y * L.r + Math.sin(drift) * 0.55 * far + 150 * (1 - gather);
         if (sy > H + 2) continue;
         const level = Math.min(LEVELS - 1, Math.round(light * (LEVELS - 1)));
-        px[i * 3] = L.x + vx * L.r;
+        px[i * 3] = L.x + vx * L.r + Math.cos(drift) * far;
         px[i * 3 + 1] = sy;
         px[i * 3 + 2] = 1.9 * (0.72 + seed[i * 4 + 1] * 0.62) * (0.88 + 0.28 * light);
         buckets[level].push(i);

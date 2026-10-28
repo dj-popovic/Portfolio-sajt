@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Horizon2D } from "@/components/canvas/Horizon2D";
 import { useOrbMode } from "@/components/three/OrbLayer";
-import { ScrollTrigger } from "@/lib/gsap";
 import { horizon, horizonLayout, rippleOnHorizon } from "@/lib/horizon";
 import { overlay } from "@/lib/overlay";
 
@@ -12,10 +11,11 @@ const HorizonScene = dynamic(() => import("@/components/three/HorizonScene"), { 
 
 /**
  * The footer's horizon: the hero's orb rises again at the bottom of the
- * page, huge, in the same dots. It comes up as the footer scrolls in, the
- * pointer parts and warms the dots, a tap anywhere off the links sends a
- * ripple across it. WebGL like the hero; a 2D canvas without it; one still
- * frame under reduced motion.
+ * page, huge, in the same dots. The first time the footer shows, its dots
+ * gather in from a loose cloud (on a clock, so it always completes, however
+ * the page is scrolled); the pointer is a light across it and parts and
+ * warms the dots, a tap anywhere off the links sends a ripple. WebGL like
+ * the hero; a 2D canvas without it; one still frame under reduced motion.
  */
 export function FooterHorizon({ className }: { className?: string }) {
   const mode = useOrbMode();
@@ -39,18 +39,21 @@ export function FooterHorizon({ className }: { className?: string }) {
     );
     io.observe(el);
     if (mode === "still") {
-      horizon.rise = 1;
+      horizon.started = true;
+      horizon.intro = 1;
       return () => io.disconnect();
     }
 
-    // it rises as the footer comes in: fully up when the page ends
-    const st = ScrollTrigger.create({
-      trigger: footer,
-      start: "top bottom",
-      end: "bottom bottom",
-      onUpdate: (self) => (horizon.rise = self.progress),
-      onRefresh: (self) => (horizon.rise = self.progress),
-    });
+    // the dots gather in once a good part of it is on screen
+    const start = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        horizon.started = true;
+        start.disconnect();
+      },
+      { threshold: 0.25 },
+    );
+    start.observe(el);
 
     const local = (e: PointerEvent) => {
       const r = el.getBoundingClientRect();
@@ -75,7 +78,7 @@ export function FooterHorizon({ className }: { className?: string }) {
     footer.addEventListener("pointerdown", tap);
     return () => {
       io.disconnect();
-      st.kill();
+      start.disconnect();
       footer.removeEventListener("pointermove", move);
       footer.removeEventListener("pointerleave", leave);
       footer.removeEventListener("pointerdown", tap);

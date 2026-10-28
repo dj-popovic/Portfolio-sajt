@@ -18,8 +18,8 @@ import {
    shows once the light beats its dither threshold), colours, size and
    soft round points, on a sphere so big only its crown clears the edge.
    The pointer is a light you shine across it (and parts and warms the
-   dots near it), a tap sends a ripple across it, and it rises into place
-   as the footer comes in.
+   dots near it), a tap sends a ripple across it, and the first time the
+   footer shows its dots gather in from a loose cloud, like the hero's.
    ------------------------------------------------------------------ */
 
 const vertexShader = /* glsl */ `
@@ -32,9 +32,9 @@ const vertexShader = /* glsl */ `
   uniform vec3 uPointer;
   uniform vec4 uRipple;
   uniform float uDot;
-  uniform float uRise;
+  uniform float uIntro;
 
-  attribute vec4 aSeed; // dither threshold, size, rise order, phase
+  attribute vec4 aSeed; // dither threshold, size, gather order, phase
 
   varying vec3 vColor;
   varying float vAlpha;
@@ -55,9 +55,11 @@ const vertexShader = /* glsl */ `
     vec3 v = nv * (rl + wave * 22.0 / uRadius);
     vec2 p = uCenter + vec2(v.x, -v.y) * uRadius;
 
-    // it rises as the footer comes in, its dots arriving a little apart
-    float rise = smoothstep(aSeed.z * 0.35, aSeed.z * 0.35 + 0.65, uRise);
-    p.y += (1.0 - rise) * uRadius * 0.24;
+    // the dots gather in from a loose cloud below, a little apart, quick at first and
+    // settling (the hero's intro curve), so something is moving from the first frame
+    float gather = 1.0 - pow(1.0 - clamp((uIntro - aSeed.z * 0.3) / 0.7, 0.0, 1.0), 3.0);
+    float drift = aSeed.w * 6.2832;
+    p += (vec2(cos(drift), sin(drift) * 0.55) * (70.0 + aSeed.y * 240.0) + vec2(0.0, 150.0)) * (1.0 - gather);
 
     // the pointer parts the dots and warms them
     vec2 dp = p - uPointer.xy;
@@ -81,7 +83,7 @@ const vertexShader = /* glsl */ `
     col = mix(col, hot, smoothstep(0.95, 1.3, energy) * aSeed.y);
 
     float size = uDot * (0.72 + aSeed.y * 0.62) * (0.88 + 0.28 * light);
-    float alpha = show * (0.32 + 0.68 * smoothstep(0.0, 0.75, energy)) * rise;
+    float alpha = show * (0.32 + 0.68 * smoothstep(0.0, 0.75, energy)) * gather;
 
     gl_Position = vec4(p.x / uRes.x * 2.0 - 1.0, 1.0 - p.y / uRes.y * 2.0, 0.0, 1.0);
     gl_PointSize = max(1.0, size * uDpr);
@@ -133,7 +135,7 @@ function Crown({ count }: { count: number }) {
       uPointer: { value: new THREE.Vector3(-9999, -9999, 0) },
       uRipple: { value: new THREE.Vector4(0, 1, 0, -1) },
       uDot: { value: 2.1 },
-      uRise: { value: 0 },
+      uIntro: { value: 0 },
     }),
     [rot],
   );
@@ -167,7 +169,7 @@ function Crown({ count }: { count: number }) {
     rot.set(...horizonRotation(horizon.yaw));
     u.uPointer.value.set(st.px, st.py, st.force);
     u.uRipple.value.set(horizon.ripple.x, horizon.ripple.y, horizon.ripple.z, horizon.ripple.t);
-    u.uRise.value = horizon.rise;
+    u.uIntro.value = horizon.intro;
     u.uDot.value = size.width < 760 ? 2.0 : 2.1;
   });
 

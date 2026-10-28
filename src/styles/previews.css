@@ -45,6 +45,11 @@
   inset: 0 0 auto;
   will-change: transform;
 }
+/* narrow cards (phones) show the sites' phone layout: a 400px page, wider in a wider
+   card so it is never zoomed up (ConceptCard sets data-narrow and --pw) */
+.concept-card[data-narrow] .pv-web {
+  width: var(--pw, 400px);
+}
 /* a moment of the site in use, while the card is hovered */
 .pv-toast {
   position: absolute;
@@ -465,6 +470,75 @@
   font-weight: 500;
   text-align: center;
   box-shadow: 0 18px 40px -16px rgb(0 0 0 / 0.6);
+}
+/* its phone layout, as the demo shows it on a phone */
+.concept-card[data-narrow] .cf-nav {
+  height: 58px;
+  padding: 0 18px;
+}
+.concept-card[data-narrow] .cf-brand {
+  font-size: 18px;
+}
+.concept-card[data-narrow] .cf-links {
+  display: none;
+}
+.concept-card[data-narrow] .pv-coffee .pv-track {
+  padding-top: 58px;
+}
+.concept-card[data-narrow] .cf-hero {
+  grid-template-columns: 1fr;
+  gap: 18px;
+  padding: 30px 20px 24px;
+}
+.concept-card[data-narrow] .cf-kicker {
+  margin-bottom: 14px;
+  font-size: 11px;
+}
+.concept-card[data-narrow] .cf-hero h3 {
+  margin-bottom: 14px;
+  font-size: 40px;
+}
+.concept-card[data-narrow] .cf-lede {
+  margin-bottom: 22px;
+  font-size: 15px;
+}
+.concept-card[data-narrow] .cf-btn {
+  padding: 12px 20px;
+  font-size: 14px;
+}
+.concept-card[data-narrow] .cf-figure {
+  max-width: 290px;
+}
+.concept-card[data-narrow] .cf-shop {
+  padding: 34px 20px;
+}
+.concept-card[data-narrow] .cf-shop-head {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+.concept-card[data-narrow] .cf-shop-head h4 {
+  font-size: 30px;
+}
+.concept-card[data-narrow] .cf-grid {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.concept-card[data-narrow] .cf-finder {
+  grid-template-columns: 1fr;
+  gap: 22px;
+  margin: 0 20px 34px;
+  padding: 26px 22px;
+}
+.concept-card[data-narrow] .cf-finder h4 {
+  font-size: 26px;
+}
+/* without a pointer the Open pill sits in the corner: the toast rises clear of it */
+@media (hover: none) {
+  .concept-card[data-narrow] .cf-toast {
+    bottom: calc(68px / var(--k, 1));
+  }
 }
 
 /* ---------- Northbound ---------- */
@@ -942,6 +1016,46 @@
 }
 .nw-toast b {
   color: #34e1b4;
+}
+/* its phone layout: no rail, the panels stacked, as the demo shows it on a phone */
+.concept-card[data-narrow] .nw-rail,
+.concept-card[data-narrow] .nw-bell {
+  display: none;
+}
+.concept-card[data-narrow] .nw-top {
+  left: 0;
+  gap: 10px;
+  height: 60px;
+  padding: 0 16px;
+}
+.concept-card[data-narrow] .nw-top p {
+  font-size: 16px;
+}
+.concept-card[data-narrow] .pv-fintech .pv-track {
+  padding: 60px 0 0;
+}
+.concept-card[data-narrow] .nw-main {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  padding: 14px;
+}
+.concept-card[data-narrow] .nw-left,
+.concept-card[data-narrow] .nw-right {
+  gap: 14px;
+}
+.concept-card[data-narrow] .nw-kpis {
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.concept-card[data-narrow] .nw-kpis > :first-child {
+  grid-column: 1 / -1;
+}
+.concept-card[data-narrow] .nw-chart {
+  height: 150px;
+}
+.concept-card[data-narrow] .nw-toast {
+  top: 74px;
+  right: 14px;
 }
 
 /* ---------- the apps: a 300×640 phone zoomed to the card ---------- */

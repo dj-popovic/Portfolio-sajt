@@ -7,6 +7,9 @@ import { ConceptMark } from "@/components/work/marks";
 import { cn } from "@/lib/cn";
 
 const WEB_W = 960; // the sites' page width in the previews (previews.tsx)
+const PHONE_W = 400; // their phone layout, for narrow cards
+const NARROW = 560; // a site's view narrower than this shows the phone layout (data-narrow)
+const PHONE_K = 0.9; // and never zoomed past this: a wider view gets a wider phone page
 const PHONE = { w: 300, h: 640 }; // the phones' size
 // a site preview on hover scrolls itself at an even pace: page px per second
 // (of the 960px replica), and how quickly it gets going and comes to a stop
@@ -82,7 +85,11 @@ export function ConceptCard({
     };
     const fit = () => {
       if (web && view && track) {
-        k = view.clientWidth / WEB_W;
+        // a phone-sized card shows the site as a phone shows it, not the desktop page shrunk
+        const narrow = view.clientWidth < NARROW;
+        el.toggleAttribute("data-narrow", narrow);
+        k = narrow ? Math.min(view.clientWidth / PHONE_W, PHONE_K) : view.clientWidth / WEB_W;
+        if (narrow) el.style.setProperty("--pw", `${(view.clientWidth / k).toFixed(1)}px`);
         el.style.setProperty("--k", k.toFixed(4));
         el.style.setProperty("--vh", `${(view.clientHeight / k).toFixed(1)}px`);
         measure();

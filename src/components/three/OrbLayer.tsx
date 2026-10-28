@@ -31,9 +31,9 @@ const noopSubscribe = () => () => {};
 export const useOrbMode = () => useSyncExternalStore(noopSubscribe, detectMode, () => "pending" as Mode);
 
 // same split as the About stage: the pinned tile on big screens, the opening panel on small ones
-const STAGE = "(prefers-reduced-motion: no-preference) and (min-width: 901px) and (min-height: 700px)";
+const STAGE = "(prefers-reduced-motion: no-preference) and (min-width: 901px) and (min-height: 560px)";
 const PANEL =
-  "(prefers-reduced-motion: no-preference) and (max-width: 900px), (prefers-reduced-motion: no-preference) and (max-height: 699px)";
+  "(prefers-reduced-motion: no-preference) and (max-width: 900px), (prefers-reduced-motion: no-preference) and (max-height: 559px)";
 
 /**
  * The orb's fixed layer behind the page. In the hero it is a sphere you can

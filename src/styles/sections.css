@@ -1085,6 +1085,29 @@
     margin-top: 18px;
   }
 }
+/* build: shorter laptop screens (from 560px tall) keep the pinned ★ stage, a size
+   smaller so it fits the screen: smaller cards and type, less padding */
+@media (min-width: 901px) and (max-height: 760px) {
+  .about {
+    padding-top: 84px;
+    padding-bottom: 36px;
+  }
+  .fcard {
+    width: min(100%, 300px, calc((100svh - 210px) * 0.75));
+  }
+  .about-center h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    margin-bottom: 16px;
+  }
+  .about-center p {
+    font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+    line-height: 1.55;
+  }
+  .about-stats {
+    margin-top: 20px;
+    padding: 12px 4px;
+  }
+}
 /* phones: the plate takes the column and each stat the room its label needs */
 @media (max-width: 520px) {
   .about-stats {

@@ -52,7 +52,8 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
       const mm = gsap.matchMedia();
 
       // ---------- desktop: pinned signature sequence ----------
-      mm.add("(prefers-reduced-motion: no-preference) and (min-width: 901px) and (min-height: 700px)", () => {
+      // (laptops down to 560px tall get it too, laid out a size smaller in sections.css)
+      mm.add("(prefers-reduced-motion: no-preference) and (min-width: 901px) and (min-height: 560px)", () => {
         const panel = { open: 0 };
         const paint = () => {
           const inset = tileClip(section, panel.open, TILE);
@@ -141,7 +142,7 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
 
       // ---------- small screens: the panel opens and closes as it passes ----------
       mm.add(
-        "(prefers-reduced-motion: no-preference) and (max-width: 900px), (prefers-reduced-motion: no-preference) and (max-height: 699px)",
+        "(prefers-reduced-motion: no-preference) and (max-width: 900px), (prefers-reduced-motion: no-preference) and (max-height: 559px)",
         () => {
           gsap.set(tile, { autoAlpha: 0 });
           const state = { enter: 1, leave: 0 };

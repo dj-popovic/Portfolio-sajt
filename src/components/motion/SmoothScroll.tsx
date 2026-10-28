@@ -103,6 +103,10 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     const go = (target: ScrollTarget, opts?: ScrollOptions) => {
       const lenis = lenisRef.current;
       if (!lenis) return nativeScrollTo(target, opts);
+      // Lenis can miss a scroll the browser made by itself (one that lands just after its own)
+      // and would measure the trip from a stale place: line it up with the page first
+      if (!lenis.isScrolling && Math.abs(lenis.animatedScroll - lenis.actualScroll) > 1)
+        lenis.scrollTo(lenis.actualScroll, { immediate: true, force: true });
       lenis.scrollTo(target, {
         offset: opts?.offset ?? 0,
         immediate: opts?.immediate,

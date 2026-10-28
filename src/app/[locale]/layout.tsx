@@ -40,11 +40,12 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
   return (
     <html lang={locale} className={fontVariables} suppressHydrationWarning>
       <head>
-        {/* hide reveal targets until the motion layer takes over; show everything if it never does */}
+        {/* hide reveal targets until the motion layer takes over; show everything if it never does.
+            A reload's old place is kept by SmoothScroll, once the pins have made their room */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "document.documentElement.classList.add('js');setTimeout(function(){var d=document.documentElement;if(!d.classList.contains('motion-ready'))d.classList.add('motion-failed')},4000);",
+              "document.documentElement.classList.add('js');try{history.scrollRestoration='manual'}catch(e){}setTimeout(function(){var d=document.documentElement;if(!d.classList.contains('motion-ready'))d.classList.add('motion-failed')},4000);",
           }}
         />
       </head>

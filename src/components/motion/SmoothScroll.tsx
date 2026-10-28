@@ -64,6 +64,27 @@ function holdScroll() {
   };
 }
 
+// once per page load: a later mount (switching language) starts where the router puts it
+let landed = false;
+
+/**
+ * Where this page load should land: back where a reload (or a full back or
+ * forward) left off, else the #section the address names. Null: leave it be.
+ */
+function landing(key: string): number | HTMLElement | null {
+  if (landed) return null;
+  landed = true;
+  const nav = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+  if (nav?.type === "reload" || nav?.type === "back_forward") {
+    let saved: string | null = null;
+    try {
+      saved = sessionStorage.getItem(key);
+    } catch {}
+    if (saved !== null) return Number(saved) || null;
+  }
+  return location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+}
+
 const ScrollContext = createContext<ScrollApi | null>(null);
 
 export function useScroll() {
@@ -150,8 +171,44 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     // fonts change layout: re-measure every trigger once they're in
     document.fonts?.ready.then(() => ScrollTrigger.refresh());
 
+    // a load lands where it should. Left to the browser, a reload goes back to its old
+    // place before the pinned sections have made their room, so it lands somewhere
+    // earlier: we keep the place ourselves (the head script turns the browser's off) and
+    // go there once the page is measured, unless the visitor has started scrolling
+    ScrollTrigger.clearScrollMemory("manual");
+    const key = `scroll:${location.pathname}`;
+    const save = () => {
+      try {
+        sessionStorage.setItem(key, String(Math.round(window.scrollY)));
+      } catch {}
+    };
+    window.addEventListener("pagehide", save);
+    const target = landing(key);
+    let moved = false;
+    const move = () => (moved = true);
+    if (target !== null) {
+      window.addEventListener("wheel", move, { once: true, passive: true });
+      window.addEventListener("touchstart", move, { once: true, passive: true });
+      window.addEventListener("keydown", move, { once: true });
+      const loaded =
+        document.readyState === "complete"
+          ? Promise.resolve()
+          : new Promise((done) => window.addEventListener("load", done, { once: true }));
+      Promise.all([loaded, document.fonts?.ready]).then(() => {
+        if (moved) return;
+        moved = true;
+        ScrollTrigger.refresh();
+        api.scrollTo(target, { immediate: true, force: true });
+      });
+    }
+
     return () => {
       document.removeEventListener("click", onClick);
+      window.removeEventListener("pagehide", save);
+      window.removeEventListener("wheel", move);
+      window.removeEventListener("touchstart", move);
+      window.removeEventListener("keydown", move);
+      moved = true;
       teardown();
     };
   }, [api]);

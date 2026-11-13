@@ -257,6 +257,38 @@
   }
 }
 
+/* --------------------------------------------------------------- PAGE */
+/* build: one dark canvas runs under the whole page (the body: the dark sections
+   paint no ground of their own, and their lights reach past their edges and fade
+   out there instead of being cut). The light sections are sheets of paper lying
+   on it: inset from the sides, rounded, above the dark sections' light, so that
+   light shows around them (and through the arch as a sheet rises). Their gap and
+   corner are registered lengths, so scripts read them in px (PanelClip rounds the
+   arch into these corners; the About panel opens to this shape). */
+@property --sheet-gap {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 16px;
+}
+@property --sheet-r {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 36px;
+}
+:root {
+  --sheet-gap: clamp(10px, 1.4vw, 22px);
+  --sheet-r: clamp(26px, 3vw, 44px);
+  /* a sheet's own padding, so its content lines up with the dark sections' */
+  --sheet-pad: max(16px, calc(clamp(24px, 5vw, 76px) - var(--sheet-gap)));
+}
+.about,
+.work,
+.fit {
+  z-index: 1;
+  margin-inline: var(--sheet-gap);
+  border-radius: var(--sheet-r);
+}
+
 /* --------------------------------------------------------------- HERO */
 .hero {
   position: relative;
@@ -301,6 +333,9 @@
   z-index: 1;
   pointer-events: none;
   box-shadow: inset 0 0 240px 60px rgba(0, 0, 0, 0.85);
+  /* build: it lets go before the bottom edge, so the hero ends on the page's own dark */
+  -webkit-mask-image: linear-gradient(#000 45%, transparent 90%);
+  mask-image: linear-gradient(#000 45%, transparent 90%);
 }
 .hero-inner {
   position: relative;
@@ -495,7 +530,7 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 120px clamp(24px, 5vw, 76px);
+  padding: 120px var(--sheet-pad); /* build: a sheet */
   isolation: isolate;
 }
 /* warm ember ambience so the light section still belongs to the palette
@@ -513,6 +548,9 @@
 .about-wrap {
   position: relative;
   z-index: 2;
+  /* build: on the pinned stage the open sheet starts below the header; the story
+     moves down with its middle (AboutStage writes the shift) */
+  translate: 0 var(--stage-shift, 0px);
   width: 100%;
   max-width: 1280px; /* build: scale */
   margin: 0 auto;
@@ -1144,17 +1182,21 @@
   background: var(--base);
   color: var(--text);
   padding: clamp(72px, 10vh, 120px) clamp(24px, 5vw, 76px); /* build: scale */
-  overflow: clip; /* not hidden: that would make it a scroller and the phone stack wouldn't stick */
+  /* not hidden: that would make it a scroller and the phone stack wouldn't stick.
+     build: sideways only, so its lights carry on past the top and bottom (one canvas) */
+  overflow-x: clip;
   isolation: isolate;
 }
+/* build: the glow reaches past the section both ways and fades out before its own
+   edge (the same two lights, re-placed in the taller box), so no edge cuts it */
 .services-glow {
   position: absolute;
-  inset: 0;
+  inset: -40% 0;
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(48% 40% at 82% -4%, color-mix(in oklab, var(--accent) 15%, transparent), transparent 70%),
-    radial-gradient(45% 45% at -2% 104%, color-mix(in oklab, var(--accent2) 11%, transparent), transparent 70%);
+    radial-gradient(48% 22.2% at 82% 20%, color-mix(in oklab, var(--accent) 15%, transparent), transparent 70%),
+    radial-gradient(45% 25% at -2% 80%, color-mix(in oklab, var(--accent2) 11%, transparent), transparent 70%);
 }
 .services-inner {
   position: relative;
@@ -1670,7 +1712,7 @@
   position: relative;
   background: var(--light);
   color: var(--color-ink);
-  padding: clamp(76px, 10vh, 128px) clamp(24px, 5vw, 76px) clamp(64px, 8vh, 100px); /* build: scale */
+  padding: clamp(76px, 10vh, 128px) var(--sheet-pad) clamp(64px, 8vh, 100px); /* build: scale; a sheet */
   overflow: hidden;
   isolation: isolate;
 }
@@ -2322,17 +2364,18 @@
   background: var(--base);
   color: var(--text);
   padding: clamp(76px, 10vh, 128px) clamp(24px, 5vw, 76px); /* build: scale */
-  overflow: hidden;
+  overflow-x: clip; /* build: sideways only, so its lights carry on past the top and bottom */
   isolation: isolate;
 }
+/* build: reaches past the section and fades out inside its own box (see .services-glow) */
 .process-glow {
   position: absolute;
-  inset: 0;
+  inset: -40% 0;
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(40% 50% at 6% 30%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 70%),
-    radial-gradient(42% 44% at 96% 80%, color-mix(in oklab, var(--accent2) 9%, transparent), transparent 70%);
+    radial-gradient(40% 27.8% at 6% 38.9%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 70%),
+    radial-gradient(42% 24.4% at 96% 66.7%, color-mix(in oklab, var(--accent2) 9%, transparent), transparent 70%);
 }
 .process-inner {
   position: relative;
@@ -2853,7 +2896,7 @@
   position: relative;
   background: var(--light);
   color: var(--color-ink);
-  padding: clamp(76px, 10vh, 128px) clamp(24px, 5vw, 76px); /* build: scale */
+  padding: clamp(76px, 10vh, 128px) var(--sheet-pad); /* build: scale; a sheet */
   overflow: hidden;
   isolation: isolate;
 }
@@ -3801,17 +3844,18 @@
   background: var(--base);
   color: var(--text);
   padding: clamp(80px, 11vh, 132px) clamp(24px, 5vw, 76px) clamp(88px, 12vh, 140px); /* build: scale */
-  overflow: hidden;
+  overflow-x: clip; /* build: sideways only, so its lights carry on past the top and bottom */
   isolation: isolate;
 }
+/* build: reaches past the section and fades out inside its own box (see .services-glow) */
 .contact-glow {
   position: absolute;
-  inset: 0;
+  inset: -40% 0;
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(42% 46% at 88% 14%, color-mix(in oklab, var(--accent) 13%, transparent), transparent 70%),
-    radial-gradient(40% 48% at 6% 92%, color-mix(in oklab, var(--accent2) 9%, transparent), transparent 72%);
+    radial-gradient(42% 25.6% at 88% 30%, color-mix(in oklab, var(--accent) 13%, transparent), transparent 70%),
+    radial-gradient(40% 26.7% at 6% 73.3%, color-mix(in oklab, var(--accent2) 9%, transparent), transparent 72%);
 }
 .contact-particles {
   position: absolute;
@@ -3821,6 +3865,9 @@
   height: 100%;
   pointer-events: none;
   display: block;
+  /* build: the dots thin out toward the section's ends instead of stopping in a line */
+  -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
 }
 .contact-inner {
   position: relative;
@@ -4770,23 +4817,12 @@
 .footer {
   --atmo: clamp(170px, 26vh, 300px); /* the open band the horizon rises into */
   position: relative;
-  background: var(--darkest);
+  /* build: no step into the darkest ground: the page darkens into it (one canvas) */
+  background: linear-gradient(transparent, var(--darkest) clamp(220px, 34vh, 380px));
   color: var(--text);
   padding: clamp(56px, 8vh, 90px) clamp(24px, 5vw, 76px) 0; /* build: scale */
   overflow: hidden;
   isolation: isolate;
-}
-/* seam: melt the Contact dark into this darker base */
-.footer::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 160px;
-  z-index: 0;
-  background: linear-gradient(var(--base), transparent);
-  pointer-events: none;
 }
 .footer-glow {
   position: absolute;

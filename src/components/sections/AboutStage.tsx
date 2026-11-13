@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, type ReactNode } from "react";
-import { setInset, tileClip } from "@/components/motion/clip";
+import { setInset, sheetShape, tileClip } from "@/components/motion/clip";
 import { useScroll } from "@/components/motion/SmoothScroll";
 import { finishSweep, prepareSweep } from "@/components/motion/sweep";
 import CountUp from "@/components/reactbits/CountUp";
@@ -25,10 +25,11 @@ const CARD_Y = [-30, 36];
 
 /**
  * About — the reel's signature move, adapted: the ember ★ tile the hero's
- * thread ran into bursts open into the light panel (pinned, scroll-scrubbed;
- * it starts hot and cools to paper while the orb layer throws sparks off its
- * edge), the story and the two founder cards come in, then the panel folds
- * back into the tile as "What we offer" arrives.
+ * thread ran into bursts open into the light panel, a sheet floating on the
+ * dark page (pinned, scroll-scrubbed; it starts hot and cools to paper while
+ * the orb layer throws sparks off its edge), the story and the two founder
+ * cards come in, then the panel folds back into the tile as "What we offer"
+ * arrives. Small screens: the sheet opens out as it comes up the page.
  */
 export function AboutStage({ title, body, stats, left, right }: AboutStageProps) {
   const root = useRef<HTMLElement>(null);
@@ -55,8 +56,19 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
       // (laptops down to 560px tall get it too, laid out a size smaller in sections.css)
       mm.add("(prefers-reduced-motion: no-preference) and (min-width: 901px) and (min-height: 560px)", () => {
         const panel = { open: 0 };
+        // open, it's a sheet like the others, floating on the page: in from the sides and
+        // the bottom by the sheets' gap, and below the header (its pills keep to the dark)
+        const nav = document.querySelector<HTMLElement>(".site-nav");
+        let open = { x: 0, y: 0, b: 0, r: 0 };
+        const measure = () => {
+          const sheet = sheetShape(section);
+          const top = Math.max(sheet.gap, nav?.offsetHeight ?? 0);
+          open = { x: 0, y: top, b: sheet.gap, r: sheet.r };
+          // the story sits in the middle of the open sheet, not of the screen
+          section.style.setProperty("--stage-shift", `${((top - sheet.gap) / 2).toFixed(1)}px`);
+        };
         const paint = () => {
-          const inset = tileClip(section, panel.open, TILE);
+          const inset = tileClip(section, panel.open, TILE, open);
           // the orb layer draws the glow and the sparks along this edge
           const b = section.getBoundingClientRect();
           Object.assign(orb.panel, {
@@ -64,12 +76,13 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
             x: b.left + inset.x,
             y: b.top + inset.y,
             w: b.width - inset.x * 2,
-            h: b.height - inset.y * 2,
+            h: b.height - inset.y - inset.b,
             r: inset.r,
             stage: true,
             live: true,
           });
         };
+        measure();
         paint();
         prepareSweep(heading);
 
@@ -81,7 +94,10 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
             end: "+=140%",
             pin: true,
             scrub: 0.5,
-            onRefresh: paint,
+            onRefresh: () => {
+              measure();
+              paint();
+            },
           },
         });
 
@@ -135,6 +151,7 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
         return () => {
           section.removeEventListener("focusin", onFocus);
           section.style.clipPath = "";
+          section.style.removeProperty("--stage-shift");
           orb.panel.live = false;
           finishSweep(heading);
         };
@@ -146,9 +163,12 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
         () => {
           gsap.set(tile, { autoAlpha: 0 });
           const state = { enter: 1, leave: 0 };
+          const sheet = sheetShape(section);
           const paint = () => {
             const c = Math.max(state.enter, state.leave);
-            setInset(section, 0, c * 6, c * 40, "%");
+            // narrower and rounder while it comes up, settling into the sheet's own corners
+            const r = sheet.r + c * (40 - sheet.r);
+            setInset(section, 0, c * 6, r, "%");
             const b = section.getBoundingClientRect();
             const x = b.width * c * 0.06;
             Object.assign(orb.panel, {
@@ -157,7 +177,7 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
               y: b.top,
               w: b.width - x * 2,
               h: b.height,
-              r: c * 40,
+              r,
               stage: false,
               live: true,
             });

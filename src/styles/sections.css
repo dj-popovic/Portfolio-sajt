@@ -318,6 +318,10 @@
     color-mix(in oklab, var(--base) 30%, transparent) 52%,
     transparent 70%
   );
+  /* build: it lets go before the hero ends; held to the bottom edge, it stopped in a
+     line against the orb layer's vignette, which runs on behind About */
+  -webkit-mask-image: linear-gradient(#000 62%, transparent 98%);
+  mask-image: linear-gradient(#000 62%, transparent 98%);
 }
 /* the darker floor under the hero */
 .hero-floor {

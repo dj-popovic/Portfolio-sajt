@@ -35,6 +35,8 @@ import { richDark } from "@/lib/rich";
 const EASE = [0.25, 1, 0.5, 1] as const;
 // how long we "type" before a message of ours lands (s)
 const TYPING = 0.6;
+// a pause this long (ms) in the wheel ends one turn of it
+const WHEEL_PAUSE = 200;
 
 const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const compact = () => window.matchMedia("(max-width: 920px)").matches;
@@ -151,6 +153,33 @@ export function ContactChat() {
     if (!el) return;
     el.scrollTo({ top: el.scrollHeight, behavior: interacted.current && !reduced() ? "smooth" : "auto" });
   }, [visible.length, typing]);
+
+  // the thread is a scroller in the page: a turn of the wheel moves it only when the turn
+  // starts over it and it still has room that way. Otherwise the page's smooth scroll keeps
+  // going, so a fast scroll that carries the thread under the pointer never sticks on it
+  useEffect(() => {
+    const el = thread.current;
+    if (!el) return;
+    let last = -Infinity;
+    let mine = false;
+    // a new turn (after a pause in the wheel): does it start over the thread?
+    const begin = (e: WheelEvent) => {
+      if (e.timeStamp - last > WHEEL_PAUSE) mine = e.target instanceof Node && el.contains(e.target);
+      last = e.timeStamp;
+    };
+    const own = (e: WheelEvent) => {
+      if (!mine) return;
+      const room = e.deltaY > 0 ? el.scrollHeight - el.clientHeight - el.scrollTop > 1 : el.scrollTop > 1;
+      // the thread scrolls itself; Lenis (listening on the window) never hears of it
+      if (room) e.stopPropagation();
+    };
+    window.addEventListener("wheel", begin, { capture: true, passive: true });
+    el.addEventListener("wheel", own, { passive: true });
+    return () => {
+      window.removeEventListener("wheel", begin, { capture: true });
+      el.removeEventListener("wheel", own);
+    };
+  }, []);
 
   // move focus with the conversation, but never on first paint
   useEffect(() => {
@@ -376,7 +405,6 @@ export function ContactChat() {
       <div
         className="chat-thread"
         ref={thread}
-        data-lenis-prevent
         role="region"
         aria-label={t("chat.log")}
         tabIndex={done ? 0 : undefined}

@@ -30,25 +30,26 @@ node scripts/shoot.mjs http://localhost:3100 .shots /
 
 ## Where things live
 
-| Path | What |
-|---|---|
-| `messages/*.json` | All copy, per language |
-| `src/app/[locale]/` | Layout + the single page |
-| `src/components/sections/` | One component per section |
-| `src/components/work/` | Concept cards, previews and the demo window |
-| `src/components/work/demos/` | The four concept mini-sites (lazy-loaded when a window opens) |
-| `src/styles/sections.css` | Section styles ported from the design export |
-| `src/lib/placeholders.ts` | `<logo>`, `[studio]`, names… — undecided content |
-| `src/app/api/contact/route.ts` | Contact endpoint (**stub** — see `docs/CONTACT_API.md`) |
-| `docs/OPEN-ITEMS.md` | What's still missing before launch (photos, name, prices…) |
+| Path                           | What                                                                                         |
+| ------------------------------ | -------------------------------------------------------------------------------------------- |
+| `messages/*.json`              | All copy, per language                                                                       |
+| `src/app/[locale]/`            | Layout + the single page                                                                     |
+| `src/components/sections/`     | One component per section                                                                    |
+| `src/components/work/`         | Concept cards, previews and the demo window                                                  |
+| `src/components/work/demos/`   | The four concept mini-sites (lazy-loaded when a window opens)                                |
+| `src/app/globals.css`          | Palette and the design system tokens (type sizes, column, spacing, corners, control heights) |
+| `src/styles/sections.css`      | Section styles ported from the design export                                                 |
+| `src/lib/placeholders.ts`      | `<logo>`, `[studio]`, names… — undecided content                                             |
+| `src/app/api/contact/route.ts` | Contact endpoint (**stub** — see `docs/CONTACT_API.md`)                                      |
+| `docs/OPEN-ITEMS.md`           | What's still missing before launch (photos, name, prices…)                                   |
 
 ## Quality bar
 
-- **Languages:** every message file has the same keys, ICU arguments and tags as `en.json`; layouts were checked at 390/768/1440 px in all four languages.
+- **Languages:** every message file has the same keys, ICU arguments and tags as `en.json`; layouts were checked at 320/390/768/1024/1440 px in all four languages.
 - **Reduced motion:** no pins, scrubs or loops; state changes keep short fades. Motion (`motion/react`) follows the OS setting via `MotionConfig`.
 - **Accessibility:** keyboard-only flow (skip link, visible focus, focus trap + Esc in demo windows), axe-core clean on the page, inside the demo windows, and through the fit finder and the Contact conversation.
 - **Performance:** the 3D scene and each demo load lazily; fonts preload only their Latin subset (other scripts load on demand).
 
 ## Deploy
 
-Import the GitHub repo in Vercel; no settings needed. `vercel.json` pins the **Next.js** framework preset and the `.next` output folder, so a project that was created with the "Other" preset (error: *No Output Directory named "public" found*) still builds correctly. Optional env var: `NEXT_PUBLIC_CONTACT_ENDPOINT` if the contact backend is hosted elsewhere.
+Import the GitHub repo in Vercel; no settings needed. `vercel.json` pins the **Next.js** framework preset and the `.next` output folder, so a project that was created with the "Other" preset (error: _No Output Directory named "public" found_) still builds correctly. Optional env var: `NEXT_PUBLIC_CONTACT_ENDPOINT` if the contact backend is hosted elsewhere.

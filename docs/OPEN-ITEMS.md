@@ -74,18 +74,18 @@ All four files must keep the same keys, ICU arguments and rich tags, and every s
 
 Small text from the design palette was nudged up to WCAG AA (4.5:1 for normal text, 3:1 for large text) without changing the look. axe-core now reports no contrast violations. Every change is marked `build: contrast (WCAG AA)` in `src/styles/sections.css`.
 
-| Where                                                                   | Before                 | After                                                                                 |
-| ----------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------- |
-| Package cards — "Investment" label and the "[From €X …]" hint           | 3.0 / 3.3:1            | `#837162`, 4.7:1                                                                      |
-| About — stat labels under 2 / 4 / 1                                     | 4.0:1                  | `#7E6C5F`, 4.7:1                                                                      |
-| Services — card numbers 01–04                                           | 3.3:1                  | 50% cream, 4.7:1                                                                      |
-| Work — "Concept · Web" pill                                             | white on orange, 2.5:1 | dark text, 6.7:1; since redesigned as a quiet glass pill on the dark card (78% cream) |
-| How we work — phase tags and "you get" lines                            | 3.4 / 4.2:1            | 50% cream, 4.8:1                                                                      |
-| How we work — big step numbers before they light up                     | 1.7:1                  | 38% cream, 3.2:1 (large text)                                                         |
-| Hero — "Scroll" cue                                                     | 3.7:1                  | 50% cream, 4.8:1                                                                      |
-| Nav — inactive language codes (since replaced by the language dropdown) | 2.3:1                  | 4.6:1                                                                                 |
-| Contact — input placeholder                                             | 2.5:1                  | 4.7:1                                                                                 |
-| Photo placeholder labels (About cards, Contact avatars)                 | 2.7 / 3.2:1            | 4.6 / 4.7:1, until real photos replace them                                           |
+| Where                                                                      | Before                 | After                                                                                 |
+| -------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------- |
+| Package cards — "Investment" label and the "[From €X …]" hint              | 3.0 / 3.3:1            | `#837162`, 4.7:1; the label has since gone and the hint is ink-500, 6.3:1             |
+| About — stat labels under 2 / 4 / 1                                        | 4.0:1                  | `#7E6C5F`, 4.7:1                                                                      |
+| Services — card numbers 01–04                                              | 3.3:1                  | 50% cream, 4.7:1                                                                      |
+| Work — "Concept · Web" pill                                                | white on orange, 2.5:1 | dark text, 6.7:1; since redesigned as a quiet glass pill on the dark card (78% cream) |
+| How we work — phase tags and "you get" lines                               | 3.4 / 4.2:1            | 50% cream, 4.8:1                                                                      |
+| How we work — big step numbers before they light up                        | 1.7:1                  | 38% cream, 3.2:1 (large text)                                                         |
+| Hero — "Scroll" cue (since removed: the orb's hint is the one label there) | 3.7:1                  | 50% cream, 4.8:1                                                                      |
+| Nav — inactive language codes (since replaced by the language dropdown)    | 2.3:1                  | 4.6:1                                                                                 |
+| Contact — input placeholder                                                | 2.5:1                  | 4.7:1                                                                                 |
+| Photo placeholder labels (About cards, Contact avatars)                    | 2.7 / 3.2:1            | 4.6 / 4.7:1, until real photos replace them                                           |
 
 Still flagged by the Impeccable detector, on purpose:
 

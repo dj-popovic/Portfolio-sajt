@@ -27,10 +27,9 @@
   },
   "hero": {
     "title": "Creative work with a warmer<br></br><glow>kind of fire.</glow>",
-    "sub": "We’re a two-person studio crafting brands, websites and apps end-to-end: strategy, design and build, all under one roof. The site itself is our proof of work.",
+    "sub": "We’re a two-person studio crafting brands, websites and apps, from strategy to launch. This site is our proof of work.",
     "primary": "Start a project",
     "secondary": "See our work",
-    "scroll": "Scroll",
     "orb": {
       "label": "Ember orb, an interactive sphere of dots",
       "help": "Drag it or use the arrow keys to spin it. Click it or press Enter to send a ripple across it.",
@@ -39,7 +38,7 @@
   },
   "about": {
     "title": "Two people,<br></br>one <glow>end-to-end</glow> studio.",
-    "body": "We’re a two-person studio that takes your brand, website and app from first idea to launch, plus the marketing to back it. Small on purpose: you work directly with the people doing the work, start to finish.",
+    "body": "We take your brand, website and app from first idea to launch, plus the marketing to back it. Small on purpose: you work directly with the people doing the work.",
     "stats": {
       "founders": "Founders",
       "disciplines": "Disciplines",
@@ -78,7 +77,7 @@
   },
   "services": {
     "title": "Everything a brand needs to <glow>show up well.</glow>",
-    "note": "Take one piece or the whole stack. It’s the same two people either way, so nothing gets lost in a handoff.",
+    "note": "Take one piece or the whole stack. Same two people either way, so nothing gets lost in a handoff.",
     "foot": "Need all four? <b>That’s the whole point.</b> One team, idea to launch.",
     "items": {
       "branding": {
@@ -105,8 +104,8 @@
   },
   "work": {
     "title": "Not a portfolio yet. <glow>A glimpse of the range.</glow>",
-    "note": "Each tile is a live mini-demo, built the way we’d build yours. <b>Hover to preview</b> it scrolling, then open it full-screen to click around.",
-    "noteTouch": "Each tile is a live mini-demo, built the way we’d build yours. <b>Tap to open</b> it full-screen and click around.",
+    "note": "Each tile is a live mini-demo, built the way we’d build yours. <b>Hover to preview</b>, click to open it full-screen.",
+    "noteTouch": "Each tile is a live mini-demo, built the way we’d build yours. <b>Tap to open</b> it full-screen.",
     "open": "Open demo",
     "foot": "These are concepts. <b>Yours is next.</b>",
     "kindWeb": "Concept · Web",
@@ -138,39 +137,38 @@
   },
   "process": {
     "title": "From first call to <glow>live</glow> in four steps.",
-    "sub": "No handoffs, no middle-men. The same two people carry your project the whole way. Here’s how a build usually goes.",
+    "sub": "The same two people carry your project the whole way. Here’s how a build usually goes.",
     "goTo": "Go to step {n}: {phase}",
     "steps": {
       "discover": {
         "phase": "Discover",
         "title": "We get to know the work.",
-        "body": "A kickoff to understand your business, audience and goals: what success looks like, and what’s gotten in the way so far. No templates, no assumptions.",
+        "body": "A kickoff to understand your business, audience and goals, and what success looks like. No templates, no assumptions.",
         "deliver": "You leave with <b>a clear brief & timeline</b>"
       },
       "design": {
         "phase": "Design",
         "title": "We shape how it looks and feels.",
-        "body": "Brand direction, then every screen, designed and prototyped so you can click through and feel it long before a line of code is written.",
+        "body": "Brand direction, then every screen, prototyped so you can click through it before a line of code is written.",
         "deliver": "You approve <b>an interactive prototype</b>"
       },
       "build": {
         "phase": "Build",
         "title": "We make it real, end-to-end.",
-        "body": "We develop the whole thing ourselves: fast, animated and built to last. You stay in the loop with working previews, not status emails.",
+        "body": "We build it all ourselves: fast, animated and made to last. You see working previews, not status emails.",
         "deliver": "You see <b>live builds every week</b>"
       },
       "launch": {
         "phase": "Launch & grow",
         "title": "We ship it, then help it grow.",
-        "body": "We launch, hand over the keys, and stick around with a marketing plan to get it in front of the right people. A plan, not guesswork.",
+        "body": "We launch, hand over the keys and stay on with a marketing plan to get it in front of the right people.",
         "deliver": "You get <b>a launch + growth plan</b>"
       }
     }
   },
   "fit": {
     "title": "Pick a starting point. <glow>We’ll shape the rest together.</glow>",
-    "sub": "These are the ways we usually work, not a fixed menu. Find the closest fit, hit the button, and we’ll figure out the details over a real conversation.",
-    "investment": "Investment",
+    "sub": "Not a fixed menu, just the ways we usually work. Pick the closest one and we’ll talk through the details.",
     "price": "Let’s talk",
     "popular": "Most popular",
     "yourFit": "Your fit",
@@ -251,11 +249,11 @@
   },
   "contact": {
     "title": "Tell us what you’re <glow>dreaming up.</glow>",
-    "lede": "A few quick questions, one at a time, no pressure. However half-formed the idea, we’d love to hear it.",
+    "lede": "Four quick questions, one at a time. However half‑formed the idea, we’d love to hear it.",
     "founders": "The <b>two of us</b> read every message and usually reply within a day.",
     "foundersMeta": "{nameOne} & {nameTwo} · co-founders",
     "step": "Step <b>{current}</b> / {total}",
-    "next": "Next",
+    "next": "Reply",
     "send": "Send it",
     "sending": "Sending…",
     "startOver": "Start over",

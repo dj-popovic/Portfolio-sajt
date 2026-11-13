@@ -69,27 +69,6 @@ main,
     );
 }
 
-/* scroll cue: a slow spark slides down the line */
-.scroll-cue .line {
-  position: relative;
-  overflow: hidden;
-}
-.scroll-cue .line::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: -45%;
-  width: 100%;
-  height: 45%;
-  background: linear-gradient(transparent, var(--accent2), transparent);
-  animation: cueDrop 2.4s cubic-bezier(0.6, 0, 0.4, 1) infinite;
-}
-@keyframes cueDrop {
-  to {
-    top: 110%;
-  }
-}
-
 /* About: the ember tile the light panel grows out of */
 .about-tile {
   position: absolute;

@@ -67,7 +67,6 @@ export function Fit() {
 
                 {/* "Let's talk" for now: Basic and Pro get their fixed prices here once they're set, Custom keeps it */}
                 <div className="pkg-price">
-                  <span className="price-note">{t("investment")}</span>
                   <span className="price-val">{t("price")}</span>
                   <span className="price-hint">{t(`packages.${key}.hint`)}</span>
                 </div>

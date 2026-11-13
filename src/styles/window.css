@@ -28,7 +28,7 @@
   width: min(1180px, 100%);
   height: min(88vh, 900px);
   overflow: hidden;
-  border-radius: 24px;
+  border-radius: var(--r-l);
   box-shadow:
     0 0 0 1px rgb(255 255 255 / 0.08),
     0 90px 140px -50px rgb(0 0 0 / 0.8),
@@ -67,13 +67,13 @@
 }
 /* build: small titles in Inter (brief: display face for big type only) */
 .ww-brand {
-  font-size: 14px;
+  font-size: var(--fs-small);
   font-weight: 600;
   white-space: nowrap;
 }
 .ww-what {
   overflow: hidden;
-  font-size: 12.5px;
+  font-size: var(--fs-label);
   color: color-mix(in oklab, var(--text) 62%, transparent);
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -93,8 +93,8 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: 38px;
-  height: 34px;
+  width: var(--ctl-s);
+  height: var(--ctl-s);
   border: 0;
   border-radius: 999px;
   background: none;
@@ -139,8 +139,8 @@
   display: grid;
   flex: none;
   place-items: center;
-  width: 38px;
-  height: 38px;
+  width: var(--ctl-s);
+  height: var(--ctl-s);
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -206,7 +206,7 @@
     inset 0 0 0 1px rgb(255 255 255 / 0.06),
     0 14px 30px -14px rgb(0 0 0 / 0.7);
   color: color-mix(in oklab, var(--text) 82%, transparent);
-  font-size: 12px;
+  font-size: var(--fs-label);
   white-space: nowrap;
   pointer-events: none;
   transform: translateX(-50%);
@@ -258,7 +258,7 @@
 @media (max-width: 760px) {
   .ww-frame {
     height: 100%;
-    border-radius: 20px;
+    border-radius: var(--r-m);
   }
   .ww-bar {
     gap: 10px;

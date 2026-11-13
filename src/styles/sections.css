@@ -51,7 +51,8 @@
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 16px;
-  padding: 16px clamp(16px, 3vw, 40px);
+  /* build: the pills sit on the page's column, so the logo lines up with every section's left edge */
+  padding: 16px max(var(--gutter), calc((100% - var(--wrap)) / 2));
   pointer-events: none; /* only the pills take clicks */
 }
 .site-nav > * {
@@ -76,8 +77,8 @@
 }
 .nav-logo .ph {
   font-weight: 500;
-  font-size: 13px;
-  color: color-mix(in oklab, var(--text) 72%, transparent);
+  font-size: var(--fs-small);
+  color: var(--text-2);
 }
 .nav-links {
   display: flex;
@@ -85,7 +86,7 @@
   gap: 2px;
   padding: 4px;
   border-radius: 999px;
-  font-size: 14px;
+  font-size: var(--fs-small);
   font-weight: 500;
 }
 .nav-links a {
@@ -93,7 +94,7 @@
   padding: 9px 16px;
   border-radius: 999px;
   line-height: 18px;
-  color: color-mix(in oklab, var(--text) 76%, transparent);
+  color: var(--text-2);
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -123,7 +124,7 @@
 }
 .nav-cta {
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--fs-small);
   line-height: 20px;
   padding: 12px 20px;
   border-radius: 999px;
@@ -152,14 +153,13 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  height: 44px;
-  padding: 0 13px 0 14px;
+  height: var(--ctl-m);
+  padding: 0 14px;
   border: 0;
   border-radius: 999px;
   color: color-mix(in oklab, var(--text) 86%, transparent);
-  font-size: 13px;
+  font-size: var(--fs-small);
   font-weight: 600;
-  letter-spacing: 0.04em;
   cursor: pointer;
   transition: color 0.2s ease;
 }
@@ -179,9 +179,9 @@
   right: 0;
   min-width: 216px;
   margin: 0;
-  padding: 6px;
+  padding: 4px;
   list-style: none;
-  border-radius: 18px;
+  border-radius: var(--r-m);
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.015)),
     color-mix(in oklab, var(--base) 86%, transparent);
@@ -192,10 +192,10 @@
   align-items: center;
   gap: 12px;
   padding: 10px 12px;
-  border-radius: 12px;
-  font-size: 14px;
+  border-radius: var(--r-s);
+  font-size: var(--fs-small);
   font-weight: 500;
-  color: color-mix(in oklab, var(--text) 80%, transparent);
+  color: var(--text-2);
   text-decoration: none;
   transition:
     background-color 0.15s ease,
@@ -210,10 +210,10 @@
   color: var(--text);
 }
 .lang-list .code {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  color: color-mix(in oklab, var(--text) 55%, transparent);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: var(--track-label);
+  color: var(--muted);
 }
 .lang-list .tick {
   display: grid;
@@ -279,7 +279,7 @@
   --sheet-gap: clamp(10px, 1.4vw, 22px);
   --sheet-r: clamp(26px, 3vw, 44px);
   /* a sheet's own padding, so its content lines up with the dark sections' */
-  --sheet-pad: max(16px, calc(clamp(24px, 5vw, 76px) - var(--sheet-gap)));
+  --sheet-pad: max(16px, calc(var(--gutter) - var(--sheet-gap)));
 }
 .about,
 .work,
@@ -348,8 +348,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 120px clamp(24px, 5vw, 76px) 80px;
-  max-width: 1640px;
+  padding: 120px var(--gutter) 80px;
+  max-width: calc(var(--wrap) + 2 * var(--gutter));
   margin: 0 auto;
   pointer-events: none; /* build: the orb's hit area sits underneath */
 }
@@ -388,15 +388,16 @@
 .orb-hint-pill {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  padding: 7px 14px 7px 11px;
+  gap: 8px;
+  height: 32px;
+  padding: 0 14px 0 12px;
   border-radius: 999px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   white-space: nowrap;
-  color: color-mix(in oklab, var(--text) 78%, transparent);
+  color: var(--text-2);
   transition:
     opacity 0.4s ease,
     transform 0.4s var(--ease-out-quart);
@@ -431,43 +432,46 @@
 .hero-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.5rem, 5vw, 4.5rem); /* build: scale */
-  line-height: 0.99;
-  letter-spacing: -0.02em;
+  font-size: var(--fs-h1);
+  line-height: 1;
+  letter-spacing: var(--track-display);
   text-wrap: balance;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
 }
 .hero-sub {
-  font-size: clamp(1rem, 1.15vw, 1.075rem); /* build: scale */
+  font-size: var(--fs-lead);
   line-height: 1.6;
-  color: color-mix(in oklab, var(--text) 80%, transparent);
-  max-width: 50ch;
-  margin-bottom: 42px;
+  color: var(--text-2);
+  max-width: 46ch;
+  margin-bottom: 40px;
   text-wrap: pretty;
 }
 .hero-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
 }
+/* build: the hero's two buttons are one size (the system's large control) */
 .btn-primary {
   display: inline-flex;
   align-items: center;
+  height: var(--ctl-l);
   font-weight: 600;
-  font-size: 15px; /* build: scale */
-  padding: 13px 24px; /* build: scale */
+  font-size: var(--fs-body);
+  padding: 0 28px;
   border-radius: 999px;
   text-decoration: none;
 }
 .btn-ghost {
   display: inline-flex;
   align-items: center;
-  gap: 13px;
+  gap: 12px;
+  height: var(--ctl-l);
   font-weight: 600;
-  font-size: 15px; /* build: scale */
+  font-size: var(--fs-body);
   color: var(--text);
-  padding: 12px 22px 12px 13px; /* build: scale */
+  padding: 0 24px 0 9px;
   border-radius: 999px;
   border: 1px solid color-mix(in oklab, var(--text) 18%, transparent);
   background: color-mix(in oklab, var(--surface) 50%, transparent);
@@ -487,8 +491,8 @@
   transform: scale(0.98);
 }
 .btn-ghost .play {
-  width: 30px; /* build: scale */
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -499,32 +503,6 @@
 .btn-ghost .play svg {
   margin-left: 2px;
 }
-.scroll-cue {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 4;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  font-size: 11px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: color-mix(in oklab, var(--text) 50%, transparent); /* build: contrast (WCAG AA) */
-}
-.scroll-cue .line {
-  width: 1px;
-  height: 46px;
-  background: linear-gradient(var(--accent), transparent);
-}
-@media (max-width: 880px) {
-  .scroll-cue {
-    display: none;
-  }
-}
-
 /* -------------------------------------------------------------- ABOUT */
 .about {
   position: relative;
@@ -534,7 +512,7 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 120px var(--sheet-pad); /* build: a sheet */
+  padding: var(--section-y) var(--sheet-pad); /* build: a sheet */
   isolation: isolate;
 }
 /* warm ember ambience so the light section still belongs to the palette
@@ -556,7 +534,7 @@
      moves down with its middle (AboutStage writes the shift) */
   translate: 0 var(--stage-shift, 0px);
   width: 100%;
-  max-width: 1280px; /* build: scale */
+  max-width: var(--wrap);
   margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(220px, 1fr) minmax(380px, 1.3fr) minmax(220px, 1fr);
@@ -619,7 +597,7 @@
   width: min(100%, 300px);
   aspect-ratio: 3 / 4;
   margin: 0 auto;
-  border-radius: 26px;
+  border-radius: var(--r-l);
   color: var(--text);
   transform-style: preserve-3d;
   transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
@@ -702,15 +680,15 @@
 .fcard-name {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  font-size: var(--fs-h4);
   line-height: 1.1;
   letter-spacing: -0.01em;
 }
 .fcard-role {
-  margin-top: 6px;
-  font-size: 13px;
+  margin-top: 4px;
+  font-size: var(--fs-small);
   line-height: 1.35;
-  color: color-mix(in oklab, var(--text) 74%, transparent);
+  color: var(--text-2);
 }
 .fcard-plus {
   position: absolute;
@@ -807,7 +785,7 @@
   display: flex;
   width: min(1040px, calc(100vw - 64px));
   max-height: calc(100svh - 64px);
-  border-radius: 28px;
+  border-radius: var(--r-l);
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0);
   transition: box-shadow 0.3s ease;
 }
@@ -859,43 +837,46 @@
 .fdialog-name {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+  font-size: var(--fs-h2);
   line-height: 1.05;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--track-display);
 }
 .fdialog-role {
   margin-top: 8px;
-  font-size: 15px;
-  color: color-mix(in oklab, var(--text) 74%, transparent);
+  font-size: var(--fs-body);
+  color: var(--text-2);
 }
+/* build: the profile's headings are the system's caps label */
 .fdialog h3 {
   margin-bottom: 12px;
-  font-size: 13px;
+  font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.02em;
-  color: color-mix(in oklab, var(--text) 64%, transparent);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--muted);
 }
 .fdialog-contact {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
-  margin-top: 30px;
+  margin-top: 32px;
 }
 .fd-socials {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 .fd-link {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 11px 16px;
-  border-radius: 14px;
+  min-height: var(--ctl-m);
+  padding: 0 16px;
+  border-radius: var(--r-s);
   border: 1px solid rgb(255 255 255 / 0.08);
   background: rgb(255 255 255 / 0.04);
   color: var(--text);
-  font-size: 14px;
+  font-size: var(--fs-small);
   text-decoration: none;
   overflow-wrap: anywhere;
   transition:
@@ -914,14 +895,14 @@
 }
 .fdialog-info {
   display: grid;
-  gap: 34px;
+  gap: 32px;
   padding-top: 8px;
 }
 .fdialog-info p {
   max-width: 54ch;
-  font-size: clamp(1rem, 1.2vw, 1.1rem);
-  line-height: 1.65;
-  color: color-mix(in oklab, var(--text) 88%, transparent);
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--text-2);
   text-wrap: pretty;
 }
 .fd-does {
@@ -933,7 +914,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 15px;
+  font-size: var(--fs-body);
 }
 .fd-does svg {
   flex: 0 0 auto;
@@ -955,7 +936,7 @@
   border-radius: 16px;
   border: 1px solid rgb(255 255 255 / 0.07);
   background: rgb(255 255 255 / 0.035);
-  font-size: 12px;
+  font-size: var(--fs-label);
   text-align: center;
   color: color-mix(in oklab, var(--text) 82%, transparent);
   transition:
@@ -989,7 +970,7 @@
     width: auto;
     max-height: none;
     translate: none;
-    border-radius: 22px;
+    border-radius: var(--r-l);
   }
   .fdialog-grid {
     grid-template-columns: 1fr;
@@ -1014,15 +995,15 @@
 .about-center h2 {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.75rem, 2.9vw, 2.6rem); /* build: scale */
-  line-height: 1.04;
-  letter-spacing: -0.02em;
+  font-size: var(--fs-h2);
+  line-height: 1.05;
+  letter-spacing: var(--track-display);
   text-wrap: balance;
   margin-bottom: 24px;
 }
 .about-center p {
-  font-size: clamp(1rem, 1.2vw, 1.15rem);
-  line-height: 1.65;
+  font-size: var(--fs-lead);
+  line-height: 1.6;
   color: var(--color-ink-600);
   max-width: 46ch;
   margin: 0 auto;
@@ -1034,8 +1015,8 @@
   position: relative;
   display: inline-flex;
   margin-top: 32px;
-  padding: 16px 6px;
-  border-radius: 22px;
+  padding: 16px 8px;
+  border-radius: var(--r-l);
   color: var(--text);
   background:
     radial-gradient(120% 90% at 50% 125%, rgb(255 140 60 / 0.24), transparent 62%),
@@ -1067,7 +1048,7 @@
 }
 .about-stats .stat {
   position: relative;
-  padding: 2px clamp(18px, 2.6vw, 32px);
+  padding: 2px clamp(16px, 2vw, 28px);
 }
 .about-stats .stat + .stat::before {
   content: "";
@@ -1081,14 +1062,13 @@
 .about-stats .n {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.4rem, 2.1vw, 1.85rem); /* build: scale */
+  font-size: var(--fs-h3);
   color: var(--text);
 }
 .about-stats .l {
   margin-top: 4px;
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: color-mix(in oklab, var(--text) 62%, transparent);
+  font-size: var(--fs-label);
+  color: var(--muted);
 }
 @media (max-width: 900px) {
   .about-wrap {
@@ -1138,11 +1118,11 @@
     width: min(100%, 300px, calc((100svh - 210px) * 0.75));
   }
   .about-center h2 {
-    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    font-size: clamp(24px, 2.5vw, 32px); /* the title a step smaller on short screens */
     margin-bottom: 16px;
   }
   .about-center p {
-    font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+    font-size: var(--fs-body);
     line-height: 1.55;
   }
   .about-stats {
@@ -1167,16 +1147,12 @@
     font-size: clamp(0.78rem, 3.7vw, 0.95rem);
   }
   .fcard-role {
-    font-size: 11.5px;
+    font-size: var(--fs-label);
   }
 }
 @media (max-width: 380px) {
   .about-stats .stat {
     padding: 2px 8px;
-  }
-  .about-stats .l {
-    font-size: 11px;
-    letter-spacing: 0.02em;
   }
 }
 
@@ -1185,7 +1161,7 @@
   position: relative;
   background: var(--base);
   color: var(--text);
-  padding: clamp(72px, 10vh, 120px) clamp(24px, 5vw, 76px); /* build: scale */
+  padding: var(--section-y) var(--gutter);
   /* not hidden: that would make it a scroller and the phone stack wouldn't stick.
      build: sideways only, so its lights carry on past the top and bottom (one canvas) */
   overflow-x: clip;
@@ -1205,16 +1181,17 @@
 .services-inner {
   position: relative;
   z-index: 1;
-  max-width: 1500px;
+  max-width: var(--wrap);
   margin: 0 auto;
 }
+/* build: every section opens the same way: the title on the left, a short note on the right */
 .sec-head {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 40px;
+  gap: 24px 40px;
   flex-wrap: wrap;
-  margin-bottom: clamp(32px, 5vh, 56px); /* build: scale */
+  margin-bottom: clamp(32px, 3.4vw, 48px);
 }
 .sec-head .lead {
   max-width: 700px;
@@ -1222,18 +1199,15 @@
 .sec-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.75rem, 3.4vw, 2.75rem); /* build: scale */
-  line-height: 1.02;
-  letter-spacing: -0.02em;
+  font-size: var(--fs-h2);
+  line-height: 1.05;
+  letter-spacing: var(--track-display);
   text-wrap: balance;
 }
-.services .sec-title {
-  margin-top: 22px;
-}
 .sec-head .note {
-  max-width: 330px;
-  color: var(--muted);
-  font-size: 15px;
+  max-width: 340px;
+  color: var(--text-2);
+  font-size: var(--fs-body);
   line-height: 1.6;
   text-wrap: pretty; /* build: no single-word last line */
 }
@@ -1252,7 +1226,7 @@
   isolation: isolate;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
+  gap: 16px;
 }
 /* warm light behind the glass, so the panes have something to bend */
 .svc-light {
@@ -1289,9 +1263,9 @@
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  min-height: 312px; /* build: scale */
-  padding: 26px 22px 22px; /* build: scale */
-  border-radius: 24px;
+  min-height: 312px;
+  padding: 24px;
+  border-radius: var(--r-l);
   overflow: hidden;
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.09), rgb(255 255 255 / 0.02) 46%, rgb(255 255 255 / 0.04)),
@@ -1414,18 +1388,18 @@
   align-items: center;
   justify-content: space-between;
 }
-/* build: small numerals use the mono face (brief: mono for "01"-type details) */
+/* build: small numerals are the caps label in Inter's tabular figures (no third typeface) */
 .svc-num {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 13px;
-  letter-spacing: 0.1em;
-  color: color-mix(in oklab, var(--text) 56%, transparent); /* build: contrast (WCAG AA) */
+  font-weight: 600;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-label);
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
 }
 .svc-icon {
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-s);
   display: grid;
   place-items: center;
   color: var(--accent2);
@@ -1440,31 +1414,30 @@
 .svc-card h3 {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.2rem; /* build: scale */
+  font-size: var(--fs-h4);
   letter-spacing: -0.01em;
-  margin: 26px 0 10px;
+  margin: 24px 0 8px;
 }
 .svc-card .desc {
   text-wrap: pretty; /* build: no single-word last line (long German copy) */
-  font-size: 14.5px;
+  font-size: var(--fs-body);
   line-height: 1.55;
-  color: color-mix(in oklab, var(--text) 74%, transparent);
-  margin-bottom: 20px;
+  color: var(--text-2);
+  margin-bottom: 24px;
 }
 .svc-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
+  gap: 8px;
   margin-top: auto;
 }
 /* little lenses on the pane */
 .svc-tags span {
-  font-size: 11.5px;
+  font-size: var(--fs-label);
   font-weight: 500;
-  letter-spacing: 0.02em;
-  padding: 6px 11px;
+  padding: 6px 12px;
   border-radius: 999px;
-  color: color-mix(in oklab, var(--text) 80%, transparent);
+  color: var(--text-2);
   background: linear-gradient(180deg, rgb(255 255 255 / 0.09), rgb(255 255 255 / 0.03));
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.1),
@@ -1487,7 +1460,7 @@
   flex-direction: column;
 }
 .services[data-deck="deck"] .sec-head {
-  margin-bottom: clamp(16px, 3vh, 34px);
+  margin-bottom: clamp(16px, 3vh, 32px);
 }
 .services[data-deck="deck"] .svc-stage {
   flex: 1;
@@ -1513,24 +1486,24 @@
   z-index: 1;
   display: flex;
   align-items: baseline;
-  gap: 14px;
-  padding: 13px 20px;
+  gap: 16px;
+  padding: 12px 20px;
   border: 0;
   border-radius: 999px;
   background: none;
-  font-size: 16px;
+  font-size: var(--fs-body);
   font-weight: 600;
   text-align: left;
-  color: color-mix(in oklab, var(--text) 52%, transparent);
+  color: var(--muted);
   cursor: pointer;
   transition: color 0.3s ease;
 }
 .svc-index button .n {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  color: color-mix(in oklab, var(--text) 42%, transparent);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: var(--track-label);
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
   transition: color 0.3s ease;
 }
 .svc-index button[aria-current="true"] {
@@ -1541,7 +1514,7 @@
 }
 @media (hover: hover) {
   .svc-index button:hover {
-    color: color-mix(in oklab, var(--text) 86%, transparent);
+    color: var(--text-2);
   }
 }
 .svc-index button:focus-visible {
@@ -1554,7 +1527,7 @@
   top: 0;
   left: 0;
   right: 0;
-  border-radius: 24px;
+  border-radius: 999px;
   pointer-events: none;
 }
 .services[data-deck="deck"] .svc-deck {
@@ -1579,9 +1552,9 @@
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   align-items: center;
-  column-gap: clamp(20px, 3vw, 56px);
-  padding: clamp(28px, 3.2vw, 48px);
-  border-radius: 30px;
+  column-gap: clamp(24px, 3vw, 56px);
+  padding: clamp(24px, 3.2vw, 48px);
+  border-radius: var(--r-l);
 }
 .services[data-deck="deck"] .svc-icon {
   display: none;
@@ -1594,26 +1567,26 @@
   height: 100%;
   max-height: 300px;
 }
+/* build: a pane's title stays a clear step below the section's */
 .services[data-deck="deck"] .svc-card h3 {
-  font-size: clamp(1.8rem, 2.7vw, 2.6rem);
-  margin: clamp(12px, 2.2vh, 24px) 0 clamp(10px, 1.6vh, 16px);
+  font-size: var(--fs-h3);
+  margin: clamp(12px, 2.2vh, 24px) 0 clamp(8px, 1.6vh, 16px);
 }
 .services[data-deck="deck"] .svc-card .desc {
   max-width: 38ch;
-  font-size: clamp(15px, 1.1vw, 17px);
-  margin-bottom: clamp(16px, 3vh, 28px);
+  margin-bottom: clamp(16px, 3vh, 24px);
 }
 .services[data-deck="deck"] .svc-tags {
   margin-top: 0;
 }
 .services[data-deck="deck"] .svc-tags span {
-  font-size: 12.5px;
-  padding: 7px 13px;
+  font-size: var(--fs-small);
+  padding: 8px 14px;
 }
 .services[data-deck="deck"] .sec-foot {
   grid-area: foot;
   align-self: start;
-  margin: 26px 0 0 20px;
+  margin: 24px 0 0 20px;
 }
 .services[data-deck="deck"] .sec-foot .ln {
   display: none;
@@ -1629,7 +1602,7 @@
 .services[data-deck="stack"] .svc-deck {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 .services[data-deck="stack"] .svc-light {
   inset: 0 -10%;
@@ -1656,8 +1629,8 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) 190px;
     align-items: center;
-    column-gap: 28px;
-    padding: 30px;
+    column-gap: 32px;
+    padding: 32px;
   }
   .services[data-deck="stack"] .svc-glyph {
     position: relative;
@@ -1672,7 +1645,7 @@
 }
 
 .sec-foot {
-  margin-top: clamp(34px, 5vh, 56px);
+  margin-top: clamp(32px, 3.4vw, 48px);
   display: flex;
   align-items: center;
   gap: 24px;
@@ -1683,7 +1656,7 @@
   background: var(--hairline);
 }
 .sec-foot p {
-  font-size: 15px;
+  font-size: var(--fs-body);
   color: var(--muted);
   white-space: nowrap;
 }
@@ -1716,7 +1689,7 @@
   position: relative;
   background: var(--light);
   color: var(--color-ink);
-  padding: clamp(76px, 10vh, 128px) var(--sheet-pad) clamp(64px, 8vh, 100px); /* build: scale; a sheet */
+  padding: var(--section-y) var(--sheet-pad); /* build: a sheet */
   overflow: hidden;
   isolation: isolate;
 }
@@ -1732,15 +1705,14 @@
 .work-inner {
   position: relative;
   z-index: 2;
-  max-width: 1500px;
+  max-width: var(--wrap);
   margin: 0 auto;
 }
 .work .sec-head .lead {
   max-width: 760px;
 }
 .work .sec-head .note {
-  max-width: 340px;
-  color: var(--color-ink-500);
+  color: var(--color-ink-600);
 }
 .work .sec-head .note b {
   color: var(--color-ink);
@@ -1770,7 +1742,7 @@
 .work-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr)); /* build: fix — a preview's content can't widen its column */
-  gap: clamp(22px, 2.6vw, 34px);
+  gap: clamp(16px, 2.2vw, 32px);
   perspective: 1600px;
 }
 .concept-slot {
@@ -1784,7 +1756,7 @@
   flex-direction: column;
   height: 100%;
   padding: 12px;
-  border-radius: 28px;
+  border-radius: var(--r-l);
   color: var(--text);
   text-align: left;
   cursor: pointer;
@@ -1861,7 +1833,7 @@
   z-index: 1;
   height: clamp(300px, 26vw, 392px);
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: var(--r-s); /* the card's corner less its padding */
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.05);
 }
 /* the sites: a slim browser bar over the page */
@@ -1898,8 +1870,8 @@
   padding: 0 12px;
   border-radius: 99px;
   background: rgb(255 255 255 / 0.06);
-  color: color-mix(in oklab, var(--text) 70%, transparent);
-  font-size: 11.5px;
+  color: var(--text-2);
+  font-size: var(--fs-label);
   white-space: nowrap;
   transform: translateX(-27px);
 }
@@ -2130,8 +2102,9 @@
 .cc-cursor > span {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 9px 15px;
+  gap: 8px;
+  height: var(--ctl-s);
+  padding: 0 16px;
   border-radius: 999px;
   background: linear-gradient(180deg, rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.03)), rgb(22 17 14 / 0.78);
   -webkit-backdrop-filter: blur(12px) saturate(1.6);
@@ -2140,7 +2113,7 @@
     inset 0 1px 0 rgb(255 255 255 / 0.16),
     0 12px 26px -10px rgb(0 0 0 / 0.55);
   color: var(--text);
-  font-size: 12.5px;
+  font-size: var(--fs-small);
   font-weight: 600;
   white-space: nowrap;
   opacity: 0;
@@ -2173,7 +2146,7 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   padding: 16px 6px 6px;
 }
 .cc-text {
@@ -2181,30 +2154,30 @@
   min-width: 0;
 }
 .cc-brand {
-  font-size: 15px;
+  font-size: var(--fs-body);
   font-weight: 600;
 }
 .cc-value {
   margin-top: 2px;
-  font-size: 13.5px;
+  font-size: var(--fs-small);
   line-height: 1.45;
-  color: color-mix(in oklab, var(--text) 66%, transparent);
+  color: var(--text-2);
   text-wrap: pretty;
 }
 .cc-value b {
-  color: color-mix(in oklab, var(--text) 92%, transparent);
+  color: var(--text);
   font-weight: 600;
 }
 .cc-kind {
   flex: none;
-  padding: 7px 12px;
+  padding: 6px 12px;
   border-radius: 999px;
   background: rgb(255 255 255 / 0.06);
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
-  color: color-mix(in oklab, var(--text) 78%, transparent);
-  font-size: 11px;
+  color: var(--text-2);
+  font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -2229,9 +2202,6 @@
     transform: rotate(45deg);
   }
 }
-.work .sec-foot {
-  margin-top: clamp(40px, 6vh, 64px);
-}
 .work .sec-foot .ln {
   background: rgba(42, 33, 28, 0.14);
 }
@@ -2247,14 +2217,15 @@
   flex: none;
   align-items: center;
   gap: 8px;
-  padding: 10px 16px 10px 18px;
+  height: var(--ctl-m);
+  padding: 0 18px 0 20px;
   border-radius: 999px;
   background: linear-gradient(170deg, #2a201b, #15100d);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.12),
     0 14px 26px -16px rgb(42 33 28 / 0.7);
   color: var(--text);
-  font-size: 14px;
+  font-size: var(--fs-small);
   font-weight: 600;
   white-space: nowrap;
   transition:
@@ -2367,7 +2338,7 @@
   position: relative;
   background: var(--base);
   color: var(--text);
-  padding: clamp(76px, 10vh, 128px) clamp(24px, 5vw, 76px); /* build: scale */
+  padding: var(--section-y) var(--gutter);
   overflow-x: clip; /* build: sideways only, so its lights carry on past the top and bottom */
   isolation: isolate;
 }
@@ -2384,24 +2355,25 @@
 .process-inner {
   position: relative;
   z-index: 1;
-  max-width: 1240px;
+  max-width: var(--wrap);
   margin: 0 auto;
 }
+/* build: opens like every other section (.sec-head): title left, the note right */
 .process-head {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 20px 56px;
-  margin-bottom: clamp(34px, 5.5vh, 60px); /* build: scale */
+  gap: 24px 40px;
+  margin-bottom: clamp(32px, 3.4vw, 48px);
 }
 .process .sec-title {
   max-width: 660px;
 }
 .process-sub {
-  max-width: 44ch;
-  color: var(--muted);
-  font-size: clamp(0.98rem, 1.1vw, 1.08rem);
+  max-width: 340px;
+  color: var(--text-2);
+  font-size: var(--fs-body);
   line-height: 1.6;
   text-wrap: pretty;
 }
@@ -2409,7 +2381,7 @@
 .journey {
   --node: 26px; /* the glass lens on the line */
   --node-x: 14px; /* its centre from a step's left edge */
-  --chip: 30px; /* the phase label; the line runs through its middle */
+  --chip: 32px; /* the phase label; the line runs through its middle */
   --gap: clamp(16px, 1.6vw, 24px);
   position: relative;
   isolation: isolate;
@@ -2466,7 +2438,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding-top: calc(var(--chip) + 22px);
+  padding-top: calc(var(--chip) + 24px);
 }
 
 /* the line: ProcessJourney lays it through the node centres; this is the no-script fallback */
@@ -2586,16 +2558,15 @@
   height: var(--chip);
   display: inline-flex;
   align-items: center;
-  padding: 0 13px;
+  padding: 0 14px;
   border: 0;
   border-radius: 999px;
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 11px;
-  letter-spacing: 0.14em;
+  font-weight: 600;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   white-space: nowrap;
-  color: color-mix(in oklab, var(--text) 58%, transparent);
+  color: var(--muted);
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.02)),
     color-mix(in oklab, var(--base) 88%, transparent);
@@ -2629,8 +2600,8 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: clamp(20px, 2vw, 28px);
-  border-radius: 24px;
+  padding: 24px;
+  border-radius: var(--r-l);
   overflow: hidden;
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.085), rgb(255 255 255 / 0.02) 46%, rgb(255 255 255 / 0.04)),
@@ -2713,11 +2684,11 @@
   display: flex;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.6rem, 4.2vw, 3.7rem);
+  font-size: var(--fs-h2);
   line-height: var(--line);
-  letter-spacing: -0.03em;
+  letter-spacing: var(--track-display);
   color: color-mix(in oklab, var(--text) 30%, transparent);
-  margin-bottom: clamp(16px, 2.4vh, 26px);
+  margin-bottom: clamp(16px, 2.4vh, 24px);
   -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
   mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
   transition: color 0.5s ease;
@@ -2747,29 +2718,29 @@
 .jy-pane h3 {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(1.1rem, 1.45vw, 1.36rem); /* build: scale */
-  line-height: 1.16;
+  font-size: var(--fs-h4);
+  line-height: 1.2;
   letter-spacing: -0.01em;
   text-wrap: balance;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
 }
 .jy-body {
-  font-size: 15px;
+  font-size: var(--fs-body);
   line-height: 1.6;
-  color: color-mix(in oklab, var(--text) 72%, transparent);
+  color: var(--text-2);
   text-wrap: pretty;
-  margin: 0 0 22px;
+  margin: 0 0 24px;
 }
 .jy-deliver {
   display: flex;
   align-items: baseline;
-  gap: 10px;
+  gap: 8px;
   margin-top: auto;
   padding-top: 16px;
   border-top: 1px solid rgb(255 255 255 / 0.08);
-  font-size: 13.5px;
+  font-size: var(--fs-small);
   line-height: 1.5;
-  color: color-mix(in oklab, var(--text) 62%, transparent); /* build: contrast (WCAG AA) */
+  color: var(--muted);
 }
 .jy-deliver b {
   color: var(--text);
@@ -2812,9 +2783,8 @@
   flex-wrap: nowrap;
 }
 .process[data-journey="track"] .process-sub {
-  flex: 0 1 38ch;
+  flex: 0 1 340px;
   min-width: 240px;
-  font-size: clamp(0.88rem, 1.05vw, 1.05rem);
 }
 /* build: shorter laptop screens: the pinned track a size smaller, so the panes never lose their foot */
 @media (max-height: 760px) {
@@ -2822,39 +2792,30 @@
     padding-top: 76px;
     padding-bottom: 22px;
   }
-  .process[data-journey="track"] .sec-title {
-    font-size: clamp(1.5rem, 2.8vw, 2.3rem);
-  }
   .process[data-journey="track"] .process-sub {
-    font-size: 0.88rem;
+    font-size: var(--fs-small);
     line-height: 1.5;
   }
   .process[data-journey="track"] .process-head {
-    margin-bottom: 22px;
+    margin-bottom: 24px;
   }
   .process[data-journey="track"] .jy-step {
-    padding-top: calc(var(--chip) + 14px);
+    padding-top: calc(var(--chip) + 16px);
   }
   .process[data-journey="track"] .jy-pane {
     min-height: 0;
-    padding: 18px 20px;
+    padding: 20px;
   }
   .process[data-journey="track"] .jy-num {
-    margin-bottom: 10px;
-    font-size: clamp(2.1rem, 6.2vh, 3rem);
-  }
-  .process[data-journey="track"] .jy-pane h3 {
-    margin-bottom: 8px;
-    font-size: clamp(1rem, 2.6vh, 1.2rem);
+    margin-bottom: 12px;
+    font-size: clamp(28px, 5vh, 40px);
   }
   .process[data-journey="track"] .jy-body {
-    margin-bottom: 14px;
-    font-size: 13.5px;
+    margin-bottom: 16px;
     line-height: 1.5;
   }
   .process[data-journey="track"] .jy-deliver {
     padding-top: 12px;
-    font-size: 12.5px;
   }
 }
 
@@ -2865,7 +2826,7 @@
   }
   .jy-steps {
     grid-template-columns: 1fr;
-    gap: clamp(30px, 5vh, 44px);
+    gap: clamp(32px, 5vh, 48px);
   }
   .jy-step {
     padding: 0 0 0 calc(var(--node-x) + var(--node) / 2 + 16px);
@@ -2875,7 +2836,7 @@
     left: auto;
     top: auto;
     align-self: flex-start;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
   .jy-line {
     left: calc(var(--node-x) - 1px);
@@ -2885,14 +2846,6 @@
     width: 2px;
     height: auto;
   }
-  .jy-body {
-    font-size: 14.5px;
-  }
-}
-@media (max-width: 560px) {
-  .jy-pane {
-    border-radius: 20px;
-  }
 }
 
 /* ---------------------------------------------------------------- FIT */
@@ -2900,7 +2853,7 @@
   position: relative;
   background: var(--light);
   color: var(--color-ink);
-  padding: clamp(76px, 10vh, 128px) var(--sheet-pad); /* build: scale; a sheet */
+  padding: var(--section-y) var(--sheet-pad); /* build: a sheet */
   overflow: hidden;
   isolation: isolate;
 }
@@ -2917,28 +2870,29 @@
 .fit-inner {
   position: relative;
   z-index: 2;
-  max-width: 1320px;
+  max-width: var(--wrap);
   margin: 0 auto;
 }
+/* centred, as prices usually are: kept to a title and two lines */
 .fit-head {
   text-align: center;
   max-width: 760px;
-  margin: 0 auto clamp(36px, 5.5vh, 60px); /* build: scale */
+  margin: 0 auto clamp(32px, 3.4vw, 48px);
 }
 .fit-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.75rem, 3.4vw, 2.75rem); /* build: scale */
-  line-height: 1.03;
-  letter-spacing: -0.02em;
+  font-size: var(--fs-h2);
+  line-height: 1.05;
+  letter-spacing: var(--track-display);
   text-wrap: balance;
-  margin: 0 0 20px;
+  margin: 0 0 16px;
 }
 .fit-sub {
-  font-size: clamp(1rem, 1.25vw, 1.18rem);
+  font-size: var(--fs-lead);
   line-height: 1.6;
   color: var(--color-ink-600);
-  max-width: 54ch;
+  max-width: 50ch;
   margin: 0 auto;
   text-wrap: pretty;
 }
@@ -2967,7 +2921,7 @@
   isolation: isolate;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(18px, 1.8vw, 26px);
+  gap: clamp(16px, 1.8vw, 24px);
   align-items: stretch;
 }
 /* warm light behind the frosted glass, for it to bend */
@@ -2999,8 +2953,8 @@
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  padding: 28px 26px 28px; /* build: scale */
-  border-radius: 26px;
+  padding: clamp(24px, 2.4vw, 32px);
+  border-radius: var(--r-l);
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.8), rgb(255 255 255 / 0.5) 58%, rgb(255 255 255 / 0.64)),
     rgb(255 249 242 / 0.3);
@@ -3081,57 +3035,49 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 .pkg-name {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.3rem; /* build: scale */
+  font-size: var(--fs-h4);
   letter-spacing: -0.01em;
   color: var(--color-ink);
 }
 .pkg-tag {
-  font-size: 14.5px;
+  font-size: var(--fs-body);
   line-height: 1.5;
-  color: #6a5a4e;
+  color: var(--color-ink-600);
   text-wrap: pretty;
   margin-bottom: 24px;
-  min-height: 44px;
+  min-height: 48px; /* two lines, so the prices line up */
 }
+/* build: the price is the figure and one line under it (no "Investment" label over it) */
 .pkg-price {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   padding-bottom: 24px;
   margin-bottom: 24px;
   border-bottom: 1px solid color-mix(in oklab, #2a211c 10%, transparent);
-  min-height: 96px;
-}
-.price-note {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #837162; /* build: contrast (WCAG AA) */
 }
 .price-val {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.6rem; /* build: scale */
+  font-size: var(--fs-h3);
   line-height: 1;
   letter-spacing: -0.01em;
   color: var(--color-ink);
 }
 .price-hint {
-  font-size: 13px;
-  color: #837162; /* build: contrast (WCAG AA) */
+  font-size: var(--fs-small);
+  color: var(--color-ink-500);
 }
 .pkg-incl-lead {
-  font-size: 13px;
+  font-size: var(--fs-small);
   font-weight: 600;
-  color: var(--color-ink-400);
-  letter-spacing: 0.01em;
-  margin-bottom: 14px;
+  color: var(--color-ink-500);
+  margin-bottom: 12px;
 }
 .pkg-incl-lead b {
   color: var(--color-ink);
@@ -3139,7 +3085,7 @@
 }
 .pkg-incl {
   list-style: none;
-  margin: 0 0 28px;
+  margin: 0 0 32px;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -3148,8 +3094,8 @@
 .pkg-incl li {
   display: flex;
   align-items: flex-start;
-  gap: 11px;
-  font-size: 14.5px;
+  gap: 12px;
+  font-size: var(--fs-body);
   line-height: 1.45;
   color: var(--color-ink-700);
   text-wrap: pretty;
@@ -3158,8 +3104,8 @@
   flex: 0 0 auto;
   width: 20px;
   height: 20px;
-  margin-top: 1px;
-  border-radius: 7px;
+  margin-top: 2px;
+  border-radius: var(--r-xs);
   display: grid;
   place-items: center;
   color: var(--accent);
@@ -3171,9 +3117,10 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  height: var(--ctl-l);
   font-weight: 600;
-  font-size: 15.5px;
-  padding: 15px 24px;
+  font-size: var(--fs-body);
+  padding: 0 24px;
   border-radius: 999px;
   cursor: pointer;
   text-decoration: none;
@@ -3216,8 +3163,8 @@
   padding: 0 7px;
   margin-left: -2px;
   border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: var(--fs-label);
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
   color: var(--color-char);
   background: linear-gradient(180deg, color-mix(in oklab, var(--accent2) 34%, var(--accent)), var(--accent));
@@ -3372,28 +3319,25 @@
   color: var(--text);
 }
 .pkg.featured .pkg-tag {
-  color: color-mix(in oklab, var(--text) 72%, transparent);
-}
-.pkg.featured .price-note {
-  color: color-mix(in oklab, var(--accent2) 80%, var(--text));
+  color: var(--text-2);
 }
 .pkg.featured .price-val {
   color: var(--text);
 }
 .pkg.featured .price-hint {
-  color: color-mix(in oklab, var(--text) 50%, transparent);
+  color: var(--muted);
 }
 .pkg.featured .pkg-price {
   border-bottom-color: color-mix(in oklab, var(--text) 14%, transparent);
 }
 .pkg.featured .pkg-incl-lead {
-  color: color-mix(in oklab, var(--text) 56%, transparent);
+  color: var(--muted);
 }
 .pkg.featured .pkg-incl-lead b {
   color: var(--text);
 }
 .pkg.featured .pkg-incl li {
-  color: color-mix(in oklab, var(--text) 80%, transparent);
+  color: var(--text-2);
 }
 .pkg.featured .pkg-incl .ck {
   color: var(--color-char);
@@ -3402,14 +3346,14 @@
 .pkg-badge {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   font-weight: 600;
-  font-size: 11.5px;
-  letter-spacing: 0.12em;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--color-char);
-  padding: 7px 13px;
+  padding: 6px 12px;
   border-radius: 999px;
   background: linear-gradient(180deg, color-mix(in oklab, var(--accent2) 30%, var(--accent)), var(--accent));
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22); /* build: no coloured glow */
@@ -3445,6 +3389,37 @@
       0 10px 22px -10px rgb(0 0 0 / 0.65);
   }
 }
+/* build: one ember button at a time (Malewicz: one primary action per screen). When the finder
+   points elsewhere, Pro keeps its glass but its button and badge step back to outline, and the
+   fit's button is the ember one */
+.fit-grid[data-fit]:not([data-fit="pro"]) .pkg.featured .pkg-btn {
+  color: var(--text);
+  border: 1px solid color-mix(in oklab, var(--text) 26%, transparent);
+  background: transparent;
+  box-shadow: none;
+}
+@media (hover: hover) {
+  .fit-grid[data-fit]:not([data-fit="pro"]) .pkg.featured .pkg-btn:hover {
+    transform: none;
+    color: var(--text);
+    border-color: var(--accent);
+    background: color-mix(in oklab, var(--accent) 14%, transparent);
+    box-shadow: none;
+  }
+}
+.fit-grid[data-fit]:not([data-fit="pro"]) .pkg.featured .pkg-more {
+  color: var(--color-char);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--accent2) 34%, var(--accent)), var(--accent));
+}
+.fit-grid[data-fit]:not([data-fit="pro"]) .pkg.featured .pkg-badge:not(.is-fit) {
+  color: color-mix(in oklab, var(--accent2) 80%, var(--text));
+  background: rgb(255 255 255 / 0.06);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.14);
+}
+.fit-grid[data-fit]:not([data-fit="pro"]) .pkg.featured .pkg-badge:not(.is-fit) .spark {
+  background: var(--accent2);
+  box-shadow: none;
+}
 /* build: find your fit in three taps (FitFinder): a bar of frosted glass under the intro;
    each tap moves the fit */
 .fit-finder {
@@ -3454,13 +3429,13 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  margin: calc(-1 * clamp(8px, 1.6vh, 20px)) auto clamp(34px, 5vh, 54px);
+  margin: calc(-1 * clamp(8px, 1.6vh, 16px)) auto clamp(32px, 3.4vw, 48px);
 }
 .finder-lead {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  font-size: 14px;
+  gap: 8px;
+  font-size: var(--fs-small);
   color: var(--color-ink-500);
   text-wrap: balance;
   text-align: center;
@@ -3478,9 +3453,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 62px;
+  min-height: 60px;
   max-width: 100%;
-  padding: 9px 9px 9px 24px;
+  padding: 8px 8px 8px 24px;
   border-radius: 999px;
   background: linear-gradient(180deg, rgb(255 255 255 / 0.88), rgb(255 255 255 / 0.56));
   -webkit-backdrop-filter: blur(16px) saturate(1.6);
@@ -3495,7 +3470,7 @@
 .finder-result {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   min-width: 0;
 }
 .finder-result {
@@ -3504,10 +3479,11 @@
 }
 .finder-n {
   flex: 0 0 auto;
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-  letter-spacing: 0.06em;
-  color: var(--color-ink-400);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: var(--track-label);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink-500);
 }
 .finder-n b {
   font-weight: 600;
@@ -3516,7 +3492,7 @@
 .finder-q,
 .finder-says {
   font-weight: 600;
-  font-size: 15px;
+  font-size: var(--fs-body);
   color: var(--color-ink);
   white-space: nowrap;
 }
@@ -3531,11 +3507,12 @@
 /* little lenses of frosted glass, ember when pressed */
 .finder-opt,
 .finder-again {
+  height: var(--ctl-m);
   font-weight: 500;
-  font-size: 14px;
+  font-size: var(--fs-small);
   color: var(--color-ink-700);
   cursor: pointer;
-  padding: 10px 17px;
+  padding: 0 18px;
   border: 0;
   border-radius: 999px;
   background: linear-gradient(180deg, rgb(255 255 255 / 0.95), rgb(255 255 255 / 0.6));
@@ -3565,10 +3542,10 @@
 }
 .finder-plus {
   flex: 0 0 auto;
-  font-size: 13px;
+  font-size: var(--fs-small);
   font-weight: 600;
   color: var(--color-rust);
-  padding: 6px 11px;
+  padding: 6px 12px;
   border-radius: 999px;
   background: color-mix(in oklab, var(--accent) 12%, transparent);
   white-space: nowrap;
@@ -3599,18 +3576,18 @@
 
 /* add-ons row */
 .fit-addons {
-  margin-top: clamp(40px, 6vh, 64px);
-  padding-top: clamp(34px, 5vh, 48px);
+  margin-top: clamp(40px, 4.4vw, 64px);
+  padding-top: clamp(32px, 3.4vw, 48px);
   border-top: 1px solid color-mix(in oklab, #2a211c 12%, transparent);
   text-align: center;
 }
 .addons-lead {
   display: inline-flex;
   align-items: center;
-  gap: 11px;
-  font-size: 15px;
+  gap: 12px;
+  font-size: var(--fs-body);
   color: var(--color-ink-600);
-  margin-bottom: 22px;
+  margin-bottom: 24px;
   text-wrap: pretty;
 }
 .addons-lead .plus {
@@ -3618,7 +3595,7 @@
   place-items: center;
   width: 24px;
   height: 24px;
-  border-radius: 8px;
+  border-radius: var(--r-xs);
   color: var(--accent);
   background: color-mix(in oklab, var(--accent) 13%, transparent);
   font-size: 15px;
@@ -3636,13 +3613,14 @@
 .chip {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
+  height: var(--ctl-m);
   font-weight: 500;
-  font-size: 14.5px;
+  font-size: var(--fs-small);
   color: var(--color-ink-700);
   cursor: pointer;
   user-select: none;
-  padding: 11px 18px;
+  padding: 0 18px 0 13px;
   border: 0;
   border-radius: 999px;
   background: linear-gradient(180deg, rgb(255 255 255 / 0.9), rgb(255 255 255 / 0.58));
@@ -3722,7 +3700,7 @@
     grid-template-columns: 1fr;
     max-width: 520px;
     margin: 0 auto;
-    gap: 18px;
+    gap: 16px;
   }
   /* stacked (Pro first): the spot follows down the column */
   .fit-grid[data-fit] {
@@ -3748,9 +3726,6 @@
   .pkg-tag {
     min-height: 0;
   }
-  .pkg-price {
-    min-height: 0;
-  }
 }
 @media (max-width: 980px) and (hover: hover) {
   .pkg.featured:hover {
@@ -3758,11 +3733,8 @@
   }
 }
 @media (max-width: 560px) {
-  .pkg {
-    padding: 28px 22px 26px;
-  }
   .addon-chips {
-    gap: 9px;
+    gap: 8px;
   }
 }
 
@@ -3847,7 +3819,7 @@
   position: relative;
   background: var(--base);
   color: var(--text);
-  padding: clamp(80px, 11vh, 132px) clamp(24px, 5vw, 76px) clamp(88px, 12vh, 140px); /* build: scale */
+  padding: var(--section-y) var(--gutter);
   overflow-x: clip; /* build: sideways only, so its lights carry on past the top and bottom */
   isolation: isolate;
 }
@@ -3876,13 +3848,13 @@
 .contact-inner {
   position: relative;
   z-index: 2;
-  max-width: 1280px;
+  max-width: var(--wrap);
   margin: 0 auto;
 }
 .contact-grid {
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  gap: clamp(32px, 5vw, 84px);
+  gap: clamp(32px, 5vw, 80px);
   align-items: center;
 }
 .presence {
@@ -3891,19 +3863,19 @@
 .presence h2 {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.65rem, 2.8vw, 2.4rem); /* build: scale */
-  line-height: 1.04;
-  letter-spacing: -0.02em;
+  font-size: var(--fs-h2);
+  line-height: 1.05;
+  letter-spacing: var(--track-display);
   text-wrap: balance;
-  margin: 22px 0 22px;
+  margin: 0 0 16px;
 }
 .presence .lede {
-  font-size: clamp(1rem, 1.2vw, 1.12rem);
-  line-height: 1.62;
-  color: var(--muted);
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--text-2);
   max-width: 42ch;
   text-wrap: pretty;
-  margin-bottom: 38px;
+  margin-bottom: 40px;
 }
 /* build: no photos (the owners' call): each founder is a lens of glass with an ember glow
    and their craft drawn in it (design, code): in the conversation's header and beside our messages */
@@ -3993,8 +3965,8 @@
 }
 /* the notches the perforation runs between */
 .brief {
-  padding: 22px 24px 12px;
-  border-radius: 22px 22px 0 0;
+  padding: 24px 24px 12px;
+  border-radius: var(--r-l) var(--r-l) 0 0;
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.13);
   -webkit-mask:
     radial-gradient(circle 10px at 0 100%, #0000 96%, #000) left / 51% 100% no-repeat,
@@ -4017,21 +3989,20 @@
   gap: 12px;
 }
 .brief-kicker {
-  font-size: 11px;
+  font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   color: color-mix(in oklab, var(--accent2) 85%, var(--text));
 }
 .brief-date {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.04em;
+  font-size: var(--fs-label);
+  font-variant-numeric: tabular-nums;
   color: var(--muted);
 }
 .brief-hint {
-  margin: 6px 0 12px;
-  font-size: 13px;
+  margin: 8px 0 12px;
+  font-size: var(--fs-small);
   color: var(--muted);
 }
 .brief-rows {
@@ -4040,20 +4011,19 @@
 .brief-row {
   display: grid;
   grid-template-columns: 8.2em minmax(0, 1fr);
-  gap: 14px;
+  gap: 16px;
   align-items: baseline;
   padding: 10px 0;
   border-top: 1px solid var(--hairline);
 }
 .brief-row dt {
-  font-size: 12px;
-  letter-spacing: 0.02em;
+  font-size: var(--fs-label);
   color: var(--muted);
 }
 .brief-row dd {
   margin: 0;
   min-height: 22px;
-  font-size: 14.5px;
+  font-size: var(--fs-small);
   line-height: 1.45;
   color: var(--text);
   overflow-wrap: anywhere;
@@ -4092,10 +4062,10 @@
   gap: 5px;
   padding: 4px 5px 4px 10px;
   border-radius: 999px;
-  font-size: 12.5px;
+  font-size: var(--fs-label);
   font-weight: 500;
   white-space: nowrap;
-  color: color-mix(in oklab, var(--text) 82%, transparent);
+  color: var(--text-2);
   background: rgb(255 255 255 / 0.06);
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
 }
@@ -4143,7 +4113,7 @@
   background: rgb(255 255 255 / 0.1);
 }
 .brief-pick {
-  font-size: 13.5px;
+  font-size: var(--fs-small);
   color: var(--accent2);
   text-decoration: underline;
   text-decoration-color: color-mix(in oklab, var(--accent2) 40%, transparent);
@@ -4157,9 +4127,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
-  padding: 16px 24px 18px;
-  border-radius: 0 0 22px 22px;
+  gap: 16px;
+  padding: 16px 24px;
+  border-radius: 0 0 var(--r-l) var(--r-l);
   transform-origin: 14% 0;
   transition:
     transform 0.9s cubic-bezier(0.3, 0.6, 0.2, 1),
@@ -4206,7 +4176,7 @@
   box-shadow: 0 0 4px rgb(255 182 39 / 0.6);
 }
 .brief-for {
-  font-size: 12px;
+  font-size: var(--fs-label);
   color: var(--muted);
   text-align: right;
 }
@@ -4218,7 +4188,7 @@
   z-index: 3;
   padding: 6px 14px;
   border: 2px solid currentColor;
-  border-radius: 10px;
+  border-radius: var(--r-s);
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 15px;
@@ -4285,8 +4255,8 @@
 .convo {
   position: relative;
   isolation: isolate;
-  border-radius: 28px;
-  padding: clamp(24px, 2.8vw, 38px); /* build: scale */
+  border-radius: var(--r-l);
+  padding: clamp(24px, 2.8vw, 40px);
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02) 44%, rgb(255 255 255 / 0.035)),
     color-mix(in oklab, var(--base) 52%, transparent);
@@ -4337,12 +4307,14 @@
   pointer-events: none;
 }
 /* build: small step counter uses the mono face */
+/* build: the system's caps label, in Inter's tabular figures */
 .convo-step {
   white-space: nowrap; /* build: "Schritt 01 / 04" must not wrap */
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 13px;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
   color: var(--muted);
 }
 .convo-step b {
@@ -4362,7 +4334,7 @@
 /* build: on the narrowest phones the tracks give way to the step counter */
 .convo-progress {
   display: flex;
-  gap: 7px;
+  gap: 8px;
   min-width: 0;
 }
 .convo-progress i {
@@ -4412,7 +4384,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px 20px 14px;
+  padding: 16px 20px;
   border-bottom: 1px solid var(--hairline);
 }
 .chat-who {
@@ -4422,12 +4394,12 @@
   line-height: 1.3;
 }
 .chat-who b {
-  font-size: 13.5px;
+  font-size: var(--fs-small);
   font-weight: 600;
   color: var(--text);
 }
 .chat-who span {
-  font-size: 12px;
+  font-size: var(--fs-label);
   color: var(--muted);
 }
 .chat-steps {
@@ -4452,7 +4424,7 @@
   z-index: 1;
   height: clamp(300px, 40vh, 372px);
   overflow-y: auto;
-  padding: 14px 20px 10px;
+  padding: 16px 20px 12px;
   scrollbar-width: thin;
   scrollbar-color: rgb(255 255 255 / 0.14) transparent;
   -webkit-mask-image: linear-gradient(180deg, transparent, #000 18px);
@@ -4461,7 +4433,7 @@
 /* build: sent, the thread itself takes focus (keys scroll it): the ring sits inside, unfaded */
 .chat-thread:focus-visible {
   outline-offset: -2px;
-  border-radius: 14px;
+  border-radius: var(--r-s);
   -webkit-mask-image: none;
   mask-image: none;
 }
@@ -4478,11 +4450,10 @@
 .chat-day {
   align-self: center;
   margin-bottom: auto;
-  padding: 3px 10px;
+  padding: 4px 10px;
   border-radius: 999px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-size: var(--fs-label);
+  font-weight: 500;
   color: var(--muted);
   background: rgb(255 255 255 / 0.04);
 }
@@ -4505,10 +4476,10 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
   padding: 10px 14px;
-  border-radius: 18px;
-  font-size: 14.5px;
+  border-radius: var(--r-m);
+  font-size: var(--fs-body);
   line-height: 1.45;
   text-align: left;
 }
@@ -4520,12 +4491,15 @@
     inset 0 1px 0 rgb(255 255 255 / 0.1),
     inset 0 0 0 1px rgb(255 255 255 / 0.06);
 }
+.bubble-text {
+  text-wrap: pretty; /* no one-word last line */
+}
 .bubble-text b {
   font-weight: 600;
   color: var(--accent2);
 }
 .bubble-hint {
-  font-size: 13px;
+  font-size: var(--fs-small);
   color: var(--muted);
 }
 /* yours: ember glass; tap one to change it */
@@ -4533,7 +4507,7 @@
   border: 0;
   border-bottom-right-radius: 6px;
   font: inherit;
-  font-size: 14.5px;
+  font-size: var(--fs-body);
   color: var(--text);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -4585,7 +4559,7 @@
   flex-direction: row;
   align-items: center;
   gap: 5px;
-  padding: 13px 15px;
+  padding: 14px 16px;
 }
 .msg.is-typing i {
   width: 6px;
@@ -4628,19 +4602,20 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 .chat-quick button,
 .chat-again {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 7px 13px 7px 8px;
+  height: var(--ctl-s);
+  padding: 0 14px 0 8px;
   border: 0;
   border-radius: 999px;
-  font-size: 13.5px;
+  font-size: var(--fs-small);
   font-weight: 500;
-  color: color-mix(in oklab, var(--text) 82%, transparent);
+  color: var(--text-2);
   cursor: pointer;
   background: linear-gradient(180deg, rgb(255 255 255 / 0.09), rgb(255 255 255 / 0.03));
   box-shadow:
@@ -4653,7 +4628,14 @@
     transform 0.18s ease;
 }
 .chat-again {
-  padding: 10px 18px;
+  height: var(--ctl-m);
+  padding: 0 18px;
+}
+/* fingers get the full 44px */
+@media (pointer: coarse) {
+  .chat-quick button {
+    height: var(--ctl-m);
+  }
 }
 .chat-quick button:hover,
 .chat-again:hover {
@@ -4670,27 +4652,27 @@
 .chat-key {
   display: grid;
   place-items: center;
-  width: 19px;
-  height: 19px;
-  border-radius: 6px;
-  font-family: var(--font-mono);
-  font-size: 11px;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--r-xs);
+  font-size: var(--fs-label);
+  font-weight: 600;
   color: var(--muted);
   background: rgb(255 255 255 / 0.07);
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
 }
 .chat-error {
-  margin: 0 0 9px;
-  font-size: 13px;
+  margin: 0 0 8px;
+  font-size: var(--fs-small);
   color: var(--accent2);
 }
 /* the field: a dark well in the glass, lit when it has focus */
 .chat-field {
   display: flex;
   align-items: flex-end;
-  gap: 10px;
+  gap: 8px;
   padding: 6px 6px 6px 16px;
-  border-radius: 24px;
+  border-radius: var(--r-l);
   background: rgb(0 0 0 / 0.24);
   box-shadow:
     inset 0 1px 2px rgb(0 0 0 / 0.45),
@@ -4708,13 +4690,13 @@
   flex: 1;
   min-width: 0;
   align-self: center;
-  padding: 9px 0;
+  padding: 10px 0;
   border: 0;
   border-radius: 0;
   outline: none;
   resize: none;
   font: inherit;
-  font-size: 15px;
+  font-size: var(--fs-body); /* 16px: phones don't zoom into the field */
   line-height: 1.45;
   color: var(--text);
   background: transparent;
@@ -4731,20 +4713,20 @@
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  padding: 10px 12px 10px 18px;
+  gap: 8px;
+  height: var(--ctl-m);
+  padding: 0 12px 0 18px;
   border: 0;
   border-radius: 999px;
   font-weight: 600;
-  font-size: 14.5px;
+  font-size: var(--fs-small);
   cursor: pointer;
 }
 .chat-send .kbd {
-  font-size: 11px;
+  font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.04em;
-  padding: 3px 7px;
-  border-radius: 6px;
+  padding: 2px 6px;
+  border-radius: var(--r-xs);
   background: color-mix(in oklab, #1a0e07 16%, transparent);
   color: color-mix(in oklab, #1a0e07 70%, transparent);
 }
@@ -4762,7 +4744,7 @@
   }
   .presence .lede {
     order: 2;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
   }
   .convo-stage {
     order: 3;
@@ -4770,7 +4752,7 @@
   .brief-slot {
     order: 4;
     max-width: 520px;
-    margin-top: 34px;
+    margin-top: 32px;
   }
   .chat-pins {
     position: relative;
@@ -4806,10 +4788,10 @@
     display: none;
   }
   .brief {
-    padding: 18px 18px 10px;
+    padding: 20px 20px 12px;
   }
   .brief-stub {
-    padding: 14px 18px 16px;
+    padding: 16px 20px;
   }
   .brief-row {
     grid-template-columns: 6.6em minmax(0, 1fr);
@@ -4824,7 +4806,7 @@
   /* build: no step into the darkest ground: the page darkens into it (one canvas) */
   background: linear-gradient(transparent, var(--darkest) clamp(220px, 34vh, 380px));
   color: var(--text);
-  padding: clamp(56px, 8vh, 90px) clamp(24px, 5vw, 76px) 0; /* build: scale */
+  padding: clamp(48px, 5.6vw, 80px) var(--gutter) 0;
   overflow: hidden;
   isolation: isolate;
 }
@@ -4843,14 +4825,14 @@
 .footer-inner {
   position: relative;
   z-index: 2;
-  max-width: 1500px;
+  max-width: var(--wrap);
   margin: 0 auto;
 }
 .f-top {
   display: grid;
   grid-template-columns: 1.3fr 1fr;
   gap: clamp(32px, 5vw, 72px);
-  padding-bottom: clamp(40px, 6vh, 64px); /* build: scale */
+  padding-bottom: clamp(40px, 4.4vw, 64px);
   border-bottom: 1px solid var(--hairline);
 }
 /* build: the address with a copy button beside it (a glass pill) */
@@ -4858,15 +4840,15 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 14px 18px;
+  gap: 12px 16px;
 }
 .f-email {
   display: inline-block;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(1.5rem, 3.2vw, 2.4rem); /* build: scale */
+  font-size: var(--fs-h2);
   line-height: 1.12;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--track-display);
   color: var(--text);
   text-decoration: none;
   overflow-wrap: anywhere;
@@ -4883,13 +4865,13 @@
 .f-copy {
   display: inline-flex;
   align-items: center;
-  height: 40px;
+  height: var(--ctl-m);
   padding: 0 16px;
   border: 0;
   border-radius: 999px;
-  font-size: 13.5px;
+  font-size: var(--fs-small);
   font-weight: 500;
-  color: color-mix(in oklab, var(--text) 80%, transparent);
+  color: var(--text-2);
   cursor: pointer;
   transition: color 0.2s ease;
 }
@@ -4914,14 +4896,14 @@
 .f-nav {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 28px 36px;
+  gap: 24px 40px;
   align-self: start;
 }
 /* build: h3, under the page’s section titles (h2) */
 .f-col h3 {
-  font-size: 11px;
+  font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
   color: var(--muted);
   margin: 0 0 16px;
@@ -4932,13 +4914,13 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  gap: 12px;
 }
 .f-col a {
   position: relative;
   display: inline-block;
-  font-size: 15px;
-  color: color-mix(in oklab, var(--text) 74%, transparent);
+  font-size: var(--fs-body);
+  color: var(--text-2);
   text-decoration: none;
   transition:
     color 0.2s ease,
@@ -5005,9 +4987,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 16px;
   flex-wrap: wrap;
-  padding: 26px 0 54px;
+  padding: 24px 0 56px;
   margin-top: -2px;
   text-shadow: 0 1px 10px var(--darkest);
 }
@@ -5015,12 +4997,12 @@
 .f-status {
   display: inline-flex;
   align-items: center;
-  gap: 11px;
-  min-height: 42px;
+  gap: 12px;
+  min-height: var(--ctl-m);
   padding: 0 18px 0 16px;
   border-radius: 999px;
-  font-size: 14px;
-  color: color-mix(in oklab, var(--text) 74%, transparent);
+  font-size: var(--fs-small);
+  color: var(--text-2);
 }
 .f-status .pulse {
   width: 8px;
@@ -5055,12 +5037,11 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  min-height: 42px;
-  padding: 0 18px 0 10px;
+  min-height: var(--ctl-m);
+  padding: 0 18px 0 11px;
   border-radius: 999px;
-  font-size: 13px;
-  color: color-mix(in oklab, var(--text) 66%, transparent);
-  letter-spacing: 0.02em;
+  font-size: var(--fs-small);
+  color: var(--muted);
 }
 .f-meta .logo-mark {
   width: 22px;
@@ -5076,12 +5057,12 @@
 .f-social a {
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
+  width: var(--ctl-m);
+  height: var(--ctl-m);
   border-radius: 50%;
-  font-size: 13px;
+  font-size: var(--fs-small);
   font-weight: 600;
-  color: color-mix(in oklab, var(--text) 74%, transparent);
+  color: var(--text-2);
   text-decoration: none;
   transition:
     color 0.2s ease,
@@ -5097,11 +5078,11 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  height: 42px;
+  height: var(--ctl-m);
   font-weight: 600;
-  font-size: 14px;
+  font-size: var(--fs-small);
   color: var(--text);
-  padding: 0 10px 0 18px;
+  padding: 0 11px 0 18px;
   border: 0;
   border-radius: 999px;
   cursor: pointer;
@@ -5142,16 +5123,16 @@
   /* a long mood wraps: the pill becomes a rounded box */
   .f-status,
   .f-meta {
-    border-radius: 20px;
-    padding-top: 9px;
-    padding-bottom: 9px;
+    border-radius: var(--r-l);
+    padding-top: 10px;
+    padding-bottom: 10px;
     text-align: left;
     text-wrap: balance;
   }
   .f-base {
     justify-content: center;
     text-align: center;
-    gap: 18px;
+    gap: 16px;
   }
   .f-nav {
     gap: 24px;

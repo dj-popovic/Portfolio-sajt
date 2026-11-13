@@ -15,6 +15,9 @@ import { TECH } from "@/lib/tech-icons";
 const OPEN = [0.32, 0.72, 0, 1] as const; // drawer-like: quick start, long settle
 const OUT = [0.23, 1, 0.32, 1] as const;
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+// the card's and the sheet's corners (--r-l in globals.css): the clip grows from one into the other
+const CARD_R = 24;
+const SHEET_R = 24;
 
 type Box = { t: number; r: number; b: number; l: number; rad: number };
 type Tilt = { deg: number; x: number; y: number };
@@ -34,7 +37,7 @@ const cardOf = (el: HTMLElement): { box: Box; tilt: Tilt } => {
   const h = (el.offsetHeight || r.height) / 2;
   const m = new DOMMatrixReadOnly(getComputedStyle(el.parentElement ?? el).transform);
   return {
-    box: { t: y - h, r: window.innerWidth - x - w, b: window.innerHeight - y - h, l: x - w, rad: 26 },
+    box: { t: y - h, r: window.innerWidth - x - w, b: window.innerHeight - y - h, l: x - w, rad: CARD_R },
     tilt: { deg: (Math.atan2(m.b, m.a) * 180) / Math.PI, x, y },
   };
 };
@@ -67,8 +70,8 @@ export function FounderDialog({
   const scroll = useScroll();
   const closing = useRef(false);
   const cardEl = useRef<HTMLElement | null>(null);
-  const from = useRef<Box>({ t: 0, r: 0, b: 0, l: 0, rad: 26 });
-  const to = useRef<Box>({ t: 0, r: 0, b: 0, l: 0, rad: 28 });
+  const from = useRef<Box>({ t: 0, r: 0, b: 0, l: 0, rad: CARD_R });
+  const to = useRef<Box>({ t: 0, r: 0, b: 0, l: 0, rad: SHEET_R });
   const tilt = useRef<Tilt>({ deg: 0, x: 0, y: 0 });
 
   const role = t(`people.${founder.id}.role`);
@@ -97,7 +100,7 @@ export function FounderDialog({
     scroll.lock();
     const items = el.querySelectorAll<HTMLElement>("[data-fd]");
     const tiles = el.querySelectorAll<HTMLElement>("[data-fd-tile]");
-    to.current = boxOf(box, window.innerWidth < 760 ? 22 : 28);
+    to.current = boxOf(box, SHEET_R);
 
     if (prefersReducedMotion()) {
       paint(1);
@@ -192,7 +195,7 @@ export function FounderDialog({
     };
     const onResize = () => {
       if (!sheet.current || closing.current) return;
-      to.current = boxOf(sheet.current, window.innerWidth < 760 ? 22 : 28);
+      to.current = boxOf(sheet.current, SHEET_R);
       paint(1);
     };
     window.addEventListener("keydown", onKey);

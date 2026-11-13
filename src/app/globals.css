@@ -54,13 +54,45 @@
   --accent2: var(--color-amber);
   --light: var(--color-paper);
   --darkest: var(--color-coal);
+  /* text on the dark in three steps, all AA: --text, --text-2 (body copy), --muted (meta) */
+  --text-2: color-mix(in oklab, var(--text) 78%, transparent);
   --muted: color-mix(in oklab, var(--text) 58%, transparent);
   --hairline: color-mix(in oklab, var(--text) 12%, transparent);
+
+  /* ---- the system (Malewicz, Designing User Interfaces): few sizes, one column, one rhythm ----
+     type: Inter for text in four sizes, Unbounded for display in four. Small numerals are Inter's
+     tabular figures (font-variant-numeric), not a third face. */
+  --fs-label: 12px; /* caps labels and meta: 600, --track-label */
+  --fs-small: 14px; /* secondary text, chips, small buttons */
+  --fs-body: 16px; /* body copy, buttons */
+  --fs-lead: clamp(16px, 1.25vw, 18px); /* the paragraph under a title */
+  --fs-h4: clamp(18px, 1.4vw, 20px); /* card titles */
+  --fs-h3: clamp(24px, 2vw, 28px); /* pane titles, figures, prices */
+  --fs-h2: clamp(28px, 3vw, 40px); /* section titles */
+  --fs-h1: clamp(40px, 5vw, 72px); /* the hero */
+  --track-label: 0.08em;
+  --track-display: -0.02em;
+
+  /* one column every section shares, so every left edge lines up */
+  --gutter: clamp(20px, 5vw, 72px);
+  --wrap: 1296px;
+  --section-y: clamp(64px, 8.4vw, 120px);
+
+  /* corners: nested ones are the outer corner minus the padding between them */
+  --r-xs: 6px;
+  --r-s: 12px;
+  --r-m: 16px;
+  --r-l: 24px;
+
+  /* control heights: large (main actions), medium (most buttons, chips, fields), small */
+  --ctl-l: 52px;
+  --ctl-m: 44px;
+  --ctl-s: 36px;
 }
 
 /* shared spacing helpers */
 @utility px-gutter {
-  padding-inline: clamp(24px, 5vw, 76px);
+  padding-inline: var(--gutter);
 }
 
 @layer base {

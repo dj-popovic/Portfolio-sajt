@@ -71,14 +71,17 @@ export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWind
   // the inset (in the frame) that matches a card's preview
   const insetOf = (card: HTMLElement): Inset => {
     const f = frame.current?.getBoundingClientRect();
-    const m = (card.querySelector(".cc-media") ?? card).getBoundingClientRect();
-    if (!f) return { top: 0, right: 0, bottom: 0, left: 0, r: 18 };
+    const media = card.querySelector<HTMLElement>(".cc-media") ?? card;
+    const m = media.getBoundingClientRect();
+    // the preview's own corner (sections.css), so the window lands on its exact shape
+    const r = parseFloat(getComputedStyle(media).borderTopLeftRadius) || 12;
+    if (!f) return { top: 0, right: 0, bottom: 0, left: 0, r };
     return {
       top: Math.max(0, m.top - f.top),
       right: Math.max(0, f.right - m.right),
       bottom: Math.max(0, f.bottom - m.bottom),
       left: Math.max(0, m.left - f.left),
-      r: 18,
+      r,
     };
   };
   const paint = (el: HTMLElement, v: Inset) => {

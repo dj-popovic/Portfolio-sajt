@@ -42,11 +42,6 @@ export function Hero() {
       {/* after the buttons in the tab order; it still sits under the text (z-index) */}
       <OrbControls />
 
-      <div className="scroll-cue" aria-hidden data-hero="cue">
-        <span>{t("scroll")}</span>
-        <span className="line" />
-      </div>
-
       <HeroIntro />
     </section>
   );

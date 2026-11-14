@@ -16,7 +16,7 @@ type ServiceCardProps = {
 
 /**
  * One service as a pane of liquid glass: the copy on one side, its symbol in
- * ember dots on the other. In the deck (ServicesDeck) the panes stack and the
+ * blue dots on the other. In the deck (ServicesDeck) the panes stack and the
  * covered ones dim (`.svc-shade`); a light follows the pointer across the glass.
  */
 export function ServiceCard({ kind, index, num, title, desc, tags, icon }: ServiceCardProps) {

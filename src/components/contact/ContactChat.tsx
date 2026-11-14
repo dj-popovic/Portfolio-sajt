@@ -55,7 +55,7 @@ type Item =
 
 /**
  * Contact as a conversation with the two of us: our questions arrive in glass bubbles
- * after a moment of typing, your answers stay in the thread as ember bubbles (tap one
+ * after a moment of typing, your answers stay in the thread as deep blue bubbles (tap one
  * to change it), and each answer flies into the brief beside it (BriefCard). The quick
  * replies take the number keys. Same questions and backend as ever.
  */
@@ -521,7 +521,7 @@ export function ContactChat() {
                 onChange={(e) => onChange(e.target.value)}
               />
             )}
-            <button type="submit" className="chat-send btn-ember" disabled={sending}>
+            <button type="submit" className="chat-send btn-lime" disabled={sending}>
               <span>{sending ? t("sending") : index === CONTACT_STEPS.length - 1 ? t("send") : t("next")}</span>
               <span className="kbd" aria-hidden>
                 ↵

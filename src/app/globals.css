@@ -6,34 +6,35 @@
 @import "../styles/demos.css";
 
 /* ------------------------------------------------------------------
-   Ember palette — "Ember" is the palette codename, not a studio name.
-   Core six from the brief + the derived tones the design uses.
+   The palette: blue-black neutrals, deep blue, and electric lime for the
+   few things that matter most. Every colour on the site comes from these
+   (WebGL and canvas code reads the same values from src/lib/palette.ts;
+   `npm run check:palette` keeps the two in step).
    ------------------------------------------------------------------ */
 @theme {
-  --color-base: #0e0b0a;
-  --color-surface: #1a1513;
-  --color-surface-deep: #120d0b;
-  --color-coal: #080605;
-  --color-cream: #f5ede4;
-  --color-ember: #ff6b35;
-  --color-amber: #ffb627;
-  --color-paper: #fbf6f0;
+  /* the dark page */
+  --color-bg: #08080f;
+  --color-surface: #111122;
+  --color-surface-2: #1a1a30;
+  --color-text: #ffffff;
+  --color-text-muted: #a3a3c2;
+  /* brand blue: --blue only for filled shapes on the dark (it can't be read there);
+     --blue-bright for glows, borders, gradients and focus halos; --blue-text for blue
+     text, icons and thin lines on the dark */
+  --color-blue: #040273;
+  --color-blue-bright: #2b28e0;
+  --color-blue-text: #8482ff;
+  /* lime, rare: primary buttons, one highlighted word, the active state, focus rings */
+  --color-lime: #d5fb09;
+  --color-on-lime: #040273;
+  /* the light sections (the light theme's values): paper and its ink. Lime is never
+     text on these, only a fill behind dark text */
+  --color-paper: #f4f4fb;
+  --color-paper-2: #ffffff;
+  --color-ink: #0a0a1f;
+  --color-ink-muted: #55557a;
 
-  /* warm ink scale for the light sections */
-  --color-ink: #2a211c;
-  --color-ink-700: #4a3d34;
-  --color-ink-600: #5a4a40;
-  --color-ink-500: #6a584c;
-  --color-ink-400: #8a7668;
-  --color-ink-300: #a08a78;
-  --color-rust: #b5471e;
-  --color-flame: #e0571e;
-  --color-ember-light: #ff8f5e;
-  --color-ember-deep: #c23a18;
-  --color-ember-red: #e6421c;
-  --color-char: #1a0e07;
-
-  --ease-ember: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 
   --breakpoint-xs: 30rem;
@@ -45,19 +46,30 @@
   --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
 }
 
-/* Short aliases so the section stylesheets read like the design export */
+/* The tokens the stylesheets use */
 :root {
-  --base: var(--color-base);
+  --bg: var(--color-bg);
+  --bg-deep: color-mix(in oklab, var(--bg) 50%, #000); /* the footer's floor */
   --surface: var(--color-surface);
-  --text: var(--color-cream);
-  --accent: var(--color-ember);
-  --accent2: var(--color-amber);
-  --light: var(--color-paper);
-  --darkest: var(--color-coal);
-  /* text on the dark in three steps, all AA: --text, --text-2 (body copy), --muted (meta) */
-  --text-2: color-mix(in oklab, var(--text) 78%, transparent);
-  --muted: color-mix(in oklab, var(--text) 58%, transparent);
-  --hairline: color-mix(in oklab, var(--text) 12%, transparent);
+  --surface-2: var(--color-surface-2);
+  --border: rgb(255 255 255 / 0.08);
+  /* text on the dark in three steps, all AA: --text, --text-2 (body copy), --text-muted (meta) */
+  --text: var(--color-text);
+  --text-2: color-mix(in oklab, var(--text) 55%, var(--text-muted));
+  --text-muted: var(--color-text-muted);
+  --blue: var(--color-blue);
+  --blue-bright: var(--color-blue-bright);
+  --blue-text: var(--color-blue-text);
+  --lime: var(--color-lime);
+  --on-lime: var(--color-on-lime);
+  /* the light sections, in the same three steps: --ink, --ink-2, --ink-muted. --blue reads as
+     text there */
+  --paper: var(--color-paper);
+  --paper-2: var(--color-paper-2);
+  --ink: var(--color-ink);
+  --ink-2: color-mix(in oklab, var(--ink) 70%, var(--ink-muted));
+  --ink-muted: var(--color-ink-muted);
+  --ink-border: color-mix(in oklab, var(--ink) 12%, transparent);
 
   /* ---- the system (Malewicz, Designing User Interfaces): few sizes, one column, one rhythm ----
      type: Inter for text in four sizes, Unbounded for display in four. Small numerals are Inter's
@@ -97,13 +109,15 @@
 
 @layer base {
   html {
-    background: var(--color-base);
+    background: var(--bg);
     color-scheme: dark;
     -webkit-text-size-adjust: 100%;
+    /* the page's own scrollbar: a quiet blue thumb on the blue-black */
+    scrollbar-color: color-mix(in oklab, var(--blue-text) 34%, var(--surface)) var(--bg);
   }
   body {
-    background: var(--color-base);
-    color: var(--color-cream);
+    background: var(--bg);
+    color: var(--text);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -111,11 +125,13 @@
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: color-mix(in oklab, var(--color-ember) 38%, transparent);
-    color: var(--color-cream);
+    background: var(--lime);
+    color: var(--on-lime);
   }
+  /* keyboard focus is lime on the dark; on the paper sheets it's deep blue (sections.css),
+     since lime can't hold 3:1 against light */
   :focus-visible {
-    outline: 2px solid var(--color-amber);
+    outline: 2px solid var(--lime);
     outline-offset: 3px;
     border-radius: 6px;
   }
@@ -125,67 +141,58 @@
 }
 
 @layer components {
-  /* the one gradient on the site: the hero's "kind of fire." */
-  .glow-fire {
-    background: linear-gradient(92deg, var(--color-amber), var(--color-ember) 60%, var(--color-ember-light));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  /* highlighted words in section titles: solid ember (flame on paper keeps 3:1 for large text) */
+  /* the highlighted word in a title. On the dark: lime */
   .glow {
-    color: var(--color-ember);
+    color: var(--lime);
   }
+  /* on paper lime can't be text: it's a marker swiped behind the word, the word in deep blue */
   .glow-light {
-    color: var(--color-flame);
+    color: var(--blue);
+    background: linear-gradient(transparent 40%, var(--lime) 40%, var(--lime) 90%, transparent 90%);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    padding-inline: 0.06em;
   }
 
-  /* primary pill — ember gradient */
-  .btn-ember {
-    color: var(--color-char);
-    background: linear-gradient(
-      180deg,
-      color-mix(in oklab, var(--color-amber) 34%, var(--color-ember)),
-      var(--color-ember)
-    );
+  /* the primary pill: lime, deep blue on it. One per screen */
+  .btn-lime {
+    color: var(--on-lime);
+    background: linear-gradient(180deg, color-mix(in oklab, var(--lime) 78%, #fff), var(--lime));
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.22),
+      inset 0 1px 0 rgb(255 255 255 / 0.5),
       0 6px 16px -8px rgb(0 0 0 / 0.6);
     transition:
       transform 0.18s ease,
       box-shadow 0.18s ease;
   }
   @media (hover: hover) {
-    .btn-ember:hover {
+    .btn-lime:hover {
       transform: translateY(-2px);
       box-shadow:
-        inset 0 1px 0 rgb(255 255 255 / 0.22),
+        inset 0 1px 0 rgb(255 255 255 / 0.5),
         0 10px 22px -10px rgb(0 0 0 / 0.65);
     }
-    .btn-primary.btn-ember:hover {
+    .btn-primary.btn-lime:hover {
       box-shadow:
-        inset 0 1px 0 rgb(255 255 255 / 0.22),
-        0 10px 28px -12px color-mix(in oklab, var(--color-ember) 55%, transparent);
+        inset 0 1px 0 rgb(255 255 255 / 0.5),
+        0 10px 28px -12px color-mix(in oklab, var(--lime) 50%, transparent);
     }
   }
-  .btn-ember:active {
+  .btn-lime:active {
     transform: translateY(0) scale(0.98);
   }
 
-  /* logo mark tile (placeholder mark until the real logo exists) */
+  /* logo mark tile (placeholder mark until the real logo exists): a deep blue tile, the star lime */
   .logo-mark {
     display: grid;
     place-items: center;
     flex: 0 0 auto;
-    color: var(--color-char);
+    color: var(--lime);
     font-weight: 700;
-    background: radial-gradient(
-      120% 120% at 30% 25%,
-      var(--color-amber),
-      var(--color-ember) 55%,
-      var(--color-ember-deep) 100%
-    );
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.25);
+    background: radial-gradient(120% 120% at 30% 25%, var(--blue-bright), var(--blue) 72%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.22),
+      inset 0 0 0 1px color-mix(in oklab, var(--blue-bright) 55%, transparent);
   }
 }
 

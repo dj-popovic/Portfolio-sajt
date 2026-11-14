@@ -175,7 +175,7 @@ export function AddonChips({ labels }: { labels: Record<(typeof ADDONS)[number],
 
 /**
  * Find your fit in three taps: what it is, how much motion, whether there's a brand yet.
- * Each tap moves the fit (the beam and the warm light behind the glass slide to that
+ * Each tap moves the fit (the beam and the light behind the glass slide to that
  * package); "not yet" brings Branding & logo along, its dots flying to the buttons.
  */
 export function FitFinder() {

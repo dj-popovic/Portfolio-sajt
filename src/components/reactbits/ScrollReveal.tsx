@@ -1,7 +1,7 @@
 "use client";
 
 // Adapted from React Bits (ScrollReveal) — see ./LICENSE.md.
-// Ember changes: renders any tag with the caller's classes, keeps only the
+// Our changes: renders any tag with the caller's classes, keeps only the
 // word-by-word fade + blur, and can be driven by a parent timeline through
 // the imperative `render(progress)` handle (used inside the pinned About panel).
 

@@ -33,7 +33,7 @@ const PREVIEW: Record<DemoKey, { preview: ReactNode; chips?: ReactNode; stage?: 
 
 /**
  * The four concepts. Each card tips up into place as it scrolls in (opacity
- * and transforms only, so they stay in the tab order), a warm light follows
+ * and transforms only, so they stay in the tab order), a soft blue light follows
  * the pointer across the paper behind them, and a card opens its concept in
  * the demo window, where the others are one click away.
  */

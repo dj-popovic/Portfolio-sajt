@@ -14,7 +14,7 @@ const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v
  * The orb's hands-on side, inside the hero (the orb itself is drawn behind
  * the page): an invisible disc that takes drags, hovers, taps and keys, and
  * the "drag to spin" hint. It also writes the orb's layout into CSS so the
- * warm aura and the hint sit with it.
+ * blue aura and the hint sit with it.
  */
 export function OrbControls() {
   const t = useTranslations("hero.orb");

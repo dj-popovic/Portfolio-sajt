@@ -4,6 +4,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { buildOrb, orb, ORB, orbLayout, orbRotation, stepOrb, viewportSize } from "@/lib/orb";
+import { DOTS, glsl } from "@/lib/palette";
 
 /* ------------------------------------------------------------------
    The orb, drawn in screen pixels so it can line up with the DOM: the
@@ -61,7 +62,7 @@ const vertexShader = /* glsl */ `
     vec3 v = nv * (rl + wave * 0.07);
     vec2 p = uCenter + vec2(v.x, -v.y) * uRadius;
 
-    // the pointer parts the dots and warms them
+    // the pointer parts the dots and lights them up
     vec2 dp = p - uPointer.xy;
     float dist = length(dp);
     float near = uPointer.z * (1.0 - smoothstep(0.0, uRadius * 0.32, dist));
@@ -74,13 +75,15 @@ const vertexShader = /* glsl */ `
     // a sparse grain stays in the shadow so the whole silhouette reads
     show = max(show, step(aSeed.x, 0.06) * 0.5) * facing;
 
-    vec3 grain = vec3(0.36, 0.29, 0.25);
-    vec3 ember = vec3(1.0, 0.42, 0.21);
-    vec3 amber = vec3(1.0, 0.71, 0.15);
-    vec3 hot = vec3(1.0, 0.93, 0.84);
-    vec3 col = mix(grain, ember, smoothstep(0.04, 0.42, energy));
-    col = mix(col, amber, smoothstep(0.58, 0.98, energy));
+    vec3 grain = ${glsl(DOTS.grain)};
+    vec3 deep = ${glsl(DOTS.deep)};
+    vec3 bright = ${glsl(DOTS.bright)};
+    vec3 hot = ${glsl(DOTS.hot)};
+    vec3 col = mix(grain, deep, smoothstep(0.04, 0.42, energy));
+    col = mix(col, bright, smoothstep(0.58, 0.98, energy));
     col = mix(col, hot, smoothstep(0.95, 1.3, energy) * aSeed.y);
+    // a tap's ripple runs through the dots in lime
+    col = mix(col, ${glsl(DOTS.spark)}, wave * 0.9);
 
     float size = uDot * (0.72 + aSeed.y * 0.62) * (0.88 + 0.28 * light);
     float alpha = show * (0.32 + 0.68 * smoothstep(0.0, 0.75, energy));
@@ -98,11 +101,11 @@ const vertexShader = /* glsl */ `
       p = mix(p, on, join);
       float thread = 0.24 + 0.5 * aSeed.y;
       alpha = mix(alpha, thread, join) * (1.0 - smoothstep(0.88, 1.0, q));
-      col = mix(col, mix(ember, amber, aSeed.y * aSeed.y), join);
+      col = mix(col, mix(deep, bright, aSeed.y * aSeed.y), join);
       size = mix(size, uDot * (0.65 + aSeed.y * 0.55), join);
     }
 
-    // the dots the tile took in burst out as the About panel opens, then cool and fade
+    // the dots the tile took in burst out as the About panel opens, then dim and fade
     if (uBurst.z >= 0.0 && q >= 1.0) {
       float bt = uBurst.z;
       float ang = aSeed.w * 6.2832 + aSeed.x * 1.3;
@@ -111,7 +114,7 @@ const vertexShader = /* glsl */ `
       p.y -= bt * bt * 16.0 * aSeed.y;
       float life = 1.0 - smoothstep(0.15, 1.1 + aSeed.y * 0.6, bt);
       alpha = step(aSeed.y, 0.62) * (0.4 + 0.6 * aSeed.x) * life * smoothstep(0.0, 0.03, bt);
-      col = mix(hot, mix(amber, ember, smoothstep(0.15, 0.9, bt)), smoothstep(0.0, 0.18, bt));
+      col = mix(hot, mix(bright, deep, smoothstep(0.15, 0.9, bt)), smoothstep(0.0, 0.18, bt));
       size = uDot * (0.9 + aSeed.x * 1.2) * (1.0 - 0.35 * smoothstep(0.0, 1.4, bt));
     }
 
@@ -167,7 +170,7 @@ const bodyFragment = /* glsl */ `
     float halo = (1.0 - inside) * exp(-(r2 - 1.0) * 5.0) * 0.035;
     float a = (body + halo) * uFade;
     if (a < 0.003) discard;
-    gl_FragColor = vec4(mix(vec3(1.0, 0.4, 0.2), vec3(1.0, 0.64, 0.28), lam), a);
+    gl_FragColor = vec4(mix(${glsl(DOTS.deep)}, ${glsl(DOTS.bright)}, lam), a);
   }
 `;
 // a glow that hugs a rounded rectangle: the ★ tile while it charges, then the
@@ -198,7 +201,7 @@ const rimFragment = /* glsl */ `
     float rim = exp(-d / (uSpread * 0.2));
     float a = (exp(-d / uSpread) * 0.5 + rim * 0.55) * uGlow;
     if (a < 0.003) discard;
-    gl_FragColor = vec4(mix(vec3(1.0, 0.36, 0.15), vec3(1.0, 0.8, 0.45), rim), a);
+    gl_FragColor = vec4(mix(${glsl(DOTS.deep)}, ${glsl(DOTS.bright)}, rim), a);
   }
 `;
 

@@ -5,13 +5,13 @@
 
 /* ---------------------------------------------------------------- NAV */
 /* build: the header is floating dark "liquid glass" pills (logo, links,
-   language) next to the ember button, fixed from the first screen */
+   language) next to the lime button, fixed from the first screen */
 .glass {
   position: relative;
   isolation: isolate;
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.075), rgb(255 255 255 / 0.015) 55%, rgb(255 255 255 / 0.035)),
-    color-mix(in oklab, var(--base) 72%, transparent);
+    color-mix(in oklab, var(--bg) 72%, transparent);
   -webkit-backdrop-filter: blur(18px) saturate(1.8) brightness(0.92);
   backdrop-filter: blur(18px) saturate(1.8) brightness(0.92);
   box-shadow:
@@ -130,19 +130,19 @@
   border-radius: 999px;
   white-space: nowrap;
 }
-/* the header's call to action keeps a soft ember glow */
-.site-nav .nav-cta.btn-ember {
+/* the header's call to action keeps a soft lime glow (the owners' call) */
+.site-nav .nav-cta.btn-lime {
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.25),
-    0 0 0 1px color-mix(in oklab, var(--color-ember) 35%, transparent),
-    0 8px 26px -6px color-mix(in oklab, var(--color-ember) 60%, transparent);
+    inset 0 1px 0 rgb(255 255 255 / 0.5),
+    0 0 0 1px color-mix(in oklab, var(--lime) 30%, transparent),
+    0 8px 26px -8px color-mix(in oklab, var(--lime) 38%, transparent);
 }
 @media (hover: hover) {
-  .site-nav .nav-cta.btn-ember:hover {
+  .site-nav .nav-cta.btn-lime:hover {
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.25),
-      0 0 0 1px color-mix(in oklab, var(--color-ember) 45%, transparent),
-      0 10px 34px -6px color-mix(in oklab, var(--color-ember) 75%, transparent);
+      inset 0 1px 0 rgb(255 255 255 / 0.5),
+      0 0 0 1px color-mix(in oklab, var(--lime) 40%, transparent),
+      0 10px 32px -8px color-mix(in oklab, var(--lime) 50%, transparent);
   }
 }
 /* language: one glass button, the list in each language's own name */
@@ -184,7 +184,7 @@
   border-radius: var(--r-m);
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.015)),
-    color-mix(in oklab, var(--base) 86%, transparent);
+    color-mix(in oklab, var(--bg) 86%, transparent);
 }
 .lang-list a {
   display: grid;
@@ -213,12 +213,12 @@
   font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: var(--track-label);
-  color: var(--muted);
+  color: var(--text-muted);
 }
 .lang-list .tick {
   display: grid;
   place-items: center;
-  color: var(--accent);
+  color: var(--lime);
 }
 .nav-burger {
   display: none;
@@ -288,6 +288,12 @@
   margin-inline: var(--sheet-gap);
   border-radius: var(--sheet-r);
 }
+:is(.about, .work, .fit) :focus-visible {
+  outline-color: var(--blue);
+}
+.fit .pkg.featured :focus-visible {
+  outline-color: var(--lime);
+}
 
 /* --------------------------------------------------------------- HERO */
 .hero {
@@ -313,9 +319,9 @@
   pointer-events: none;
   background: linear-gradient(
     100deg,
-    var(--base) 0%,
-    color-mix(in oklab, var(--base) 86%, transparent) 30%,
-    color-mix(in oklab, var(--base) 30%, transparent) 52%,
+    var(--bg) 0%,
+    color-mix(in oklab, var(--bg) 86%, transparent) 30%,
+    color-mix(in oklab, var(--bg) 30%, transparent) 52%,
     transparent 70%
   );
   /* build: it lets go before the hero ends; held to the bottom edge, it stopped in a
@@ -329,7 +335,7 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: radial-gradient(120% 90% at 50% 120%, color-mix(in oklab, var(--base) 88%, transparent), transparent 60%);
+  background: radial-gradient(120% 90% at 50% 120%, color-mix(in oklab, var(--bg) 88%, transparent), transparent 60%);
 }
 .hero-vignette {
   position: absolute;
@@ -374,7 +380,7 @@
   cursor: grabbing;
 }
 .orb-hit:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--lime);
   outline-offset: 10px;
 }
 .orb-hint {
@@ -406,7 +412,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--blue-text);
 }
 .orb-hint-pill.is-done {
   opacity: 0;
@@ -473,7 +479,7 @@
   color: var(--text);
   padding: 0 24px 0 9px;
   border-radius: 999px;
-  border: 1px solid color-mix(in oklab, var(--text) 18%, transparent);
+  border: 1px solid var(--blue-bright);
   background: color-mix(in oklab, var(--surface) 50%, transparent);
   backdrop-filter: blur(6px);
   text-decoration: none;
@@ -483,10 +489,10 @@
     background 0.2s ease;
 }
 .btn-ghost:hover {
-  border-color: color-mix(in oklab, var(--text) 38%, transparent);
+  border-color: color-mix(in oklab, var(--blue-bright) 50%, var(--blue-text));
   background: color-mix(in oklab, var(--surface) 78%, transparent);
 }
-/* build: press feedback, like the ember buttons */
+/* build: press feedback, like the lime buttons */
 .btn-ghost:active {
   transform: scale(0.98);
 }
@@ -496,8 +502,8 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: var(--text);
-  color: var(--base);
+  background: var(--blue-bright);
+  color: var(--text);
   flex: 0 0 auto;
 }
 .btn-ghost .play svg {
@@ -506,8 +512,8 @@
 /* -------------------------------------------------------------- ABOUT */
 .about {
   position: relative;
-  background: var(--light);
-  color: var(--color-ink);
+  background: var(--paper);
+  color: var(--ink);
   min-height: 100svh;
   display: flex;
   align-items: center;
@@ -515,17 +521,16 @@
   padding: var(--section-y) var(--sheet-pad); /* build: a sheet */
   isolation: isolate;
 }
-/* warm ember ambience so the light section still belongs to the palette
-   build: the rose glow (#FF5E7A) became ember red to stay in palette */
+/* a blue ambience, so the light sheet still belongs to the page */
 .about-glow {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(60% 50% at 50% 0%, color-mix(in oklab, var(--accent2) 22%, transparent), transparent 70%),
-    radial-gradient(50% 60% at 12% 100%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 70%),
-    radial-gradient(50% 60% at 88% 90%, color-mix(in oklab, var(--color-ember-red) 10%, transparent), transparent 70%);
+    radial-gradient(60% 50% at 50% 0%, color-mix(in oklab, var(--blue-text) 20%, transparent), transparent 70%),
+    radial-gradient(50% 60% at 12% 100%, color-mix(in oklab, var(--blue-bright) 12%, transparent), transparent 70%),
+    radial-gradient(50% 60% at 88% 90%, color-mix(in oklab, var(--blue-text) 12%, transparent), transparent 70%);
 }
 .about-wrap {
   position: relative;
@@ -547,19 +552,24 @@
   position: absolute;
   inset: 16%;
   border-radius: 50%;
-  background: radial-gradient(circle at 50% 45%, rgb(255 182 39 / 0.32), rgb(255 107 53 / 0.16) 42%, transparent 70%);
+  background: radial-gradient(
+    circle at 50% 45%,
+    color-mix(in oklab, var(--blue-text) 34%, transparent),
+    color-mix(in oklab, var(--blue-bright) 26%, transparent) 42%,
+    transparent 70%
+  );
 }
 .isphere-ring {
   position: absolute;
   inset: 4%;
   border-radius: 50%;
-  border: 1px solid rgb(255 182 39 / 0.16);
+  border: 1px solid color-mix(in oklab, var(--blue-text) 22%, transparent);
   transform: rotateX(74deg);
 }
 .isphere-ring.is-tilted {
   inset: 10%;
   transform: rotate(-28deg) rotateX(74deg);
-  border-color: rgb(255 107 53 / 0.18);
+  border-color: color-mix(in oklab, var(--blue-bright) 34%, transparent);
 }
 .isphere-icon {
   position: absolute;
@@ -602,7 +612,7 @@
   transform-style: preserve-3d;
   transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition:
-    transform 0.25s var(--ease-ember),
+    transform 0.25s var(--ease-soft),
     scale 0.16s ease-out;
 }
 /* hidden while its profile is open; no fade, the dialog's sheet covers it
@@ -618,15 +628,15 @@
   inset: 0;
   border-radius: inherit;
   background:
-    radial-gradient(85% 55% at 50% 40%, rgb(255 107 53 / 0.2), transparent 70%),
-    radial-gradient(120% 70% at 50% 115%, rgb(255 140 60 / 0.24), transparent 60%),
-    linear-gradient(170deg, #241b16, #130e0c 60%, #0f0b09);
+    radial-gradient(85% 55% at 50% 40%, color-mix(in oklab, var(--blue-bright) 26%, transparent), transparent 70%),
+    radial-gradient(120% 70% at 50% 115%, color-mix(in oklab, var(--blue-bright) 36%, transparent), transparent 60%),
+    linear-gradient(170deg, var(--surface-2), var(--surface) 60%, var(--bg));
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.1),
-    0 50px 80px -40px rgb(42 33 28 / 0.72),
-    0 18px 30px -18px rgb(42 33 28 / 0.45);
+    0 50px 80px -40px color-mix(in oklab, var(--ink) 72%, transparent),
+    0 18px 30px -18px color-mix(in oklab, var(--ink) 45%, transparent);
 }
-/* a lens-like rim, warmer at the bottom where the ember light comes from */
+/* a lens-like rim, lit blue at the bottom where the light comes from */
 .fcard-shell::before {
   content: "";
   position: absolute;
@@ -637,8 +647,8 @@
     165deg,
     rgb(255 255 255 / 0.3),
     rgb(255 255 255 / 0.04) 35%,
-    rgb(255 140 60 / 0.06) 65%,
-    rgb(255 140 60 / 0.5)
+    color-mix(in oklab, var(--blue-text) 8%, transparent) 65%,
+    color-mix(in oklab, var(--blue-text) 55%, transparent)
   );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
@@ -652,8 +662,8 @@
   border-radius: inherit;
   background: radial-gradient(
     110px circle at var(--mx, 50%) var(--my, 30%),
-    rgb(224 87 30 / 0.3),
-    rgb(194 58 24 / 0.12) 50%,
+    color-mix(in oklab, var(--blue-bright) 40%, transparent),
+    color-mix(in oklab, var(--blue) 30%, transparent) 50%,
     transparent 75%
   );
   opacity: 0;
@@ -688,7 +698,7 @@
   margin-top: 4px;
   font-size: var(--fs-small);
   line-height: 1.35;
-  color: var(--text-2);
+  color: var(--blue-text);
 }
 .fcard-plus {
   position: absolute;
@@ -699,9 +709,9 @@
   display: grid;
   place-items: center;
   border-radius: 999px;
-  color: var(--color-ember-light);
-  border: 1px solid color-mix(in oklab, var(--accent) 55%, transparent);
-  background: color-mix(in oklab, var(--accent) 10%, transparent);
+  color: var(--blue-text);
+  border: 1px solid color-mix(in oklab, var(--blue-bright) 70%, transparent);
+  background: color-mix(in oklab, var(--blue-bright) 16%, transparent);
   transform: translateZ(46px);
   /* the colour answers the hover at once; the half turn eases in so the eye
      catches it turning (an ease-out spends it all in the first frames) */
@@ -722,7 +732,7 @@
   transform: translateZ(64px);
 }
 .fcard-btn:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--blue);
   outline-offset: 6px;
 }
 @media (hover: hover) {
@@ -731,13 +741,13 @@
   }
   .fcard:hover .fcard-plus {
     transform: translateZ(46px) rotate(180deg) scale(1.08);
-    background: var(--accent);
-    color: var(--color-char);
+    background: var(--blue-bright);
+    color: var(--text);
   }
 }
 
-/* the panel opens hot: a molten core that cools to paper (driven by AboutStage) */
-.about-heat {
+/* the panel opens in a flash of light that settles to paper (driven by AboutStage) */
+.about-flash {
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -745,13 +755,13 @@
   visibility: hidden;
   background: radial-gradient(
     circle at 50% 50%,
-    #fff4de 0%,
-    #ffd892 6%,
-    #ffb627 14%,
-    #ff8a4c 26%,
-    #ff7a3d 36%,
-    color-mix(in oklab, #ffb627 38%, var(--light)) 56%,
-    var(--light) 78%
+    #fff 0%,
+    color-mix(in oklab, var(--blue-text) 30%, #fff) 6%,
+    var(--blue-text) 14%,
+    color-mix(in oklab, var(--blue-bright) 70%, var(--blue-text)) 26%,
+    var(--blue-bright) 36%,
+    color-mix(in oklab, var(--blue-text) 34%, var(--paper)) 56%,
+    var(--paper) 78%
   );
 }
 /* a founder card, opened: a full-screen layer whose clip grows from the card
@@ -764,7 +774,7 @@
 .fdialog-scrim {
   position: absolute;
   inset: 0;
-  background: rgb(14 11 10 / 0.62);
+  background: color-mix(in oklab, var(--bg) 62%, transparent);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
 }
@@ -773,9 +783,9 @@
   inset: 0;
   color: var(--text);
   background:
-    radial-gradient(55% 45% at 50% 0%, rgb(255 182 39 / 0.1), transparent 70%),
-    radial-gradient(70% 55% at 50% 105%, rgb(255 107 53 / 0.2), transparent 70%),
-    linear-gradient(175deg, #221a15, #120d0b);
+    radial-gradient(55% 45% at 50% 0%, color-mix(in oklab, var(--blue-text) 12%, transparent), transparent 70%),
+    radial-gradient(70% 55% at 50% 105%, color-mix(in oklab, var(--blue-bright) 30%, transparent), transparent 70%),
+    linear-gradient(175deg, var(--surface-2), var(--bg));
 }
 .fdialog-sheet {
   position: absolute;
@@ -844,7 +854,7 @@
 .fdialog-role {
   margin-top: 8px;
   font-size: var(--fs-body);
-  color: var(--text-2);
+  color: var(--blue-text);
 }
 /* build: the profile's headings are the system's caps label */
 .fdialog h3 {
@@ -853,7 +863,7 @@
   font-weight: 600;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--text-muted);
 }
 .fdialog-contact {
   display: grid;
@@ -885,12 +895,12 @@
 }
 .fd-link svg {
   flex: 0 0 auto;
-  color: var(--color-ember-light);
+  color: var(--blue-text);
 }
 @media (hover: hover) {
   .fd-link:hover {
     background: rgb(255 255 255 / 0.07);
-    border-color: color-mix(in oklab, var(--accent) 45%, transparent);
+    border-color: color-mix(in oklab, var(--blue-bright) 70%, transparent);
   }
 }
 .fdialog-info {
@@ -918,7 +928,7 @@
 }
 .fd-does svg {
   flex: 0 0 auto;
-  color: var(--accent2);
+  color: var(--blue-text);
 }
 .fd-stack {
   display: grid;
@@ -1004,7 +1014,7 @@
 .about-center p {
   font-size: var(--fs-lead);
   line-height: 1.6;
-  color: var(--color-ink-600);
+  color: var(--ink-2);
   max-width: 46ch;
   margin: 0 auto;
   text-wrap: pretty;
@@ -1019,12 +1029,12 @@
   border-radius: var(--r-l);
   color: var(--text);
   background:
-    radial-gradient(120% 90% at 50% 125%, rgb(255 140 60 / 0.24), transparent 62%),
-    linear-gradient(170deg, #241b16, #130e0c 70%);
+    radial-gradient(120% 90% at 50% 125%, color-mix(in oklab, var(--blue-bright) 36%, transparent), transparent 62%),
+    linear-gradient(170deg, var(--surface-2), var(--surface) 70%);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.1),
-    0 30px 50px -28px rgb(42 33 28 / 0.6),
-    0 10px 20px -12px rgb(42 33 28 / 0.35);
+    0 30px 50px -28px color-mix(in oklab, var(--ink) 60%, transparent),
+    0 10px 20px -12px color-mix(in oklab, var(--ink) 35%, transparent);
 }
 .about-stats::before {
   content: "";
@@ -1036,8 +1046,8 @@
     165deg,
     rgb(255 255 255 / 0.26),
     rgb(255 255 255 / 0.04) 40%,
-    rgb(255 140 60 / 0.08) 65%,
-    rgb(255 140 60 / 0.45)
+    color-mix(in oklab, var(--blue-text) 10%, transparent) 65%,
+    color-mix(in oklab, var(--blue-text) 50%, transparent)
   );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
@@ -1063,12 +1073,12 @@
   font-family: var(--font-display);
   font-weight: 700;
   font-size: var(--fs-h3);
-  color: var(--text);
+  color: var(--blue-text);
 }
 .about-stats .l {
   margin-top: 4px;
   font-size: var(--fs-label);
-  color: var(--muted);
+  color: var(--text-muted);
 }
 @media (max-width: 900px) {
   .about-wrap {
@@ -1159,7 +1169,7 @@
 /* ----------------------------------------------------------- SERVICES */
 .services {
   position: relative;
-  background: var(--base);
+  background: var(--bg);
   color: var(--text);
   padding: var(--section-y) var(--gutter);
   /* not hidden: that would make it a scroller and the phone stack wouldn't stick.
@@ -1175,8 +1185,8 @@
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(48% 22.2% at 82% 20%, color-mix(in oklab, var(--accent) 15%, transparent), transparent 70%),
-    radial-gradient(45% 25% at -2% 80%, color-mix(in oklab, var(--accent2) 11%, transparent), transparent 70%);
+    radial-gradient(48% 22.2% at 82% 20%, color-mix(in oklab, var(--blue-bright) 26%, transparent), transparent 70%),
+    radial-gradient(45% 25% at -2% 80%, color-mix(in oklab, var(--blue-text) 11%, transparent), transparent 70%);
 }
 .services-inner {
   position: relative;
@@ -1211,8 +1221,8 @@
   line-height: 1.6;
   text-wrap: pretty; /* build: no single-word last line */
 }
-/* build: the services are panes of liquid glass (the header's material with
-   the founder cards' warmth). ServicesDeck turns them into a scroll-driven deck
+/* build: the services are panes of liquid glass (the header's material, lit
+   blue from behind like the founder cards). ServicesDeck turns them into a scroll-driven deck
    on big screens and a sticky stack on phones; this is the plain grid
    (reduced motion, and before it runs) */
 .svc-stage {
@@ -1228,7 +1238,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
-/* warm light behind the glass, so the panes have something to bend */
+/* blue light behind the glass, so the panes have something to bend */
 .svc-light {
   position: absolute;
   inset: -10% -6%;
@@ -1244,12 +1254,22 @@
 .svc-light .a {
   left: 4%;
   top: 0;
-  background: radial-gradient(closest-side, rgb(255 182 39 / 0.55), rgb(255 182 39 / 0.16) 55%, transparent);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--blue-text) 50%, transparent),
+    color-mix(in oklab, var(--blue-text) 15%, transparent) 55%,
+    transparent
+  );
 }
 .svc-light .b {
   right: 4%;
   bottom: 0;
-  background: radial-gradient(closest-side, rgb(255 107 53 / 0.62), rgb(255 107 53 / 0.18) 55%, transparent);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--blue-bright) 85%, transparent),
+    color-mix(in oklab, var(--blue-bright) 28%, transparent) 55%,
+    transparent
+  );
 }
 /* the plain grid has no scroll to place them: one light behind each end of the row */
 .services:not([data-deck]) .svc-light span {
@@ -1269,14 +1289,14 @@
   overflow: hidden;
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.09), rgb(255 255 255 / 0.02) 46%, rgb(255 255 255 / 0.04)),
-    color-mix(in oklab, var(--base) 40%, transparent);
+    color-mix(in oklab, var(--bg) 40%, transparent);
   -webkit-backdrop-filter: blur(24px) saturate(1.8) brightness(0.95);
   backdrop-filter: blur(24px) saturate(1.8) brightness(0.95);
-  /* the pane has thickness: a lit top edge, warm light caught along the bottom */
+  /* the pane has thickness: a lit top edge, blue light caught along the bottom */
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.16),
     inset 0 22px 34px -30px rgb(255 255 255 / 0.16),
-    inset 0 -28px 44px -36px rgb(255 140 60 / 0.3),
+    inset 0 -28px 44px -36px color-mix(in oklab, var(--blue-bright) 50%, transparent),
     inset 0 -1px 1px rgb(255 255 255 / 0.05),
     0 30px 60px -34px rgb(0 0 0 / 0.85);
 }
@@ -1294,7 +1314,7 @@
     rgb(255 255 255 / 0.36),
     rgb(255 255 255 / 0.06) 30%,
     rgb(255 255 255 / 0.02) 62%,
-    rgb(255 186 130 / 0.24)
+    color-mix(in oklab, var(--blue-text) 32%, transparent)
   );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
@@ -1313,8 +1333,8 @@
   opacity: 0;
   background: radial-gradient(
     240px circle at var(--mx, 50%) var(--my, 0%),
-    rgb(255 107 53 / 0.22),
-    rgb(194 58 24 / 0.09) 48%,
+    color-mix(in oklab, var(--blue-bright) 34%, transparent),
+    color-mix(in oklab, var(--blue) 24%, transparent) 48%,
     transparent 74%
   );
   transition: opacity 0.3s ease;
@@ -1326,7 +1346,7 @@
   }
   .svc-card:hover .svc-icon {
     transform: rotate(-6deg) scale(1.06);
-    color: var(--accent);
+    color: var(--text);
   }
 }
 .svc-body {
@@ -1349,7 +1369,7 @@
     100deg,
     transparent 10%,
     rgb(255 255 255 / 0.065) 42%,
-    rgb(255 236 214 / 0.02) 58%,
+    rgb(255 255 255 / 0.02) 58%,
     transparent 90%
   );
   pointer-events: none;
@@ -1360,7 +1380,7 @@
   inset: 0;
   z-index: 3;
   border-radius: inherit;
-  background: rgb(10 7 6 / 0.86);
+  background: color-mix(in oklab, var(--bg) 86%, transparent);
   opacity: 0;
   pointer-events: none;
 }
@@ -1382,6 +1402,17 @@
 }
 .svc-glyph-glow {
   opacity: 0.6;
+  stroke: var(--blue-bright);
+}
+/* the line's tint, light at its start and blue-bright at its end */
+.svc-tint-a {
+  stop-color: color-mix(in oklab, var(--blue-text) 45%, #fff);
+}
+.svc-tint-b {
+  stop-color: var(--blue-text);
+}
+.svc-tint-c {
+  stop-color: var(--blue-bright);
 }
 .svc-top {
   display: flex;
@@ -1394,7 +1425,7 @@
   font-size: var(--fs-label);
   letter-spacing: var(--track-label);
   font-variant-numeric: tabular-nums;
-  color: var(--muted);
+  color: var(--text-muted);
 }
 .svc-icon {
   width: 44px;
@@ -1402,13 +1433,13 @@
   border-radius: var(--r-s);
   display: grid;
   place-items: center;
-  color: var(--accent2);
-  background: color-mix(in oklab, var(--accent) 12%, transparent);
+  color: var(--blue-text);
+  background: color-mix(in oklab, var(--blue-bright) 22%, transparent);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.12),
-    inset 0 0 0 1px color-mix(in oklab, var(--accent) 26%, transparent);
+    inset 0 0 0 1px color-mix(in oklab, var(--blue-bright) 48%, transparent);
   transition:
-    transform 0.25s var(--ease-ember),
+    transform 0.25s var(--ease-soft),
     color 0.2s ease;
 }
 .svc-card h3 {
@@ -1431,17 +1462,17 @@
   gap: 8px;
   margin-top: auto;
 }
-/* little lenses on the pane */
+/* deep blue chips on the pane */
 .svc-tags span {
   font-size: var(--fs-label);
   font-weight: 500;
   padding: 6px 12px;
   border-radius: 999px;
-  color: var(--text-2);
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.09), rgb(255 255 255 / 0.03));
+  color: var(--text);
+  background: var(--blue);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.1),
-    inset 0 0 0 1px rgb(255 255 255 / 0.07);
+    inset 0 1px 0 rgb(255 255 255 / 0.12),
+    inset 0 0 0 1px color-mix(in oklab, var(--blue-bright) 60%, transparent);
 }
 
 /* ---- the deck: big screens, pinned (ServicesDeck) ---- */
@@ -1494,7 +1525,7 @@
   font-size: var(--fs-body);
   font-weight: 600;
   text-align: left;
-  color: var(--muted);
+  color: var(--text-muted);
   cursor: pointer;
   transition: color 0.3s ease;
 }
@@ -1503,14 +1534,14 @@
   font-weight: 600;
   letter-spacing: var(--track-label);
   font-variant-numeric: tabular-nums;
-  color: var(--muted);
+  color: var(--text-muted);
   transition: color 0.3s ease;
 }
 .svc-index button[aria-current="true"] {
   color: var(--text);
 }
 .svc-index button[aria-current="true"] .n {
-  color: var(--accent2);
+  color: var(--lime);
 }
 @media (hover: hover) {
   .svc-index button:hover {
@@ -1518,7 +1549,7 @@
   }
 }
 .svc-index button:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--lime);
   outline-offset: 2px;
 }
 /* the glass pill behind the pane in front (driven by the scroll) */
@@ -1653,11 +1684,11 @@
 .sec-foot .ln {
   flex: 1;
   height: 1px;
-  background: var(--hairline);
+  background: var(--border);
 }
 .sec-foot p {
   font-size: var(--fs-body);
-  color: var(--muted);
+  color: var(--text-muted);
   white-space: nowrap;
 }
 .sec-foot p b {
@@ -1687,8 +1718,8 @@
 /* --------------------------------------------------------------- WORK */
 .work {
   position: relative;
-  background: var(--light);
-  color: var(--color-ink);
+  background: var(--paper);
+  color: var(--ink);
   padding: var(--section-y) var(--sheet-pad); /* build: a sheet */
   overflow: hidden;
   isolation: isolate;
@@ -1699,8 +1730,8 @@
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(46% 40% at 88% 4%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 70%),
-    radial-gradient(48% 46% at 6% 102%, color-mix(in oklab, var(--accent2) 13%, transparent), transparent 70%);
+    radial-gradient(46% 40% at 88% 4%, color-mix(in oklab, var(--blue-bright) 10%, transparent), transparent 70%),
+    radial-gradient(48% 46% at 6% 102%, color-mix(in oklab, var(--blue-text) 16%, transparent), transparent 70%);
 }
 .work-inner {
   position: relative;
@@ -1712,10 +1743,10 @@
   max-width: 760px;
 }
 .work .sec-head .note {
-  color: var(--color-ink-600);
+  color: var(--ink-2);
 }
 .work .sec-head .note b {
-  color: var(--color-ink);
+  color: var(--ink);
   font-weight: 600;
 }
 /* build: the concepts sit on the paper as panes of the founder cards' dark
@@ -1729,7 +1760,12 @@
   height: 900px;
   margin: -450px 0 0 -450px;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(255 128 64 / 0.2), rgb(255 182 39 / 0.08) 55%, transparent);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--blue-bright) 16%, transparent),
+    color-mix(in oklab, var(--blue-text) 10%, transparent) 55%,
+    transparent
+  );
   opacity: 0;
   pointer-events: none;
   transition:
@@ -1761,12 +1797,12 @@
   text-align: left;
   cursor: pointer;
   background:
-    radial-gradient(120% 70% at 50% 125%, rgb(255 120 50 / 0.16), transparent 62%),
-    linear-gradient(170deg, #251c17, #130e0c 72%);
+    radial-gradient(120% 70% at 50% 125%, color-mix(in oklab, var(--blue-bright) 28%, transparent), transparent 62%),
+    linear-gradient(170deg, var(--surface-2), var(--surface) 72%);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.1),
-    0 44px 70px -44px rgb(42 33 28 / 0.8),
-    0 16px 30px -20px rgb(42 33 28 / 0.45);
+    0 44px 70px -44px color-mix(in oklab, var(--ink) 80%, transparent),
+    0 16px 30px -20px color-mix(in oklab, var(--ink) 45%, transparent);
   transform: perspective(1400px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--lift, 0px));
   transition:
     transform 0.4s var(--ease-out-quart),
@@ -1786,8 +1822,8 @@
     150deg,
     rgb(255 255 255 / 0.26),
     rgb(255 255 255 / 0.04) 36%,
-    rgb(255 140 60 / 0.06) 66%,
-    rgb(255 140 60 / 0.42)
+    color-mix(in oklab, var(--blue-text) 8%, transparent) 66%,
+    color-mix(in oklab, var(--blue-text) 48%, transparent)
   );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
@@ -1802,7 +1838,11 @@
   inset: 0;
   z-index: 2;
   border-radius: inherit;
-  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), rgb(255 170 110 / 0.13), transparent 62%);
+  background: radial-gradient(
+    380px circle at var(--mx, 50%) var(--my, 0%),
+    color-mix(in oklab, var(--blue-text) 16%, transparent),
+    transparent 62%
+  );
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
@@ -1812,8 +1852,8 @@
     --lift: -8px;
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 0.14),
-      0 56px 90px -46px rgb(214 72 18 / 0.5),
-      0 20px 36px -22px rgb(42 33 28 / 0.5);
+      0 56px 90px -46px color-mix(in oklab, var(--blue-bright) 55%, transparent),
+      0 20px 36px -22px color-mix(in oklab, var(--ink) 50%, transparent);
   }
   .concept-card:hover .cc-glare {
     opacity: 1;
@@ -1825,7 +1865,7 @@
   }
 }
 .concept-card:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--blue);
   outline-offset: 4px;
 }
 .cc-media {
@@ -1845,7 +1885,7 @@
   gap: 12px;
   height: 34px;
   padding: 0 12px;
-  background: linear-gradient(180deg, #2b211c, #1d1612);
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
   box-shadow: inset 0 -1px 0 rgb(255 255 255 / 0.05);
 }
 .cc-dots {
@@ -2106,13 +2146,11 @@
   height: var(--ctl-s);
   padding: 0 16px;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.03)), rgb(22 17 14 / 0.78);
-  -webkit-backdrop-filter: blur(12px) saturate(1.6);
-  backdrop-filter: blur(12px) saturate(1.6);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--lime) 78%, #fff), var(--lime));
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.16),
+    inset 0 1px 0 rgb(255 255 255 / 0.5),
     0 12px 26px -10px rgb(0 0 0 / 0.55);
-  color: var(--text);
+  color: var(--on-lime);
   font-size: var(--fs-small);
   font-weight: 600;
   white-space: nowrap;
@@ -2172,9 +2210,9 @@
   flex: none;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgb(255 255 255 / 0.06);
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
-  color: var(--text-2);
+  background: var(--blue);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--blue-bright) 60%, transparent);
+  color: var(--text);
   font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: var(--track-label);
@@ -2197,19 +2235,19 @@
 }
 @media (hover: hover) {
   .concept-card:hover .cc-go {
-    background: var(--accent);
-    color: var(--color-char);
+    background: var(--lime);
+    color: var(--on-lime);
     transform: rotate(45deg);
   }
 }
 .work .sec-foot .ln {
-  background: rgba(42, 33, 28, 0.14);
+  background: color-mix(in oklab, var(--ink) 14%, transparent);
 }
 .work .sec-foot p {
-  color: var(--color-ink-500);
+  color: var(--ink-muted);
 }
 .work .sec-foot p b {
-  color: var(--color-ink);
+  color: var(--ink);
 }
 /* "Yours is next." gets a way there: a small pill of the cards' dark glass */
 .work-cta {
@@ -2220,10 +2258,10 @@
   height: var(--ctl-m);
   padding: 0 18px 0 20px;
   border-radius: 999px;
-  background: linear-gradient(170deg, #2a201b, #15100d);
+  background: linear-gradient(170deg, var(--surface-2), var(--bg));
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.12),
-    0 14px 26px -16px rgb(42 33 28 / 0.7);
+    0 14px 26px -16px color-mix(in oklab, var(--ink) 70%, transparent);
   color: var(--text);
   font-size: var(--fs-small);
   font-weight: 600;
@@ -2240,14 +2278,14 @@
     transform: translateY(-2px);
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 0.14),
-      0 18px 30px -16px rgb(214 72 18 / 0.55);
+      0 18px 30px -16px color-mix(in oklab, var(--blue-bright) 60%, transparent);
   }
   .work-cta:hover svg {
     transform: translate(2px, -2px);
   }
 }
 .work-cta:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--blue);
   outline-offset: 3px;
 }
 @media (max-width: 900px) {
@@ -2336,7 +2374,7 @@
    smaller ones: a rail. Without motion (or script) everything is lit. */
 .process {
   position: relative;
-  background: var(--base);
+  background: var(--bg);
   color: var(--text);
   padding: var(--section-y) var(--gutter);
   overflow-x: clip; /* build: sideways only, so its lights carry on past the top and bottom */
@@ -2349,8 +2387,8 @@
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(40% 27.8% at 6% 38.9%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 70%),
-    radial-gradient(42% 24.4% at 96% 66.7%, color-mix(in oklab, var(--accent2) 9%, transparent), transparent 70%);
+    radial-gradient(40% 27.8% at 6% 38.9%, color-mix(in oklab, var(--blue-bright) 22%, transparent), transparent 70%),
+    radial-gradient(42% 24.4% at 96% 66.7%, color-mix(in oklab, var(--blue-text) 9%, transparent), transparent 70%);
 }
 .process-inner {
   position: relative;
@@ -2386,7 +2424,7 @@
   position: relative;
   isolation: isolate;
 }
-/* warm light behind the glass (ProcessJourney moves it with the head of the thread) */
+/* blue light behind the glass (ProcessJourney moves it with the head of the thread) */
 .jy-lights {
   position: absolute;
   inset: 0;
@@ -2404,12 +2442,22 @@
   will-change: transform;
 }
 .jy-lights .a {
-  background: radial-gradient(closest-side, rgb(255 107 53 / 0.48), rgb(255 107 53 / 0.13) 55%, transparent);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--blue-bright) 70%, transparent),
+    color-mix(in oklab, var(--blue-bright) 20%, transparent) 55%,
+    transparent
+  );
 }
 .jy-lights .b {
   width: 440px;
   margin: -220px 0 0 -220px;
-  background: radial-gradient(closest-side, rgb(255 182 39 / 0.3), rgb(255 182 39 / 0.08) 55%, transparent);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--blue-text) 30%, transparent),
+    color-mix(in oklab, var(--blue-text) 8%, transparent) 55%,
+    transparent
+  );
 }
 .journey[data-axis="y"] .jy-lights span {
   left: 62%;
@@ -2450,7 +2498,7 @@
   top: calc(var(--chip) / 2 - 1px);
   height: 2px;
   border-radius: 2px;
-  background: color-mix(in oklab, var(--text) 14%, transparent);
+  background: color-mix(in oklab, var(--blue-text) 16%, transparent);
   pointer-events: none;
 }
 .jy-fill {
@@ -2458,11 +2506,15 @@
   inset: 0;
   border-radius: inherit;
   transform-origin: 0 0;
-  background: linear-gradient(90deg, var(--accent2), var(--accent) 55%, var(--color-flame));
-  box-shadow: 0 0 14px 1px color-mix(in oklab, var(--accent) 50%, transparent);
+  background: linear-gradient(90deg, var(--blue-bright), color-mix(in oklab, var(--blue-bright) 60%, var(--blue-text)));
+  box-shadow: 0 0 14px 1px color-mix(in oklab, var(--blue-bright) 75%, transparent);
 }
 .journey[data-axis="y"] .jy-fill {
-  background: linear-gradient(180deg, var(--accent2), var(--accent) 55%, var(--color-flame));
+  background: linear-gradient(
+    180deg,
+    var(--blue-bright),
+    color-mix(in oklab, var(--blue-bright) 60%, var(--blue-text))
+  );
 }
 /* drawn by the script from nothing (an inline transform takes over) */
 .process[data-journey] .journey[data-axis="x"] .jy-fill {
@@ -2480,7 +2532,13 @@
   height: 18px;
   margin: -9px 0 0 -9px;
   border-radius: 50%;
-  background: radial-gradient(circle, #fff6e8 0%, var(--accent2) 26%, rgb(255 107 53 / 0.55) 52%, transparent 72%);
+  background: radial-gradient(
+    circle,
+    #fff 0%,
+    var(--blue-text) 26%,
+    color-mix(in oklab, var(--blue-bright) 70%, transparent) 52%,
+    transparent 72%
+  );
   opacity: 0;
   transition: opacity 0.25s ease;
   pointer-events: none;
@@ -2502,7 +2560,7 @@
   border-radius: 50%;
   background:
     radial-gradient(circle at 34% 28%, rgb(255 255 255 / 0.24), rgb(255 255 255 / 0.05) 58%, rgb(255 255 255 / 0.02)),
-    color-mix(in oklab, var(--base) 72%, transparent);
+    color-mix(in oklab, var(--bg) 72%, transparent);
   -webkit-backdrop-filter: blur(6px) saturate(1.6);
   backdrop-filter: blur(6px) saturate(1.6);
   box-shadow:
@@ -2514,19 +2572,25 @@
   position: absolute;
   inset: 8px;
   border-radius: 50%;
-  background: color-mix(in oklab, var(--text) 26%, transparent);
+  box-shadow: inset 0 0 0 1.5px color-mix(in oklab, var(--text-muted) 75%, transparent);
   transition:
     background 0.4s ease,
     box-shadow 0.4s ease,
-    transform 0.4s var(--ease-ember);
+    transform 0.4s var(--ease-soft);
 }
 .jy-step.is-lit .jy-node i,
 .process:not([data-journey]) .jy-node i {
-  background: radial-gradient(circle at 40% 35%, #fff4e4, var(--accent2) 45%, var(--accent));
+  background: radial-gradient(circle at 40% 35%, #fff, var(--blue-text) 45%, var(--blue-bright));
   box-shadow:
-    0 0 10px 2px rgb(255 107 53 / 0.65),
-    0 0 24px 6px rgb(255 107 53 / 0.22);
+    0 0 10px 2px color-mix(in oklab, var(--blue-bright) 85%, transparent),
+    0 0 24px 6px color-mix(in oklab, var(--blue-bright) 34%, transparent);
   transform: scale(1.14);
+}
+.jy-step.is-on .jy-node i {
+  background: radial-gradient(circle at 40% 35%, #fff, var(--lime) 42%);
+  box-shadow:
+    0 0 10px 2px color-mix(in oklab, var(--lime) 50%, transparent),
+    0 0 24px 6px color-mix(in oklab, var(--lime) 16%, transparent);
 }
 /* the step you're on keeps a slow ping going */
 .jy-step.is-on .jy-node::after {
@@ -2534,7 +2598,7 @@
   position: absolute;
   inset: -5px;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px rgb(255 107 53 / 0.6);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--lime) 60%, transparent);
   animation: jyPing 2.4s var(--ease-out-quart) infinite;
 }
 @keyframes jyPing {
@@ -2566,10 +2630,10 @@
   letter-spacing: var(--track-label);
   text-transform: uppercase;
   white-space: nowrap;
-  color: var(--muted);
+  color: var(--text-muted);
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.02)),
-    color-mix(in oklab, var(--base) 88%, transparent);
+    color-mix(in oklab, var(--bg) 88%, transparent);
   -webkit-backdrop-filter: blur(10px) saturate(1.6);
   backdrop-filter: blur(10px) saturate(1.6);
   box-shadow:
@@ -2582,10 +2646,10 @@
 }
 .jy-step.is-lit .jy-phase,
 .process:not([data-journey]) .jy-phase {
-  color: color-mix(in oklab, var(--accent2) 78%, var(--text));
+  color: var(--blue-text);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.12),
-    inset 0 0 0 1px color-mix(in oklab, var(--accent) 42%, transparent);
+    inset 0 0 0 1px color-mix(in oklab, var(--blue-bright) 70%, transparent);
 }
 @media (hover: hover) {
   .jy-phase:hover {
@@ -2605,17 +2669,17 @@
   overflow: hidden;
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.085), rgb(255 255 255 / 0.02) 46%, rgb(255 255 255 / 0.04)),
-    color-mix(in oklab, var(--base) 42%, transparent);
+    color-mix(in oklab, var(--bg) 42%, transparent);
   -webkit-backdrop-filter: blur(22px) saturate(1.7) brightness(0.96);
   backdrop-filter: blur(22px) saturate(1.7) brightness(0.96);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.15),
     inset 0 22px 34px -30px rgb(255 255 255 / 0.15),
-    inset 0 -28px 44px -36px rgb(255 140 60 / 0.28),
+    inset 0 -28px 44px -36px color-mix(in oklab, var(--blue-bright) 48%, transparent),
     inset 0 -1px 1px rgb(255 255 255 / 0.05),
     0 30px 60px -34px rgb(0 0 0 / 0.85);
 }
-/* the rim catches the light like a lens, warmer on the step you're on */
+/* the rim catches the light like a lens, brighter on the step you're on */
 .jy-pane::before {
   content: "";
   position: absolute;
@@ -2628,7 +2692,7 @@
     rgb(255 255 255 / 0.34),
     rgb(255 255 255 / 0.06) 30%,
     rgb(255 255 255 / 0.02) 62%,
-    rgb(255 186 130 / 0.22)
+    color-mix(in oklab, var(--blue-text) 30%, transparent)
   );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
@@ -2640,10 +2704,10 @@
 .jy-step.is-on .jy-pane::before {
   background: linear-gradient(
     140deg,
-    rgb(255 214 170 / 0.6),
+    rgb(255 255 255 / 0.55),
     rgb(255 255 255 / 0.08) 32%,
     rgb(255 255 255 / 0.03) 60%,
-    rgb(255 120 60 / 0.55)
+    color-mix(in oklab, var(--blue-text) 65%, transparent)
   );
 }
 /* a soft light follows the pointer across the glass */
@@ -2656,8 +2720,8 @@
   opacity: 0;
   background: radial-gradient(
     260px circle at var(--mx, 50%) var(--my, 0%),
-    rgb(255 107 53 / 0.2),
-    rgb(194 58 24 / 0.08) 48%,
+    color-mix(in oklab, var(--blue-bright) 32%, transparent),
+    color-mix(in oklab, var(--blue) 22%, transparent) 48%,
     transparent 74%
   );
   transition: opacity 0.3s ease;
@@ -2695,7 +2759,7 @@
 }
 .jy-step.is-lit .jy-num,
 .process:not([data-journey]) .jy-num {
-  color: var(--accent); /* build: solid, no gradient text */
+  color: var(--blue-text); /* build: solid, no gradient text */
 }
 .jy-num > span {
   display: block;
@@ -2740,14 +2804,14 @@
   border-top: 1px solid rgb(255 255 255 / 0.08);
   font-size: var(--fs-small);
   line-height: 1.5;
-  color: var(--muted);
+  color: var(--text-muted);
 }
 .jy-deliver b {
   color: var(--text);
   font-weight: 600;
 }
 .jy-arrow {
-  color: var(--accent);
+  color: var(--blue-text);
 }
 
 /* ---- the track: big screens, pinned (ProcessJourney) ---- */
@@ -2851,8 +2915,8 @@
 /* ---------------------------------------------------------------- FIT */
 .fit {
   position: relative;
-  background: var(--light);
-  color: var(--color-ink);
+  background: var(--paper);
+  color: var(--ink);
   padding: var(--section-y) var(--sheet-pad); /* build: a sheet */
   overflow: hidden;
   isolation: isolate;
@@ -2863,9 +2927,9 @@
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(56% 44% at 50% -4%, color-mix(in oklab, var(--accent2) 16%, transparent), transparent 68%),
-    radial-gradient(40% 44% at 8% 96%, color-mix(in oklab, var(--accent) 11%, transparent), transparent 72%),
-    radial-gradient(42% 42% at 92% 88%, color-mix(in oklab, var(--color-ember-red) 7%, transparent), transparent 72%);
+    radial-gradient(56% 44% at 50% -4%, color-mix(in oklab, var(--blue-text) 18%, transparent), transparent 68%),
+    radial-gradient(40% 44% at 8% 96%, color-mix(in oklab, var(--blue-bright) 9%, transparent), transparent 72%),
+    radial-gradient(42% 42% at 92% 88%, color-mix(in oklab, var(--blue-text) 10%, transparent), transparent 72%);
 }
 .fit-inner {
   position: relative;
@@ -2891,12 +2955,12 @@
 .fit-sub {
   font-size: var(--fs-lead);
   line-height: 1.6;
-  color: var(--color-ink-600);
+  color: var(--ink-2);
   max-width: 50ch;
   margin: 0 auto;
   text-wrap: pretty;
 }
-/* build: a warm light follows the pointer across the paper (SectionLight), under the cards */
+/* build: a soft blue light follows the pointer across the paper (SectionLight), under the cards */
 .fit-light {
   position: absolute;
   top: 0;
@@ -2906,7 +2970,12 @@
   height: 820px;
   margin: -410px 0 0 -410px;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(255 128 64 / 0.22), rgb(255 182 39 / 0.08) 55%, transparent);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--blue-bright) 16%, transparent),
+    color-mix(in oklab, var(--blue-text) 10%, transparent) 55%,
+    transparent
+  );
   opacity: 0;
   pointer-events: none;
   transition:
@@ -2924,7 +2993,7 @@
   gap: clamp(16px, 1.8vw, 24px);
   align-items: stretch;
 }
-/* warm light behind the frosted glass, for it to bend */
+/* blue light behind the frosted glass, for it to bend */
 .fit-lights {
   position: absolute;
   inset: -6% -4%;
@@ -2940,12 +3009,22 @@
 .fit-lights .a {
   left: 2%;
   top: 22%;
-  background: radial-gradient(closest-side, rgb(255 107 53 / 0.3), rgb(255 107 53 / 0.08) 55%, transparent);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--blue-bright) 30%, transparent),
+    color-mix(in oklab, var(--blue-bright) 8%, transparent) 55%,
+    transparent
+  );
 }
 .fit-lights .b {
   right: 0;
   top: 8%;
-  background: radial-gradient(closest-side, rgb(255 182 39 / 0.34), rgb(255 182 39 / 0.1) 55%, transparent);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--blue-text) 34%, transparent),
+    color-mix(in oklab, var(--blue-text) 10%, transparent) 55%,
+    transparent
+  );
 }
 /* build: the packages are frosted glass on the paper (Pro: the dark house glass) */
 .pkg {
@@ -2957,16 +3036,16 @@
   border-radius: var(--r-l);
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.8), rgb(255 255 255 / 0.5) 58%, rgb(255 255 255 / 0.64)),
-    rgb(255 249 242 / 0.3);
+    rgb(255 255 255 / 0.3);
   -webkit-backdrop-filter: blur(22px) saturate(1.7);
   backdrop-filter: blur(22px) saturate(1.7);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.95),
-    inset 0 -26px 44px -36px rgb(255 140 60 / 0.32),
-    0 24px 50px -32px rgba(60, 24, 8, 0.34),
-    0 3px 10px rgba(60, 24, 8, 0.06);
+    inset 0 -26px 44px -36px color-mix(in oklab, var(--blue-bright) 22%, transparent),
+    0 24px 50px -32px color-mix(in oklab, var(--ink) 28.9%, transparent),
+    0 3px 10px color-mix(in oklab, var(--ink) 5.1%, transparent);
   transition:
-    transform 0.25s var(--ease-ember),
+    transform 0.25s var(--ease-soft),
     box-shadow 0.25s ease;
   will-change: transform;
   /* build: lift + pointer tilt (--rx/--ry written by PackageCard) */
@@ -2985,8 +3064,8 @@
     140deg,
     rgb(255 255 255 / 1),
     rgb(255 255 255 / 0.35) 30%,
-    rgb(42 33 28 / 0.1) 62%,
-    rgb(255 150 90 / 0.5)
+    color-mix(in oklab, var(--ink) 10%, transparent) 62%,
+    color-mix(in oklab, var(--blue-text) 50%, transparent)
   );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
@@ -3005,8 +3084,8 @@
   opacity: 0;
   background: radial-gradient(
     280px circle at var(--mx, 50%) var(--my, 0%),
-    rgb(255 150 80 / 0.2),
-    rgb(255 107 53 / 0.07) 50%,
+    color-mix(in oklab, var(--blue-text) 22%, transparent),
+    color-mix(in oklab, var(--blue-bright) 8%, transparent) 50%,
     transparent 76%
   );
   transition: opacity 0.3s ease;
@@ -3022,9 +3101,9 @@
     --rot: -0.5deg;
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 0.95),
-      inset 0 -26px 44px -36px rgb(255 140 60 / 0.4),
-      0 40px 70px -36px color-mix(in oklab, var(--accent) 40%, transparent),
-      0 6px 16px rgba(60, 24, 8, 0.08);
+      inset 0 -26px 44px -36px color-mix(in oklab, var(--blue-bright) 28%, transparent),
+      0 40px 70px -36px color-mix(in oklab, var(--blue-bright) 34%, transparent),
+      0 6px 16px color-mix(in oklab, var(--ink) 6.8%, transparent);
   }
   .pkg:hover::after {
     opacity: 1;
@@ -3042,12 +3121,12 @@
   font-weight: 600;
   font-size: var(--fs-h4);
   letter-spacing: -0.01em;
-  color: var(--color-ink);
+  color: var(--ink);
 }
 .pkg-tag {
   font-size: var(--fs-body);
   line-height: 1.5;
-  color: var(--color-ink-600);
+  color: var(--ink-2);
   text-wrap: pretty;
   margin-bottom: 24px;
   min-height: 48px; /* two lines, so the prices line up */
@@ -3059,7 +3138,7 @@
   gap: 8px;
   padding-bottom: 24px;
   margin-bottom: 24px;
-  border-bottom: 1px solid color-mix(in oklab, #2a211c 10%, transparent);
+  border-bottom: 1px solid color-mix(in oklab, var(--ink) 10%, transparent);
 }
 .price-val {
   font-family: var(--font-display);
@@ -3067,20 +3146,20 @@
   font-size: var(--fs-h3);
   line-height: 1;
   letter-spacing: -0.01em;
-  color: var(--color-ink);
+  color: var(--ink);
 }
 .price-hint {
   font-size: var(--fs-small);
-  color: var(--color-ink-500);
+  color: var(--ink-muted);
 }
 .pkg-incl-lead {
   font-size: var(--fs-small);
   font-weight: 600;
-  color: var(--color-ink-500);
+  color: var(--ink-muted);
   margin-bottom: 12px;
 }
 .pkg-incl-lead b {
-  color: var(--color-ink);
+  color: var(--ink);
   font-weight: 600;
 }
 .pkg-incl {
@@ -3097,7 +3176,7 @@
   gap: 12px;
   font-size: var(--fs-body);
   line-height: 1.45;
-  color: var(--color-ink-700);
+  color: var(--ink-2);
   text-wrap: pretty;
 }
 .pkg-incl .ck {
@@ -3108,8 +3187,8 @@
   border-radius: var(--r-xs);
   display: grid;
   place-items: center;
-  color: var(--accent);
-  background: color-mix(in oklab, var(--accent) 12%, transparent);
+  color: var(--blue);
+  background: color-mix(in oklab, var(--blue) 9%, transparent);
 }
 .pkg-btn {
   margin-top: auto;
@@ -3124,9 +3203,9 @@
   border-radius: 999px;
   cursor: pointer;
   text-decoration: none;
-  color: var(--color-ink);
+  color: var(--ink);
   background: transparent;
-  border: 1px solid color-mix(in oklab, #2a211c 22%, transparent);
+  border: 1px solid color-mix(in oklab, var(--ink) 22%, transparent);
   transition:
     transform 0.18s ease,
     border-color 0.2s ease,
@@ -3140,9 +3219,9 @@
   transition: transform 0.22s ease;
 }
 .pkg-btn:hover {
-  border-color: var(--accent);
-  color: var(--color-rust);
-  background: color-mix(in oklab, var(--accent) 8%, transparent);
+  border-color: var(--blue);
+  color: var(--blue);
+  background: color-mix(in oklab, var(--blue) 6%, transparent);
 }
 /* build: movement only with a real hover (taps would leave it stuck) */
 @media (hover: hover) {
@@ -3166,12 +3245,12 @@
   font-size: var(--fs-label);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-  color: var(--color-char);
-  background: linear-gradient(180deg, color-mix(in oklab, var(--accent2) 34%, var(--accent)), var(--accent));
+  color: var(--lime);
+  background: var(--blue);
 }
 .pkg.featured .pkg-more {
-  color: var(--accent2);
-  background: rgb(26 14 7 / 0.82);
+  color: var(--lime);
+  background: var(--blue);
 }
 /* the number rolls over as the add-on's dots land */
 .pkg-more-n {
@@ -3183,19 +3262,19 @@
 .pkg-more-n > span {
   display: inline-block;
 }
-/* featured: Pro, the dark house glass, lifted, a beam of ember running round its rim */
+/* featured: Pro, deep blue glass, lifted, a beam of light running round its rim */
 .pkg.featured {
   color: var(--text);
   --lift: -16px; /* build: scale */
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.015) 46%, rgb(255 255 255 / 0.03)),
-    radial-gradient(120% 70% at 50% 110%, rgb(255 107 53 / 0.22), transparent 70%),
-    color-mix(in oklab, #140d0a 95%, transparent);
+    radial-gradient(120% 70% at 50% 110%, color-mix(in oklab, var(--blue-bright) 55%, transparent), transparent 70%),
+    color-mix(in oklab, var(--blue) 95%, transparent);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.16),
-    inset 0 -30px 50px -38px rgb(255 120 50 / 0.45),
-    0 44px 80px -40px color-mix(in oklab, var(--accent) 60%, transparent),
-    0 10px 30px rgba(60, 24, 8, 0.28);
+    inset 0 -30px 50px -38px color-mix(in oklab, var(--blue-bright) 70%, transparent),
+    0 44px 80px -40px color-mix(in oklab, var(--blue-bright) 55%, transparent),
+    0 10px 30px color-mix(in oklab, var(--ink) 23.8%, transparent);
 }
 /* its rim ignites as it lands (motion.css); the beam that runs round it is .pkg-beam */
 .pkg.featured::before {
@@ -3204,8 +3283,8 @@
 .pkg.featured::after {
   background: radial-gradient(
     280px circle at var(--mx, 50%) var(--my, 0%),
-    rgb(255 107 53 / 0.22),
-    rgb(194 58 24 / 0.08) 48%,
+    color-mix(in oklab, var(--blue-text) 20%, transparent),
+    color-mix(in oklab, var(--blue-bright) 14%, transparent) 48%,
     transparent 74%
   );
 }
@@ -3219,8 +3298,8 @@
     --beam: 380deg;
   }
 }
-/* build: an ember beam runs round the rim of Pro, or of the package the finder points to
-   (FitFinder): it fades over to the fit while the warm light behind the glass follows */
+/* build: a beam of light runs round the rim of Pro, or of the package the finder points to
+   (FitFinder): it fades over to the fit while the light behind the glass follows */
 .pkg > .pkg-beam {
   position: absolute;
   inset: 0;
@@ -3231,10 +3310,10 @@
     from var(--beam),
     transparent 0deg,
     transparent 196deg,
-    rgb(255 107 53 / 0.35) 246deg,
-    var(--accent) 298deg,
-    var(--accent2) 336deg,
-    #fff3e2 351deg,
+    color-mix(in oklab, var(--blue-bright) 45%, transparent) 246deg,
+    var(--blue-bright) 298deg,
+    var(--blue-text) 336deg,
+    #fff 351deg,
     transparent 360deg
   );
   -webkit-mask:
@@ -3265,30 +3344,36 @@
 .pkg.is-fit:not(.featured) {
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.95),
-    inset 0 -26px 44px -36px rgb(255 140 60 / 0.45),
-    0 40px 70px -36px color-mix(in oklab, var(--accent) 42%, transparent),
-    0 6px 16px rgba(60, 24, 8, 0.08);
+    inset 0 -26px 44px -36px color-mix(in oklab, var(--blue-bright) 30%, transparent),
+    0 40px 70px -36px color-mix(in oklab, var(--blue-bright) 36%, transparent),
+    0 6px 16px color-mix(in oklab, var(--ink) 6.8%, transparent);
 }
-/* your fit's button turns ember, like Pro's */
+/* your fit's button turns lime, like Pro's */
 .pkg.is-fit:not(.featured) .pkg-btn {
-  color: var(--color-char);
+  color: var(--on-lime);
   border-color: transparent;
-  background: linear-gradient(180deg, color-mix(in oklab, var(--accent2) 34%, var(--accent)), var(--accent));
+  background: linear-gradient(180deg, color-mix(in oklab, var(--lime) 78%, #fff), var(--lime));
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.22),
-    0 6px 16px -8px rgb(60 24 8 / 0.5);
+    inset 0 1px 0 rgb(255 255 255 / 0.5),
+    inset 0 0 0 1px color-mix(in oklab, var(--ink) 10%, transparent),
+    0 6px 16px -8px color-mix(in oklab, var(--ink) 42.5%, transparent);
 }
 .pkg.is-fit:not(.featured) .pkg-more {
-  color: var(--accent2);
-  background: rgb(26 14 7 / 0.82);
+  color: var(--lime);
+  background: var(--blue);
 }
-/* the warm spot behind the glass glides to your fit */
+/* the light behind the glass glides to your fit */
 .fit-lights .spot {
   left: var(--sx, 50%);
   top: var(--sy, 46%);
   width: 46%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(closest-side, rgb(255 120 50 / 0.42), rgb(255 160 60 / 0.12) 55%, transparent);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--blue-bright) 40%, transparent),
+    color-mix(in oklab, var(--blue-text) 14%, transparent) 55%,
+    transparent
+  );
   opacity: 0;
   transition:
     left 0.9s var(--ease-out-quart),
@@ -3310,9 +3395,9 @@
     --rot: -0.5deg;
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 0.16),
-      inset 0 -30px 50px -38px rgb(255 120 50 / 0.55),
-      0 56px 96px -42px color-mix(in oklab, var(--accent) 72%, transparent),
-      0 12px 34px rgba(60, 24, 8, 0.3);
+      inset 0 -30px 50px -38px color-mix(in oklab, var(--blue-bright) 80%, transparent),
+      0 56px 96px -42px color-mix(in oklab, var(--blue-bright) 66%, transparent),
+      0 12px 34px color-mix(in oklab, var(--ink) 25.5%, transparent);
   }
 }
 .pkg.featured .pkg-name {
@@ -3325,13 +3410,13 @@
   color: var(--text);
 }
 .pkg.featured .price-hint {
-  color: var(--muted);
+  color: var(--text-muted);
 }
 .pkg.featured .pkg-price {
   border-bottom-color: color-mix(in oklab, var(--text) 14%, transparent);
 }
 .pkg.featured .pkg-incl-lead {
-  color: var(--muted);
+  color: var(--text-muted);
 }
 .pkg.featured .pkg-incl-lead b {
   color: var(--text);
@@ -3340,8 +3425,8 @@
   color: var(--text-2);
 }
 .pkg.featured .pkg-incl .ck {
-  color: var(--color-char);
-  background: linear-gradient(180deg, var(--accent2), var(--accent));
+  color: var(--text);
+  background: var(--blue-bright);
 }
 .pkg-badge {
   display: inline-flex;
@@ -3352,32 +3437,32 @@
   letter-spacing: var(--track-label);
   text-transform: uppercase;
   white-space: nowrap;
-  color: var(--color-char);
+  color: var(--on-lime);
   padding: 6px 12px;
   border-radius: 999px;
-  background: linear-gradient(180deg, color-mix(in oklab, var(--accent2) 30%, var(--accent)), var(--accent));
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.22); /* build: no coloured glow */
+  background: linear-gradient(180deg, color-mix(in oklab, var(--lime) 78%, #fff), var(--lime));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5); /* build: no coloured glow */
 }
-/* "Your fit": the same ember pill, on whichever package the finder points to */
+/* "Your fit": the same lime pill, on whichever package the finder points to */
 .pkg-badge.is-fit {
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.22),
-    0 0 0 3px color-mix(in oklab, var(--accent) 16%, transparent);
+    inset 0 1px 0 rgb(255 255 255 / 0.5),
+    0 0 0 3px color-mix(in oklab, var(--lime) 30%, transparent);
 }
 .pkg-badge .spark {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--color-char);
-  box-shadow: 0 0 0 3px color-mix(in oklab, #1a0e07 22%, transparent);
+  background: var(--on-lime);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--on-lime) 22%, transparent);
 }
 .pkg.featured .pkg-btn {
-  color: var(--color-char);
+  color: var(--on-lime);
   border: none;
-  background: linear-gradient(180deg, color-mix(in oklab, var(--accent2) 34%, var(--accent)), var(--accent));
+  background: linear-gradient(180deg, color-mix(in oklab, var(--lime) 78%, #fff), var(--lime));
   /* build: neutral elevation instead of a coloured glow */
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.22),
+    inset 0 1px 0 rgb(255 255 255 / 0.5),
     0 6px 16px -8px rgb(0 0 0 / 0.6);
 }
 @media (hover: hover) {
@@ -3385,13 +3470,13 @@
   .pkg.featured .pkg-btn:hover {
     transform: translateY(-1px);
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.22),
+      inset 0 1px 0 rgb(255 255 255 / 0.5),
       0 10px 22px -10px rgb(0 0 0 / 0.65);
   }
 }
-/* build: one ember button at a time (Malewicz: one primary action per screen). When the finder
+/* build: one lime button at a time (Malewicz: one primary action per screen). When the finder
    points elsewhere, Pro keeps its glass but its button and badge step back to outline, and the
-   fit's button is the ember one */
+   fit's button is the lime one */
 .fit-grid[data-fit]:not([data-fit="pro"]) .pkg.featured .pkg-btn {
   color: var(--text);
   border: 1px solid color-mix(in oklab, var(--text) 26%, transparent);
@@ -3402,22 +3487,22 @@
   .fit-grid[data-fit]:not([data-fit="pro"]) .pkg.featured .pkg-btn:hover {
     transform: none;
     color: var(--text);
-    border-color: var(--accent);
-    background: color-mix(in oklab, var(--accent) 14%, transparent);
+    border-color: var(--blue-text);
+    background: color-mix(in oklab, var(--blue-bright) 30%, transparent);
     box-shadow: none;
   }
 }
 .fit-grid[data-fit]:not([data-fit="pro"]) .pkg.featured .pkg-more {
-  color: var(--color-char);
-  background: linear-gradient(180deg, color-mix(in oklab, var(--accent2) 34%, var(--accent)), var(--accent));
+  color: var(--text);
+  background: var(--blue-bright);
 }
 .fit-grid[data-fit]:not([data-fit="pro"]) .pkg.featured .pkg-badge:not(.is-fit) {
-  color: color-mix(in oklab, var(--accent2) 80%, var(--text));
+  color: var(--blue-text);
   background: rgb(255 255 255 / 0.06);
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.14);
 }
 .fit-grid[data-fit]:not([data-fit="pro"]) .pkg.featured .pkg-badge:not(.is-fit) .spark {
-  background: var(--accent2);
+  background: var(--blue-text);
   box-shadow: none;
 }
 /* build: find your fit in three taps (FitFinder): a bar of frosted glass under the intro;
@@ -3436,7 +3521,7 @@
   align-items: center;
   gap: 8px;
   font-size: var(--fs-small);
-  color: var(--color-ink-500);
+  color: var(--ink-muted);
   text-wrap: balance;
   text-align: center;
 }
@@ -3445,8 +3530,8 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 16%, transparent);
+  background: var(--blue);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--blue) 14%, transparent);
 }
 .finder-bar {
   position: relative;
@@ -3462,9 +3547,9 @@
   backdrop-filter: blur(16px) saturate(1.6);
   box-shadow:
     inset 0 1px 0 #fff,
-    inset 0 0 0 1px rgb(42 33 28 / 0.08),
-    inset 0 -14px 26px -22px rgb(255 140 60 / 0.4),
-    0 18px 40px -26px rgb(60 24 8 / 0.42);
+    inset 0 0 0 1px color-mix(in oklab, var(--ink) 8%, transparent),
+    inset 0 -14px 26px -22px color-mix(in oklab, var(--blue-bright) 26%, transparent),
+    0 18px 40px -26px color-mix(in oklab, var(--ink) 35.7%, transparent);
 }
 .finder-step,
 .finder-result {
@@ -3483,34 +3568,40 @@
   font-weight: 600;
   letter-spacing: var(--track-label);
   font-variant-numeric: tabular-nums;
-  color: var(--color-ink-500);
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: var(--text);
+  background: var(--blue);
 }
 .finder-n b {
   font-weight: 600;
-  color: var(--color-flame);
+  color: var(--lime);
 }
 .finder-q,
 .finder-says {
   font-weight: 600;
   font-size: var(--fs-body);
-  color: var(--color-ink);
+  color: var(--ink);
   white-space: nowrap;
 }
 .finder-says b {
-  color: var(--color-flame);
+  color: var(--blue);
+  padding: 1px 7px;
+  border-radius: var(--r-xs);
+  background: var(--lime);
 }
 .finder-opts {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
-/* little lenses of frosted glass, ember when pressed */
+/* little lenses of frosted glass, deep blue with a lime rim when pressed */
 .finder-opt,
 .finder-again {
   height: var(--ctl-m);
   font-weight: 500;
   font-size: var(--fs-small);
-  color: var(--color-ink-700);
+  color: var(--ink-2);
   cursor: pointer;
   padding: 0 18px;
   border: 0;
@@ -3518,8 +3609,8 @@
   background: linear-gradient(180deg, rgb(255 255 255 / 0.95), rgb(255 255 255 / 0.6));
   box-shadow:
     inset 0 1px 0 #fff,
-    inset 0 0 0 1px rgb(42 33 28 / 0.12),
-    0 6px 14px -10px rgb(60 24 8 / 0.4);
+    inset 0 0 0 1px color-mix(in oklab, var(--ink) 12%, transparent),
+    0 6px 14px -10px color-mix(in oklab, var(--ink) 34%, transparent);
   transition:
     transform 0.18s ease,
     color 0.2s ease,
@@ -3529,25 +3620,31 @@
 @media (hover: hover) {
   .finder-opt:hover,
   .finder-again:hover {
-    color: var(--color-char);
-    background: linear-gradient(180deg, color-mix(in oklab, var(--accent2) 26%, var(--accent)), var(--accent));
+    color: var(--text);
+    background: var(--blue);
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.3),
-      0 10px 22px -12px color-mix(in oklab, var(--accent) 60%, transparent);
+      inset 0 1px 0 rgb(255 255 255 / 0.14),
+      inset 0 0 0 1.5px var(--lime),
+      0 10px 22px -12px color-mix(in oklab, var(--blue) 55%, transparent);
   }
 }
 .finder-opt:active,
 .finder-again:active {
   transform: scale(0.96);
+  color: var(--text);
+  background: var(--blue);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    inset 0 0 0 1.5px var(--lime);
 }
 .finder-plus {
   flex: 0 0 auto;
   font-size: var(--fs-small);
   font-weight: 600;
-  color: var(--color-rust);
+  color: var(--blue);
   padding: 6px 12px;
   border-radius: 999px;
-  background: color-mix(in oklab, var(--accent) 12%, transparent);
+  background: color-mix(in oklab, var(--blue) 8%, transparent);
   white-space: nowrap;
 }
 @media (max-width: 860px) {
@@ -3578,7 +3675,7 @@
 .fit-addons {
   margin-top: clamp(40px, 4.4vw, 64px);
   padding-top: clamp(32px, 3.4vw, 48px);
-  border-top: 1px solid color-mix(in oklab, #2a211c 12%, transparent);
+  border-top: 1px solid color-mix(in oklab, var(--ink) 12%, transparent);
   text-align: center;
 }
 .addons-lead {
@@ -3586,7 +3683,7 @@
   align-items: center;
   gap: 12px;
   font-size: var(--fs-body);
-  color: var(--color-ink-600);
+  color: var(--ink-2);
   margin-bottom: 24px;
   text-wrap: pretty;
 }
@@ -3596,8 +3693,8 @@
   width: 24px;
   height: 24px;
   border-radius: var(--r-xs);
-  color: var(--accent);
-  background: color-mix(in oklab, var(--accent) 13%, transparent);
+  color: var(--blue);
+  background: color-mix(in oklab, var(--blue) 9%, transparent);
   font-size: 15px;
   font-weight: 600;
 }
@@ -3617,7 +3714,7 @@
   height: var(--ctl-m);
   font-weight: 500;
   font-size: var(--fs-small);
-  color: var(--color-ink-700);
+  color: var(--ink-2);
   cursor: pointer;
   user-select: none;
   padding: 0 18px 0 13px;
@@ -3628,8 +3725,8 @@
   backdrop-filter: blur(12px) saturate(1.5);
   box-shadow:
     inset 0 1px 0 #fff,
-    inset 0 0 0 1px rgb(42 33 28 / 0.1),
-    0 8px 18px -12px rgb(60 24 8 / 0.35);
+    inset 0 0 0 1px color-mix(in oklab, var(--ink) 10%, transparent),
+    0 8px 18px -12px color-mix(in oklab, var(--ink) 29.7%, transparent);
   transition:
     transform 0.18s ease,
     border-color 0.2s ease,
@@ -3643,10 +3740,10 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  color: #9a846f;
-  border: 1.5px solid color-mix(in oklab, #2a211c 22%, transparent);
+  color: var(--ink-muted);
+  border: 1.5px solid color-mix(in oklab, var(--ink) 22%, transparent);
   transition:
-    transform 0.25s var(--ease-ember),
+    transform 0.25s var(--ease-soft),
     color 0.2s ease,
     border-color 0.2s ease,
     background 0.2s ease;
@@ -3659,24 +3756,24 @@
 }
 @media (hover: hover) {
   .chip:not([aria-pressed="true"]):hover {
-    color: var(--color-ink);
+    color: var(--ink);
     box-shadow:
       inset 0 1px 0 #fff,
-      inset 0 0 0 1px color-mix(in oklab, var(--accent) 42%, transparent),
-      0 10px 22px -12px color-mix(in oklab, var(--accent) 45%, transparent);
+      inset 0 0 0 1px color-mix(in oklab, var(--blue) 40%, transparent),
+      0 10px 22px -12px color-mix(in oklab, var(--blue-bright) 30%, transparent);
   }
 }
 .chip:active {
   transform: scale(0.97);
 }
 .chip[aria-pressed="true"] {
-  color: var(--color-char);
+  color: var(--text);
   font-weight: 600;
-  background: linear-gradient(180deg, color-mix(in oklab, var(--accent2) 26%, var(--accent)), var(--accent));
+  background: var(--blue);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.35),
-    0 10px 26px -10px color-mix(in oklab, var(--accent) 60%, transparent);
-  animation: chipPop 0.4s var(--ease-ember);
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    0 10px 26px -10px color-mix(in oklab, var(--blue) 50%, transparent);
+  animation: chipPop 0.4s var(--ease-soft);
 }
 @keyframes chipPop {
   40% {
@@ -3684,9 +3781,9 @@
   }
 }
 .chip[aria-pressed="true"] .ico {
-  color: var(--color-char);
+  color: var(--lime);
   border-color: transparent;
-  background: color-mix(in oklab, #1a0e07 14%, transparent);
+  background: color-mix(in oklab, var(--lime) 18%, transparent);
   transform: rotate(360deg);
 }
 .chip[aria-pressed="true"] .ico .x-add {
@@ -3755,16 +3852,21 @@
   height: 6px;
   margin: -3px 0 0 -3px;
   border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 8px 1px rgb(255 107 53 / 0.55);
+  background: var(--blue-text);
+  box-shadow: 0 0 8px 1px color-mix(in oklab, var(--blue-bright) 80%, transparent);
   will-change: transform, opacity;
 }
 .fl-dot.is-head {
   width: 8px;
   height: 8px;
   margin: -4px 0 0 -4px;
-  background: radial-gradient(circle, #fff3e2 0 30%, var(--accent2) 62%, var(--accent));
-  box-shadow: 0 0 14px 3px rgb(255 140 60 / 0.6);
+  background: radial-gradient(
+    circle,
+    #fff 0 30%,
+    var(--lime) 62%,
+    color-mix(in oklab, var(--lime) 55%, var(--blue-bright))
+  );
+  box-shadow: 0 0 14px 3px color-mix(in oklab, var(--lime) 45%, transparent);
 }
 /* the ticket: a stub of the house glass with notches, the package in display type */
 .fl-ticket {
@@ -3772,7 +3874,8 @@
   left: 0;
   top: 0;
   transform-origin: 50% 50%;
-  filter: drop-shadow(0 14px 22px rgb(0 0 0 / 0.45)) drop-shadow(0 0 16px rgb(255 107 53 / 0.35));
+  filter: drop-shadow(0 14px 22px rgb(0 0 0 / 0.45))
+    drop-shadow(0 0 16px color-mix(in oklab, var(--blue-bright) 55%, transparent));
   will-change: transform, opacity;
 }
 .fl-ticket.is-docking {
@@ -3790,7 +3893,8 @@
   white-space: nowrap;
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.03)),
-    radial-gradient(120% 90% at 50% 120%, rgb(255 107 53 / 0.45), transparent 70%), #1c1310;
+    radial-gradient(120% 90% at 50% 120%, color-mix(in oklab, var(--blue-bright) 60%, transparent), transparent 70%),
+    var(--surface);
   -webkit-mask:
     radial-gradient(circle 6px at 0 50%, #0000 96%, #000) left / 51% 100% no-repeat,
     radial-gradient(circle 6px at 100% 50%, #0000 96%, #000) right / 51% 100% no-repeat;
@@ -3808,16 +3912,16 @@
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
-  color: var(--color-char);
+  color: var(--on-lime);
   padding: 2px 7px;
   border-radius: 999px;
-  background: linear-gradient(180deg, color-mix(in oklab, var(--accent2) 34%, var(--accent)), var(--accent));
+  background: var(--lime);
 }
 
 /* ------------------------------------------------------------ CONTACT */
 .contact {
   position: relative;
-  background: var(--base);
+  background: var(--bg);
   color: var(--text);
   padding: var(--section-y) var(--gutter);
   overflow-x: clip; /* build: sideways only, so its lights carry on past the top and bottom */
@@ -3830,8 +3934,8 @@
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(42% 25.6% at 88% 30%, color-mix(in oklab, var(--accent) 13%, transparent), transparent 70%),
-    radial-gradient(40% 26.7% at 6% 73.3%, color-mix(in oklab, var(--accent2) 9%, transparent), transparent 72%);
+    radial-gradient(42% 25.6% at 88% 30%, color-mix(in oklab, var(--blue-bright) 24%, transparent), transparent 70%),
+    radial-gradient(40% 26.7% at 6% 73.3%, color-mix(in oklab, var(--blue-text) 9%, transparent), transparent 72%);
 }
 .contact-particles {
   position: absolute;
@@ -3877,7 +3981,7 @@
   text-wrap: pretty;
   margin-bottom: 40px;
 }
-/* build: no photos (the owners' call): each founder is a lens of glass with an ember glow
+/* build: no photos (the owners' call): each founder is a lens of glass with a blue glow
    and their craft drawn in it (design, code): in the conversation's header and beside our messages */
 .founder-avatars {
   display: flex;
@@ -3889,23 +3993,23 @@
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  color: var(--accent2);
+  color: var(--blue-text);
   background:
     radial-gradient(circle at 34% 26%, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0.04) 58%),
-    radial-gradient(circle at 50% 118%, rgb(255 107 53 / 0.5), transparent 68%),
-    color-mix(in oklab, var(--base) 72%, transparent);
+    radial-gradient(circle at 50% 118%, color-mix(in oklab, var(--blue-bright) 75%, transparent), transparent 68%),
+    color-mix(in oklab, var(--bg) 72%, transparent);
   -webkit-backdrop-filter: blur(8px) saturate(1.6);
   backdrop-filter: blur(8px) saturate(1.6);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.26),
     inset 0 0 0 1px rgb(255 255 255 / 0.12),
     0 12px 26px -12px rgb(0 0 0 / 0.85);
-  transition: transform 0.35s var(--ease-ember);
+  transition: transform 0.35s var(--ease-soft);
 }
 .founder-avatar svg {
   width: 24px;
   height: 24px;
-  filter: drop-shadow(0 0 6px rgb(255 140 60 / 0.45));
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--blue-bright) 75%, transparent));
 }
 .founder-avatar + .founder-avatar {
   margin-left: -14px;
@@ -3959,7 +4063,7 @@
   isolation: isolate;
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.075), rgb(255 255 255 / 0.03)),
-    color-mix(in oklab, var(--base) 68%, transparent);
+    color-mix(in oklab, var(--bg) 68%, transparent);
   -webkit-backdrop-filter: blur(18px) saturate(1.7);
   backdrop-filter: blur(18px) saturate(1.7);
 }
@@ -3980,7 +4084,11 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: radial-gradient(90% 70% at 0% 100%, rgb(255 107 53 / 0.14), transparent 62%);
+  background: radial-gradient(
+    90% 70% at 0% 100%,
+    color-mix(in oklab, var(--blue-bright) 26%, transparent),
+    transparent 62%
+  );
 }
 .brief-head {
   display: flex;
@@ -3993,17 +4101,17 @@
   font-weight: 600;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: color-mix(in oklab, var(--accent2) 85%, var(--text));
+  color: var(--blue-text);
 }
 .brief-date {
   font-size: var(--fs-label);
   font-variant-numeric: tabular-nums;
-  color: var(--muted);
+  color: var(--text-muted);
 }
 .brief-hint {
   margin: 8px 0 12px;
   font-size: var(--fs-small);
-  color: var(--muted);
+  color: var(--text-muted);
 }
 .brief-rows {
   margin: 0;
@@ -4014,11 +4122,11 @@
   gap: 16px;
   align-items: baseline;
   padding: 10px 0;
-  border-top: 1px solid var(--hairline);
+  border-top: 1px solid var(--border);
 }
 .brief-row dt {
   font-size: var(--fs-label);
-  color: var(--muted);
+  color: var(--text-muted);
 }
 .brief-row dd {
   margin: 0;
@@ -4075,22 +4183,22 @@
 .brief-chip.is-pkg {
   font-weight: 600;
   color: var(--text);
-  background: linear-gradient(180deg, rgb(255 140 70 / 0.22), rgb(255 107 53 / 0.1));
-  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 45%, transparent);
-  animation: chipLand 0.5s var(--ease-ember);
+  background: var(--blue);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--blue-bright) 75%, transparent);
+  animation: chipLand 0.5s var(--ease-soft);
 }
 @keyframes chipLand {
   0% {
     transform: scale(0.8);
     box-shadow:
-      inset 0 0 0 1px color-mix(in oklab, var(--accent) 45%, transparent),
-      0 0 0 0 rgb(255 107 53 / 0.6);
+      inset 0 0 0 1px color-mix(in oklab, var(--blue-bright) 75%, transparent),
+      0 0 0 0 color-mix(in oklab, var(--blue-bright) 80%, transparent);
   }
   100% {
     transform: none;
     box-shadow:
-      inset 0 0 0 1px color-mix(in oklab, var(--accent) 45%, transparent),
-      0 0 0 10px rgb(255 107 53 / 0);
+      inset 0 0 0 1px color-mix(in oklab, var(--blue-bright) 75%, transparent),
+      0 0 0 10px color-mix(in oklab, var(--blue-bright) 0%, transparent);
   }
 }
 .brief-chip button {
@@ -4114,9 +4222,9 @@
 }
 .brief-pick {
   font-size: var(--fs-small);
-  color: var(--accent2);
+  color: var(--blue-text);
   text-decoration: underline;
-  text-decoration-color: color-mix(in oklab, var(--accent2) 40%, transparent);
+  text-decoration-color: color-mix(in oklab, var(--blue-text) 45%, transparent);
   text-underline-offset: 3px;
 }
 .brief-pick:hover {
@@ -4169,18 +4277,18 @@
     box-shadow 0.5s ease;
 }
 .brief-code i[data-on] {
-  background: var(--accent);
+  background: var(--blue-text);
 }
 .brief-code i[data-hot] {
-  background: var(--accent2);
-  box-shadow: 0 0 4px rgb(255 182 39 / 0.6);
+  background: color-mix(in oklab, var(--blue-text) 45%, #fff);
+  box-shadow: 0 0 4px color-mix(in oklab, var(--blue-bright) 80%, transparent);
 }
 .brief-for {
   font-size: var(--fs-label);
-  color: var(--muted);
+  color: var(--text-muted);
   text-align: right;
 }
-/* sent: an ember stamp lands on it */
+/* sent: a lime stamp lands on it */
 .brief-stamp {
   position: absolute;
   top: 50px;
@@ -4194,8 +4302,8 @@
   font-size: 15px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent);
-  box-shadow: inset 0 0 0 3px rgb(14 11 10 / 0.55);
+  color: var(--lime);
+  box-shadow: inset 0 0 0 3px color-mix(in oklab, var(--bg) 55%, transparent);
   transform: rotate(-9deg) scale(1.6);
   opacity: 0;
   pointer-events: none;
@@ -4217,7 +4325,7 @@
     transform: rotate(-9deg) scale(1);
   }
 }
-/* build: the conversation sits on a pane of the house glass, warm light behind it */
+/* build: the conversation sits on a pane of the house glass, blue light behind it */
 .convo-stage {
   position: relative;
   isolation: isolate;
@@ -4238,13 +4346,23 @@
 .convo-lights .a {
   right: 0;
   top: 0;
-  background: radial-gradient(closest-side, rgb(255 107 53 / 0.5), rgb(255 107 53 / 0.14) 55%, transparent);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--blue-bright) 72%, transparent),
+    color-mix(in oklab, var(--blue-bright) 22%, transparent) 55%,
+    transparent
+  );
 }
 .convo-lights .b {
   left: 0;
   bottom: 0;
   width: 52%;
-  background: radial-gradient(closest-side, rgb(255 182 39 / 0.34), rgb(255 182 39 / 0.1) 55%, transparent);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--blue-text) 32%, transparent),
+    color-mix(in oklab, var(--blue-text) 10%, transparent) 55%,
+    transparent
+  );
   animation-direction: alternate-reverse;
 }
 @keyframes convoDrift {
@@ -4259,13 +4377,13 @@
   padding: clamp(24px, 2.8vw, 40px);
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02) 44%, rgb(255 255 255 / 0.035)),
-    color-mix(in oklab, var(--base) 52%, transparent);
+    color-mix(in oklab, var(--bg) 52%, transparent);
   -webkit-backdrop-filter: blur(26px) saturate(1.7) brightness(0.95);
   backdrop-filter: blur(26px) saturate(1.7) brightness(0.95);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.15),
     inset 0 22px 34px -30px rgb(255 255 255 / 0.14),
-    inset 0 -30px 50px -40px rgb(255 140 60 / 0.3),
+    inset 0 -30px 50px -40px color-mix(in oklab, var(--blue-bright) 50%, transparent),
     inset 0 -1px 1px rgb(255 255 255 / 0.05),
     0 40px 90px -50px rgb(0 0 0 / 0.85);
   overflow: hidden;
@@ -4279,8 +4397,8 @@
   pointer-events: none;
   background: radial-gradient(
     300px circle at var(--mx, 92%) var(--my, 4%),
-    rgb(255 107 53 / 0.16),
-    rgb(194 58 24 / 0.06) 50%,
+    color-mix(in oklab, var(--blue-bright) 28%, transparent),
+    color-mix(in oklab, var(--blue) 18%, transparent) 50%,
     transparent 76%
   );
 }
@@ -4297,7 +4415,7 @@
     rgb(255 255 255 / 0.32),
     rgb(255 255 255 / 0.06) 30%,
     rgb(255 255 255 / 0.02) 62%,
-    rgb(255 186 130 / 0.24)
+    color-mix(in oklab, var(--blue-text) 32%, transparent)
   );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
@@ -4306,7 +4424,6 @@
   mask-composite: exclude;
   pointer-events: none;
 }
-/* build: small step counter uses the mono face */
 /* build: the system's caps label, in Inter's tabular figures */
 .convo-step {
   white-space: nowrap; /* build: "Schritt 01 / 04" must not wrap */
@@ -4315,11 +4432,11 @@
   letter-spacing: var(--track-label);
   text-transform: uppercase;
   font-variant-numeric: tabular-nums;
-  color: var(--muted);
+  color: var(--text-muted);
 }
 .convo-step b {
   font-weight: 600;
-  color: var(--accent); /* build: solid, no gradient text */
+  color: var(--lime); /* build: solid, no gradient text */
 }
 /* the step number rolls over like a counter (ContactChat) */
 .convo-n {
@@ -4352,8 +4469,8 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--accent2), var(--accent));
-  box-shadow: 0 0 10px rgb(255 107 53 / 0.5);
+  background: linear-gradient(90deg, var(--blue-bright), var(--blue-text));
+  box-shadow: 0 0 10px color-mix(in oklab, var(--blue-bright) 75%, transparent);
   transform: scaleX(0);
   transform-origin: 0 50%;
   transition: transform 0.6s var(--ease-out-quart);
@@ -4365,7 +4482,7 @@
   transform: scaleX(0.45);
 }
 /* build: the conversation (ContactChat): the pane holds a chat with the two of us; our
-   questions in glass bubbles after a moment of typing, your answers in ember ones */
+   questions in glass bubbles after a moment of typing, your answers in deep blue ones */
 .convo.chat {
   display: flex;
   flex-direction: column;
@@ -4385,7 +4502,7 @@
   align-items: center;
   gap: 12px;
   padding: 16px 20px;
-  border-bottom: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--border);
 }
 .chat-who {
   flex: 1;
@@ -4400,7 +4517,7 @@
 }
 .chat-who span {
   font-size: var(--fs-label);
-  color: var(--muted);
+  color: var(--text-muted);
 }
 .chat-steps {
   display: flex;
@@ -4417,7 +4534,7 @@
 }
 .chat-pins-label {
   font-weight: 500;
-  color: var(--muted);
+  color: var(--text-muted);
 }
 .chat-thread {
   position: relative;
@@ -4454,7 +4571,7 @@
   border-radius: 999px;
   font-size: var(--fs-label);
   font-weight: 500;
-  color: var(--muted);
+  color: var(--text-muted);
   background: rgb(255 255 255 / 0.04);
 }
 .msg {
@@ -4496,13 +4613,13 @@
 }
 .bubble-text b {
   font-weight: 600;
-  color: var(--accent2);
+  color: var(--blue-text);
 }
 .bubble-hint {
   font-size: var(--fs-small);
-  color: var(--muted);
+  color: var(--text-muted);
 }
-/* yours: ember glass; tap one to change it */
+/* yours: deep blue; tap one to change it */
 .msg.you .bubble {
   border: 0;
   border-bottom-right-radius: 6px;
@@ -4512,11 +4629,11 @@
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   cursor: pointer;
-  background: linear-gradient(180deg, rgb(255 140 70 / 0.3), rgb(255 107 53 / 0.15));
+  background: linear-gradient(180deg, color-mix(in oklab, var(--blue-bright) 55%, var(--blue)), var(--blue));
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.16),
-    inset 0 0 0 1px color-mix(in oklab, var(--accent) 45%, transparent),
-    0 8px 18px -12px rgb(255 107 53 / 0.5);
+    inset 0 0 0 1px color-mix(in oklab, var(--blue-bright) 70%, transparent),
+    0 8px 18px -12px color-mix(in oklab, var(--blue-bright) 60%, transparent);
   transition:
     box-shadow 0.2s ease,
     background 0.2s ease;
@@ -4529,7 +4646,7 @@
   width: 13px;
   height: 13px;
   margin-top: -6.5px;
-  background: var(--muted);
+  background: var(--text-muted);
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20h4L19 9l-4-4L4 16v4Z'/%3E%3Cpath d='m13.5 6.5 4 4'/%3E%3C/svg%3E")
     center / contain no-repeat;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20h4L19 9l-4-4L4 16v4Z'/%3E%3Cpath d='m13.5 6.5 4 4'/%3E%3C/svg%3E")
@@ -4542,7 +4659,11 @@
 }
 @media (hover: hover) {
   .msg.you .bubble:not(:disabled):hover {
-    background: linear-gradient(180deg, rgb(255 150 80 / 0.38), rgb(255 107 53 / 0.2));
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--blue-bright) 75%, var(--blue)),
+      color-mix(in oklab, var(--blue-bright) 25%, var(--blue))
+    );
   }
   .msg.you .bubble:not(:disabled):hover::before {
     opacity: 1;
@@ -4551,7 +4672,7 @@
 .msg.you .bubble:not(:disabled):focus-visible::before {
   opacity: 1;
 }
-/* we're typing: three ember dots */
+/* we're typing: three blue dots */
 .msg.is-typing {
   padding-left: 33px;
 }
@@ -4565,7 +4686,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--blue-text);
   animation: typingDot 1s ease-in-out infinite;
 }
 .msg.is-typing i:nth-child(2) {
@@ -4591,7 +4712,7 @@
   position: relative;
   z-index: 1;
   padding: 12px 16px 16px;
-  border-top: 1px solid var(--hairline);
+  border-top: 1px solid var(--border);
 }
 .chat-done {
   display: flex;
@@ -4640,10 +4761,14 @@
 .chat-quick button:hover,
 .chat-again:hover {
   color: var(--text);
-  background: linear-gradient(180deg, rgb(255 140 70 / 0.18), rgb(255 107 53 / 0.08));
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--blue-bright) 32%, transparent),
+    color-mix(in oklab, var(--blue-bright) 12%, transparent)
+  );
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.14),
-    inset 0 0 0 1px color-mix(in oklab, var(--accent) 50%, transparent);
+    inset 0 0 0 1px color-mix(in oklab, var(--blue-bright) 85%, transparent);
 }
 .chat-quick button:active,
 .chat-again:active {
@@ -4657,14 +4782,14 @@
   border-radius: var(--r-xs);
   font-size: var(--fs-label);
   font-weight: 600;
-  color: var(--muted);
+  color: var(--text-muted);
   background: rgb(255 255 255 / 0.07);
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
 }
 .chat-error {
   margin: 0 0 8px;
   font-size: var(--fs-small);
-  color: var(--accent2);
+  color: var(--blue-text);
 }
 /* the field: a dark well in the glass, lit when it has focus */
 .chat-field {
@@ -4682,8 +4807,8 @@
 .chat-field:focus-within {
   box-shadow:
     inset 0 1px 2px rgb(0 0 0 / 0.45),
-    inset 0 0 0 1px color-mix(in oklab, var(--accent) 55%, transparent),
-    0 0 0 4px color-mix(in oklab, var(--accent) 14%, transparent);
+    inset 0 0 0 1px color-mix(in oklab, var(--blue-bright) 90%, transparent),
+    0 0 0 4px color-mix(in oklab, var(--blue-bright) 30%, transparent);
 }
 .chat-field input,
 .chat-field textarea {
@@ -4727,8 +4852,8 @@
   font-weight: 600;
   padding: 2px 6px;
   border-radius: var(--r-xs);
-  background: color-mix(in oklab, #1a0e07 16%, transparent);
-  color: color-mix(in oklab, #1a0e07 70%, transparent);
+  background: color-mix(in oklab, var(--on-lime) 14%, transparent);
+  color: color-mix(in oklab, var(--on-lime) 75%, transparent);
 }
 @media (max-width: 920px) {
   /* phones: the title, the conversation, then the brief */
@@ -4804,7 +4929,7 @@
   --atmo: clamp(170px, 26vh, 300px); /* the open band the horizon rises into */
   position: relative;
   /* build: no step into the darkest ground: the page darkens into it (one canvas) */
-  background: linear-gradient(transparent, var(--darkest) clamp(220px, 34vh, 380px));
+  background: linear-gradient(transparent, var(--bg-deep) clamp(220px, 34vh, 380px));
   color: var(--text);
   padding: clamp(48px, 5.6vw, 80px) var(--gutter) 0;
   overflow: hidden;
@@ -4819,8 +4944,8 @@
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(60% 100% at 50% 100%, color-mix(in oklab, var(--accent) 15%, transparent), transparent 72%),
-    radial-gradient(40% 80% at 50% 100%, color-mix(in oklab, var(--accent2) 9%, transparent), transparent 68%);
+    radial-gradient(60% 100% at 50% 100%, color-mix(in oklab, var(--blue-bright) 28%, transparent), transparent 72%),
+    radial-gradient(40% 80% at 50% 100%, color-mix(in oklab, var(--blue-text) 9%, transparent), transparent 68%);
 }
 .footer-inner {
   position: relative;
@@ -4833,7 +4958,7 @@
   grid-template-columns: 1.3fr 1fr;
   gap: clamp(32px, 5vw, 72px);
   padding-bottom: clamp(40px, 4.4vw, 64px);
-  border-bottom: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--border);
 }
 /* build: the address with a copy button beside it (a glass pill) */
 .f-cta {
@@ -4852,14 +4977,14 @@
   color: var(--text);
   text-decoration: none;
   overflow-wrap: anywhere;
-  /* an ember underline draws in on hover */
-  background: linear-gradient(90deg, var(--accent2), var(--accent)) 0 100% / 0% 2px no-repeat;
+  /* a lime underline draws in on hover */
+  background: linear-gradient(var(--lime), var(--lime)) 0 100% / 0% 2px no-repeat;
   transition:
     color 0.3s ease,
     background-size 0.5s var(--ease-out-quart);
 }
 .f-email:hover {
-  color: var(--accent); /* build: solid, no gradient text or glow */
+  color: var(--lime); /* build: solid, no gradient text or glow */
   background-size: 100% 2px;
 }
 .f-copy {
@@ -4882,7 +5007,7 @@
   white-space: nowrap;
 }
 .f-copy svg {
-  color: var(--accent2);
+  color: var(--blue-text);
 }
 @media (hover: hover) {
   .f-copy:hover {
@@ -4905,7 +5030,7 @@
   font-weight: 600;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--text-muted);
   margin: 0 0 16px;
 }
 .f-col ul {
@@ -4926,7 +5051,7 @@
     color 0.2s ease,
     transform 0.3s var(--ease-out-quart);
 }
-/* an ember dot slides in before the link you're on */
+/* a blue dot slides in before the link you're on */
 .f-col a::before {
   content: "";
   position: absolute;
@@ -4936,8 +5061,8 @@
   height: 6px;
   margin-top: -3px;
   border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 10px 1px rgb(255 107 53 / 0.6);
+  background: var(--blue-text);
+  box-shadow: 0 0 10px 1px color-mix(in oklab, var(--blue-bright) 85%, transparent);
   opacity: 0;
   transform: scale(0.3);
   transition:
@@ -4945,7 +5070,7 @@
     transform 0.3s var(--ease-out-quart);
 }
 .f-col a:hover {
-  color: var(--accent2);
+  color: var(--blue-text);
 }
 @media (hover: hover) {
   .f-col a:hover {
@@ -4991,7 +5116,7 @@
   flex-wrap: wrap;
   padding: 24px 0 56px;
   margin-top: -2px;
-  text-shadow: 0 1px 10px var(--darkest);
+  text-shadow: 0 1px 10px var(--bg-deep);
 }
 /* build: the status, the socials and back-to-top are glass pills over the horizon */
 .f-status {
@@ -5009,13 +5134,13 @@
   height: 8px;
   border-radius: 50%;
   flex: 0 0 auto;
-  background: var(--accent2);
-  box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent2) 60%, transparent);
+  background: var(--lime);
+  box-shadow: 0 0 0 0 color-mix(in oklab, var(--lime) 60%, transparent);
   animation: footPulse 2.8s ease-out infinite;
 }
 @keyframes footPulse {
   0% {
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent2) 55%, transparent);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--lime) 55%, transparent);
   }
   70% {
     box-shadow: 0 0 0 10px transparent;
@@ -5030,7 +5155,7 @@
   font-variant-numeric: tabular-nums;
 }
 .f-status .city {
-  color: var(--accent2);
+  color: var(--blue-text);
   font-weight: 600;
 }
 .f-meta {
@@ -5041,7 +5166,7 @@
   padding: 0 18px 0 11px;
   border-radius: 999px;
   font-size: var(--fs-small);
-  color: var(--muted);
+  color: var(--text-muted);
 }
 .f-meta .logo-mark {
   width: 22px;
@@ -5070,7 +5195,7 @@
 }
 @media (hover: hover) {
   .f-social a:hover {
-    color: var(--accent2);
+    color: var(--blue-text);
     transform: translateY(-2px);
   }
 }
@@ -5094,8 +5219,8 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: linear-gradient(180deg, color-mix(in oklab, var(--accent2) 30%, var(--accent)), var(--accent));
-  color: var(--color-char);
+  background: var(--blue-bright);
+  color: var(--text);
   transition: transform 0.25s ease;
 }
 /* build: movement only with a real hover; press feedback */

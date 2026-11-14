@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { dotFill } from "@/components/canvas/Orb2D";
+import { dotFill, sparkFill } from "@/components/canvas/Orb2D";
 
 const LEVELS = 14;
 
@@ -12,18 +12,20 @@ type Dot = {
   s: number;
   vx: number;
   vy: number;
-  /** resting brightness: 0 grain … 1 amber */
+  /** resting brightness: 0 grain … 1 blue-text */
   e: number;
   ph: number;
   sp: number;
   /** pushed aside by the pointer, easing back */
   ox: number;
   oy: number;
-  /** warmed by the pointer, cooling off */
+  /** lit up by the pointer, fading off */
   heat: number;
   /** thrown out by a burst, slowing to the drift */
   bx: number;
   by: number;
+  /** one of the few lime sparks */
+  spark: boolean;
 };
 
 // Things the page asks of the dots, in viewport px, taken up on the next frame.
@@ -35,7 +37,7 @@ export function burstDots(box: DOMRect, n = 150) {
   bursts.push({ x: box.left, y: box.top, w: box.width, h: box.height, n });
 }
 
-/** Warm the dots around a point (someone typing there): they lean in and glow. */
+/** Light up the dots around a point (someone typing there): they lean in and glow. */
 export function stirDots(x: number, y: number) {
   if (stirs.length < 8) stirs.push({ x, y });
 }
@@ -45,8 +47,8 @@ const EXTRA = 420;
 
 /**
  * Loose dots of the orb drifting up behind Contact: the same small square
- * stipple and colour ramp (grain → ember → amber), twinkling a little. Near
- * the pointer they part and warm up, as on the orb; they lean in and glow
+ * stipple and colour ramp (grain → blue-bright → blue-text) with a few lime
+ * sparks, twinkling a little. Near the pointer they part and light up, as on the orb; they lean in and glow
  * while someone types, and a sent brief bursts into them (burstDots).
  */
 export function ContactParticles({ className }: { className?: string }) {
@@ -60,7 +62,9 @@ export function ContactParticles({ className }: { className?: string }) {
     if (!ctx) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const fills = Array.from({ length: LEVELS }, (_, i) => dotFill(i / (LEVELS - 1)));
+    const sparkFills = Array.from({ length: LEVELS }, (_, i) => sparkFill(i / (LEVELS - 1)));
     const buckets: Dot[][] = Array.from({ length: LEVELS }, () => []);
+    const sparks: Dot[][] = Array.from({ length: LEVELS }, () => []);
 
     let W = 0;
     let H = 0;
@@ -95,11 +99,12 @@ export function ContactParticles({ className }: { className?: string }) {
         heat: 0,
         bx: 0,
         by: 0,
+        spark: Math.random() < 0.03,
       }));
       if (reduce) draw(0);
     }
 
-    // a burst: dots born inside the box, thrown out (mostly up, like embers), hot
+    // a burst: dots born inside the box, thrown out (mostly up, like sparks), bright
     function takeBursts() {
       if (!bursts.length || !canvas) return;
       const r = canvas.getBoundingClientRect();
@@ -125,6 +130,7 @@ export function ContactParticles({ className }: { className?: string }) {
             heat: 1,
             bx: Math.cos(a) * speed * 0.8,
             by: Math.sin(a) * speed * 0.5 - 1.6 - Math.random() * 1.8,
+            spark: Math.random() < 0.05,
           });
         }
       }
@@ -140,6 +146,7 @@ export function ContactParticles({ className }: { className?: string }) {
       const r = stirs.length ? canvas?.getBoundingClientRect() : null;
       const stir = r ? stirs.splice(0).map((p) => ({ x: p.x - r.left, y: p.y - r.top })) : [];
       for (const b of buckets) b.length = 0;
+      for (const b of sparks) b.length = 0;
       for (const d of dots) {
         if (!reduce) {
           d.x += d.vx + d.bx;
@@ -153,7 +160,7 @@ export function ContactParticles({ className }: { className?: string }) {
           if (d.x < -6) d.x = W + 6;
           if (d.x > W + 6) d.x = -6;
         }
-        // the pointer parts them and warms them, as on the orb
+        // the pointer parts them and lights them up, as on the orb
         let tx = 0;
         let ty = 0;
         if (pointer.active) {
@@ -187,15 +194,20 @@ export function ContactParticles({ className }: { className?: string }) {
         d.heat *= 0.96;
         const twinkle = reduce ? 1 : 0.8 + 0.2 * Math.sin(t * d.sp + d.ph);
         const energy = Math.min(1, d.e * twinkle + d.heat * 0.8);
-        buckets[Math.round(energy * (LEVELS - 1))].push(d);
+        (d.spark ? sparks : buckets)[Math.round(energy * (LEVELS - 1))].push(d);
       }
-      for (let l = 0; l < LEVELS; l++) {
-        const list = buckets[l];
-        if (!list.length) continue;
-        ctx.fillStyle = fills[l];
-        for (const d of list) {
-          const s = d.s * (0.9 + (0.3 * l) / (LEVELS - 1));
-          ctx.fillRect(d.x + d.ox - s / 2, d.y + d.oy - s / 2, s, s);
+      for (const [set, paint] of [
+        [buckets, fills],
+        [sparks, sparkFills],
+      ] as const) {
+        for (let l = 0; l < LEVELS; l++) {
+          const list = set[l];
+          if (!list.length) continue;
+          ctx.fillStyle = paint[l];
+          for (const d of list) {
+            const s = d.s * (0.9 + (0.3 * l) / (LEVELS - 1));
+            ctx.fillRect(d.x + d.ox - s / 2, d.y + d.oy - s / 2, s, s);
+          }
         }
       }
       ctx.globalCompositeOperation = "source-over";

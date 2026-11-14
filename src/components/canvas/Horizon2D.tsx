@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { dotFill } from "@/components/canvas/Orb2D";
+import { dotFill, sparkFill } from "@/components/canvas/Orb2D";
 import { buildHorizon, horizon, HORIZON, horizonLayout, stepHorizon } from "@/lib/horizon";
 
 const LEVELS = 14;
@@ -13,7 +13,7 @@ const smooth = (a: number, b: number, x: number) => {
 
 /**
  * The footer's horizon on a 2D canvas, for when there is no WebGL: the same
- * crown of dots with the orb's colour ramp (as Orb2D draws the orb). It
+ * crown of dots with the orb's colour ramp and a few lime sparks (as the WebGL one). It
  * turns and gathers in without WebGL; under reduced motion it is one still frame.
  */
 export function Horizon2D({ className, live }: { className?: string; live: boolean }) {
@@ -28,7 +28,11 @@ export function Horizon2D({ className, live }: { className?: string; live: boole
     const { pos, seed } = buildHorizon(count);
     const [lx, ly, lz] = HORIZON.light;
     const fills = Array.from({ length: LEVELS }, (_, i) => dotFill(i / (LEVELS - 1)));
+    const sparkFills = Array.from({ length: LEVELS }, (_, i) => sparkFill(i / (LEVELS - 1)));
     const buckets: number[][] = Array.from({ length: LEVELS }, () => []);
+    const sparks: number[][] = Array.from({ length: LEVELS }, () => []);
+    // the same few dots the WebGL horizon draws in lime
+    const isSpark = (i: number) => (seed[i * 4 + 3] * 37.7 + seed[i * 4 + 1] * 11.3) % 1 >= 0.993;
     const px = new Float32Array(count * 3);
 
     let dpr = 1;
@@ -45,6 +49,7 @@ export function Horizon2D({ className, live }: { className?: string; live: boole
       const c = Math.cos(horizon.yaw);
       const s = Math.sin(horizon.yaw);
       for (const b of buckets) b.length = 0;
+      for (const b of sparks) b.length = 0;
 
       for (let i = 0; i < count; i++) {
         const x = pos[i * 3];
@@ -71,15 +76,20 @@ export function Horizon2D({ className, live }: { className?: string; live: boole
         px[i * 3] = L.x + vx * L.r + Math.cos(drift) * far;
         px[i * 3 + 1] = sy;
         px[i * 3 + 2] = 1.9 * (0.72 + seed[i * 4 + 1] * 0.62) * (0.88 + 0.28 * light);
-        buckets[level].push(i);
+        (isSpark(i) ? sparks : buckets)[level].push(i);
       }
-      for (let l = 0; l < LEVELS; l++) {
-        const list = buckets[l];
-        if (!list.length) continue;
-        ctx.fillStyle = fills[l];
-        for (const i of list) {
-          const size = px[i * 3 + 2];
-          ctx.fillRect(px[i * 3] - size / 2, px[i * 3 + 1] - size / 2, size, size);
+      for (const [set, paint] of [
+        [buckets, fills],
+        [sparks, sparkFills],
+      ] as const) {
+        for (let l = 0; l < LEVELS; l++) {
+          const list = set[l];
+          if (!list.length) continue;
+          ctx.fillStyle = paint[l];
+          for (const i of list) {
+            const size = px[i * 3 + 2];
+            ctx.fillRect(px[i * 3] - size / 2, px[i * 3 + 1] - size / 2, size, size);
+          }
         }
       }
       ctx.globalCompositeOperation = "source-over";

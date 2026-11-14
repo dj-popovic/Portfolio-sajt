@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /**
- * A warm light that follows the pointer across its section, behind the
+ * A soft blue light that follows the pointer across its section, behind the
  * glass, so the panes have something to bend. Drop it straight inside a
  * <section> (it's positioned against it). Mouse and motion only.
  */

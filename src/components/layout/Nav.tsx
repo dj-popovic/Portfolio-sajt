@@ -83,7 +83,7 @@ export function Nav() {
         <div className="nav-right">
           <LangMenu locale={locale} className="nav-lang" />
 
-          <a href="#contact" className="nav-cta btn-ember">
+          <a href="#contact" className="nav-cta btn-lime">
             {t("cta")}
           </a>
 
@@ -150,7 +150,7 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
       role="dialog"
       aria-modal="true"
       aria-label={t("menu")}
-      className="fixed inset-0 z-[100] flex flex-col bg-base/95 px-[var(--gutter)] pt-4 pb-10 backdrop-blur-xl"
+      className="fixed inset-0 z-[100] flex flex-col bg-(--bg)/95 px-[var(--gutter)] pt-4 pb-10 backdrop-blur-xl"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -185,7 +185,7 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
             <a
               href={`#${id}`}
               onClick={onClose}
-              className="block py-2 font-display text-[length:var(--fs-h2)] font-semibold tracking-[-0.02em] text-cream"
+              className="block py-2 font-display text-[length:var(--fs-h2)] font-semibold tracking-[-0.02em] text-(--text)"
             >
               {t(id)}
             </a>
@@ -194,7 +194,9 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
       </motion.ul>
 
       <div className="mt-auto px-2">
-        <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-cream/58">{t("language")}</p>
+        <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-(--text-muted)">
+          {t("language")}
+        </p>
         <div className="grid grid-cols-2 gap-2">
           {routing.locales.map((code) => (
             <Link
@@ -207,8 +209,8 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
               aria-current={code === locale ? "true" : undefined}
               className={
                 code === locale
-                  ? "flex h-11 items-center rounded-2xl border border-ember/50 bg-ember/10 px-4 text-[14px] font-semibold text-cream"
-                  : "flex h-11 items-center rounded-2xl border border-cream/12 px-4 text-[14px] font-medium text-cream/78"
+                  ? "flex h-11 items-center rounded-2xl border border-(--blue-bright) bg-(--blue) px-4 text-[14px] font-semibold text-(--text)"
+                  : "flex h-11 items-center rounded-2xl border border-(--text)/12 px-4 text-[14px] font-medium text-(--text-2)"
               }
             >
               {tc(`languages.${code}`)}
@@ -218,7 +220,7 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
         <a
           href="#contact"
           onClick={onClose}
-          className="btn-ember mt-6 flex h-[52px] w-full items-center justify-center rounded-full px-6 text-[16px] font-semibold"
+          className="btn-lime mt-6 flex h-[52px] w-full items-center justify-center rounded-full px-6 text-[16px] font-semibold"
         >
           {t("cta")}
         </a>

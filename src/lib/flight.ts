@@ -48,7 +48,7 @@ function along(a: Point, c: Point, b: Point, t: number): Point {
 const TRAIL = 6;
 
 /**
- * A comet of ember dots on a bow from one point to a target. `to` is asked every frame
+ * A comet of blue dots (a lime head) on a bow from one point to a target. `to` is asked every frame
  * (null keeps the last point).
  */
 export function flyDots(

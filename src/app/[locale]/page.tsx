@@ -25,7 +25,7 @@ export default function HomePage() {
           <OrbLayer />
           <a
             href="#main"
-            className="sr-only z-[200] rounded-full bg-cream px-4 py-2 text-sm font-semibold text-base focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
+            className="sr-only z-[200] rounded-full bg-(--lime) px-4 py-2 text-sm font-semibold text-(--on-lime) focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
           >
             {t("skip")}
           </a>

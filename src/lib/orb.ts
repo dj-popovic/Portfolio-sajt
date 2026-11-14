@@ -1,4 +1,4 @@
-// The hero orb: a sphere of ember dots lit from the upper right, dense where
+// The hero orb: a sphere of blue dots lit from the upper right, dense where
 // the light falls and grainy in the shadow. Shared by the WebGL layer (fixed
 // behind the page), the 2D fallback inside the hero and the hit area that
 // takes the pointer and the keys. Plain mutable state on purpose: it is

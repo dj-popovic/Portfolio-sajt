@@ -69,7 +69,7 @@ export function Reveals() {
           );
         });
 
-        // Pro card: the ember border ignites with a sweep as it lands
+        // Pro card: its rim ignites with a sweep of blue light as it lands
         gsap.utils.toArray<HTMLElement>("[data-ignite]").forEach((el) => {
           gsap.fromTo(
             el,

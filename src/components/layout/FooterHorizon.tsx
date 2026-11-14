@@ -14,7 +14,7 @@ const HorizonScene = dynamic(() => import("@/components/three/HorizonScene"), { 
  * page, huge, in the same dots. The first time the footer shows, its dots
  * gather in from a loose cloud (on a clock, so it always completes, however
  * the page is scrolled); the pointer is a light across it and parts and
- * warms the dots, a tap anywhere off the links sends a ripple. WebGL like
+ * lights up the dots, a tap anywhere off the links sends a lime ripple. WebGL like
  * the hero; a 2D canvas without it; one still frame under reduced motion.
  */
 export function FooterHorizon({ className }: { className?: string }) {

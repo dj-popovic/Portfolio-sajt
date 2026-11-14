@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { buildOrb, orb, ORB, orbEvents, orbLayout, orbRotation, stepOrb, viewportSize } from "@/lib/orb";
+import { DOTS } from "@/lib/palette";
 
 const LEVELS = 14;
 
@@ -11,16 +12,18 @@ const smooth = (a: number, b: number, x: number) => {
 };
 const mix = (a: number, b: number, t: number) => a + (b - a) * t;
 
-// the shader's colour ramp, baked into buckets: shadow grain → ember → amber
-const GRAIN = [92, 74, 64];
-const EMBER = [255, 107, 53];
-const AMBER = [255, 182, 39];
+// the shader's colour ramp, baked into buckets: shadow grain → blue-bright → blue-text
+const dotAlpha = (e: number) => 0.32 + 0.68 * smooth(0, 0.75, e);
 export function dotFill(e: number) {
   const t1 = smooth(0.04, 0.42, e);
   const t2 = smooth(0.58, 0.98, e);
-  const c = GRAIN.map((g, i) => Math.round(mix(mix(g, EMBER[i], t1), AMBER[i], t2)));
-  const a = 0.32 + 0.68 * smooth(0, 0.75, e);
-  return `rgba(${c[0]},${c[1]},${c[2]},${a.toFixed(3)})`;
+  const c = DOTS.grain.map((g, i) => Math.round(mix(mix(g, DOTS.deep[i], t1), DOTS.bright[i], t2)));
+  return `rgba(${c[0]},${c[1]},${c[2]},${dotAlpha(e).toFixed(3)})`;
+}
+/** A lime spark at the same brightness (the footer's and Contact's few lime dots). */
+export function sparkFill(e: number) {
+  const [r, g, b] = DOTS.spark;
+  return `rgba(${r},${g},${b},${dotAlpha(e).toFixed(3)})`;
 }
 
 /**

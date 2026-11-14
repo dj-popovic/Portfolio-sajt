@@ -19,14 +19,14 @@ type AboutStageProps = {
   right: ReactNode;
 };
 
-const TILE = 88; // px — the ember tile the panel grows out of
+const TILE = 88; // px — the ★ tile the panel grows out of
 // resting offsets of the two founder cards in the design (desktop)
 const CARD_Y = [-30, 36];
 
 /**
- * About — the reel's signature move, adapted: the ember ★ tile the hero's
+ * About — the reel's signature move, adapted: the blue ★ tile the hero's
  * thread ran into bursts open into the light panel, a sheet floating on the
- * dark page (pinned, scroll-scrubbed; it starts hot and cools to paper while
+ * dark page (pinned, scroll-scrubbed; it opens in a flash of light that settles to paper while
  * the orb layer throws sparks off its edge), the story and the two founder
  * cards come in, then the panel folds back into the tile as "What we offer"
  * arrives. Small screens: the sheet opens out as it comes up the page.
@@ -44,7 +44,7 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
       const q = gsap.utils.selector(section);
       const [tile] = q(".about-tile");
       const [glow] = q(".about-glow");
-      const [heat] = q(".about-heat");
+      const [flash] = q(".about-flash");
       const [heading] = q(".about-center h2");
       const [bodyText] = q(".about-center p");
       const [statsRow] = q(".about-stats");
@@ -103,8 +103,8 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
 
         tl.to(panel, { open: 1, duration: 0.2, onUpdate: paint }, 0)
           .fromTo(tile, { autoAlpha: 1, scale: 1 }, { autoAlpha: 0, scale: 0.55, duration: 0.05 }, 0.005)
-          // the panel opens hot and cools to paper
-          .fromTo(heat, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.17, ease: "power1.in" }, 0.03)
+          // the panel opens in a flash and settles to paper
+          .fromTo(flash, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.17, ease: "power1.in" }, 0.03)
           .fromTo(glow, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.12 }, 0.12)
           .fromTo(
             cards,
@@ -133,9 +133,9 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
           )
           .fromTo(statsRow, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.05 }, 0.4)
           .call(() => setStatsPlay(true), [], 0.42)
-          // hold, then fold back into the tile (warming up again on the way)
+          // hold, then fold back into the tile (lighting up again on the way)
           .to(panel, { open: 0, duration: 0.13, onUpdate: paint }, 0.84)
-          .to(heat, { autoAlpha: 1, duration: 0.09, ease: "power1.in" }, 0.86)
+          .to(flash, { autoAlpha: 1, duration: 0.09, ease: "power1.in" }, 0.86)
           .to(tile, { autoAlpha: 1, scale: 1, duration: 0.04 }, 0.93);
 
         // the cards only stand between ~15% and ~85% of the pin (opacity, not
@@ -252,7 +252,7 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
   return (
     <section ref={root} className="about" id="about" data-screen-label="About" data-manual-reveal>
       <div className="about-glow" aria-hidden />
-      <div className="about-heat" aria-hidden />
+      <div className="about-flash" aria-hidden />
       <div className="about-tile logo-mark" aria-hidden>
         ★
       </div>

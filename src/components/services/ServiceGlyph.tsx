@@ -23,9 +23,9 @@ const GLYPHS: Record<ServiceKey, { box: string; d: string }> = {
 };
 
 /**
- * A service's symbol drawn in ember dots, the orb's stipple again: a thick
- * amber → ember line seen through a fixed grid of dots (the mask), with a
- * soft glow of the same line behind it. `--draw` (1 → 0) draws it in along
+ * A service's symbol drawn in blue dots, the orb's stipple again: a thick
+ * light-blue → blue-bright line seen through a fixed grid of dots (the mask),
+ * with a soft glow of the same line behind it (colours: .svc-glyph in sections.css). `--draw` (1 → 0) draws it in along
  * its path. Only the line moves; the mask never changes (Safari doesn't
  * repaint a mask whose contents animate).
  */
@@ -37,15 +37,15 @@ export function ServiceGlyph({ kind }: { kind: ServiceKey }) {
     <svg className="svc-glyph" viewBox={box} aria-hidden>
       <defs>
         <pattern id={`${id}-dots`} width="0.7" height="0.7" patternUnits="userSpaceOnUse">
-          <circle cx="0.35" cy="0.35" r="0.17" fill="#fff" />
+          <circle cx="0.35" cy="0.35" r="0.17" fill="white" />
         </pattern>
         <mask id={`${id}-mask`} maskUnits="userSpaceOnUse" x={x} y={y} width={w} height={h}>
           <rect x={x} y={y} width={w} height={h} fill={`url(#${id}-dots)`} />
         </mask>
         <linearGradient id={`${id}-tint`} gradientUnits="userSpaceOnUse" x1={x} y1={y} x2={x + w} y2={y + h}>
-          <stop offset="0" stopColor="#ffd38a" />
-          <stop offset="0.45" stopColor="#ffb627" />
-          <stop offset="1" stopColor="#ff6b35" />
+          <stop offset="0" className="svc-tint-a" />
+          <stop offset="0.45" className="svc-tint-b" />
+          <stop offset="1" className="svc-tint-c" />
         </linearGradient>
         <filter id={`${id}-blur`} x="-40%" y="-40%" width="180%" height="180%">
           <feGaussianBlur stdDeviation="1.2" />
@@ -55,7 +55,6 @@ export function ServiceGlyph({ kind }: { kind: ServiceKey }) {
         className="svc-glyph-line svc-glyph-glow"
         d={d}
         pathLength={1}
-        stroke="#ff6b35"
         strokeWidth="1.8"
         filter={`url(#${id}-blur)`}
       />

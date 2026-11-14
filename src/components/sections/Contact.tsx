@@ -26,7 +26,7 @@ export function Contact() {
           </div>
 
           <div className="convo-stage">
-            {/* warm light behind the glass, for it to bend */}
+            {/* blue light behind the glass, for it to bend */}
             <div className="convo-lights" aria-hidden>
               <span className="a" />
               <span className="b" />

@@ -39,7 +39,7 @@ export function Fit() {
         <FitFinder />
 
         <FitGrid className="fit-grid" data-reveal-group data-reveal-stagger="0.06">
-          {/* warm light behind the frosted glass, for it to bend; the spot follows your fit */}
+          {/* blue light behind the frosted glass, for it to bend; the spot follows your fit */}
           <div className="fit-lights" aria-hidden>
             <span className="a" />
             <span className="b" />
@@ -57,7 +57,7 @@ export function Fit() {
                 data-reveal-item
                 data-ignite={featured || undefined}
               >
-                {/* the ember beam runs round Pro's rim, or round your fit's */}
+                {/* the beam of light runs round Pro's rim, or round your fit's */}
                 <span className="pkg-beam" aria-hidden />
                 <div className="pkg-kicker">
                   <h3 className="pkg-name">{t(`packages.${key}.name`)}</h3>

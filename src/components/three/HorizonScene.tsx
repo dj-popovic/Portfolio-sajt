@@ -12,13 +12,14 @@ import {
   pointerLight,
   stepHorizon,
 } from "@/lib/horizon";
+import { DOTS, glsl } from "@/lib/palette";
 
 /* ------------------------------------------------------------------
    The footer's horizon in the orb's own dots: the same shading (a dot
    shows once the light beats its dither threshold), colours, size and
    soft round points, on a sphere so big only its crown clears the edge.
-   The pointer is a light you shine across it (and parts and warms the
-   dots near it), a tap sends a ripple across it, and the first time the
+   The pointer is a light you shine across it (and parts and lights up the
+   dots near it), a tap sends a lime ripple across it, and the first time the
    footer shows its dots gather in from a loose cloud, like the hero's.
    ------------------------------------------------------------------ */
 
@@ -61,7 +62,7 @@ const vertexShader = /* glsl */ `
     float drift = aSeed.w * 6.2832;
     p += (vec2(cos(drift), sin(drift) * 0.55) * (70.0 + aSeed.y * 240.0) + vec2(0.0, 150.0)) * (1.0 - gather);
 
-    // the pointer parts the dots and warms them
+    // the pointer parts the dots and lights them up
     vec2 dp = p - uPointer.xy;
     float dist = length(dp);
     float near = uPointer.z * (1.0 - smoothstep(0.0, 130.0, dist));
@@ -74,13 +75,17 @@ const vertexShader = /* glsl */ `
     // a sparse grain stays in the shadow so the whole crown reads
     show = max(show, step(aSeed.x, 0.06) * 0.5) * facing;
 
-    vec3 grain = vec3(0.36, 0.29, 0.25);
-    vec3 ember = vec3(1.0, 0.42, 0.21);
-    vec3 amber = vec3(1.0, 0.71, 0.15);
-    vec3 hot = vec3(1.0, 0.93, 0.84);
-    vec3 col = mix(grain, ember, smoothstep(0.04, 0.42, energy));
-    col = mix(col, amber, smoothstep(0.58, 0.98, energy));
+    vec3 grain = ${glsl(DOTS.grain)};
+    vec3 deep = ${glsl(DOTS.deep)};
+    vec3 bright = ${glsl(DOTS.bright)};
+    vec3 hot = ${glsl(DOTS.hot)};
+    vec3 col = mix(grain, deep, smoothstep(0.04, 0.42, energy));
+    col = mix(col, bright, smoothstep(0.58, 0.98, energy));
     col = mix(col, hot, smoothstep(0.95, 1.3, energy) * aSeed.y);
+    // a tap's ripple runs through the dots in lime
+    col = mix(col, ${glsl(DOTS.spark)}, wave * 0.9);
+    // a few dots are lime sparks
+    col = mix(col, ${glsl(DOTS.spark)}, step(0.993, fract(aSeed.w * 37.7 + aSeed.y * 11.3)));
 
     float size = uDot * (0.72 + aSeed.y * 0.62) * (0.88 + 0.28 * light);
     float alpha = show * (0.32 + 0.68 * smoothstep(0.0, 0.75, energy)) * gather;

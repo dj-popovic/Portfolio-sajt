@@ -10,7 +10,7 @@ export function Hero() {
 
   return (
     <section className="hero" id="top" data-screen-label="Hero">
-      {/* the orb is a fixed layer behind the page; this is its warm aura, fallbacks and controls */}
+      {/* the orb is a fixed layer behind the page; this is its blue aura, fallbacks and controls */}
       <div className="hero-aura" aria-hidden />
       <HeroOrbFallback />
       <div className="hero-scrim" aria-hidden />
@@ -26,7 +26,7 @@ export function Hero() {
             {t("sub")}
           </p>
           <div className="hero-actions" data-hero="actions">
-            <a href="#contact" className="btn-primary btn-ember">
+            <a href="#contact" className="btn-primary btn-lime">
               {t("primary")}
             </a>
             <a href="#work" className="btn-ghost">

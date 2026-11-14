@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { locale as rootLocale } from "next/root-params";
 import { routing } from "@/i18n/routing";
 import { fontVariables } from "@/lib/fonts";
+import { PALETTE } from "@/lib/palette";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -29,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0e0b0a",
+  themeColor: PALETTE.bg,
   colorScheme: "dark",
 };
 

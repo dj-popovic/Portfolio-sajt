@@ -84,12 +84,14 @@ export function ProcessJourney({ children }: { children: ReactNode }) {
           s.style.setProperty("--roll", easeOut(clamp01((h - at[i] + run) / run)).toFixed(3));
         });
         steps.forEach((s, i) => s.classList.toggle("is-on", i === on));
-        // warm light rides with the head and waits at the next step, for the glass to bend
+        // blue light rides with the head and waits at the next step, for the glass to bend
         const ahead = at[Math.min(at.length - 1, on + 1)];
         const pos = (v: number) =>
           axis === "x" ? `translate3d(${v.toFixed(0)}px, 0, 0)` : `translate3d(0, ${v.toFixed(0)}px, 0)`;
-        if (glowA) glowA.style.transform = pos(shift + h);
-        if (glowB) glowB.style.transform = pos(shift + Math.max(ahead, h + 40));
+        // (kept near the line, as the head is: far off screen, h would park them over another section)
+        const near = (v: number) => Math.min(at[at.length - 1] + run, Math.max(at[0] - run, v));
+        if (glowA) glowA.style.transform = pos(shift + near(h));
+        if (glowB) glowB.style.transform = pos(shift + near(Math.max(ahead, h + 40)));
       };
       const reset = () => {
         delete section.dataset.journey;

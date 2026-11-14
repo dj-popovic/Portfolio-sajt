@@ -19,9 +19,10 @@ Image licensing: use photos you own or that are explicitly licensed for commerci
 
 ## 2. Name, logo and domain
 
-- Replace `<logo>`, `[studio]` and the ★ placeholder mark (nav, footer, favicon `src/app/icon.svg`, page title in `messages/*.json` → `meta.title`).
+- **Done (Nov 2026):** the studio is **klin** (always lowercase), and its logo is in: the header, the phone menu, the footer's copyright line, the About tile (the mark), the page title and share title in all four languages, the favicon, the Apple icon and the web manifest. Files in `public/brand/` (`logo-dark/light/mono.svg`, `mark.svg`, icons); the build is described in `src/components/brand/`.
+- **Still open: the domain.** Until it's registered, `[studio]` stays in the email addresses: `hello@[studio].com` (footer, Copy email) and `[name-one]@[studio].com` / `[name-two]@[studio].com` (founder profiles), all in `src/lib/placeholders.ts`.
+- **A social share image** (1200×630 with the logo) can be made now that the logo exists: see the table in section 1.
 - Placeholders live in `src/lib/placeholders.ts` — never translate them.
-- Email `hello@[studio].com` in the footer.
 
 ## 3. Copy
 

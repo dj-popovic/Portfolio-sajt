@@ -1,4 +1,4 @@
-# Studio portfolio — `<logo>`
+# klin — studio portfolio
 
 Single-page portfolio for a two-person creative studio (branding, websites, apps, marketing). One dark blue-black page in deep blue and electric lime, with light "paper" sections, scroll choreography, a 3D hero and four interactive concept demos. English plus Serbian (Latin), Russian and German.
 
@@ -32,19 +32,20 @@ node scripts/shoot.mjs http://localhost:3100 .shots /
 
 ## Where things live
 
-| Path                           | What                                                                                         |
-| ------------------------------ | -------------------------------------------------------------------------------------------- |
-| `messages/*.json`              | All copy, per language                                                                       |
-| `src/app/[locale]/`            | Layout + the single page                                                                     |
-| `src/components/sections/`     | One component per section                                                                    |
-| `src/components/work/`         | Concept cards, previews and the demo window                                                  |
-| `src/components/work/demos/`   | The four concept mini-sites (lazy-loaded when a window opens)                                |
-| `src/app/globals.css`          | Palette and the design system tokens (type sizes, column, spacing, corners, control heights) |
-| `src/lib/palette.ts`           | The same palette for WebGL and canvas code (the orb's dots)                                  |
-| `src/styles/sections.css`      | Section styles ported from the design export                                                 |
-| `src/lib/placeholders.ts`      | `<logo>`, `[studio]`, names… — undecided content                                             |
-| `src/app/api/contact/route.ts` | Contact endpoint (**stub** — see `docs/CONTACT_API.md`)                                      |
-| `docs/OPEN-ITEMS.md`           | What's still missing before launch (photos, name, prices…)                                   |
+| Path                           | What                                                                                                              |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| `messages/*.json`              | All copy, per language                                                                                            |
+| `src/app/[locale]/`            | Layout + the single page                                                                                          |
+| `src/components/sections/`     | One component per section                                                                                         |
+| `src/components/work/`         | Concept cards, previews and the demo window                                                                       |
+| `src/components/work/demos/`   | The four concept mini-sites (lazy-loaded when a window opens)                                                     |
+| `src/app/globals.css`          | Palette and the design system tokens (type sizes, column, spacing, corners, control heights)                      |
+| `src/lib/palette.ts`           | The same palette for WebGL and canvas code (the orb's dots)                                                       |
+| `src/styles/sections.css`      | Section styles ported from the design export                                                                      |
+| `src/lib/placeholders.ts`      | `[studio]` (the domain), names… — undecided content                                                               |
+| `src/components/brand/`        | The klin logo (`<Logo>`, `<Mark>`); its geometry, `public/brand/` and the icons come from `scripts/logo/build.py` |
+| `src/app/api/contact/route.ts` | Contact endpoint (**stub** — see `docs/CONTACT_API.md`)                                                           |
+| `docs/OPEN-ITEMS.md`           | What's still missing before launch (photos, name, prices…)                                                        |
 
 ## Quality bar
 

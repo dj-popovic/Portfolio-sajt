@@ -26,7 +26,7 @@
     "close": "Zatvori meni"
   },
   "hero": {
-    "title": "Kreativa koja gori<br></br><glow>toplijim plamenom.</glow>",
+    "title": "Kreativa koja odbija<br></br><glow>da se uklopi.</glow>",
     "sub": "Mi smo dvočlani studio koji pravi brendove, sajtove i aplikacije, od strategije do lansiranja. Ovaj sajt je naš najbolji dokaz.",
     "primary": "Započnite projekat",
     "secondary": "Pogledajte radove",
@@ -103,7 +103,7 @@
     }
   },
   "work": {
-    "title": "Još nije portfolio. <glow>Samo uvid u ono što umemo.</glow>",
+    "title": "Još nije portfolio. Samo uvid u ono što <glow>umemo</glow>.",
     "note": "Svaka pločica je živi mini-demo, napravljen onako kako bismo napravili i vaš. <b>Pređite mišem</b> za pregled, kliknite da ga otvorite preko celog ekrana.",
     "noteTouch": "Svaka pločica je živi mini-demo, napravljen onako kako bismo napravili i vaš. <b>Dodirnite</b> da ga otvorite preko celog ekrana.",
     "open": "Otvori demo",
@@ -167,7 +167,7 @@
     }
   },
   "fit": {
-    "title": "Izaberite početnu tačku. <glow>Ostalo oblikujemo zajedno.</glow>",
+    "title": "Izaberite početnu tačku. Ostalo oblikujemo <glow>zajedno</glow>.",
     "sub": "Nije fiksni meni, već načini na koje obično radimo. Izaberite najbliži, a detalje ćemo dogovoriti u razgovoru.",
     "price": "Razgovarajmo",
     "popular": "Najpopularniji",
@@ -328,7 +328,7 @@
       "slušalice na ušima, glava u poslu"
     ],
     "moodNight": "još smo budni, nekako",
-    "meta": "© <year></year> '<logo>' · napravljeno rukom, s toplinom",
+    "meta": "© <year></year> '<logo>' · napravljeno rukom u [Novi Sad]",
     "top": "Na vrh",
     "social": {
       "instagram": "Instagram",

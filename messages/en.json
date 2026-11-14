@@ -26,7 +26,7 @@
     "close": "Close menu"
   },
   "hero": {
-    "title": "Creative work with a warmer<br></br><glow>kind of fire.</glow>",
+    "title": "Creative work that refuses to<br></br><glow>blend in.</glow>",
     "sub": "We’re a two-person studio crafting brands, websites and apps, from strategy to launch. This site is our proof of work.",
     "primary": "Start a project",
     "secondary": "See our work",
@@ -103,7 +103,7 @@
     }
   },
   "work": {
-    "title": "Not a portfolio yet. <glow>A glimpse of the range.</glow>",
+    "title": "Not a portfolio yet. A glimpse of the <glow>range</glow>.",
     "note": "Each tile is a live mini-demo, built the way we’d build yours. <b>Hover to preview</b>, click to open it full-screen.",
     "noteTouch": "Each tile is a live mini-demo, built the way we’d build yours. <b>Tap to open</b> it full-screen.",
     "open": "Open demo",
@@ -167,7 +167,7 @@
     }
   },
   "fit": {
-    "title": "Pick a starting point. <glow>We’ll shape the rest together.</glow>",
+    "title": "Pick a starting point. We’ll shape the rest <glow>together</glow>.",
     "sub": "Not a fixed menu, just the ways we usually work. Pick the closest one and we’ll talk through the details.",
     "price": "Let’s talk",
     "popular": "Most popular",
@@ -328,7 +328,7 @@
       "heads-down, music on"
     ],
     "moodNight": "still up, weirdly",
-    "meta": "© <year></year> '<logo>' · made by hand, kept warm",
+    "meta": "© <year></year> '<logo>' · made by hand in [Novi Sad]",
     "top": "Back to top",
     "social": {
       "instagram": "Instagram",

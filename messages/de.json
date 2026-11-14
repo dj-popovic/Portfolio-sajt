@@ -26,7 +26,7 @@
     "close": "Menü schließen"
   },
   "hero": {
-    "title": "Kreative Arbeit,<br></br><glow>die wärmer brennt.</glow>",
+    "title": "Kreative Arbeit,<br></br>die <glow>aus der Reihe tanzt.</glow>",
     "sub": "Wir sind ein Studio zu zweit und gestalten Marken, Websites und Apps, von der Strategie bis zum Launch. Diese Website ist unsere Arbeitsprobe.",
     "primary": "Projekt starten",
     "secondary": "Arbeiten ansehen",
@@ -103,7 +103,7 @@
     }
   },
   "work": {
-    "title": "Noch kein Portfolio. <glow>Ein Einblick in unsere Bandbreite.</glow>",
+    "title": "Noch kein Portfolio. Ein Einblick in unsere <glow>Bandbreite</glow>.",
     "note": "Jede Kachel ist eine Live-Mini-Demo, so gebaut, wie wir auch dein Projekt bauen würden. <b>Fahr mit der Maus darüber</b> für eine Vorschau, ein Klick öffnet sie im Vollbild.",
     "noteTouch": "Jede Kachel ist eine Live-Mini-Demo, so gebaut, wie wir auch dein Projekt bauen würden. <b>Tippe darauf</b>, um sie im Vollbild zu öffnen.",
     "open": "Demo öffnen",
@@ -167,7 +167,7 @@
     }
   },
   "fit": {
-    "title": "Wähl einen Startpunkt. <glow>Den Rest gestalten wir gemeinsam.</glow>",
+    "title": "Wähl einen Startpunkt. Den Rest gestalten wir <glow>gemeinsam</glow>.",
     "sub": "Kein festes Menü, sondern unsere üblichen Arbeitsweisen. Such dir das Passendste aus, die Details klären wir im Gespräch.",
     "price": "Lass uns reden",
     "popular": "Am beliebtesten",
@@ -328,7 +328,7 @@
       "Kopfhörer auf, voll im Flow"
     ],
     "moodNight": "komischerweise noch wach",
-    "meta": "© <year></year> '<logo>' · von Hand gemacht, mit Wärme",
+    "meta": "© <year></year> '<logo>' · von Hand gemacht in [Novi Sad]",
     "top": "Nach oben",
     "social": {
       "instagram": "Instagram",

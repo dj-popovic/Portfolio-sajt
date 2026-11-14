@@ -1,11 +1,11 @@
 {
   "meta": {
-    "title": "'<logo>' · Two-person creative studio",
+    "title": "klin · Two-person creative studio",
     "description": "We’re a two-person studio crafting brands, websites and apps end-to-end: strategy, design and build, all under one roof."
   },
   "common": {
     "skip": "Skip to content",
-    "logoAria": "Home",
+    "logoAria": "klin, home",
     "languages": {
       "en": "English",
       "sr": "Srpski",
@@ -328,7 +328,7 @@
       "heads-down, music on"
     ],
     "moodNight": "still up, weirdly",
-    "meta": "© <year></year> '<logo>' · made by hand in [Novi Sad]",
+    "meta": "© <year></year> <logo></logo> · made by hand in [Novi Sad]",
     "top": "Back to top",
     "social": {
       "instagram": "Instagram",

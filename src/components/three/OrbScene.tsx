@@ -8,7 +8,7 @@ import { DOTS, glsl } from "@/lib/palette";
 
 /* ------------------------------------------------------------------
    The orb, drawn in screen pixels so it can line up with the DOM: the
-   hit area in the hero and, on scroll, the ★ tile the thread runs into.
+   hit area in the hero and, on scroll, the klin tile the thread runs into.
    Lit from the upper right; a dot shows once the light beats its dither
    threshold, so the lit cap is dense and the shadow is a sparse grain.
    ------------------------------------------------------------------ */
@@ -173,7 +173,7 @@ const bodyFragment = /* glsl */ `
     gl_FragColor = vec4(mix(${glsl(DOTS.deep)}, ${glsl(DOTS.bright)}, lam), a);
   }
 `;
-// a glow that hugs a rounded rectangle: the ★ tile while it charges, then the
+// a glow that hugs a rounded rectangle: the klin tile while it charges, then the
 // About panel's edge as it opens. Computed per pixel, so it fades to nothing
 // with no box around it.
 const screenVertex = /* glsl */ `

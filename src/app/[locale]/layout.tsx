@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { locale as rootLocale } from "next/root-params";
 import { routing } from "@/i18n/routing";
+import { STUDIO } from "@/lib/brand";
 import { fontVariables } from "@/lib/fonts";
 import { PALETTE } from "@/lib/palette";
 import "../globals.css";
@@ -12,11 +13,23 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+const OG_LOCALE = { en: "en_US", sr: "sr_RS", ru: "ru_RU", de: "de_DE" } as const;
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("meta");
+  const locale = await rootLocale();
   return {
     title: t("title"),
     description: t("description"),
+    applicationName: STUDIO,
+    appleWebApp: { title: STUDIO },
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      siteName: STUDIO,
+      type: "website",
+      locale: OG_LOCALE[locale as keyof typeof OG_LOCALE] ?? OG_LOCALE.en,
+    },
     alternates: {
       languages: {
         en: "/",

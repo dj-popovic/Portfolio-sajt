@@ -1,8 +1,8 @@
-// Undecided content stays visible as placeholders until the studio name,
+// Undecided content stays visible as placeholders until the domain, the founders' names,
 // copy and photos are decided (see docs/OPEN-ITEMS.md). Never translate these.
+// The studio's name is decided: klin (src/lib/brand.ts).
 export const PLACEHOLDER = {
-  logo: "<logo>",
-  studio: "[studio]",
+  studio: "[studio]", // the email domain, until it's registered
   nameOne: "<Name One>",
   nameTwo: "<Name Two>",
   emailOne: "[name-one]@[studio].com",

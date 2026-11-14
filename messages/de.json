@@ -1,11 +1,11 @@
 {
   "meta": {
-    "title": "'<logo>' · Kreativstudio zu zweit",
+    "title": "klin · Kreativstudio zu zweit",
     "description": "Wir sind ein Studio zu zweit und gestalten Marken, Websites und Apps von A bis Z: Strategie, Design und Entwicklung unter einem Dach."
   },
   "common": {
     "skip": "Zum Inhalt springen",
-    "logoAria": "Startseite",
+    "logoAria": "klin, Startseite",
     "languages": {
       "en": "English",
       "sr": "Srpski",
@@ -328,7 +328,7 @@
       "Kopfhörer auf, voll im Flow"
     ],
     "moodNight": "komischerweise noch wach",
-    "meta": "© <year></year> '<logo>' · von Hand gemacht in [Novi Sad]",
+    "meta": "© <year></year> <logo></logo> · von Hand gemacht in [Novi Sad]",
     "top": "Nach oben",
     "social": {
       "instagram": "Instagram",

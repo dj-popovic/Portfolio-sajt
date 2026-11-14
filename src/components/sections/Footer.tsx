@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { Logo } from "@/components/brand/Logo";
 import { FooterHorizon } from "@/components/layout/FooterHorizon";
 import { BackToTop, CopyEmail, CopyrightYear, StudioStatus } from "@/components/layout/FooterLive";
 import { PLACEHOLDER } from "@/lib/placeholders";
@@ -62,10 +63,13 @@ export function Footer() {
         <div className="f-base">
           <StudioStatus />
           <span className="f-meta glass">
-            <span className="logo-mark" aria-hidden>
-              ★
+            <span>
+              {t.rich("meta", {
+                year: () => <CopyrightYear />,
+                // in the line of text: one colour, a word's height, on the baseline
+                logo: () => <Logo variant="mono" size="0.8em" />,
+              })}
             </span>
-            <span>{t.rich("meta", { year: () => <CopyrightYear /> })}</span>
           </span>
           <div className="f-social">
             <a className="glass" href="#" aria-label={t("social.instagram")}>

@@ -73,17 +73,25 @@ main,
     );
 }
 
-/* About: the ★ tile the light panel grows out of */
+/* About: the tile the light panel grows out of. It's the app icon: the klin mark (the lime
+   wedge i) on the page's own dark, with the house glass's lit rim so it holds on the dark */
 .about-tile {
   position: absolute;
   left: 50%;
   top: 50%;
   z-index: 5;
+  display: grid;
+  place-items: center;
   width: 88px;
   height: 88px;
   margin: -44px 0 0 -44px;
   border-radius: 26px;
-  font-size: 30px;
+  background: radial-gradient(120% 120% at 30% 20%, var(--surface-2), var(--bg) 70%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.16),
+    inset 0 0 0 1px rgb(255 255 255 / 0.09),
+    0 0 0 1px color-mix(in oklab, var(--blue-bright) 45%, transparent),
+    0 0 34px -6px color-mix(in oklab, var(--blue-bright) 60%, transparent);
   visibility: hidden;
 }
 

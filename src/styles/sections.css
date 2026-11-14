@@ -58,28 +58,18 @@
 .site-nav > * {
   pointer-events: auto;
 }
+/* build: the wordmark alone in its pill (the ★ placeholder tile is gone), a header control's height */
 .nav-logo {
   justify-self: start;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 6px 16px 6px 6px;
+  height: var(--ctl-m);
+  padding: 0 18px;
   border-radius: 999px;
   color: var(--text);
   text-decoration: none;
 }
-.nav-logo .logo-mark {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-}
-.nav-logo .ph {
-  font-weight: 500;
-  font-size: var(--fs-small);
-  color: var(--text-2);
-}
+
 .nav-links {
   display: flex;
   align-items: center;
@@ -254,6 +244,73 @@
 @media (max-width: 440px) {
   .site-nav .nav-cta {
     display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ LOGO */
+/* build: the klin wordmark (components/brand/Logo.tsx). Its colours come from where it sits:
+   dark on the page, light on the paper sheets (and under a light theme, if one comes), dark
+   again on the dark panes that sit on paper; `variant` pins one */
+.logo {
+  display: inline-block;
+  flex: none;
+  overflow: visible; /* the hover glow reaches past the box */
+  vertical-align: baseline; /* in a line of text it sits on the baseline, like a word */
+}
+.logo-ink {
+  fill: var(--logo-ink, var(--text));
+}
+.logo-wedge {
+  fill: var(--logo-wedge, var(--lime));
+  transform-box: fill-box; /* the nav's tap moves it by a share of its own height */
+  transition: transform 0.26s var(--ease-out-quart);
+}
+.logo-dot {
+  fill: var(--logo-dot, var(--lime));
+}
+.logo-ring {
+  fill: none;
+  stroke: var(--logo-ring, transparent);
+}
+.logo-glow-stop {
+  stop-color: var(--logo-dot, var(--lime));
+}
+:is(.about, .work, .fit, [data-theme="light"]),
+.logo[data-variant="light"] {
+  --logo-ink: var(--blue);
+  --logo-wedge: var(--blue);
+  --logo-dot: var(--lime);
+  --logo-ring: var(--blue); /* lime alone vanishes on light */
+}
+:is(.glass, .about-tile, .concept-card, .pkg.featured, .fcard, .about-stats, .work-cta),
+.logo[data-variant="dark"] {
+  --logo-ink: var(--text);
+  --logo-wedge: var(--lime);
+  --logo-dot: var(--lime);
+  --logo-ring: transparent;
+}
+.logo[data-variant="mono"] {
+  --logo-ink: currentColor;
+  --logo-wedge: currentColor;
+  --logo-dot: currentColor;
+  --logo-ring: transparent;
+}
+/* the nav's: on hover the wedge taps in a pixel or two and the dot glows. The tap is movement,
+   so reduced motion keeps only the glow (a light, not motion) */
+.logo-glow {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .nav-logo:hover .logo-glow {
+    opacity: 1;
+    transition-duration: 0.18s;
+  }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .nav-logo:hover .logo-wedge {
+    transform: translateY(9%); /* ~1.5px at the nav's size */
+    transition: transform 0.16s cubic-bezier(0.23, 1, 0.32, 1);
   }
 }
 
@@ -1117,7 +1174,7 @@
     margin-top: 18px;
   }
 }
-/* build: shorter laptop screens (from 560px tall) keep the pinned ★ stage, a size
+/* build: shorter laptop screens (from 560px tall) keep the pinned About stage, a size
    smaller so it fits the screen: smaller cards and type, less padding */
 @media (min-width: 901px) and (max-height: 760px) {
   .about {
@@ -5097,8 +5154,8 @@
   width: 100%;
   height: 100%;
 }
-/* build: the centred "<logo> · wordmark" pill is gone — the brief keeps only
-   the small <logo> by the copyright; this band is just breathing room */
+/* build: the centred "logo · wordmark" pill is gone — the brief keeps only
+   the small klin by the copyright; this band is just breathing room */
 .f-atmosphere {
   position: relative;
   z-index: 2;
@@ -5163,16 +5220,10 @@
   align-items: center;
   gap: 10px;
   min-height: var(--ctl-m);
-  padding: 0 18px 0 11px;
+  padding: 0 18px;
   border-radius: 999px;
   font-size: var(--fs-small);
   color: var(--text-muted);
-}
-.f-meta .logo-mark {
-  width: 22px;
-  height: 22px;
-  border-radius: 7px;
-  font-size: 8px;
 }
 .f-social {
   display: flex;

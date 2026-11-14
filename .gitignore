@@ -42,3 +42,7 @@ next-env.d.ts
 
 # local screenshots
 /.shots
+
+# python env for scripts/logo/build.py
+.venv/
+__pycache__/

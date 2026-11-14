@@ -10,7 +10,7 @@ import { Link } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 import { BurgerIcon, CloseIcon } from "@/components/ui/icons";
 import { overlay } from "@/lib/overlay";
-import { PLACEHOLDER } from "@/lib/placeholders";
+import { Logo } from "@/components/brand/Logo";
 
 const SECTIONS = ["about", "services", "work", "process"] as const;
 type Section = (typeof SECTIONS)[number];
@@ -58,10 +58,7 @@ export function Nav() {
     <>
       <nav className="site-nav" aria-label={t("primary")} data-hero="nav">
         <a href="#top" className="nav-logo glass" aria-label={tc("logoAria")}>
-          <span className="logo-mark" aria-hidden>
-            ★
-          </span>
-          <span className="ph">{PLACEHOLDER.logo}</span>
+          <Logo interactive />
         </a>
 
         <div className="nav-links glass">
@@ -158,10 +155,7 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
     >
       <div className="flex items-center justify-between">
         <span className="nav-logo glass">
-          <span className="logo-mark" aria-hidden>
-            ★
-          </span>
-          <span className="ph">{PLACEHOLDER.logo}</span>
+          <Logo />
         </span>
         <button type="button" className="nav-burger glass !grid" aria-label={t("close")} onClick={onClose}>
           <CloseIcon size={16} />

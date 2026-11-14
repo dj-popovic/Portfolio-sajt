@@ -37,7 +37,7 @@ const PANEL =
 
 /**
  * The orb's fixed layer behind the page. In the hero it is a sphere you can
- * spin; scrolling unravels it into a thread of dots that runs into the ★ tile
+ * spin; scrolling unravels it into a thread of dots that runs into the klin tile
  * where About begins (or the top of the About panel on small screens). The
  * tile glows, the panel bursts open in sparks, and then the layer sleeps.
  */

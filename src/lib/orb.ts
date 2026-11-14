@@ -89,7 +89,7 @@ export const orb = {
   pointer: { x: -9999, y: -9999, over: false },
   /** object-space direction of the last ripple and its age in seconds (< 0: none) */
   ripple: { x: 0, y: 0, z: 1, t: -1 },
-  /** 0 → 1 while the hero scrolls into About: sphere → thread → the ★ tile */
+  /** 0 → 1 while the hero scrolls into About: sphere → thread → the klin tile */
   morph: 0,
   /** what the thread runs into: the About tile (desktop) or the top of the About panel */
   aim: null as Aim | null,

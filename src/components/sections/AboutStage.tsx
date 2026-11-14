@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, type ReactNode } from "react";
+import { Mark } from "@/components/brand/Logo";
 import { setInset, sheetShape, tileClip } from "@/components/motion/clip";
 import { useScroll } from "@/components/motion/SmoothScroll";
 import { finishSweep, prepareSweep } from "@/components/motion/sweep";
@@ -19,12 +20,12 @@ type AboutStageProps = {
   right: ReactNode;
 };
 
-const TILE = 88; // px — the ★ tile the panel grows out of
+const TILE = 88; // px — the klin tile the panel grows out of
 // resting offsets of the two founder cards in the design (desktop)
 const CARD_Y = [-30, 36];
 
 /**
- * About — the reel's signature move, adapted: the blue ★ tile the hero's
+ * About — the reel's signature move, adapted: the klin tile (the mark) the hero's
  * thread ran into bursts open into the light panel, a sheet floating on the
  * dark page (pinned, scroll-scrubbed; it opens in a flash of light that settles to paper while
  * the orb layer throws sparks off its edge), the story and the two founder
@@ -253,8 +254,8 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
     <section ref={root} className="about" id="about" data-screen-label="About" data-manual-reveal>
       <div className="about-glow" aria-hidden />
       <div className="about-flash" aria-hidden />
-      <div className="about-tile logo-mark" aria-hidden>
-        ★
+      <div className="about-tile" aria-hidden>
+        <Mark size={54} />
       </div>
       {/* the story first (heading order, reading order); grid areas put the cards either side */}
       <div className="about-wrap">

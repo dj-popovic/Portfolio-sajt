@@ -1,11 +1,11 @@
 {
   "meta": {
-    "title": "'<logo>' · Dvočlani kreativni studio",
+    "title": "klin · Dvočlani kreativni studio",
     "description": "Mi smo dvočlani studio koji od početka do kraja pravi brendove, sajtove i aplikacije: strategija, dizajn i razvoj, sve pod jednim krovom."
   },
   "common": {
     "skip": "Preskoči na sadržaj",
-    "logoAria": "Početna",
+    "logoAria": "klin, početna",
     "languages": {
       "en": "English",
       "sr": "Srpski",
@@ -328,7 +328,7 @@
       "slušalice na ušima, glava u poslu"
     ],
     "moodNight": "još smo budni, nekako",
-    "meta": "© <year></year> '<logo>' · napravljeno rukom u [Novi Sad]",
+    "meta": "© <year></year> <logo></logo> · napravljeno rukom u [Novi Sad]",
     "top": "Na vrh",
     "social": {
       "instagram": "Instagram",

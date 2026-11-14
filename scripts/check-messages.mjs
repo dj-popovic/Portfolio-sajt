@@ -5,7 +5,12 @@ import { readFileSync } from "node:fs";
 import { IntlMessageFormat } from "intl-messageformat";
 
 const LOCALES = ["en", "sr", "ru", "de"];
-const KEEP = ["<logo>", "[Novi Sad]"];
+// the studio's name (as a whole word: "twinkling" doesn't count) and the placeholders still
+// waiting for a decision stay exactly as written, never translated, capitalised or transliterated
+const KEEP = [
+  ["klin", /\bklin\b/],
+  ["[Novi Sad]", /\[Novi Sad\]/],
+];
 const load = (l) => JSON.parse(readFileSync(new URL(`../messages/${l}.json`, import.meta.url), "utf8"));
 const en = load("en");
 const problems = [];
@@ -36,7 +41,7 @@ const values = {
   phase: "p",
   answer: "a",
 };
-const tags = { b: (c) => c, glow: (c) => c, br: () => "", city: (c) => c, year: () => "2026" };
+const tags = { b: (c) => c, glow: (c) => c, br: () => "", city: (c) => c, year: () => "2026", logo: () => "klin" };
 
 function walk(ref, cur, path, locale) {
   if (typeof ref === "string") {
@@ -47,10 +52,9 @@ function walk(ref, cur, path, locale) {
     } catch (e) {
       problems.push(`${locale}: ${path} does not parse (${e.message})`);
     }
-    if (cur.replaceAll("'<logo>'", "").includes("'"))
+    if (cur.replace(/'<\w+>'/g, "").includes("'"))
       problems.push(`${locale}: ${path} has a straight apostrophe — use ’`);
-    for (const p of KEEP)
-      if (ref.includes(p) && !cur.includes(p)) problems.push(`${locale}: ${path} lost the placeholder ${p}`);
+    for (const [name, re] of KEEP) if (re.test(ref) && !re.test(cur)) problems.push(`${locale}: ${path} lost ${name}`);
     return;
   }
   if (Array.isArray(ref)) {

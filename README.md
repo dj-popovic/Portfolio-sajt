@@ -1,6 +1,6 @@
 # Studio portfolio — `<logo>`
 
-Single-page portfolio for a two-person creative studio (branding, websites, apps, marketing). Dark Ember palette with light "breather" sections, scroll choreography, a 3D hero and four interactive concept demos. English plus Serbian (Latin), Russian and German.
+Single-page portfolio for a two-person creative studio (branding, websites, apps, marketing). One dark blue-black page in deep blue and electric lime, with light "paper" sections, scroll choreography, a 3D hero and four interactive concept demos. English plus Serbian (Latin), Russian and German.
 
 ## Stack
 
@@ -19,6 +19,8 @@ npm install
 npm run dev          # http://localhost:3000
 npm run build        # production build (all 4 languages prerendered)
 npm run lint
+npm run check:messages   # every language has the same keys, tags and placeholders
+npm run check:palette    # src/lib/palette.ts matches the colour tokens in globals.css
 ```
 
 Section screenshots for review (uses Playwright):
@@ -38,6 +40,7 @@ node scripts/shoot.mjs http://localhost:3100 .shots /
 | `src/components/work/`         | Concept cards, previews and the demo window                                                  |
 | `src/components/work/demos/`   | The four concept mini-sites (lazy-loaded when a window opens)                                |
 | `src/app/globals.css`          | Palette and the design system tokens (type sizes, column, spacing, corners, control heights) |
+| `src/lib/palette.ts`           | The same palette for WebGL and canvas code (the orb's dots)                                  |
 | `src/styles/sections.css`      | Section styles ported from the design export                                                 |
 | `src/lib/placeholders.ts`      | `<logo>`, `[studio]`, names… — undecided content                                             |
 | `src/app/api/contact/route.ts` | Contact endpoint (**stub** — see `docs/CONTACT_API.md`)                                      |

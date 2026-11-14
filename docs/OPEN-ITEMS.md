@@ -34,6 +34,10 @@ Image licensing: use photos you own or that are explicitly licensed for commerci
   - The tool stacks in the same file are a first pick (12 each, frontend left, backend right). Logos come from Simple Icons (`src/lib/tech-icons.ts`, generated); adding a tool means adding its path there.
 - Social links are `#` (Instagram, Dribbble, LinkedIn, X) — real URLs needed, or remove the ones you won't use.
 - "Read the journal" links to nothing — remove it unless a journal is planned.
+- Warm wording left from the old orange palette, waiting for the owners' OK (the recolour changed only the hero title and the footer line):
+  - `hero.orb.label`, the orb's screen-reader name, still says "Ember orb, an interactive sphere of dots" (SR "Žarka kugla", RU "Огненная сфера", DE "Glutkugel"). Suggested: "Interactive sphere of dots".
+  - `contact.done.hint`: "Expect a warm, human reply within a day." Human warmth, not fire; fine to keep.
+- The footer line reads "made by hand in [Novi Sad]" with the city placeholder, like the footer clock. If Novi Sad is final, drop the brackets in `src/lib/placeholders.ts` and the messages.
 - The four Work concepts have real names now (fictional client brands, filled in at the owners' request): Copper & Oak, Northbound, Stillwater, Tako. No brackets are left inside the demos: origins, cities, people and numbers are filled. A rename touches `src/components/work/concepts.ts` and the demo copy; the marks are drawn icons (`src/components/work/marks.tsx`).
 
 ## 4. Prices
@@ -70,31 +74,31 @@ SR (Latin), RU and DE were drafted by Claude and need a native-speaker pass befo
 
 All four files must keep the same keys, ICU arguments and rich tags, and every string must parse — `npm run check:messages` checks exactly that after any edit.
 
-## 8. Contrast — done
+## 8. Contrast — done (blue and lime palette, Nov 2026)
 
-Small text from the design palette was nudged up to WCAG AA (4.5:1 for normal text, 3:1 for large text) without changing the look. axe-core now reports no contrast violations. Every change is marked `build: contrast (WCAG AA)` in `src/styles/sections.css`.
+Every text meets WCAG AA (4.5:1, large text 3:1). axe-core reports no contrast violations on the page (EN desktop, DE phone) or inside the four demo windows. Text over glass, glows and the orb, which axe can't measure, was measured against the real pixels behind it: all 225 such texts at 1440px and 216 at 390px pass. The tightest is "two of us" in the chat, blue-text on the lit glass, at 4.6:1.
 
-| Where                                                                      | Before                 | After                                                                                 |
-| -------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------- |
-| Package cards — "Investment" label and the "[From €X …]" hint              | 3.0 / 3.3:1            | `#837162`, 4.7:1; the label has since gone and the hint is ink-500, 6.3:1             |
-| About — stat labels under 2 / 4 / 1                                        | 4.0:1                  | `#7E6C5F`, 4.7:1                                                                      |
-| Services — card numbers 01–04                                              | 3.3:1                  | 50% cream, 4.7:1                                                                      |
-| Work — "Concept · Web" pill                                                | white on orange, 2.5:1 | dark text, 6.7:1; since redesigned as a quiet glass pill on the dark card (78% cream) |
-| How we work — phase tags and "you get" lines                               | 3.4 / 4.2:1            | 50% cream, 4.8:1                                                                      |
-| How we work — big step numbers before they light up                        | 1.7:1                  | 38% cream, 3.2:1 (large text)                                                         |
-| Hero — "Scroll" cue (since removed: the orb's hint is the one label there) | 3.7:1                  | 50% cream, 4.8:1                                                                      |
-| Nav — inactive language codes (since replaced by the language dropdown)    | 2.3:1                  | 4.6:1                                                                                 |
-| Contact — input placeholder                                                | 2.5:1                  | 4.7:1                                                                                 |
-| Photo placeholder labels (About cards, Contact avatars)                    | 2.7 / 3.2:1            | 4.6 / 4.7:1, until real photos replace them                                           |
+| Pair                                                                      | Ratio       |
+| ------------------------------------------------------------------------- | ----------- |
+| White text on the page (`--text` on `--bg` `#08080F`)                     | 20:1        |
+| Muted text (`--text-muted` `#A3A3C2` on `--bg`)                           | 8.2:1       |
+| Blue text (`--blue-text` `#8482FF` on `--bg` / on `--surface`)            | 6.3 / 5.9:1 |
+| Lime on the page (`--lime` `#D5FB09` on `--bg`)                           | 16.8:1      |
+| Deep blue on lime (buttons, badges, the paper markers)                    | 14:1        |
+| White on deep blue (chips, Pro, your chat bubbles)                        | 16.6:1      |
+| Lime on deep blue ("+2", the finder's step)                               | 14:1        |
+| Ink on paper (`--ink` `#0A0A1F` on `--paper` `#F4F4FB`)                   | 17.8:1      |
+| Muted ink on paper (`--ink-muted` `#55557A`)                              | 6.5:1       |
+| Deep blue on paper (checks, links, focus rings)                           | 15.2:1      |
+| Never used for text: deep blue on the dark (1.2:1), lime on paper (1.1:1) | —           |
 
 Still flagged by the Impeccable detector, on purpose:
 
 - The live previews on the Work cards. They're replicas of the concept sites and apps in those brands' own colours (hidden from screen readers), so the contrast and "nested cards" rules don't apply to them; the coffee site's marquee in its preview only runs while the card is on screen.
-- The founder cards' names and roles read as cream on paper to the detector, which can't see the card's dark shell (a separate layer under the text). On screen they're cream on near-black.
-- The ember underglow inside the founder cards: part of the cards' material.
-- The ember gradient on the hero headline's highlighted words, now the only gradient text on the page.
-- The soft ember glow on the header's Start a project button (asked for in the header redesign).
-- The pulsing dot next to the footer's local clock. It marks a live value, so it stays.
+- The founder cards' names and roles read as white and blue-text on paper to the detector, which can't see the card's dark shell (a separate layer under the text). On screen they're on near-black.
+- The blue underglow inside the founder cards: part of the cards' material.
+- The soft lime glow on the header's Start a project button (asked for in the header redesign).
+- The pulsing lime dot next to the footer's local clock. It marks a live value, so it stays.
 - Inter as the body font: a brief decision.
 - Striped image placeholders inside the previews and the coffee concept. They go away with the photos (section 1).
 

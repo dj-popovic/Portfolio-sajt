@@ -58,7 +58,7 @@ export function Nav() {
     <>
       <nav className="site-nav" aria-label={t("primary")} data-hero="nav">
         <a href="#top" className="nav-logo glass" aria-label={tc("logoAria")}>
-          <Logo interactive />
+          <Logo interactive optical />
         </a>
 
         <div className="nav-links glass">
@@ -155,7 +155,7 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
     >
       <div className="flex items-center justify-between">
         <span className="nav-logo glass">
-          <Logo />
+          <Logo optical />
         </span>
         <button type="button" className="nav-burger glass !grid" aria-label={t("close")} onClick={onClose}>
           <CloseIcon size={16} />

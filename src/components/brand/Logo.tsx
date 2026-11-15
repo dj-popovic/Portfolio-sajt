@@ -11,19 +11,26 @@ type Size = {
   size?: number | string;
 };
 
-const { width: W, height: H, letters, wedge, dot, ring, wedgeTop } = LOGO;
+const { width: W, height: H, letters, wedge, dot, ring, wedgeTop, inkCentre } = LOGO;
 const height = (size: number | string) => (typeof size === "number" ? `${size}px` : size);
+// `optical`: how far up it moves, as a share of its height. The eye puts a word's middle
+// between its box's middle and its centre of mass; three quarters of the way to the mass
+// looked centred in the header's pill (compared at 1x, 2x and 4x)
+const OPTICAL_LIFT = (inkCentre - 0.5) * 0.75;
 
 /**
  * The klin wordmark: k, l and n in Unbounded 700 (outlined, so it never waits for the
  * font), the i a wedge with its dot. Colours come from where it sits (sections.css):
  * dark on the page, light on the paper sheets and under a light theme, or pinned with
- * `variant`. `interactive` adds the dot's glow for a link's hover (the nav's).
+ * `variant`. `interactive` adds the dot's glow for a link's hover (the nav's). `optical`
+ * centres it by its ink instead of its box, for a pill or a button: the dot stands above
+ * the letters and nothing hangs below the baseline, so centred by its box it looks low.
  */
 export function Logo({
   variant,
   size = 22,
   interactive = false,
+  optical = false,
   className,
   style,
   ...rest
@@ -33,8 +40,12 @@ export function Logo({
      *  outline. mono: all currentColor. Left out: whichever suits where it sits. */
     variant?: LogoVariant;
     interactive?: boolean;
+    optical?: boolean;
   }) {
   const glow = `klin-glow-${useId().replace(/[^\w-]/g, "")}`;
+  const h = height(size);
+  // ~1.25px at the nav's 22px
+  const lift = optical ? ({ position: "relative", top: `calc(${h} * ${(-OPTICAL_LIFT).toFixed(3)})` } as const) : null;
   return (
     <svg
       viewBox={`0 0 ${W} ${H}`}
@@ -42,7 +53,7 @@ export function Logo({
       aria-label="klin"
       data-variant={variant}
       className={cn("logo", className)}
-      style={{ height: height(size), aspectRatio: `${W} / ${H}`, ...style }}
+      style={{ height: h, aspectRatio: `${W} / ${H}`, ...lift, ...style }}
       {...rest}
     >
       {interactive ? (

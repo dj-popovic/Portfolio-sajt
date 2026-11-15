@@ -46,7 +46,9 @@ main,
   background: transparent;
 }
 
-/* the blue glow under the orb (position written by OrbControls) */
+/* the blue glow under the orb (position written by OrbControls). With the WebGL layer the
+   orb brings its own lights (a pool of deep blue, the lime back-light: OrbScene), which stay
+   with it on scroll; this is the soft wash around them */
 .hero-aura {
   --x: var(--orb-x, 70%);
   --y: var(--orb-y, 50%);
@@ -72,6 +74,50 @@ main,
       transparent
     );
 }
+/* without the WebGL layer the orb is drawn inside the hero (Orb2D), so the same two lights
+   are CSS: the deep blue pool, and the lime back-light as an arc on the orb's lower-left edge
+   (a ring, masked to the arc ORB.back points along) */
+:is([data-orb="canvas"], [data-orb="still"]) .hero-aura {
+  background:
+    radial-gradient(
+      circle calc(var(--r) * 1.5) at var(--x) var(--y),
+      color-mix(in oklab, var(--blue-bright) 26%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      circle calc(var(--r) * 0.8) at calc(var(--x) + var(--r) * 0.3) calc(var(--y) - var(--r) * 0.32),
+      color-mix(in oklab, var(--blue-text) 10%, transparent),
+      transparent
+    );
+}
+:is([data-orb="canvas"], [data-orb="still"]) .hero-aura::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--x) var(--y),
+    transparent calc(var(--r) * 0.88),
+    color-mix(in oklab, var(--lime) 50%, transparent) calc(var(--r) * 1),
+    color-mix(in oklab, var(--lime) 15%, transparent) calc(var(--r) * 1.1),
+    transparent calc(var(--r) * 1.5)
+  );
+  -webkit-mask-image: conic-gradient(
+    from 143deg at var(--x) var(--y),
+    transparent 0deg,
+    #000 45deg,
+    #000 95deg,
+    transparent 141deg,
+    transparent 360deg
+  );
+  mask-image: conic-gradient(
+    from 143deg at var(--x) var(--y),
+    transparent 0deg,
+    #000 45deg,
+    #000 95deg,
+    transparent 141deg,
+    transparent 360deg
+  );
+}
 
 /* About: the tile the light panel grows out of. It's the app icon: the klin mark (the lime
    wedge i) on the page's own dark, with the house glass's lit rim so it holds on the dark */
@@ -93,6 +139,16 @@ main,
     0 0 0 1px color-mix(in oklab, var(--blue-bright) 45%, transparent),
     0 0 34px -6px color-mix(in oklab, var(--blue-bright) 60%, transparent);
   visibility: hidden;
+}
+/* Shut, the sheet is clipped to exactly the tile's square, and the tile is all that shows. The
+   paper, its glow and the flash stay off then: the browser clips each layer on its own, so
+   along the clip's soft edge they showed through from under the tile as a white line round
+   it (AboutStage sets .is-shut while the panel is fully closed) */
+.about.is-shut {
+  background: none;
+}
+.about.is-shut > :is(.about-glow, .about-flash) {
+  visibility: hidden !important;
 }
 
 /* heading reveal: a soft-edged mask sweeps left → right (see motion/sweep.ts) */

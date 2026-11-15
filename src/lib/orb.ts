@@ -1,5 +1,6 @@
 // The hero orb: a sphere of blue dots lit from the upper right, dense where
-// the light falls and grainy in the shadow. Shared by the WebGL layer (fixed
+// the light falls and grainy in the shadow, with a lime back-light catching the
+// shadow side's edge. Shared by the WebGL layer (fixed
 // behind the page), the 2D fallback inside the hero and the hit area that
 // takes the pointer and the keys. Plain mutable state on purpose: it is
 // written by events and read every frame.
@@ -7,10 +8,14 @@
 export type OrbLayout = { x: number; y: number; r: number };
 
 const len = Math.hypot(0.62, 0.5, 0.6);
+const backLen = Math.hypot(0.55, 0.83);
 
 export const ORB = {
   /** light direction in view space (x right, y up, z toward the viewer) */
   light: [0.62 / len, 0.5 / len, 0.6 / len] as const,
+  /** where the lime back-light comes from, in the view plane: below and to the left (the
+   *  shadow side, clear of the headline). The hero's CSS aura draws the same arc. */
+  back: [-0.55 / backLen, -0.83 / backLen] as const,
   /** idle spin, rad/s */
   drift: 0.09,
   /** resting pitch: a little of the top shows */

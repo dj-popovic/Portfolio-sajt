@@ -2,7 +2,6 @@ import { useTranslations } from "next-intl";
 import { HeroIntro } from "@/components/sections/HeroIntro";
 import { OrbControls } from "@/components/sections/OrbControls";
 import { HeroOrbFallback } from "@/components/three/OrbLayer";
-import { PlayIcon } from "@/components/ui/icons";
 import { richHero } from "@/lib/rich";
 
 export function Hero() {
@@ -30,9 +29,6 @@ export function Hero() {
               {t("primary")}
             </a>
             <a href="#work" className="btn-ghost">
-              <span className="play" aria-hidden>
-                <PlayIcon />
-              </span>
               {t("secondary")}
             </a>
           </div>

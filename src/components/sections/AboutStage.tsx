@@ -70,6 +70,8 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
         };
         const paint = () => {
           const inset = tileClip(section, panel.open, TILE, open);
+          // fully closed, only the tile is drawn (motion.css: nothing light left under its edge)
+          section.classList.toggle("is-shut", panel.open < 0.001);
           // the orb layer draws the glow and the sparks along this edge
           const b = section.getBoundingClientRect();
           Object.assign(orb.panel, {
@@ -152,6 +154,7 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
         return () => {
           section.removeEventListener("focusin", onFocus);
           section.style.clipPath = "";
+          section.classList.remove("is-shut");
           section.style.removeProperty("--stage-shift");
           orb.panel.live = false;
           finishSweep(heading);

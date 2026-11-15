@@ -42,8 +42,12 @@ export function Orb2D({ className, live }: { className?: string; live: boolean }
     const count = window.innerWidth < 760 ? 4200 : 7000;
     const { pos, seed } = buildOrb(count);
     const [lx, ly, lz] = ORB.light;
+    const [bx, by] = ORB.back;
     const fills = Array.from({ length: LEVELS }, (_, i) => dotFill(i / (LEVELS - 1)));
     const buckets: number[][] = Array.from({ length: LEVELS }, () => []);
+    // the dots on the shadow side's edge that catch the lime back-light (as in the shader)
+    const limeFill = sparkFill(0.7);
+    const lit: number[] = [];
     const px = new Float32Array(count * 3);
 
     let dpr = 1;
@@ -59,6 +63,7 @@ export function Orb2D({ className, live }: { className?: string; live: boolean }
       const L = orbLayout(view.w, view.h);
       const m = orbRotation(orb.yaw, orb.pitch);
       for (const b of buckets) b.length = 0;
+      lit.length = 0;
 
       for (let i = 0; i < count; i++) {
         const x = pos[i * 3];
@@ -71,15 +76,18 @@ export function Orb2D({ className, live }: { className?: string; live: boolean }
         const facing = smooth(-0.3, 0.25, vz / rl);
         if (facing <= 0) continue;
         const light = Math.pow(Math.max(0, (vx * lx + vy * ly + vz * lz) / rl), 0.9);
+        const flat = Math.hypot(vx, vy) || 1e-4;
+        const back = Math.pow(1 - Math.min(1, Math.max(0, vz / rl)), 3) * smooth(0.3, 0.95, (vx * bx + vy * by) / flat);
         const thr = seed[i * 4];
-        let show = smooth(thr - 0.07, thr + 0.07, light * 1.06 + 0.05);
+        let show = smooth(thr - 0.07, thr + 0.07, (light + back * 0.4) * 1.06 + 0.05);
         if (thr < 0.06) show = Math.max(show, 0.5);
         if (show * facing < 0.5) continue;
         const level = Math.min(LEVELS - 1, Math.round(light * (LEVELS - 1)));
         px[i * 3] = L.x + vx * L.r;
         px[i * 3 + 1] = L.y - vy * L.r;
         px[i * 3 + 2] = 1.9 * (0.72 + seed[i * 4 + 1] * 0.62) * (0.88 + 0.28 * light);
-        buckets[level].push(i);
+        if (back > 0.4) lit.push(i);
+        else buckets[level].push(i);
       }
       for (let l = 0; l < LEVELS; l++) {
         const list = buckets[l];
@@ -89,6 +97,11 @@ export function Orb2D({ className, live }: { className?: string; live: boolean }
           const s = px[i * 3 + 2];
           ctx.fillRect(px[i * 3] - s / 2, px[i * 3 + 1] - s / 2, s, s);
         }
+      }
+      ctx.fillStyle = limeFill;
+      for (const i of lit) {
+        const s = px[i * 3 + 2];
+        ctx.fillRect(px[i * 3] - s / 2, px[i * 3 + 1] - s / 2, s, s);
       }
       ctx.globalCompositeOperation = "source-over";
     }

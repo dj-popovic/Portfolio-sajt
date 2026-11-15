@@ -162,7 +162,7 @@ export function AddonChips({ labels }: { labels: Record<(typeof ADDONS)[number],
             data-addon={key}
           >
             <span className="ico" aria-hidden>
-              <PlusIcon className="x-add" />
+              <PlusIcon className="x-add" size={11} />
               <CheckIcon className="x-on" size={11} />
             </span>
             {labels[key]}

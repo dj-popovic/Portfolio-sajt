@@ -534,7 +534,7 @@
   font-weight: 600;
   font-size: var(--fs-body);
   color: var(--text);
-  padding: 0 24px 0 9px;
+  padding: 0 28px; /* build: no play icon (the owners' call): the same pill as the lime one beside it */
   border-radius: 999px;
   border: 1px solid var(--blue-bright);
   background: color-mix(in oklab, var(--surface) 50%, transparent);
@@ -552,19 +552,6 @@
 /* build: press feedback, like the lime buttons */
 .btn-ghost:active {
   transform: scale(0.98);
-}
-.btn-ghost .play {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: var(--blue-bright);
-  color: var(--text);
-  flex: 0 0 auto;
-}
-.btn-ghost .play svg {
-  margin-left: 2px;
 }
 /* -------------------------------------------------------------- ABOUT */
 .about {
@@ -616,26 +603,30 @@
     transparent 70%
   );
 }
+/* build: the orbit lines are lime (the owners' call), thin and part see-through so they stay lines */
 .isphere-ring {
   position: absolute;
   inset: 4%;
   border-radius: 50%;
-  border: 1px solid color-mix(in oklab, var(--blue-text) 22%, transparent);
+  border: 1px solid color-mix(in oklab, var(--lime) 42%, transparent);
   transform: rotateX(74deg);
 }
 .isphere-ring.is-tilted {
   inset: 10%;
   transform: rotate(-28deg) rotateX(74deg);
-  border-color: color-mix(in oklab, var(--blue-bright) 34%, transparent);
+  border-color: color-mix(in oklab, var(--lime) 26%, transparent);
 }
+/* build: a logo turns lime as it comes to the front (--front: 0 at the back and sides, 1 facing
+   you; written by IconSphere) */
 .isphere-icon {
+  --front: 0;
   position: absolute;
   left: 50%;
   top: 50%;
   width: var(--icon, 24px);
   height: var(--icon, 24px);
   margin: calc(var(--icon, 24px) / -2) 0 0 calc(var(--icon, 24px) / -2);
-  color: var(--text);
+  color: color-mix(in oklab, var(--lime) calc(var(--front) * 100%), var(--text));
   will-change: transform, opacity;
 }
 .isphere-icon svg {
@@ -1403,7 +1394,6 @@
   }
   .svc-card:hover .svc-icon {
     transform: rotate(-6deg) scale(1.06);
-    color: var(--text);
   }
 }
 .svc-body {
@@ -1452,24 +1442,40 @@
   stroke-dasharray: 1;
   stroke-dashoffset: var(--draw, 0);
 }
+/* the line is there once per dot grid (ServiceGlyph): the fine one, and a coarse one for
+   the small symbol on phones */
+.svc-glyph-coarse {
+  display: none;
+}
+@media (max-width: 639px) {
+  .services[data-deck="stack"] .svc-glyph-fine {
+    display: none;
+  }
+  .services[data-deck="stack"] .svc-glyph-coarse {
+    display: inline;
+  }
+}
 /* in the deck and the stack the symbols draw themselves in: hidden until
    their tween says otherwise (a refresh that clears the tween lands here) */
 .services[data-deck] .svc-glyph {
   --draw: 1;
 }
+/* build: the symbols are lime dots (the owners' call, so they stand out on the glass), with
+   the blue light they sit in glowing behind them */
 .svc-glyph-glow {
   opacity: 0.6;
   stroke: var(--blue-bright);
 }
-/* the line's tint, light at its start and blue-bright at its end */
+/* the line's tint: near white where it starts, lime along it, a touch dimmer at its end */
 .svc-tint-a {
-  stop-color: color-mix(in oklab, var(--blue-text) 45%, #fff);
+  stop-color: color-mix(in oklab, var(--lime) 55%, #fff);
 }
 .svc-tint-b {
-  stop-color: var(--blue-text);
+  stop-color: var(--lime);
 }
 .svc-tint-c {
-  stop-color: var(--blue-bright);
+  stop-color: var(--lime);
+  stop-opacity: 0.78;
 }
 .svc-top {
   display: flex;
@@ -1490,14 +1496,12 @@
   border-radius: var(--r-s);
   display: grid;
   place-items: center;
-  color: var(--blue-text);
+  color: var(--lime); /* build: lime, like the big symbols */
   background: color-mix(in oklab, var(--blue-bright) 22%, transparent);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.12),
     inset 0 0 0 1px color-mix(in oklab, var(--blue-bright) 48%, transparent);
-  transition:
-    transform 0.25s var(--ease-soft),
-    color 0.2s ease;
+  transition: transform 0.25s var(--ease-soft);
 }
 .svc-card h3 {
   font-family: var(--font-display);
@@ -1609,13 +1613,15 @@
   outline: 2px solid var(--lime);
   outline-offset: 2px;
 }
-/* the glass pill behind the pane in front (driven by the scroll) */
+/* the glass pill behind the pane in front (driven by the scroll). Its corner is half a row
+   (--r-l), not "as round as it goes": round one row that is a pill, and at the end, grown
+   round all four, it's a pane with the cards' corners instead of a blob */
 .svc-marker {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  border-radius: 999px;
+  border-radius: var(--r-l);
   pointer-events: none;
 }
 .services[data-deck="deck"] .svc-deck {
@@ -2558,20 +2564,16 @@
   background: color-mix(in oklab, var(--blue-text) 16%, transparent);
   pointer-events: none;
 }
+/* build: the thread is lime (the owners' call): the line where it has been, the nodes it has
+   lit and their labels are one colour, so the progress reads as one thing. The lights that
+   ride with it stay blue */
 .jy-fill {
   position: absolute;
   inset: 0;
   border-radius: inherit;
   transform-origin: 0 0;
-  background: linear-gradient(90deg, var(--blue-bright), color-mix(in oklab, var(--blue-bright) 60%, var(--blue-text)));
-  box-shadow: 0 0 14px 1px color-mix(in oklab, var(--blue-bright) 75%, transparent);
-}
-.journey[data-axis="y"] .jy-fill {
-  background: linear-gradient(
-    180deg,
-    var(--blue-bright),
-    color-mix(in oklab, var(--blue-bright) 60%, var(--blue-text))
-  );
+  background: var(--lime);
+  box-shadow: 0 0 12px 0 color-mix(in oklab, var(--lime) 45%, transparent);
 }
 /* drawn by the script from nothing (an inline transform takes over) */
 .process[data-journey] .journey[data-axis="x"] .jy-fill {
@@ -2592,8 +2594,8 @@
   background: radial-gradient(
     circle,
     #fff 0%,
-    var(--blue-text) 26%,
-    color-mix(in oklab, var(--blue-bright) 70%, transparent) 52%,
+    var(--lime) 28%,
+    color-mix(in oklab, var(--lime) 45%, transparent) 52%,
     transparent 72%
   );
   opacity: 0;
@@ -2637,14 +2639,12 @@
 }
 .jy-step.is-lit .jy-node i,
 .process:not([data-journey]) .jy-node i {
-  background: radial-gradient(circle at 40% 35%, #fff, var(--blue-text) 45%, var(--blue-bright));
-  box-shadow:
-    0 0 10px 2px color-mix(in oklab, var(--blue-bright) 85%, transparent),
-    0 0 24px 6px color-mix(in oklab, var(--blue-bright) 34%, transparent);
+  background: radial-gradient(circle at 40% 35%, #fff, var(--lime) 42%);
+  box-shadow: 0 0 8px 1px color-mix(in oklab, var(--lime) 34%, transparent);
   transform: scale(1.14);
 }
+/* the step you're on glows a little further */
 .jy-step.is-on .jy-node i {
-  background: radial-gradient(circle at 40% 35%, #fff, var(--lime) 42%);
   box-shadow:
     0 0 10px 2px color-mix(in oklab, var(--lime) 50%, transparent),
     0 0 24px 6px color-mix(in oklab, var(--lime) 16%, transparent);
@@ -2703,10 +2703,10 @@
 }
 .jy-step.is-lit .jy-phase,
 .process:not([data-journey]) .jy-phase {
-  color: var(--blue-text);
+  color: var(--lime);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.12),
-    inset 0 0 0 1px color-mix(in oklab, var(--blue-bright) 70%, transparent);
+    inset 0 0 0 1px color-mix(in oklab, var(--lime) 38%, transparent);
 }
 @media (hover: hover) {
   .jy-phase:hover {
@@ -2852,10 +2852,8 @@
   text-wrap: pretty;
   margin: 0 0 24px;
 }
+/* build: no arrow before it (the owners' call): the rule above already sets it apart */
 .jy-deliver {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
   margin-top: auto;
   padding-top: 16px;
   border-top: 1px solid rgb(255 255 255 / 0.08);
@@ -2866,9 +2864,6 @@
 .jy-deliver b {
   color: var(--text);
   font-weight: 600;
-}
-.jy-arrow {
-  color: var(--blue-text);
 }
 
 /* ---- the track: big screens, pinned (ProcessJourney) ---- */
@@ -5000,7 +4995,16 @@
   height: 70%;
   z-index: 0;
   pointer-events: none;
+  /* build: a lime light lies along the floor (the owners' call), the blue rising out of it:
+     the page ends as it began, lime with the deep blue. Centred on the page's bottom edge
+     (this box runs a seventh of its height past it), where it is brightest */
   background:
+    radial-gradient(
+      64% 24% at 50% 85.7%,
+      color-mix(in oklab, var(--lime) 46%, transparent),
+      color-mix(in oklab, var(--lime) 13%, transparent) 50%,
+      transparent 80%
+    ),
     radial-gradient(60% 100% at 50% 100%, color-mix(in oklab, var(--blue-bright) 28%, transparent), transparent 72%),
     radial-gradient(40% 80% at 50% 100%, color-mix(in oklab, var(--blue-text) 9%, transparent), transparent 68%);
 }
@@ -5108,7 +5112,7 @@
     color 0.2s ease,
     transform 0.3s var(--ease-out-quart);
 }
-/* a blue dot slides in before the link you're on */
+/* a lime dot slides in before the link you're on (build: lime, the owners' call) */
 .f-col a::before {
   content: "";
   position: absolute;
@@ -5118,8 +5122,8 @@
   height: 6px;
   margin-top: -3px;
   border-radius: 50%;
-  background: var(--blue-text);
-  box-shadow: 0 0 10px 1px color-mix(in oklab, var(--blue-bright) 85%, transparent);
+  background: var(--lime);
+  box-shadow: 0 0 10px 1px color-mix(in oklab, var(--lime) 45%, transparent);
   opacity: 0;
   transform: scale(0.3);
   transition:
@@ -5246,7 +5250,7 @@
 }
 @media (hover: hover) {
   .f-social a:hover {
-    color: var(--blue-text);
+    color: var(--text);
     transform: translateY(-2px);
   }
 }

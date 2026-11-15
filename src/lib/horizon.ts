@@ -20,6 +20,9 @@ export const HORIZON = {
   rippleLife: 2.4,
   /** seconds the dots take to gather in from a loose cloud, the first time the footer shows */
   gather: 2.6,
+  /** the lime floor light: the dots within this many px of the bottom edge turn lime, fully
+   *  at the edge, blue again above (the footer's CSS glow is lime over the same band) */
+  floor: 190,
 };
 
 export type HorizonLayout = { x: number; y: number; r: number };

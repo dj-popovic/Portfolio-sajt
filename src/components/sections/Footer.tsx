@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { Logo } from "@/components/brand/Logo";
 import { FooterHorizon } from "@/components/layout/FooterHorizon";
 import { BackToTop, CopyEmail, CopyrightYear, StudioStatus } from "@/components/layout/FooterLive";
+import { InstagramIcon, LinkedInIcon, XIcon } from "@/components/ui/icons";
 import { PLACEHOLDER } from "@/lib/placeholders";
 
 const STUDIO_LINKS = ["about", "services", "work", "process"] as const;
@@ -9,7 +10,7 @@ const STUDIO_LINKS = ["about", "services", "work", "process"] as const;
 export function Footer() {
   const t = useTranslations("footer");
   const tn = useTranslations("nav");
-  // TODO(name): real address once the studio name/domain exist
+  // TODO(domain): the real address once the domain is registered
   const email = `hello@${PLACEHOLDER.studio}.com`;
 
   return (
@@ -73,13 +74,13 @@ export function Footer() {
           </span>
           <div className="f-social">
             <a className="glass" href="#" aria-label={t("social.instagram")}>
-              IG
+              <InstagramIcon />
             </a>
             <a className="glass" href="#" aria-label={t("social.x")}>
-              X
+              <XIcon />
             </a>
             <a className="glass" href="#" aria-label={t("social.linkedin")}>
-              in
+              <LinkedInIcon />
             </a>
             <BackToTop label={t("top")} />
           </div>

@@ -76,7 +76,9 @@ export function Horizon2D({ className, live }: { className?: string; live: boole
         px[i * 3] = L.x + vx * L.r + Math.cos(drift) * far;
         px[i * 3 + 1] = sy;
         px[i * 3 + 2] = 1.9 * (0.72 + seed[i * 4 + 1] * 0.62) * (0.88 + 0.28 * light);
-        (isSpark(i) ? sparks : buckets)[level].push(i);
+        // the floor's lime light (as the WebGL horizon mixes it in): more dots lime the nearer the edge
+        const low = smooth(H - HORIZON.floor, H - 8, sy);
+        (isSpark(i) || low * low * 0.9 > seed[i * 4 + 3] ? sparks : buckets)[level].push(i);
       }
       for (const [set, paint] of [
         [buckets, fills],

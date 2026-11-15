@@ -16,11 +16,19 @@ function lattice(n: number) {
   });
 }
 
+// a logo is lime while it faces you: from here (depth, 0 back → 1 front) up to full lime
+const FRONT_FROM = 0.8;
+const FRONT_FULL = 0.95;
+const smooth = (a: number, b: number, x: number) => {
+  const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
+  return t * t * (3 - 2 * t);
+};
+
 /**
  * The hero orb's idea again, with tools instead of dots: logos on a sphere
- * that turns slowly, nearer ones larger and brighter. Speeds up while its
- * card is hovered; still under reduced motion; pauses off-screen and while
- * a full-screen overlay is open.
+ * that turns slowly, nearer ones larger and brighter, the one that comes to
+ * the front in lime. Speeds up while its card is hovered; still under reduced
+ * motion; pauses off-screen and while a full-screen overlay is open.
  */
 export function IconSphere({
   stack,
@@ -62,6 +70,7 @@ export function IconSphere({
         s.transform = `translate3d(${(x1 * R).toFixed(1)}px, ${(-y2 * R).toFixed(1)}px, 0) scale(${(0.56 + 0.44 * depth).toFixed(3)})`;
         s.opacity = (0.16 + 0.84 * depth ** 1.6).toFixed(3);
         s.zIndex = String(Math.round(depth * 100));
+        s.setProperty("--front", smooth(FRONT_FROM, FRONT_FULL, depth).toFixed(2));
       });
     };
 

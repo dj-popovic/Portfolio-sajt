@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+
 export type ServiceKey = "branding" | "websites" | "apps" | "marketing";
 
 // The service icons again (ui/icons), as single paths so they can draw
@@ -22,12 +24,17 @@ const GLYPHS: Record<ServiceKey, { box: string; d: string }> = {
   },
 };
 
+// the dot grid, in the symbol's own units (its box is 20–24 across): fine where the symbol
+// is big, coarse on phones, where it's under 100px and fine dots would be a pixel each
+const GRIDS = { fine: { pitch: 0.7, r: 0.17 }, coarse: { pitch: 1.05, r: 0.3 } } as const;
+
 /**
- * A service's symbol drawn in blue dots, the orb's stipple again: a thick
- * light-blue → blue-bright line seen through a fixed grid of dots (the mask),
- * with a soft glow of the same line behind it (colours: .svc-glyph in sections.css). `--draw` (1 → 0) draws it in along
- * its path. Only the line moves; the mask never changes (Safari doesn't
- * repaint a mask whose contents animate).
+ * A service's symbol drawn in lime dots, the orb's stipple again: a thick
+ * line seen through a fixed grid of dots (the mask), with a soft blue glow of
+ * the same line behind it (colours: .svc-glyph in sections.css). `--draw`
+ * (1 → 0) draws it in along its path. Only the line moves; the mask never
+ * changes (Safari doesn't repaint a mask whose contents animate). The line
+ * is there twice, once per dot grid; CSS shows the one that suits the size.
  */
 export function ServiceGlyph({ kind }: { kind: ServiceKey }) {
   const { box, d } = GLYPHS[kind];
@@ -36,12 +43,21 @@ export function ServiceGlyph({ kind }: { kind: ServiceKey }) {
   return (
     <svg className="svc-glyph" viewBox={box} aria-hidden>
       <defs>
-        <pattern id={`${id}-dots`} width="0.7" height="0.7" patternUnits="userSpaceOnUse">
-          <circle cx="0.35" cy="0.35" r="0.17" fill="white" />
-        </pattern>
-        <mask id={`${id}-mask`} maskUnits="userSpaceOnUse" x={x} y={y} width={w} height={h}>
-          <rect x={x} y={y} width={w} height={h} fill={`url(#${id}-dots)`} />
-        </mask>
+        {(["fine", "coarse"] as const).map((grid) => (
+          <Fragment key={grid}>
+            <pattern
+              id={`${id}-dots-${grid}`}
+              width={GRIDS[grid].pitch}
+              height={GRIDS[grid].pitch}
+              patternUnits="userSpaceOnUse"
+            >
+              <circle cx={GRIDS[grid].pitch / 2} cy={GRIDS[grid].pitch / 2} r={GRIDS[grid].r} fill="white" />
+            </pattern>
+            <mask id={`${id}-mask-${grid}`} maskUnits="userSpaceOnUse" x={x} y={y} width={w} height={h}>
+              <rect x={x} y={y} width={w} height={h} fill={`url(#${id}-dots-${grid})`} />
+            </mask>
+          </Fragment>
+        ))}
         <linearGradient id={`${id}-tint`} gradientUnits="userSpaceOnUse" x1={x} y1={y} x2={x + w} y2={y + h}>
           <stop offset="0" className="svc-tint-a" />
           <stop offset="0.45" className="svc-tint-b" />
@@ -58,14 +74,17 @@ export function ServiceGlyph({ kind }: { kind: ServiceKey }) {
         strokeWidth="1.8"
         filter={`url(#${id}-blur)`}
       />
-      <path
-        className="svc-glyph-line"
-        d={d}
-        pathLength={1}
-        stroke={`url(#${id}-tint)`}
-        strokeWidth="2.6"
-        mask={`url(#${id}-mask)`}
-      />
+      {(["fine", "coarse"] as const).map((grid) => (
+        <path
+          key={grid}
+          className={`svc-glyph-line svc-glyph-${grid}`}
+          d={d}
+          pathLength={1}
+          stroke={`url(#${id}-tint)`}
+          strokeWidth="2.6"
+          mask={`url(#${id}-mask-${grid})`}
+        />
+      ))}
     </svg>
   );
 }

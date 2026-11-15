@@ -4,14 +4,20 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { buildOrb, orb, ORB, orbLayout, orbRotation, stepOrb, viewportSize } from "@/lib/orb";
-import { DOTS, glsl } from "@/lib/palette";
+import { DOTS, glsl, PALETTE, rgb } from "@/lib/palette";
 
 /* ------------------------------------------------------------------
    The orb, drawn in screen pixels so it can line up with the DOM: the
    hit area in the hero and, on scroll, the klin tile the thread runs into.
    Lit from the upper right; a dot shows once the light beats its dither
    threshold, so the lit cap is dense and the shadow is a sparse grain.
+   Behind it: a pool of deep blue light, and a lime back-light that catches
+   the shadow side's edge (the owners' call: lime with the deep blue).
    ------------------------------------------------------------------ */
+
+// how far the glow behind the orb reaches, in orb radii (the quad it is drawn on)
+const GLOW_REACH = 1.9;
+const BACK_LIGHT = `vec2(${ORB.back[0].toFixed(4)}, ${ORB.back[1].toFixed(4)})`;
 
 const vertexShader = /* glsl */ `
   uniform vec2 uRes;
@@ -70,7 +76,10 @@ const vertexShader = /* glsl */ `
 
     float light = pow(max(dot(nv, uLight), 0.0), 0.9);
     float facing = smoothstep(-0.3, 0.25, nv.z);
-    float energy = light + wave * 0.85 + near * 0.55;
+    // the lime back-light: the dots on the shadow side's edge catch it
+    float back = pow(1.0 - clamp(nv.z, 0.0, 1.0), 3.0)
+      * smoothstep(0.3, 0.95, dot(nv.xy / max(length(nv.xy), 1e-4), ${BACK_LIGHT}));
+    float energy = light + wave * 0.85 + near * 0.55 + back * 0.4;
     float show = smoothstep(aSeed.x - 0.07, aSeed.x + 0.07, energy * 1.06 + 0.05);
     // a sparse grain stays in the shadow so the whole silhouette reads
     show = max(show, step(aSeed.x, 0.06) * 0.5) * facing;
@@ -82,8 +91,8 @@ const vertexShader = /* glsl */ `
     vec3 col = mix(grain, deep, smoothstep(0.04, 0.42, energy));
     col = mix(col, bright, smoothstep(0.58, 0.98, energy));
     col = mix(col, hot, smoothstep(0.95, 1.3, energy) * aSeed.y);
-    // a tap's ripple runs through the dots in lime
-    col = mix(col, ${glsl(DOTS.spark)}, wave * 0.9);
+    // a tap's ripple runs through the dots in lime; the back-light tints its edge
+    col = mix(col, ${glsl(DOTS.spark)}, max(wave * 0.9, back * 0.85));
 
     float size = uDot * (0.72 + aSeed.y * 0.62) * (0.88 + 0.28 * light);
     float alpha = show * (0.32 + 0.68 * smoothstep(0.0, 0.75, energy));
@@ -155,22 +164,33 @@ const quadVertex = /* glsl */ `
     gl_Position = vec4(p.x / uRes.x * 2.0 - 1.0, 1.0 - p.y / uRes.y * 2.0, 0.0, 1.0);
   }
 `;
-// the orb's body: a faint lit volume behind the dots, so it reads as a sphere, not a cloud
+// behind the dots: the orb's body (a faint lit volume, so it reads as a sphere, not a cloud),
+// a pool of deep blue light, and the lime back-light on the shadow side: bright on the edge
+// it catches, spilling a little past it. Drawn with the orb, so it stays with it on scroll.
 const bodyFragment = /* glsl */ `
   uniform vec3 uLight;
   uniform float uFade;
   varying vec2 vUv;
   void main() {
-    vec2 c = vUv * 1.18;
+    vec2 c = vUv * ${GLOW_REACH.toFixed(2)}; // in orb radii
     float r2 = dot(c, c);
+    float r = sqrt(r2);
     float inside = 1.0 - smoothstep(0.9, 1.0, r2);
     vec3 n = vec3(c, sqrt(max(0.0, 1.0 - r2)));
     float lam = max(dot(n, uLight), 0.0);
     float body = inside * (0.02 + 0.1 * pow(lam, 1.7));
     float halo = (1.0 - inside) * exp(-(r2 - 1.0) * 5.0) * 0.035;
-    float a = (body + halo) * uFade;
-    if (a < 0.003) discard;
-    gl_FragColor = vec4(mix(${glsl(DOTS.deep)}, ${glsl(DOTS.bright)}, lam), a);
+    float pool = 0.2 * pow(1.0 - smoothstep(0.0, 1.35, r), 1.6);
+    float side = smoothstep(0.3, 0.95, dot(c / max(r, 1e-4), ${BACK_LIGHT}));
+    float d = r - 1.0;
+    float edge = d > 0.0 ? 0.6 * exp(-d / 0.1) + 0.24 * exp(-d / 0.36) : 0.84 * exp(d / 0.05);
+    float back = edge * side;
+    float a = body + halo + pool + back;
+    if (a * uFade < 0.003) discard;
+    vec3 sum = mix(${glsl(DOTS.deep)}, ${glsl(DOTS.bright)}, lam) * (body + halo)
+      + ${glsl(rgb(PALETTE.blueBright))} * pool
+      + ${glsl(DOTS.spark)} * back;
+    gl_FragColor = vec4(sum / a, a * uFade);
   }
 `;
 // a glow that hugs a rounded rectangle: the klin tile while it charges, then the
@@ -333,7 +353,7 @@ function Orb({ count }: { count: number }) {
 
     const bu = body.current?.uniforms;
     if (bu) {
-      bu.uHalf.value = L.r * 1.18;
+      bu.uHalf.value = L.r * GLOW_REACH;
       bu.uFade.value = intro * (1 - smoothstep(0, 0.55, m));
     }
 

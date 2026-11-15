@@ -50,12 +50,7 @@ export function Process() {
                     </span>
                     <h3>{t(`steps.${key}.title`)}</h3>
                     <p className="jy-body">{t(`steps.${key}.body`)}</p>
-                    <p className="jy-deliver">
-                      <span className="jy-arrow" aria-hidden>
-                        →
-                      </span>
-                      <span>{t.rich(`steps.${key}.deliver`, richDark)}</span>
-                    </p>
+                    <p className="jy-deliver">{t.rich(`steps.${key}.deliver`, richDark)}</p>
                   </div>
                 </li>
               );

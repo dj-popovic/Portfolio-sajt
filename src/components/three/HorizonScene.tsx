@@ -21,6 +21,8 @@ import { DOTS, glsl } from "@/lib/palette";
    The pointer is a light you shine across it (and parts and lights up the
    dots near it), a tap sends a lime ripple across it, and the first time the
    footer shows its dots gather in from a loose cloud, like the hero's.
+   A lime light lies along the floor (the owners' call: the hero's lime
+   back-light again): the dots nearest the bottom edge are lime, blue above.
    ------------------------------------------------------------------ */
 
 const vertexShader = /* glsl */ `
@@ -86,6 +88,9 @@ const vertexShader = /* glsl */ `
     col = mix(col, ${glsl(DOTS.spark)}, wave * 0.9);
     // a few dots are lime sparks
     col = mix(col, ${glsl(DOTS.spark)}, step(0.993, fract(aSeed.w * 37.7 + aSeed.y * 11.3)));
+    // the floor's lime light: lime at the bottom edge, blue again above it
+    float low = smoothstep(uRes.y - ${HORIZON.floor.toFixed(1)}, uRes.y - 8.0, p.y);
+    col = mix(col, ${glsl(DOTS.spark)}, low * low * 0.9);
 
     float size = uDot * (0.72 + aSeed.y * 0.62) * (0.88 + 0.28 * light);
     float alpha = show * (0.32 + 0.68 * smoothstep(0.0, 0.75, energy)) * gather;

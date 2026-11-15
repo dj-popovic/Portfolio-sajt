@@ -31,7 +31,7 @@
     "primary": "Započnite projekat",
     "secondary": "Pogledajte radove",
     "orb": {
-      "label": "Žarka kugla, interaktivna sfera od tačaka",
+      "label": "Interaktivna sfera od tačaka",
       "help": "Prevucite je ili koristite strelice da je zavrtite. Kliknite je ili pritisnite Enter da po njoj pređe talas.",
       "hint": "Prevucite da zavrtite"
     }
@@ -46,6 +46,7 @@
     },
     "people": {
       "one": {
+        "name": "Đorđe",
         "role": "Frontend i dizajn",
         "bio": "[Dizajniram i pravim ono što ljudi vide i dodiruju: interfejse, pokrete i osećaj brenda na ekranu.]",
         "does": [
@@ -56,6 +57,7 @@
         ]
       },
       "two": {
+        "name": "Relja",
         "role": "Backend i infrastruktura",
         "bio": "[Pravim ono što sve pokreće: API-je, podatke, integracije i servere ispod svega.]",
         "does": [
@@ -67,7 +69,7 @@
       }
     },
     "card": {
-      "open": "Upoznajte {name}, {role}",
+      "open": "Otvorite profil: {name}, {role}",
       "close": "Zatvori",
       "who": "Ko sam",
       "does": "Šta radim",
@@ -271,7 +273,7 @@
       "when": "Rokovi",
       "reply": "Odgovor na",
       "pick": "Izaberite paket",
-      "for": "Za {nameOne} i {nameTwo}",
+      "for": "Za Đorđa i Relju",
       "stamp": "Poslato"
     },
     "steps": {
@@ -318,7 +320,7 @@
     "studio": "Studio",
     "elsewhere": "Na mrežama",
     "journal": "Čitajte blog",
-    "status": "<b>{time}</b> u <city>[Novi Sad]</city>, {mood}",
+    "status": "<b>{time}</b> u <city>Novom Sadu</city>, {mood}",
     "moods": [
       "verovatno još nešto gradimo",
       "do guše u prototipu",
@@ -328,7 +330,7 @@
       "slušalice na ušima, glava u poslu"
     ],
     "moodNight": "još smo budni, nekako",
-    "meta": "© <year></year> <logo></logo> · napravljeno rukom u [Novi Sad]",
+    "meta": "© <year></year> <logo></logo> · napravljeno rukom u Novom Sadu",
     "top": "Na vrh",
     "social": {
       "instagram": "Instagram",

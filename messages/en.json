@@ -31,7 +31,7 @@
     "primary": "Start a project",
     "secondary": "See our work",
     "orb": {
-      "label": "Ember orb, an interactive sphere of dots",
+      "label": "Interactive sphere of dots",
       "help": "Drag it or use the arrow keys to spin it. Click it or press Enter to send a ripple across it.",
       "hint": "Drag to spin"
     }
@@ -46,6 +46,7 @@
     },
     "people": {
       "one": {
+        "name": "Đorđe",
         "role": "Frontend & design",
         "bio": "[I design and build the side people see and touch: interfaces, motion and the way a brand feels on screen.]",
         "does": [
@@ -56,6 +57,7 @@
         ]
       },
       "two": {
+        "name": "Relja",
         "role": "Backend & infrastructure",
         "bio": "[I build the side that keeps it all running: APIs, data, integrations and the servers underneath.]",
         "does": [
@@ -271,7 +273,7 @@
       "when": "Timeline",
       "reply": "Reply to",
       "pick": "Pick a package",
-      "for": "For {nameOne} & {nameTwo}",
+      "for": "For Đorđe & Relja",
       "stamp": "Sent"
     },
     "steps": {
@@ -318,7 +320,7 @@
     "studio": "Studio",
     "elsewhere": "Elsewhere",
     "journal": "Read the journal",
-    "status": "<b>{time}</b> in <city>[Novi Sad]</city>, {mood}",
+    "status": "<b>{time}</b> in <city>Novi Sad</city>, {mood}",
     "moods": [
       "probably still building",
       "deep in a prototype",
@@ -328,7 +330,7 @@
       "heads-down, music on"
     ],
     "moodNight": "still up, weirdly",
-    "meta": "© <year></year> <logo></logo> · made by hand in [Novi Sad]",
+    "meta": "© <year></year> <logo></logo> · made by hand in Novi Sad",
     "top": "Back to top",
     "social": {
       "instagram": "Instagram",

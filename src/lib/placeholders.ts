@@ -1,13 +1,11 @@
-// Undecided content stays visible as placeholders until the domain, the founders' names,
-// copy and photos are decided (see docs/OPEN-ITEMS.md). Never translate these.
-// The studio's name is decided: klin (src/lib/brand.ts).
+// What's still undecided stays visible as a placeholder (see docs/OPEN-ITEMS.md): only the
+// email domain now. Never translate it. Decided: the studio is klin (src/lib/brand.ts), the
+// founders are Đorđe and Relja (their names are in the message files, `about.people.*.name`,
+// since Russian writes them in Cyrillic), and the city is Novi Sad.
 export const PLACEHOLDER = {
   studio: "[studio]", // the email domain, until it's registered
-  nameOne: "<Name One>",
-  nameTwo: "<Name Two>",
-  emailOne: "[name-one]@[studio].com",
-  emailTwo: "[name-two]@[studio].com",
-  city: "[Novi Sad]",
+  emailOne: "djordje@[studio].com",
+  emailTwo: "relja@[studio].com",
 } as const;
 
 // The studio's clock in the footer runs on Serbian time, not the visitor's.

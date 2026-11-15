@@ -100,6 +100,9 @@ export function FounderDialog({
     scroll.lock();
     const items = el.querySelectorAll<HTMLElement>("[data-fd]");
     const tiles = el.querySelectorAll<HTMLElement>("[data-fd-tile]");
+    // measured upright: a turn left on the layer (a second run of this effect, as React's
+    // strict mode does) would measure the turned sheet's bounding box, wider and taller
+    el.style.transform = "";
     to.current = boxOf(box, SHEET_R);
 
     if (prefersReducedMotion()) {
@@ -229,7 +232,7 @@ export function FounderDialog({
                   <IconSphere stack={founder.stack} className="fdialog-sphere" inOverlay />
                 </div>
                 <h2 id={titleId} className="fdialog-name" data-fd>
-                  {founder.name}
+                  {t(`people.${founder.id}.name`)}
                 </h2>
                 <p className="fdialog-role" data-fd>
                   {role}

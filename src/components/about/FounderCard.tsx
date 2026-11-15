@@ -17,6 +17,7 @@ import { cn } from "@/lib/cn";
 export function FounderCard({ id }: { id: FounderId }) {
   const t = useTranslations("about");
   const founder = FOUNDERS[id];
+  const name = t(`people.${id}.name`);
   const role = t(`people.${id}.role`);
   const card = useRef<HTMLElement>(null);
   const button = useRef<HTMLButtonElement>(null);
@@ -43,7 +44,7 @@ export function FounderCard({ id }: { id: FounderId }) {
         <span className="fcard-sheen" aria-hidden />
         <IconSphere stack={founder.stack} className="fcard-sphere" />
         <div className="fcard-meta">
-          <h3 className="fcard-name">{founder.name}</h3>
+          <h3 className="fcard-name">{name}</h3>
           <p className="fcard-role">{role}</p>
         </div>
         <span className="fcard-plus" aria-hidden>
@@ -55,7 +56,7 @@ export function FounderCard({ id }: { id: FounderId }) {
           className="fcard-btn"
           aria-haspopup="dialog"
           aria-expanded={open}
-          aria-label={t("card.open", { name: founder.name, role })}
+          aria-label={t("card.open", { name, role })}
           onClick={() => setOpen(true)}
         />
       </article>

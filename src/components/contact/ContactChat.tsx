@@ -29,7 +29,6 @@ import {
   type ContactStep,
 } from "@/lib/contact";
 import { flyDots, pointIn } from "@/lib/flight";
-import { PLACEHOLDER } from "@/lib/placeholders";
 import { richDark } from "@/lib/rich";
 
 const EASE = [0.25, 1, 0.5, 1] as const;
@@ -306,7 +305,9 @@ export function ContactChat() {
 
   const current = String(done ? CONTACT_STEPS.length : index + 1).padStart(2, "0");
   // the header: the two names, the role under them ("names · role" in every language)
-  const [who, role] = t("foundersMeta", { nameOne: PLACEHOLDER.nameOne, nameTwo: PLACEHOLDER.nameTwo }).split(" · ");
+  const nameOne = ta("one.name");
+  const nameTwo = ta("two.name");
+  const [who, role] = t("foundersMeta", { nameOne, nameTwo }).split(" · ");
   const today = useMemo(() => {
     const s = new Intl.RelativeTimeFormat(locale, { numeric: "auto" }).format(0, "day");
     return s.charAt(0).toLocaleUpperCase(locale) + s.slice(1);
@@ -327,11 +328,7 @@ export function ContactChat() {
   return (
     <div className="convo chat" ref={root} onPointerMove={onPointerMove} data-reveal-item>
       <header className="chat-head">
-        <FounderLenses
-          size="sm"
-          one={`${PLACEHOLDER.nameOne}, ${ta("one.role")}`}
-          two={`${PLACEHOLDER.nameTwo}, ${ta("two.role")}`}
-        />
+        <FounderLenses size="sm" one={`${nameOne}, ${ta("one.role")}`} two={`${nameTwo}, ${ta("two.role")}`} />
         <span className="chat-who">
           <b>{who}</b>
           {role ? <span>{role}</span> : null}
@@ -424,9 +421,7 @@ export function ContactChat() {
                   exit={{ opacity: 0, transition: { duration: 0.15 } }}
                   transition={{ duration: 0.34, ease: EASE }}
                 >
-                  {visible[i - 1]?.who !== "us" ? (
-                    <FounderLenses size="xs" one={PLACEHOLDER.nameOne} two={PLACEHOLDER.nameTwo} />
-                  ) : null}
+                  {visible[i - 1]?.who !== "us" ? <FounderLenses size="xs" one={nameOne} two={nameTwo} /> : null}
                   <span className="bubble">
                     <span className="bubble-text">{item.body}</span>
                     {item.hint ? (

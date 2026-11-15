@@ -1,15 +1,15 @@
 import { PLACEHOLDER } from "@/lib/placeholders";
 import type { TechId } from "@/lib/tech-icons";
 
-// The two people behind the studio, as the About cards show them. Names,
-// emails and profile links are placeholders until the owners fill them in
-// (see docs/OPEN-ITEMS.md); the stacks are a first pick, edit freely.
+// The two people behind the studio, as the About cards show them: one is Đorđe (frontend
+// and design), two is Relja (backend). Their names are in the message files
+// (`about.people.*.name`); the email domain and the profile links are placeholders until
+// the owners fill them in (see docs/OPEN-ITEMS.md); the stacks are a first pick, edit freely.
 export type FounderId = "one" | "two";
 
 export type Founder = {
   id: FounderId;
   side: "left" | "right";
-  name: string;
   email: string;
   links: { label: string; href: string }[];
   stack: TechId[];
@@ -19,7 +19,6 @@ export const FOUNDERS: Record<FounderId, Founder> = {
   one: {
     id: "one",
     side: "left",
-    name: PLACEHOLDER.nameOne,
     email: PLACEHOLDER.emailOne,
     links: [
       { label: "LinkedIn", href: "#" },
@@ -43,7 +42,6 @@ export const FOUNDERS: Record<FounderId, Founder> = {
   two: {
     id: "two",
     side: "right",
-    name: PLACEHOLDER.nameTwo,
     email: PLACEHOLDER.emailTwo,
     links: [
       { label: "LinkedIn", href: "#" },

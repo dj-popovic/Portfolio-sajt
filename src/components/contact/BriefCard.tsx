@@ -9,7 +9,6 @@ import { useScroll } from "@/components/motion/SmoothScroll";
 import { CloseIcon } from "@/components/ui/icons";
 import { CONTACT_STEPS, type ContactStep } from "@/lib/contact";
 import { horizon } from "@/lib/horizon";
-import { PLACEHOLDER } from "@/lib/placeholders";
 
 const EASE = [0.25, 1, 0.5, 1] as const;
 // an answer's dots take this long to fly in from the conversation (ContactChat)
@@ -189,9 +188,7 @@ export function BriefCard() {
       {/* the stub, past the perforation: it tears off into the dots when the brief is sent */}
       <div ref={stub} className="brief-stub" data-torn={torn || undefined}>
         <DotCode seed={date || "brief"} filled={filled} />
-        <span className="brief-for">
-          {t("brief.for", { nameOne: PLACEHOLDER.nameOne, nameTwo: PLACEHOLDER.nameTwo })}
-        </span>
+        <span className="brief-for">{t("brief.for")}</span>
       </div>
     </div>
   );

@@ -5,12 +5,9 @@ import { readFileSync } from "node:fs";
 import { IntlMessageFormat } from "intl-messageformat";
 
 const LOCALES = ["en", "sr", "ru", "de"];
-// the studio's name (as a whole word: "twinkling" doesn't count) and the placeholders still
-// waiting for a decision stay exactly as written, never translated, capitalised or transliterated
-const KEEP = [
-  ["klin", /\bklin\b/],
-  ["[Novi Sad]", /\[Novi Sad\]/],
-];
+// the studio's name (as a whole word: "twinkling" doesn't count) stays exactly as written,
+// never translated, capitalised or transliterated
+const KEEP = [["klin", /\bklin\b/]];
 const load = (l) => JSON.parse(readFileSync(new URL(`../messages/${l}.json`, import.meta.url), "utf8"));
 const en = load("en");
 const problems = [];

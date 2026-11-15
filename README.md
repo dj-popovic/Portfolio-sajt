@@ -42,7 +42,7 @@ node scripts/shoot.mjs http://localhost:3100 .shots /
 | `src/app/globals.css`          | Palette and the design system tokens (type sizes, column, spacing, corners, control heights)                      |
 | `src/lib/palette.ts`           | The same palette for WebGL and canvas code (the orb's dots)                                                       |
 | `src/styles/sections.css`      | Section styles ported from the design export                                                                      |
-| `src/lib/placeholders.ts`      | `[studio]` (the domain), names… — undecided content                                                               |
+| `src/lib/placeholders.ts`      | `[studio]`, the email domain: the one thing still undecided in the copy                                           |
 | `src/components/brand/`        | The klin logo (`<Logo>`, `<Mark>`); its geometry, `public/brand/` and the icons come from `scripts/logo/build.py` |
 | `src/app/api/contact/route.ts` | Contact endpoint (**stub** — see `docs/CONTACT_API.md`)                                                           |
 | `docs/OPEN-ITEMS.md`           | What's still missing before launch (photos, name, prices…)                                                        |

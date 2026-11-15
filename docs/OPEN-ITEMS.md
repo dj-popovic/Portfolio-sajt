@@ -20,25 +20,24 @@ Image licensing: use photos you own or that are explicitly licensed for commerci
 ## 2. Name, logo and domain
 
 - **Done (Nov 2026):** the studio is **klin** (always lowercase), and its logo is in: the header, the phone menu, the footer's copyright line, the About tile (the mark), the page title and share title in all four languages, the favicon, the Apple icon and the web manifest. Files in `public/brand/` (`logo-dark/light/mono.svg`, `mark.svg`, icons); the build is described in `src/components/brand/`.
-- **Still open: the domain.** Until it's registered, `[studio]` stays in the email addresses: `hello@[studio].com` (footer, Copy email) and `[name-one]@[studio].com` / `[name-two]@[studio].com` (founder profiles), all in `src/lib/placeholders.ts`.
+- **Still open: the domain.** Until it's registered, `[studio]` stays in the email addresses: `hello@[studio].com` (footer, Copy email) and `djordje@[studio].com` / `relja@[studio].com` (founder profiles), all in `src/lib/placeholders.ts`. The part before the @ follows the founders' names; change it there if the real addresses differ.
 - **A social share image** (1200×630 with the logo) can be made now that the logo exists: see the table in section 1.
-- Placeholders live in `src/lib/placeholders.ts` — never translate them.
+- The one placeholder left, `[studio]`, lives in `src/lib/placeholders.ts` — never translate it.
 
 ## 3. Copy
 
 - All copy is in `messages/en.json` (+ `sr`, `ru`, `de`). The current text is the design's placeholder copy.
-- Founder names `<Name One>` / `<Name Two>`, city `[Novi Sad]`.
+- **Done (Nov 2026):** the founders are Đorđe (frontend and design) and Relja (backend), the city is Novi Sad. The names are in the message files (`about.people.*.name`). Two choices to confirm:
+  - Russian writes them in Cyrillic, as Russian text does with names and cities: Джордже, Реля, Нови-Сад. To keep the Latin spelling there instead, change `about.people.*.name`, `contact.brief.for` and the two footer lines in `messages/ru.json`.
+  - Serbian and Russian decline them where the sentence asks for it ("Za Đorđa i Relju", "u Novom Sadu", "в Нови-Саде").
 - Founder profiles (the About cards open into them):
   - Bios are bracketed first-person drafts in `about.people.*.bio` — write your own.
-  - Emails `[name-one]@[studio].com` / `[name-two]@[studio].com` live in `src/lib/placeholders.ts`.
+  - Emails `djordje@[studio].com` / `relja@[studio].com` live in `src/lib/placeholders.ts`.
   - LinkedIn / GitHub links are `#` in `src/lib/founders.ts`.
   - The tool stacks in the same file are a first pick (12 each, frontend left, backend right). Logos come from Simple Icons (`src/lib/tech-icons.ts`, generated); adding a tool means adding its path there.
 - Social links are `#` (Instagram, Dribbble, LinkedIn, X) — real URLs needed, or remove the ones you won't use.
 - "Read the journal" links to nothing — remove it unless a journal is planned.
-- Warm wording left from the old orange palette, waiting for the owners' OK (the recolour changed only the hero title and the footer line):
-  - `hero.orb.label`, the orb's screen-reader name, still says "Ember orb, an interactive sphere of dots" (SR "Žarka kugla", RU "Огненная сфера", DE "Glutkugel"). Suggested: "Interactive sphere of dots".
-  - `contact.done.hint`: "Expect a warm, human reply within a day." Human warmth, not fire; fine to keep.
-- The footer line reads "made by hand in [Novi Sad]" with the city placeholder, like the footer clock. If Novi Sad is final, drop the brackets in `src/lib/placeholders.ts` and the messages.
+- Wording from the old orange palette: settled. The orb's screen-reader name is "Interactive sphere of dots" now; `contact.done.hint` keeps "a warm, human reply" (the owners' call: it's human warmth, not fire).
 - The four Work concepts have real names now (fictional client brands, filled in at the owners' request): Copper & Oak, Northbound, Stillwater, Tako. No brackets are left inside the demos: origins, cities, people and numbers are filled. A rename touches `src/components/work/concepts.ts` and the demo copy; the marks are drawn icons (`src/components/work/marks.tsx`).
 
 ## 4. Prices
@@ -68,9 +67,8 @@ To decide together:
 SR (Latin), RU and DE were drafted by Claude and need a native-speaker pass before launch. Choices worth a second look:
 
 - **German uses "du"** (matches the warm, informal English). Switching to "Sie" touches most strings in `messages/de.json`.
-- **Founder roles are gender-neutral only in German** ("Co-Founder"). Serbian "Suosnivač" and Russian "Сооснователь" are the generic masculine; change them once the founders are named (e.g. "Suosnivačica").
-- **City stays `[Novi Sad]`** everywhere, so Serbian reads "u [Novi Sad]". When the real city goes in, decline it ("u Novom Sadu").
-- Headlines were rewritten to fit, not translated word for word: the hero in RU ("Креатив с огнём потеплее") and DE ("Kreative Arbeit, die wärmer brennt") had to stay short because Unbounded is wide.
+- **Founder roles are gender-neutral only in German** ("Co-Founder"). Serbian "suosnivači" and Russian "сооснователи" are the masculine plural, which is also the generic one; say if it should read differently.
+- Headlines were rewritten to fit, not translated word for word: the hero in SR ("Kreativa koja odbija da se uklopi."), RU ("Креатив, который не сливается с фоном.") and DE ("Kreative Arbeit, die aus der Reihe tanzt.") had to stay short because Unbounded is wide.
 - Package names (Basic / Pro / Custom) are kept in English in every language.
 
 All four files must keep the same keys, ICU arguments and rich tags, and every string must parse — `npm run check:messages` checks exactly that after any edit.

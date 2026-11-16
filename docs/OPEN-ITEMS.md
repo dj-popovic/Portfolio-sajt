@@ -42,9 +42,14 @@ Image licensing: use photos you own or that are explicitly licensed for commerci
 
 ## 4. Prices
 
-Decided so far: two packages get a fixed price and one stays custom. Basic and Pro are the pair (Custom already reads "Scoped and priced per project"); the amounts are still to be agreed.
+Decided so far: two packages get a fixed price and one stays custom. Basic and Pro are the pair; the amounts are still to be agreed.
 
-Until then every card says "Let's talk" (one shared `fit.price`), with "Pricing shared in our first chat" under it. When the prices are set, give Basic and Pro their own price in each language file (read in `Fit.tsx`, where a comment marks the spot), change their hints to say the price is fixed, and keep Custom on "Let's talk".
+Until then the cards say how each is priced instead of three times "Let's talk": Basic and Pro "Fixed price" ("Quoted up front · usually 2–3 weeks" / "5–8 weeks"), Custom "Per project" ("Scoped and priced together"). To confirm or change, all in `fit.packages.*` in each language file:
+
+- **The timelines** (2–3 and 5–8 weeks) are typical figures for a custom one-pager and a multi-page animated site, put in so the cards say something concrete. Change them if yours differ.
+- **The amounts.** When they're set, `price` becomes e.g. "From €1,500" and the hint keeps the rest. Pricing pages that show a starting price do better than ones that hide it, so it's worth doing soon. For orientation (agency and freelancer blogs, Nov 2026, so rough): small European studios quote about €500–2,000 for a custom landing page and €3,000–12,000 for a 5–10 page site; a custom animated one-pager from a creative developer is quoted at $3,000–5,000; public Serbian package prices are far lower (about €50–750) but are for template sites, not this kind of work.
+- **"Recommended"** on Pro replaced "Most popular": with no clients yet, "most popular" can't be backed up.
+- **The three promises** under the cards ("The two of us, start to finish", "Live previews every week", "Everything is yours at handover") restate what the site already says elsewhere; drop or change any that isn't how you work.
 
 ## 5. Contact backend
 

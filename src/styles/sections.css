@@ -1460,11 +1460,12 @@
 .services[data-deck] .svc-glyph {
   --draw: 1;
 }
-/* build: the symbols are lime dots (the owners' call, so they stand out on the glass), with
-   the blue light they sit in glowing behind them */
+/* build: the symbols are lime dots (the owners' call, so they stand out on the glass), and
+   so is the glow behind them: close to the line and not too strong, so it stays lime
+   between the dots instead of going olive */
 .svc-glyph-glow {
-  opacity: 0.6;
-  stroke: var(--blue-bright);
+  opacity: 0.42;
+  stroke: var(--lime);
 }
 /* the line's tint: near white where it starts, lime along it, a touch dimmer at its end */
 .svc-tint-a {
@@ -5014,16 +5015,9 @@
   height: 70%;
   z-index: 0;
   pointer-events: none;
-  /* build: a lime light lies along the floor (the owners' call), the blue rising out of it:
-     the page ends as it began, lime with the deep blue. Centred on the page's bottom edge
-     (this box runs a seventh of its height past it), where it is brightest */
+  /* build: blue only. The lime is inside the orb (its core, drawn with it: HorizonScene,
+     Horizon2D), not a band across the floor */
   background:
-    radial-gradient(
-      64% 24% at 50% 85.7%,
-      color-mix(in oklab, var(--lime) 46%, transparent),
-      color-mix(in oklab, var(--lime) 13%, transparent) 50%,
-      transparent 80%
-    ),
     radial-gradient(60% 100% at 50% 100%, color-mix(in oklab, var(--blue-bright) 28%, transparent), transparent 72%),
     radial-gradient(40% 80% at 50% 100%, color-mix(in oklab, var(--blue-text) 9%, transparent), transparent 68%);
 }

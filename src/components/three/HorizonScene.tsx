@@ -12,7 +12,7 @@ import {
   pointerLight,
   stepHorizon,
 } from "@/lib/horizon";
-import { DOTS, glsl } from "@/lib/palette";
+import { DOTS, glsl, PALETTE, rgb } from "@/lib/palette";
 
 /* ------------------------------------------------------------------
    The footer's horizon in the orb's own dots: the same shading (a dot
@@ -21,15 +21,27 @@ import { DOTS, glsl } from "@/lib/palette";
    The pointer is a light you shine across it (and parts and lights up the
    dots near it), a tap sends a lime ripple across it, and the first time the
    footer shows its dots gather in from a loose cloud, like the hero's.
-   A lime light lies along the floor (the owners' call: the hero's lime
-   back-light again): the dots nearest the bottom edge are lime, blue above.
+   Inside the orb, behind the dots, its core glows lime and goes to deep
+   blue towards its edge (the owners' call: lime with the deep blue, as in
+   the hero): drawn in rings round the orb's centre, so it is a dome like
+   the orb and never spills outside it. The dots over the core are lime.
    ------------------------------------------------------------------ */
 
-const vertexShader = /* glsl */ `
+// how far up the crown a point is (crownLevel in lib/horizon.ts, for the shaders)
+const LEVEL = /* glsl */ `
   uniform vec2 uRes;
-  uniform float uDpr;
   uniform vec2 uCenter;
   uniform float uRadius;
+  float crownLevel(vec2 p) {
+    float inner = (uCenter.y - uRes.y) / uRadius;
+    return clamp((length(p - uCenter) / uRadius - inner) / (1.0 - inner), 0.0, 1.0);
+  }
+`;
+const CORE = HORIZON.core.toFixed(3);
+
+const vertexShader = /* glsl */ `
+  ${LEVEL}
+  uniform float uDpr;
   uniform mat3 uRot;
   uniform vec3 uLight;
   uniform vec3 uPointer;
@@ -88,9 +100,9 @@ const vertexShader = /* glsl */ `
     col = mix(col, ${glsl(DOTS.spark)}, wave * 0.9);
     // a few dots are lime sparks
     col = mix(col, ${glsl(DOTS.spark)}, step(0.993, fract(aSeed.w * 37.7 + aSeed.y * 11.3)));
-    // the floor's lime light: lime at the bottom edge, blue again above it
-    float low = smoothstep(uRes.y - ${HORIZON.floor.toFixed(1)}, uRes.y - 8.0, p.y);
-    col = mix(col, ${glsl(DOTS.spark)}, low * low * 0.9);
+    // over the orb's lime core the dots are lime, blue again above it
+    float core = 1.0 - smoothstep(0.0, ${CORE}, crownLevel(p));
+    col = mix(col, ${glsl(DOTS.spark)}, core * core * 0.9);
 
     float size = uDot * (0.72 + aSeed.y * 0.62) * (0.88 + 0.28 * light);
     float alpha = show * (0.32 + 0.68 * smoothstep(0.0, 0.75, energy)) * gather;
@@ -115,8 +127,34 @@ const fragmentShader = /* glsl */ `
   }
 `;
 
+// the light inside the orb: a lime core at the floor's middle, deep blue above it, gone
+// before the orb's edge
+const glowVertex = /* glsl */ `
+  varying vec2 vUv;
+  void main() {
+    vUv = position.xy;
+    gl_Position = vec4(position.xy, 0.0, 1.0);
+  }
+`;
+const glowFragment = /* glsl */ `
+  ${LEVEL}
+  uniform float uIntro;
+  varying vec2 vUv;
+  void main() {
+    vec2 p = vec2((vUv.x * 0.5 + 0.5) * uRes.x, (0.5 - vUv.y * 0.5) * uRes.y);
+    float t = crownLevel(p);
+    float inside = 1.0 - step(uRadius, length(p - uCenter));
+    float lime = 0.4 * pow(1.0 - smoothstep(0.0, ${CORE}, t), 1.3);
+    float blue = 0.3 * smoothstep(0.0, 0.34, t) * (1.0 - smoothstep(0.46, 0.96, t));
+    float a = (lime + blue) * inside * uIntro;
+    if (a < 0.003) discard;
+    gl_FragColor = vec4((${glsl(DOTS.spark)} * lime + ${glsl(rgb(PALETTE.blueBright))} * blue) / (lime + blue), a);
+  }
+`;
+
 function Crown({ count }: { count: number }) {
   const material = useRef<THREE.ShaderMaterial>(null);
+  const glow = useRef<THREE.ShaderMaterial>(null);
   const rot = useMemo(() => new THREE.Matrix3(), []);
   const s = useRef({
     force: 0,
@@ -126,6 +164,7 @@ function Crown({ count }: { count: number }) {
     aim: new THREE.Vector3(),
   });
 
+  const quad = useMemo(() => new THREE.PlaneGeometry(2, 2), []);
   const geometry = useMemo(() => {
     const { pos, seed } = buildHorizon(count);
     const g = new THREE.BufferGeometry();
@@ -148,6 +187,17 @@ function Crown({ count }: { count: number }) {
       uIntro: { value: 0 },
     }),
     [rot],
+  );
+  // the glow has the dots' layout and gathers in with them (its own uniforms, written each
+  // frame below: a number handed over from the dots' uniforms would stay at its first value)
+  const glowUniforms = useMemo(
+    () => ({
+      uRes: { value: new THREE.Vector2(1, 1) },
+      uCenter: { value: new THREE.Vector2() },
+      uRadius: { value: 1 },
+      uIntro: { value: 0 },
+    }),
+    [],
   );
 
   useFrame((state, delta) => {
@@ -181,21 +231,43 @@ function Crown({ count }: { count: number }) {
     u.uRipple.value.set(horizon.ripple.x, horizon.ripple.y, horizon.ripple.z, horizon.ripple.t);
     u.uIntro.value = horizon.intro;
     u.uDot.value = size.width < 760 ? 2.0 : 2.1;
+
+    const g = glow.current?.uniforms;
+    if (g) {
+      g.uRes.value.set(size.width, size.height);
+      g.uCenter.value.set(L.x, L.y);
+      g.uRadius.value = L.r;
+      g.uIntro.value = horizon.intro;
+    }
   });
 
   return (
-    <points geometry={geometry} frustumCulled={false}>
-      <shaderMaterial
-        ref={material}
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
-        uniforms={uniforms}
-        transparent
-        depthWrite={false}
-        depthTest={false}
-        blending={THREE.AdditiveBlending}
-      />
-    </points>
+    <>
+      <mesh geometry={quad} frustumCulled={false}>
+        <shaderMaterial
+          ref={glow}
+          vertexShader={glowVertex}
+          fragmentShader={glowFragment}
+          uniforms={glowUniforms}
+          transparent
+          depthWrite={false}
+          depthTest={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </mesh>
+      <points geometry={geometry} frustumCulled={false}>
+        <shaderMaterial
+          ref={material}
+          vertexShader={vertexShader}
+          fragmentShader={fragmentShader}
+          uniforms={uniforms}
+          transparent
+          depthWrite={false}
+          depthTest={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </points>
+    </>
   );
 }
 

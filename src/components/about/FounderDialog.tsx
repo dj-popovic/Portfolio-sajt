@@ -21,15 +21,25 @@ const SHEET_R = 24;
 
 type Box = { t: number; r: number; b: number; l: number; rad: number };
 type Tilt = { deg: number; x: number; y: number };
-const boxOf = (el: Element, rad: number): Box => {
+// The layer the clip is written on: it fills the screen inside the page's scrollbar. The
+// insets are measured against it, never against the window: window.innerWidth counts a
+// classic scrollbar (Windows), which cut that much off the sheet's right side and left
+// the close button sitting on the edge.
+type Host = { w: number; h: number };
+const hostOf = (layer: HTMLElement): Host => ({ w: layer.clientWidth, h: layer.clientHeight });
+// (snapped to whole device pixels: centred in an odd width the sheet sits on a half pixel,
+// and a clip edge there draws soft)
+const boxOf = (el: Element, host: Host, rad: number): Box => {
   const r = el.getBoundingClientRect();
-  return { t: r.top, r: window.innerWidth - r.right, b: window.innerHeight - r.bottom, l: r.left, rad };
+  const dpr = window.devicePixelRatio || 1;
+  const snap = (v: number) => Math.round(v * dpr) / dpr;
+  return { t: snap(r.top), r: snap(host.w - r.right), b: snap(host.h - r.bottom), l: snap(r.left), rad };
 };
 /**
  * The card as it rests: its own rectangle (not the bounding box of the tilted
  * card) around its centre, and the tilt, which its wrapper carries.
  */
-const cardOf = (el: HTMLElement): { box: Box; tilt: Tilt } => {
+const cardOf = (el: HTMLElement, host: Host): { box: Box; tilt: Tilt } => {
   const r = el.getBoundingClientRect();
   const x = (r.left + r.right) / 2;
   const y = (r.top + r.bottom) / 2;
@@ -37,7 +47,7 @@ const cardOf = (el: HTMLElement): { box: Box; tilt: Tilt } => {
   const h = (el.offsetHeight || r.height) / 2;
   const m = new DOMMatrixReadOnly(getComputedStyle(el.parentElement ?? el).transform);
   return {
-    box: { t: y - h, r: window.innerWidth - x - w, b: window.innerHeight - y - h, l: x - w, rad: CARD_R },
+    box: { t: y - h, r: host.w - x - w, b: host.h - y - h, l: x - w, rad: CARD_R },
     tilt: { deg: (Math.atan2(m.b, m.a) * 180) / Math.PI, x, y },
   };
 };
@@ -103,7 +113,7 @@ export function FounderDialog({
     // measured upright: a turn left on the layer (a second run of this effect, as React's
     // strict mode does) would measure the turned sheet's bounding box, wider and taller
     el.style.transform = "";
-    to.current = boxOf(box, SHEET_R);
+    to.current = boxOf(box, hostOf(el), SHEET_R);
 
     if (prefersReducedMotion()) {
       paint(1);
@@ -111,7 +121,7 @@ export function FounderDialog({
       animate(el, { opacity: [0, 1] }, { duration: 0.18 });
       animate(scrim.current!, { opacity: [0, 1] }, { duration: 0.18 });
     } else {
-      ({ box: from.current, tilt: tilt.current } = cardOf(card));
+      ({ box: from.current, tilt: tilt.current } = cardOf(card, hostOf(el)));
       paint(0);
       items.forEach((n) => (n.style.opacity = "0"));
       tiles.forEach((n) => (n.style.opacity = "0"));
@@ -150,7 +160,7 @@ export function FounderDialog({
       animate(el, { opacity: 0 }, { duration: 0.15 }).then(onClosed);
       return;
     }
-    ({ box: from.current, tilt: tilt.current } = cardOf(card));
+    ({ box: from.current, tilt: tilt.current } = cardOf(card, hostOf(el)));
     // the content (sphere included) goes first and the empty sheet folds back
     // onto the card; a breath before it lands the card is put back under it
     // and the sheet dissolves, so the card is whole again in about 0.35s
@@ -197,8 +207,8 @@ export function FounderDialog({
       }
     };
     const onResize = () => {
-      if (!sheet.current || closing.current) return;
-      to.current = boxOf(sheet.current, SHEET_R);
+      if (!sheet.current || !el || closing.current) return;
+      to.current = boxOf(sheet.current, hostOf(el), SHEET_R);
       paint(1);
     };
     window.addEventListener("keydown", onKey);

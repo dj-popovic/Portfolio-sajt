@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { dotFill, sparkFill } from "@/components/canvas/Orb2D";
-import { buildHorizon, horizon, HORIZON, horizonLayout, stepHorizon } from "@/lib/horizon";
+import { buildHorizon, crownLevel, horizon, HORIZON, horizonLayout, stepHorizon } from "@/lib/horizon";
+import { PALETTE, rgb } from "@/lib/palette";
 
 const LEVELS = 14;
 
@@ -46,6 +47,29 @@ export function Horizon2D({ className, live }: { className?: string; live: boole
       ctx.globalCompositeOperation = "lighter";
       const L = horizonLayout(W, H);
       const intro = live ? horizon.intro : 1;
+      // the light inside the orb, as the WebGL horizon draws it: a lime core at the floor's
+      // middle, deep blue above it, gone before the orb's edge (rings round the orb's centre)
+      const inner = (L.y - H) / L.r;
+      const at = (t: number) => inner + (1 - inner) * t;
+      const glow = ctx.createRadialGradient(L.x, L.y, L.r * inner, L.x, L.y, L.r);
+      const stop = (t: number, c: readonly number[], a: number) =>
+        glow.addColorStop(
+          Math.min(1, (at(t) - inner) / (1 - inner)),
+          `rgba(${c[0]},${c[1]},${c[2]},${(a * intro).toFixed(3)})`,
+        );
+      const [lime, blue] = [rgb(PALETTE.lime), rgb(PALETTE.blueBright)];
+      stop(0, lime, 0.4);
+      stop(
+        HORIZON.core * 0.5,
+        [(lime[0] + blue[0]) / 2, (lime[1] + blue[1]) / 2, (lime[2] + blue[2]) / 2].map(Math.round),
+        0.27,
+      );
+      stop(HORIZON.core, blue, 0.3);
+      stop(0.96, blue, 0);
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(L.x, L.y, L.r, 0, Math.PI * 2);
+      ctx.fill();
       const c = Math.cos(horizon.yaw);
       const s = Math.sin(horizon.yaw);
       for (const b of buckets) b.length = 0;
@@ -76,9 +100,10 @@ export function Horizon2D({ className, live }: { className?: string; live: boole
         px[i * 3] = L.x + vx * L.r + Math.cos(drift) * far;
         px[i * 3 + 1] = sy;
         px[i * 3 + 2] = 1.9 * (0.72 + seed[i * 4 + 1] * 0.62) * (0.88 + 0.28 * light);
-        // the floor's lime light (as the WebGL horizon mixes it in): more dots lime the nearer the edge
-        const low = smooth(H - HORIZON.floor, H - 8, sy);
-        (isSpark(i) || low * low * 0.9 > seed[i * 4 + 3] ? sparks : buckets)[level].push(i);
+        // over the orb's lime core the dots are lime (as the WebGL horizon mixes them): more
+        // of them the nearer its middle
+        const core = 1 - smooth(0, HORIZON.core, crownLevel(px[i * 3], sy, H, L));
+        (isSpark(i) || core * core * 0.9 > seed[i * 4 + 3] ? sparks : buckets)[level].push(i);
       }
       for (const [set, paint] of [
         [buckets, fills],

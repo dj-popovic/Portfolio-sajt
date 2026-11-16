@@ -16,9 +16,11 @@ function lattice(n: number) {
   });
 }
 
-// a logo is lime while it faces you: from here (depth, 0 back → 1 front) up to full lime
-const FRONT_FROM = 0.8;
-const FRONT_FULL = 0.95;
+// a logo is lime while it's on the near side: from here (depth, 0 back → 1 front) up to full
+// lime. About a third of the sphere, so three or four of the twelve are lime at a time (the
+// owners asked for more than the one that faced you)
+const FRONT_FROM = 0.56;
+const FRONT_FULL = 0.72;
 const smooth = (a: number, b: number, x: number) => {
   const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
   return t * t * (3 - 2 * t);

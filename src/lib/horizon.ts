@@ -20,9 +20,10 @@ export const HORIZON = {
   rippleLife: 2.4,
   /** seconds the dots take to gather in from a loose cloud, the first time the footer shows */
   gather: 2.6,
-  /** the lime floor light: the dots within this many px of the bottom edge turn lime, fully
-   *  at the edge, blue again above (the footer's CSS glow is lime over the same band) */
-  floor: 190,
+  /** the orb's lime core: how far up the crown it reaches, as a share of the crown's height
+   *  (0 at the bottom edge's middle, 1 at the crown's top). It is round like the orb, so it
+   *  shows as a dome: lime in the middle of the floor, deep blue towards the orb's edge */
+  core: 0.58,
 };
 
 export type HorizonLayout = { x: number; y: number; r: number };
@@ -32,6 +33,17 @@ export function horizonLayout(w: number, h: number): HorizonLayout {
   const r = Math.max(w * 0.7, 640);
   const crown = Math.min(h * 0.88, r * (1 - HORIZON.yMin) * 0.9);
   return { x: w / 2, y: h - crown + r, r };
+}
+
+/**
+ * How far up the crown a canvas point is, measured from the orb's centre: 0 on the circle
+ * through the bottom edge's middle (and below it), 1 on the orb's edge. The light inside the
+ * orb is drawn in these rings, so it follows its roundness.
+ */
+export function crownLevel(px: number, py: number, h: number, layout: HorizonLayout) {
+  const inner = (layout.y - h) / layout.r; // the circle through the bottom edge's middle
+  const d = Math.hypot(px - layout.x, py - layout.y) / layout.r;
+  return Math.min(1, Math.max(0, (d - inner) / (1 - inner)));
 }
 
 /**

@@ -20,6 +20,7 @@ export function Fit() {
     (typeof ADDONS)[number],
     string
   >;
+  const promises = t.raw("promises") as string[];
 
   return (
     <section className="fit" id="fit" data-screen-label="Find your fit">
@@ -65,9 +66,10 @@ export function Fit() {
                 </div>
                 <p className="pkg-tag">{t(`packages.${key}.tag`)}</p>
 
-                {/* "Let's talk" for now: Basic and Pro get their fixed prices here once they're set, Custom keeps it */}
+                {/* how it's priced, and how long it usually takes. Basic and Pro are "Fixed price" until
+                    the amounts are agreed (then: "From €…" in packages.*.price); Custom is per project */}
                 <div className="pkg-price">
-                  <span className="price-val">{t("price")}</span>
+                  <span className="price-val">{t(`packages.${key}.price`)}</span>
                   <span className="price-hint">{t(`packages.${key}.hint`)}</span>
                 </div>
 
@@ -90,6 +92,18 @@ export function Fit() {
             );
           })}
         </FitGrid>
+
+        {/* what holds whichever package it is */}
+        <ul className="fit-promises" data-reveal="fade">
+          {promises.map((promise) => (
+            <li key={promise}>
+              <span className="ck" aria-hidden>
+                <CheckIcon />
+              </span>
+              {promise}
+            </li>
+          ))}
+        </ul>
 
         <div className="fit-addons" data-reveal="fade">
           <span className="addons-lead">

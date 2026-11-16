@@ -3265,21 +3265,11 @@
     color 0.2s ease,
     box-shadow 0.2s ease;
 }
-.pkg-btn::after {
-  content: "→";
-  font-size: 16px;
-  transition: transform 0.22s ease;
-}
+/* build: no arrow after the label (the owners' call): the button says what it does */
 .pkg-btn:hover {
   border-color: var(--blue);
   color: var(--blue);
   background: color-mix(in oklab, var(--blue) 6%, transparent);
-}
-/* build: movement only with a real hover (taps would leave it stuck) */
-@media (hover: hover) {
-  .pkg-btn:hover::after {
-    transform: translateX(4px);
-  }
 }
 .pkg-btn:active {
   transform: scale(0.98);
@@ -3723,6 +3713,35 @@
   }
 }
 
+/* build: three promises under the packages, the same whichever one it is: quiet, one line */
+.fit-promises {
+  list-style: none;
+  margin: clamp(28px, 3vw, 40px) auto 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 32px;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--ink-2);
+}
+.fit-promises li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.fit-promises .ck {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: var(--blue);
+  background: color-mix(in oklab, var(--blue) 9%, transparent);
+}
+
 /* add-ons row */
 .fit-addons {
   margin-top: clamp(40px, 4.4vw, 64px);
@@ -3755,7 +3774,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
-  max-width: 880px;
+  max-width: 1040px; /* build: all seven on one row on a desktop (880 left one alone on a second) */
   margin: 0 auto;
 }
 /* build: little lenses of frosted glass */

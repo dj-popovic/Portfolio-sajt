@@ -170,47 +170,50 @@
   },
   "fit": {
     "title": "Wähl einen Startpunkt. Den Rest gestalten wir <glow>gemeinsam</glow>.",
-    "sub": "Kein festes Menü, sondern unsere üblichen Arbeitsweisen. Such dir das Passendste aus, die Details klären wir im Gespräch.",
-    "price": "Lass uns reden",
-    "popular": "Am beliebtesten",
+    "sub": "Drei Arten, wie wir meistens arbeiten. Such dir die passendste aus, die Details klären wir im Gespräch.",
+    "popular": "Unsere Empfehlung",
     "yourFit": "Für dich",
     "plus": "Alles aus <b>Basic</b>, plus:",
+    "promises": ["Wir zwei, von Anfang bis Ende", "Jede Woche Live-Previews", "Bei der Übergabe gehört alles dir"],
     "packages": {
       "basic": {
         "name": "Basic",
-        "tag": "Eine One-Page- oder kleinere Website. Klar, individuell und unverkennbar wir.",
-        "hint": "Den Preis nennen wir im ersten Gespräch",
+        "tag": "Ein Onepager oder eine kleine Landingpage. Individuell gestaltet, schnell live.",
+        "price": "Festpreis",
+        "hint": "Vorab genannt · meist 2–3 Wochen",
         "cta": "Projekt starten",
         "includes": [
-          "Individuelles, responsives Design in unserem Stil",
+          "Eine Seite, von Grund auf gestaltet",
           "Leichte, geschmackvolle Animationen",
-          "Durchgehend für Mobilgeräte optimiert",
-          "Basis-SEO + Kontaktformular",
-          "Livegang & Übergabe"
+          "Sieht auf jedem Bildschirm gut aus",
+          "Basis-SEO und Kontaktformular",
+          "Livegang und Übergabe"
         ]
       },
       "pro": {
         "name": "Pro",
-        "tag": "Eine größere, mehrseitige Website in unserem typischen animierten Stil. Das volle Erlebnis.",
-        "hint": "Den Preis nennen wir im ersten Gespräch",
+        "tag": "Eine mehrseitige Website in unserem typischen animierten Stil.",
+        "price": "Festpreis",
+        "hint": "Vorab genannt · meist 5–8 Wochen",
         "cta": "Projekt starten",
         "includes": [
-          "Komplett maßgeschneidertes Design, mehrere Seiten",
-          "Fortgeschrittene Animationen + Scroll-Choreografie",
-          "3D- / interaktive Elemente + Micro-Interactions",
-          "Performance-Optimierung"
+          "Mehrere Seiten, ein Designsystem",
+          "Aufwendige Scroll-Animationen",
+          "3D und interaktive Momente",
+          "Auf Tempo optimiert"
         ]
       },
       "custom": {
         "name": "Custom",
-        "tag": "Apps & maßgeschneiderte Produkte für alles, was über eine Website hinausgeht.",
-        "hint": "Umfang und Preis klären wir pro Projekt",
+        "tag": "Web- und Mobile-Apps für alles, was über eine Website hinausgeht.",
+        "price": "Nach Projekt",
+        "hint": "Umfang und Preis klären wir gemeinsam",
         "cta": "Lass uns planen",
         "includes": [
-          "Umfang individuell pro Projekt",
-          "Web- oder Mobile-App",
-          "Individuelle Funktionen, Integrationen, Login, Datenbanken",
-          "Discovery + Produktdesign & Entwicklung"
+          "Discovery und Produktdesign",
+          "Web- oder Mobile-App aus einer Hand",
+          "Logins, Zahlungen, Integrationen",
+          "Umfang und Zeitplan nach Absprache"
         ]
       }
     },

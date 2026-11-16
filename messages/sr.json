@@ -170,47 +170,54 @@
   },
   "fit": {
     "title": "Izaberite početnu tačku. Ostalo oblikujemo <glow>zajedno</glow>.",
-    "sub": "Nije fiksni meni, već načini na koje obično radimo. Izaberite najbliži, a detalje ćemo dogovoriti u razgovoru.",
-    "price": "Razgovarajmo",
-    "popular": "Najpopularniji",
+    "sub": "Tri načina na koja obično radimo. Izaberite najbliži, a detalje ćemo dogovoriti u razgovoru.",
+    "popular": "Preporučujemo",
     "yourFit": "Za vas",
     "plus": "Sve iz paketa <b>Basic</b>, plus:",
+    "promises": [
+      "Nas dvoje, od početka do kraja",
+      "Nove verzije uživo svake nedelje",
+      "Sve je vaše nakon primopredaje"
+    ],
     "packages": {
       "basic": {
         "name": "Basic",
-        "tag": "Sajt od jedne stranice ili manji sajt. Čist, rađen po meri i nepogrešivo naš.",
-        "hint": "Cenu delimo u prvom razgovoru",
+        "tag": "Sajt od jedne stranice ili manja landing stranica. Dizajn po meri, brzo lansiranje.",
+        "price": "Fiksna cena",
+        "hint": "Ponuda unapred · obično 2–3 nedelje",
         "cta": "Započnite projekat",
         "includes": [
-          "Responzivan dizajn po meri, u našem stilu",
+          "Jedna stranica, dizajnirana od nule",
           "Lagane, odmerene animacije",
-          "Potpuno prilagođen mobilnim uređajima",
-          "Osnovni SEO + kontakt forma",
-          "Objavljivanje i primopredaja"
+          "Izgleda kako treba na svakom ekranu",
+          "Osnovni SEO i kontakt forma",
+          "Lansiranje i primopredaja"
         ]
       },
       "pro": {
         "name": "Pro",
-        "tag": "Veći sajt sa više stranica, u našem prepoznatljivom animiranom stilu. Potpuni doživljaj.",
-        "hint": "Cenu delimo u prvom razgovoru",
+        "tag": "Sajt sa više stranica u našem prepoznatljivom animiranom stilu.",
+        "price": "Fiksna cena",
+        "hint": "Ponuda unapred · obično 5–8 nedelja",
         "cta": "Započnite projekat",
         "includes": [
-          "Potpuno unikatan dizajn, više stranica",
-          "Napredne animacije + koreografija skrola",
-          "3D / interaktivni elementi + mikrointerakcije",
-          "Optimizacija performansi"
+          "Više stranica, jedan dizajn sistem",
+          "Napredne skrol animacije",
+          "3D i interaktivni momenti",
+          "Podešen da ostane brz"
         ]
       },
       "custom": {
         "name": "Custom",
-        "tag": "Aplikacije i proizvodi po meri, kad vam treba više od sajta.",
-        "hint": "Obim i cenu određujemo za svaki projekat",
+        "tag": "Web i mobilne aplikacije, kad vam treba više od sajta.",
+        "price": "Po projektu",
+        "hint": "Obim i cenu određujemo zajedno",
         "cta": "Hajde da procenimo",
         "includes": [
-          "Obim prilagođen svakom projektu",
+          "Istraživanje i dizajn proizvoda",
           "Web ili mobilna aplikacija",
-          "Funkcionalnosti po meri, integracije, prijava, baze podataka",
-          "Istraživanje + dizajn i razvoj proizvoda"
+          "Prijava, plaćanja, integracije",
+          "Obim i rokove planiramo zajedno"
         ]
       }
     },

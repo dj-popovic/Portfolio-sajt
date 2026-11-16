@@ -170,47 +170,50 @@
   },
   "fit": {
     "title": "Pick a starting point. We’ll shape the rest <glow>together</glow>.",
-    "sub": "Not a fixed menu, just the ways we usually work. Pick the closest one and we’ll talk through the details.",
-    "price": "Let’s talk",
-    "popular": "Most popular",
+    "sub": "Three ways we usually work. Pick the closest one and we’ll talk through the details.",
+    "popular": "Recommended",
     "yourFit": "Your fit",
     "plus": "Everything in <b>Basic</b>, plus:",
+    "promises": ["The two of us, start to finish", "Live previews every week", "Everything is yours at handover"],
     "packages": {
       "basic": {
         "name": "Basic",
-        "tag": "A single-page or smaller website. Clean, custom and unmistakably ours.",
-        "hint": "Pricing shared in our first chat",
+        "tag": "A one-page site or small landing page. Custom-designed, quick to launch.",
+        "price": "Fixed price",
+        "hint": "Quoted up front · usually 2–3 weeks",
         "cta": "Start a project",
         "includes": [
-          "Custom responsive design in our style",
-          "Light, tasteful animations",
-          "Mobile-optimized throughout",
-          "Basic SEO + contact form",
-          "Deploy & handover"
+          "One page, designed from scratch",
+          "Light, tasteful animation",
+          "Looks right on every screen",
+          "Basic SEO and a contact form",
+          "Launch and handover"
         ]
       },
       "pro": {
         "name": "Pro",
-        "tag": "A larger, multi-page website in our signature animated style. The full experience.",
-        "hint": "Pricing shared in our first chat",
+        "tag": "A multi-page site in our signature animated style. The full experience.",
+        "price": "Fixed price",
+        "hint": "Quoted up front · usually 5–8 weeks",
         "cta": "Start a project",
         "includes": [
-          "Fully bespoke design, multiple pages",
-          "Advanced animations + scroll choreography",
-          "3D / interactive elements + micro-interactions",
-          "Performance optimization"
+          "Multiple pages, one design system",
+          "Advanced scroll animation",
+          "3D and interactive moments",
+          "Tuned to stay fast"
         ]
       },
       "custom": {
         "name": "Custom",
-        "tag": "Apps & bespoke products, for when you need more than a website.",
-        "hint": "Scoped and priced per project",
+        "tag": "Web and mobile apps, for when you need more than a website.",
+        "price": "Per project",
+        "hint": "Scoped and priced together",
         "cta": "Let’s scope it",
         "includes": [
-          "Scope tailored per project",
-          "Web or mobile app",
-          "Custom functionality, integrations, auth, databases",
-          "Discovery + product design & build"
+          "Discovery and product design",
+          "Web or mobile app, end-to-end",
+          "Logins, payments, integrations",
+          "Scope and timeline planned with you"
         ]
       }
     },

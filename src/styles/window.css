@@ -71,9 +71,11 @@
 }
 /* build: small titles in Inter (brief: display face for big type only) */
 .ww-brand {
+  overflow: hidden;
   font-size: var(--fs-small);
   font-weight: 600;
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .ww-what {
   overflow: hidden;
@@ -140,6 +142,7 @@
 }
 /* a round glass button: just the cross (Esc is announced, not printed) */
 .ww-close {
+  position: relative;
   display: grid;
   flex: none;
   place-items: center;
@@ -159,6 +162,16 @@
 }
 .ww-close svg {
   transition: transform 0.35s var(--ease-out-quart);
+}
+/* under a finger the bar's small buttons answer over 44px (the system's size for touch),
+   while they stay 36 to the eye */
+@media (hover: none) {
+  .ww-switch button::after,
+  .ww-close::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+  }
 }
 @media (hover: hover) {
   .ww-close:hover {
@@ -372,13 +385,16 @@
   .ww-what {
     display: none;
   }
-  .ww-switch button {
-    width: 32px;
-  }
 }
 @media (max-width: 420px) {
   .ww-id .concept-mark {
     display: none;
+  }
+}
+/* the smallest phones: the switch narrows so the concept's name still shows whole */
+@media (max-width: 360px) {
+  .ww-switch button {
+    width: 32px;
   }
 }
 /* phones: the window is the screen, so the concept gets every pixel of its width */

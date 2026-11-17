@@ -115,6 +115,11 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
     scroll.lock();
     // the sheet covers the page: the orb and the other renderers behind it rest
     overlay.push();
+    // on a screen too short for it the sheet scrolls. Only then is it a scroll area the
+    // page's hold lets through: marked while it fits, a drag on it would move the page behind
+    const fit = () => panel?.toggleAttribute("data-lenis-prevent", panel.scrollHeight > panel.clientHeight + 1);
+    fit();
+    window.addEventListener("resize", fit);
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -134,6 +139,7 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
     window.addEventListener("keydown", onKey);
     return () => {
       window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", fit);
       overlay.pop();
       scroll.unlock();
       previous?.focus();
@@ -147,13 +153,13 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
       role="dialog"
       aria-modal="true"
       aria-label={t("menu")}
-      className="fixed inset-0 z-[100] flex flex-col bg-(--bg)/95 px-[var(--gutter)] pt-4 pb-10 backdrop-blur-xl"
+      className="fixed inset-0 z-[100] flex flex-col overflow-y-auto overscroll-contain bg-(--bg)/95 px-[var(--gutter)] pt-4 pb-[clamp(20px,4.5vh,40px)] backdrop-blur-xl"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25, ease: [0.25, 1, 0.5, 1] }}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex shrink-0 items-center justify-between">
         <span className="nav-logo glass">
           <Logo optical />
         </span>
@@ -162,62 +168,66 @@ function MobileMenu({ locale, onClose }: { locale: Locale; onClose: () => void }
         </button>
       </div>
 
-      <motion.ul
-        className="mt-14 flex flex-col gap-2 px-2"
-        initial="hidden"
-        animate="show"
-        variants={{ show: { transition: { staggerChildren: 0.05, delayChildren: 0.05 } } }}
-      >
-        {SECTIONS.map((id) => (
-          <motion.li
-            key={id}
-            variants={{
-              hidden: { opacity: 0, y: 14 },
-              show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.25, 1, 0.5, 1] } },
-            }}
-          >
-            <a
-              href={`#${id}`}
-              onClick={onClose}
-              className="block py-2 font-display text-[length:var(--fs-h2)] font-semibold tracking-[-0.02em] text-(--text)"
-            >
-              {t(id)}
-            </a>
-          </motion.li>
-        ))}
-      </motion.ul>
-
-      <div className="mt-auto px-2">
-        <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-(--text-muted)">
-          {t("language")}
-        </p>
-        <div className="grid grid-cols-2 gap-2">
-          {routing.locales.map((code) => (
-            <Link
-              key={code}
-              href="/"
-              locale={code}
-              lang={code}
-              prefetch={false}
-              onClick={onClose}
-              aria-current={code === locale ? "true" : undefined}
-              className={
-                code === locale
-                  ? "flex h-11 items-center rounded-2xl border border-(--blue-bright) bg-(--blue) px-4 text-[14px] font-semibold text-(--text)"
-                  : "flex h-11 items-center rounded-2xl border border-(--text)/12 px-4 text-[14px] font-medium text-(--text-2)"
-              }
-            >
-              {tc(`languages.${code}`)}
-            </Link>
-          ))}
-        </div>
-        <a
-          href="#contact"
-          onClick={onClose}
-          className="btn-lime mt-6 flex h-[52px] w-full items-center justify-center rounded-full px-6 text-[16px] font-semibold"
+      {/* stacked, with the languages and the button at the foot; a phone held sideways has no
+          height for that, so there the links and the rest sit side by side */}
+      <div className="flex flex-1 flex-col short:flex-row short:items-end short:gap-10">
+        <motion.ul
+          className="mt-[clamp(20px,6vh,56px)] flex flex-col gap-2 px-2 low:gap-1 short:mt-4 short:flex-1 short:gap-0"
+          initial="hidden"
+          animate="show"
+          variants={{ show: { transition: { staggerChildren: 0.05, delayChildren: 0.05 } } }}
         >
-          {t("cta")}
-        </a>
+          {SECTIONS.map((id) => (
+            <motion.li
+              key={id}
+              variants={{
+                hidden: { opacity: 0, y: 14 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.25, 1, 0.5, 1] } },
+              }}
+            >
+              <a
+                href={`#${id}`}
+                onClick={onClose}
+                className="block py-2 font-display text-[length:var(--fs-h2)] font-semibold tracking-[-0.02em] text-(--text) low:py-1.5 short:text-[26px]"
+              >
+                {t(id)}
+              </a>
+            </motion.li>
+          ))}
+        </motion.ul>
+
+        <div className="mt-auto px-2 pt-6 low:pt-4 short:w-[min(46%,360px)] short:shrink-0 short:pt-0">
+          <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-(--text-muted)">
+            {t("language")}
+          </p>
+          <div className="grid grid-cols-2 gap-2">
+            {routing.locales.map((code) => (
+              <Link
+                key={code}
+                href="/"
+                locale={code}
+                lang={code}
+                prefetch={false}
+                onClick={onClose}
+                aria-current={code === locale ? "true" : undefined}
+                className={
+                  code === locale
+                    ? "flex h-11 items-center rounded-2xl border border-(--blue-bright) bg-(--blue) px-4 text-[14px] font-semibold text-(--text)"
+                    : "flex h-11 items-center rounded-2xl border border-(--text)/12 px-4 text-[14px] font-medium text-(--text-2)"
+                }
+              >
+                {tc(`languages.${code}`)}
+              </Link>
+            ))}
+          </div>
+          <a
+            href="#contact"
+            onClick={onClose}
+            className="btn-lime mt-6 flex h-[52px] w-full items-center justify-center rounded-full px-6 text-[16px] font-semibold"
+          >
+            {t("cta")}
+          </a>
+        </div>
       </div>
     </motion.div>
   );

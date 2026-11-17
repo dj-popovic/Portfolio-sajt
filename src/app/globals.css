@@ -103,6 +103,12 @@
 }
 
 /* shared spacing helpers */
+/* screens with little height, for the menu sheet. low: a small phone (it tightens up);
+   short: a phone held sideways (it lays out in two columns). short is declared last, so
+   it wins where both apply */
+@custom-variant low (@media (max-height: 620px));
+@custom-variant short (@media (max-height: 520px) and (orientation: landscape));
+
 @utility px-gutter {
   padding-inline: var(--gutter);
 }

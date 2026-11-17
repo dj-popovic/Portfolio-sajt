@@ -2378,8 +2378,7 @@
   }
 }
 /* no pointer: nothing can trail a finger, so the way in is spelled out in the footer
-   instead of lying over the preview. The card that's playing wears the lime, one at a
-   time (WorkGallery) */
+   instead of lying over the preview */
 @media (hover: none) {
   .cc-go {
     width: auto;
@@ -2392,6 +2391,11 @@
   .cc-go-label {
     display: inline;
   }
+}
+/* in one column the card that's playing wears the lime, one at a time (WorkGallery).
+   Side by side (a tablet held sideways) a row plays together and neither takes it: one
+   lime button per screen */
+@media (hover: none) and (max-width: 900px) {
   .is-active .cc-go {
     background: linear-gradient(180deg, color-mix(in oklab, var(--lime) 78%, #fff), var(--lime));
     box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5);

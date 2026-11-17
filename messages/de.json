@@ -276,8 +276,10 @@
       "when": "Zeitrahmen",
       "reply": "Antwort an",
       "pick": "Paket wählen",
+      "none": "Nicht gewählt",
       "for": "Für Đorđe & Relja",
-      "stamp": "Gesendet"
+      "sent": "Gesendet",
+      "sentHint": "Ist auf dem Weg zu uns."
     },
     "steps": {
       "name": {

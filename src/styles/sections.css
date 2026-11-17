@@ -3908,7 +3908,7 @@
 }
 
 /* build: little flights in the orb's dots (lib/flight.ts): an add-on into the package
-   buttons, an answer into the brief, a package's ticket down to Contact */
+   buttons, an answer into the brief, a picked package down to Contact */
 .flight-layer {
   position: fixed;
   inset: 0;
@@ -3940,8 +3940,8 @@
   );
   box-shadow: 0 0 14px 3px color-mix(in oklab, var(--lime) 45%, transparent);
 }
-/* the ticket: a stub of the house glass with notches, the package in display type */
-.fl-ticket {
+/* a picked package on its way to the brief: a pill of the house glass, its name in display type */
+.fl-pick {
   position: absolute;
   left: 0;
   top: 0;
@@ -3950,37 +3950,34 @@
     drop-shadow(0 0 16px color-mix(in oklab, var(--blue-bright) 55%, transparent));
   will-change: transform, opacity;
 }
-.fl-ticket.is-docking {
+.fl-pick.is-docking {
   transition:
     transform 0.22s ease,
     opacity 0.22s ease;
 }
-.fl-ticket-in {
+.fl-pick-in {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  padding: 10px 18px;
-  border-radius: 12px;
+  padding: 9px 16px;
+  border-radius: 999px;
   color: var(--text);
   white-space: nowrap;
   background:
     linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.03)),
     radial-gradient(120% 90% at 50% 120%, color-mix(in oklab, var(--blue-bright) 60%, transparent), transparent 70%),
     var(--surface);
-  -webkit-mask:
-    radial-gradient(circle 6px at 0 50%, #0000 96%, #000) left / 51% 100% no-repeat,
-    radial-gradient(circle 6px at 100% 50%, #0000 96%, #000) right / 51% 100% no-repeat;
-  mask:
-    radial-gradient(circle 6px at 0 50%, #0000 96%, #000) left / 51% 100% no-repeat,
-    radial-gradient(circle 6px at 100% 50%, #0000 96%, #000) right / 51% 100% no-repeat;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.2),
+    inset 0 0 0 1px rgb(255 255 255 / 0.1);
 }
-.fl-ticket-in b {
+.fl-pick-in b {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 14px;
   letter-spacing: -0.01em;
 }
-.fl-ticket-in i {
+.fl-pick-in i {
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
@@ -4120,93 +4117,188 @@
     transform: translateX(3px) rotate(6deg);
   }
 }
-/* build: the brief beside the conversation (BriefCard): a ticket of the house glass that
-   fills in answer by answer; sent, it's stamped and its stub tears off into the dots */
+/* build: the brief beside the conversation (BriefCard): a pane of the house glass with the
+   hero's orb in its corner, taking shape as the answers come (BriefOrb). Each answered row's
+   node on the thread turns lime; sent, the pane says so. (It was a ticket with a perforation,
+   a dotted code and a stub that tore off: the owners found it off-brand.) */
 .brief-slot {
   max-width: 440px;
 }
-.brief-ticket {
-  position: relative;
-  filter: drop-shadow(0 26px 34px rgb(0 0 0 / 0.5));
-}
-.brief,
-.brief-stub {
+.brief {
   position: relative;
   isolation: isolate;
+  overflow: hidden;
+  padding: 20px 24px 16px;
+  border-radius: var(--r-l);
   background:
-    linear-gradient(180deg, rgb(255 255 255 / 0.075), rgb(255 255 255 / 0.03)),
-    color-mix(in oklab, var(--bg) 68%, transparent);
-  -webkit-backdrop-filter: blur(18px) saturate(1.7);
-  backdrop-filter: blur(18px) saturate(1.7);
+    linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02) 44%, rgb(255 255 255 / 0.035)),
+    color-mix(in oklab, var(--bg) 52%, transparent);
+  -webkit-backdrop-filter: blur(22px) saturate(1.7) brightness(0.95);
+  backdrop-filter: blur(22px) saturate(1.7) brightness(0.95);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.15),
+    inset 0 22px 34px -30px rgb(255 255 255 / 0.12),
+    inset 0 -30px 50px -40px color-mix(in oklab, var(--blue-bright) 50%, transparent),
+    0 34px 70px -44px rgb(0 0 0 / 0.85);
 }
-/* the notches the perforation runs between */
-.brief {
-  padding: 24px 24px 12px;
-  border-radius: var(--r-l) var(--r-l) 0 0;
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.13);
-  -webkit-mask:
-    radial-gradient(circle 10px at 0 100%, #0000 96%, #000) left / 51% 100% no-repeat,
-    radial-gradient(circle 10px at 100% 100%, #0000 96%, #000) right / 51% 100% no-repeat;
-  mask:
-    radial-gradient(circle 10px at 0 100%, #0000 96%, #000) left / 51% 100% no-repeat,
-    radial-gradient(circle 10px at 100% 100%, #0000 96%, #000) right / 51% 100% no-repeat;
-}
+/* a soft blue light on the glass: it rests behind the orb and follows the pointer */
 .brief::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
+  pointer-events: none;
   background: radial-gradient(
-    90% 70% at 0% 100%,
-    color-mix(in oklab, var(--blue-bright) 26%, transparent),
-    transparent 62%
+    260px circle at var(--mx, 88%) var(--my, 12%),
+    color-mix(in oklab, var(--blue-bright) 34%, transparent),
+    color-mix(in oklab, var(--blue) 20%, transparent) 50%,
+    transparent 76%
   );
+}
+/* the rim catches the light like a lens (lime in its lower corner once the brief is sent) */
+.brief::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    140deg,
+    rgb(255 255 255 / 0.32),
+    rgb(255 255 255 / 0.06) 30%,
+    rgb(255 255 255 / 0.02) 62%,
+    color-mix(in oklab, var(--blue-text) 32%, transparent)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.brief[data-sent]::after {
+  background: linear-gradient(
+    140deg,
+    rgb(255 255 255 / 0.36),
+    rgb(255 255 255 / 0.06) 30%,
+    rgb(255 255 255 / 0.03) 62%,
+    color-mix(in oklab, var(--lime) 60%, transparent)
+  );
+}
+.brief > * {
+  position: relative;
+  z-index: 1;
 }
 .brief-head {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.brief-titles {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
 }
 .brief-kicker {
   font-size: var(--fs-label);
   font-weight: 600;
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: var(--blue-text);
-}
-.brief-date {
-  font-size: var(--fs-label);
-  font-variant-numeric: tabular-nums;
-  color: var(--text-muted);
+  color: var(--text);
 }
 .brief-hint {
-  margin: 8px 0 12px;
   font-size: var(--fs-small);
   color: var(--text-muted);
 }
-.brief-rows {
-  margin: 0;
+/* the orb reaches a little past its box (its loose dots), so it sits out into the padding */
+.brief-orb {
+  flex: 0 0 auto;
+  display: block;
+  width: 104px;
+  height: 104px;
+  margin: -20px -22px -20px 0;
 }
+.brief-rows {
+  position: relative;
+  margin: 8px 0 0;
+}
+/* the thread the rows' nodes sit on */
+.brief-rows::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 20px;
+  bottom: 20px;
+  width: 1px;
+  background: color-mix(in oklab, var(--blue-text) 24%, transparent);
+}
+/* every row keeps the same first line (20px), so the nodes are evenly spaced whatever is in it */
 .brief-row {
+  position: relative;
   display: grid;
-  grid-template-columns: 8.2em minmax(0, 1fr);
+  grid-template-columns: 9.4em minmax(0, 1fr);
   gap: 16px;
-  align-items: baseline;
+  align-items: start;
   padding: 10px 0;
-  border-top: 1px solid var(--border);
+}
+/* the thread is lime between two answered rows that follow each other (from this row's
+   node to the next one's, which sits as far into its own row) */
+.brief-row[data-on]:has(+ .brief-row[data-on])::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 20px;
+  bottom: -20px;
+  width: 1px;
+  background: var(--lime);
+  opacity: 0.75;
 }
 .brief-row dt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: var(--fs-label);
+  line-height: 20px;
   color: var(--text-muted);
+  transition: color 0.4s ease;
+}
+.brief-row[data-on] dt {
+  color: var(--text-2);
+}
+/* a node on the thread: hollow until its row has its answer, then lime */
+.brief-node {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1.5px color-mix(in oklab, var(--text-muted) 70%, transparent);
+  transition:
+    background 0.4s ease,
+    box-shadow 0.4s ease,
+    transform 0.4s var(--ease-soft);
+}
+.brief-row[data-on] .brief-node {
+  background: var(--lime);
+  box-shadow: 0 0 8px 1px color-mix(in oklab, var(--lime) 40%, transparent);
+  transform: scale(1.12);
 }
 .brief-row dd {
   margin: 0;
-  min-height: 22px;
+  min-height: 20px;
   font-size: var(--fs-small);
-  line-height: 1.45;
+  line-height: 20px;
   color: var(--text);
   overflow-wrap: anywhere;
+}
+.brief-none {
+  color: var(--text-muted);
 }
 .brief-val {
   display: -webkit-box;
@@ -4214,24 +4306,16 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.brief-blank {
-  display: block;
-  width: 62%;
-  height: 1px;
-  margin-top: 11px;
-  background: repeating-linear-gradient(
-    90deg,
-    color-mix(in oklab, var(--text) 26%, transparent) 0 3px,
-    transparent 3px 7px
-  );
-}
+/* (its chips are taller than a line: pulled in, so the row keeps its height) */
 .brief-start {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  margin-block: -4px;
   transition: opacity 0.3s ease;
 }
-/* a picked package's ticket is on its way: its slot waits, then takes it */
+/* a picked package is on its way: its slot waits, then takes it */
+
 .brief-start[data-arriving],
 .chat-pins[data-arriving] {
   opacity: 0;
@@ -4302,100 +4386,39 @@
 .brief-pick:hover {
   text-decoration-color: currentColor;
 }
-/* the stub, below the perforation: the dots light up as the brief fills in */
-.brief-stub {
+/* the foot: who it's for, and the date, which gives way to "Sent" */
+.brief-foot {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 16px 24px;
-  border-radius: 0 0 var(--r-l) var(--r-l);
-  transform-origin: 14% 0;
-  transition:
-    transform 0.9s cubic-bezier(0.3, 0.6, 0.2, 1),
-    opacity 0.7s ease;
-  -webkit-mask:
-    radial-gradient(circle 10px at 0 0, #0000 96%, #000) left / 51% 100% no-repeat,
-    radial-gradient(circle 10px at 100% 0, #0000 96%, #000) right / 51% 100% no-repeat;
-  mask:
-    radial-gradient(circle 10px at 0 0, #0000 96%, #000) left / 51% 100% no-repeat,
-    radial-gradient(circle 10px at 100% 0, #0000 96%, #000) right / 51% 100% no-repeat;
+  gap: 12px;
+  min-height: 42px;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
 }
-.brief-stub::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 14px;
-  right: 14px;
-  height: 1px;
-  background: repeating-linear-gradient(90deg, rgb(255 255 255 / 0.22) 0 6px, transparent 6px 12px);
-}
-.brief-stub[data-torn] {
-  transform: translate(16px, 44px) rotate(7deg);
-  opacity: 0;
-}
-.brief-code {
-  display: grid;
-  grid-template-columns: repeat(26, 3px);
-  grid-template-rows: repeat(3, 3px);
-  gap: 3px;
-  flex: 0 0 auto;
-}
-.brief-code i {
-  border-radius: 50%;
-  background: color-mix(in oklab, var(--text) 14%, transparent);
-  transition:
-    background 0.5s ease,
-    box-shadow 0.5s ease;
-}
-.brief-code i[data-on] {
-  background: var(--blue-text);
-}
-.brief-code i[data-hot] {
-  background: color-mix(in oklab, var(--blue-text) 45%, #fff);
-  box-shadow: 0 0 4px color-mix(in oklab, var(--blue-bright) 80%, transparent);
-}
-.brief-for {
+.brief-for,
+.brief-date {
   font-size: var(--fs-label);
   color: var(--text-muted);
-  text-align: right;
 }
-/* sent: a lime stamp lands on it */
-.brief-stamp {
-  position: absolute;
-  top: 50px;
-  right: 22px;
-  z-index: 3;
-  padding: 6px 14px;
-  border: 2px solid currentColor;
-  border-radius: var(--r-s);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 0.14em;
+.brief-date {
+  font-variant-numeric: tabular-nums;
+}
+.brief-sent {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 11px 0 8px;
+  border-radius: 999px;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: var(--lime);
-  box-shadow: inset 0 0 0 3px color-mix(in oklab, var(--bg) 55%, transparent);
-  transform: rotate(-9deg) scale(1.6);
-  opacity: 0;
-  pointer-events: none;
-}
-.brief[data-sealed] .brief-stamp {
-  animation: stampIn 0.42s cubic-bezier(0.2, 0.8, 0.2, 1.1) forwards;
-}
-@keyframes stampIn {
-  0% {
-    opacity: 0;
-    transform: rotate(-9deg) scale(1.7);
-  }
-  60% {
-    opacity: 1;
-    transform: rotate(-9deg) scale(0.94);
-  }
-  100% {
-    opacity: 0.94;
-    transform: rotate(-9deg) scale(1);
-  }
+  color: var(--on-lime);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--lime) 78%, #fff), var(--lime));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5);
 }
 /* build: the conversation sits on a pane of the house glass, blue light behind it */
 .convo-stage {
@@ -4906,6 +4929,25 @@
 .chat-field textarea::placeholder {
   color: color-mix(in oklab, var(--text) 50%, transparent); /* build: contrast (WCAG AA) */
 }
+/* build: a name or address the browser fills in keeps the field's look. Chrome gives an
+   autofilled field its own slate background and text colour, a pale box in the dark well.
+   The well goes solid and the field is lined with the same colour (an inset shadow is drawn
+   over the browser's background), the text stays ours, and the browser's background is put
+   off by an endless transition where transitions run. Firefox tints the field with a filter. */
+.chat-field:has(input:-webkit-autofill) {
+  background: color-mix(in oklab, var(--surface) 62%, var(--bg)); /* the well's own tone, made solid */
+}
+.chat-field input:-webkit-autofill,
+.chat-field input:-webkit-autofill:hover,
+.chat-field input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text);
+  caret-color: var(--text);
+  box-shadow: inset 0 0 0 100px color-mix(in oklab, var(--surface) 62%, var(--bg));
+  transition: background-color 100000s 0s;
+}
+.chat-field input:autofill {
+  filter: none;
+}
 .chat-send {
   flex: 0 0 auto;
   display: inline-flex;
@@ -4985,13 +5027,10 @@
     display: none;
   }
   .brief {
-    padding: 20px 20px 12px;
-  }
-  .brief-stub {
-    padding: 16px 20px;
+    padding: 18px 18px 14px;
   }
   .brief-row {
-    grid-template-columns: 6.6em minmax(0, 1fr);
+    grid-template-columns: 8em minmax(0, 1fr);
     gap: 10px;
   }
 }

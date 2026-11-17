@@ -276,8 +276,10 @@
       "when": "Timeline",
       "reply": "Reply to",
       "pick": "Pick a package",
+      "none": "Not picked",
       "for": "For Đorđe & Relja",
-      "stamp": "Sent"
+      "sent": "Sent",
+      "sentHint": "On its way to us."
     },
     "steps": {
       "name": {

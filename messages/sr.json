@@ -280,8 +280,10 @@
       "when": "Rokovi",
       "reply": "Odgovor na",
       "pick": "Izaberite paket",
+      "none": "Nije izabrano",
       "for": "Za Đorđa i Relju",
-      "stamp": "Poslato"
+      "sent": "Poslato",
+      "sentHint": "Na putu je ka nama."
     },
     "steps": {
       "name": {

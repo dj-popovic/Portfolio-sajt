@@ -1,5 +1,5 @@
 // Little flights across the page in the orb's dots: an add-on into the package buttons,
-// an answer into the brief, a package's ticket down to Contact. They're decoration: each
+// an answer into the brief, a picked package down to Contact. They're decoration: each
 // resolves when it lands, and at once under reduced motion. Points are in the viewport and
 // targets are read again every frame, so a page that scrolls mid-flight is still met.
 
@@ -91,11 +91,11 @@ export function flyDots(
 }
 
 /**
- * A package's ticket: it lifts out of the button it was picked with and rides down the
+ * A picked package, as a pill of glass with its name: it lifts out of the button it was picked with and rides down the
  * page with the scroll to its slot in Contact (`to`, asked every frame), then settles
  * into it. Resolves when it has landed.
  */
-export function flyTicket(
+export function flyPick(
   from: Element,
   label: { name: string; more: string | null },
   to: () => Element | null,
@@ -104,10 +104,10 @@ export function flyTicket(
   if (reduce()) return Promise.resolve();
   return new Promise((resolve) => {
     const host = flightLayer();
-    const ticket = document.createElement("div");
-    ticket.className = "fl-ticket";
+    const pill = document.createElement("div");
+    pill.className = "fl-pick";
     const inner = document.createElement("span");
-    inner.className = "fl-ticket-in";
+    inner.className = "fl-pick-in";
     const name = document.createElement("b");
     name.textContent = label.name;
     inner.append(name);
@@ -116,8 +116,8 @@ export function flyTicket(
       more.textContent = label.more;
       inner.append(more);
     }
-    ticket.append(inner);
-    host.appendChild(ticket);
+    pill.append(inner);
+    host.appendChild(pill);
     const trail = Array.from({ length: 4 }, () => {
       const d = document.createElement("i");
       d.className = "fl-dot";
@@ -125,8 +125,8 @@ export function flyTicket(
       host.appendChild(d);
       return d;
     });
-    const w = ticket.offsetWidth;
-    const h = ticket.offsetHeight;
+    const w = pill.offsetWidth;
+    const h = pill.offsetHeight;
     const a = pointIn(from);
     const history: Point[] = [];
     const t0 = performance.now();
@@ -146,8 +146,8 @@ export function flyTicket(
       const lifted = { x: a.x, y: a.y - 26 * pop };
       const p = along(lifted, bend(lifted, end, 0.12), end, travel);
       const scale = 0.55 + 0.45 * (1 - Math.pow(1 - pop, 3));
-      ticket.style.transform = `translate3d(${(p.x - w / 2).toFixed(1)}px, ${(p.y - h / 2).toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
-      ticket.style.opacity = String(Math.min(1, pop * 2));
+      pill.style.transform = `translate3d(${(p.x - w / 2).toFixed(1)}px, ${(p.y - h / 2).toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
+      pill.style.opacity = String(Math.min(1, pop * 2));
       history.unshift(p);
       history.length = Math.min(history.length, 24);
       trail.forEach((d, i) => {
@@ -160,12 +160,12 @@ export function flyTicket(
       // there: ride with the slot while the page settles, then sink into it
       landedAt ||= now;
       if (still < 3 && now - landedAt < 450) return void requestAnimationFrame(frame);
-      ticket.classList.add("is-docking");
-      ticket.style.transform = `translate3d(${(end.x - w / 2).toFixed(1)}px, ${(end.y - h / 2).toFixed(1)}px, 0) scale(0.86)`;
-      ticket.style.opacity = "0";
+      pill.classList.add("is-docking");
+      pill.style.transform = `translate3d(${(end.x - w / 2).toFixed(1)}px, ${(end.y - h / 2).toFixed(1)}px, 0) scale(0.86)`;
+      pill.style.opacity = "0";
       trail.forEach((d) => d.remove());
       window.setTimeout(() => {
-        ticket.remove();
+        pill.remove();
         resolve();
       }, 220);
     };
@@ -173,8 +173,8 @@ export function flyTicket(
   });
 }
 
-/** Where a picked package's ticket lands: its row in the brief, or on phones the chat's note of it. */
-export function ticketSlot(): Element | null {
+/** Where a picked package lands: its row in the brief, or on phones the chat's note of it. */
+export function pickSlot(): Element | null {
   const compact = window.matchMedia("(max-width: 920px)").matches;
   return document.querySelector(compact ? '[data-dock="start-compact"]' : '[data-dock="start"]');
 }

@@ -364,7 +364,7 @@ export function ContactChat() {
         </span>
       </header>
 
-      {/* phones: what was picked in Find your fit rides along up here (its ticket lands on it) */}
+      {/* phones: what was picked in Find your fit rides along up here (the pick lands on it) */}
       {pkg || addons.length ? (
         <div className="chat-pins" data-dock="start-compact" data-arriving={arriving || undefined}>
           {pkg ? (

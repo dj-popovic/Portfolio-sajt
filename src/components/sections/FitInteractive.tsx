@@ -7,7 +7,7 @@ import { useBrief } from "@/components/brief/BriefProvider";
 import { CheckIcon, PlusIcon } from "@/components/ui/icons";
 import { ADDONS, FINDER, FINDER_STEPS, fitFor, type FinderAnswers, type PackageKey } from "@/lib/brief";
 import { cn } from "@/lib/cn";
-import { flyDots, flyTicket, pointIn, ticketSlot } from "@/lib/flight";
+import { flyDots, flyPick, pickSlot, pointIn } from "@/lib/flight";
 import { tiltLeave, tiltMove } from "@/lib/tilt";
 
 const EASE = [0.25, 1, 0.5, 1] as const;
@@ -26,8 +26,8 @@ function flyToPackages(from: Element) {
   });
 }
 
-// tickets on their way down to Contact (two quick picks can overlap)
-let tickets = 0;
+// picks on their way down to Contact (two quick ones can overlap)
+let flying = 0;
 
 /** The grid of packages: knows which one the finder points to, so the light behind the glass can follow. */
 export function FitGrid(props: ComponentProps<"div">) {
@@ -111,7 +111,7 @@ function MoreCount({ n, index }: { n: number; index: number }) {
   );
 }
 
-// Package button: remembers the choice, the anchor scrolls to Contact, and a ticket of the
+// Package button: remembers the choice, the anchor scrolls to Contact, and a pill of the
 // pick (with its add-ons) rides down with the page and lands in the brief there.
 export function PackageButton({
   pkg,
@@ -128,11 +128,11 @@ export function PackageButton({
   const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
     choosePackage(pkg);
     if (reduced()) return;
-    tickets += 1;
+    flying += 1;
     setArriving(true);
-    void flyTicket(e.currentTarget, { name, more: addons.length ? `+${addons.length}` : null }, ticketSlot).then(() => {
-      tickets -= 1;
-      if (!tickets) setArriving(false);
+    void flyPick(e.currentTarget, { name, more: addons.length ? `+${addons.length}` : null }, pickSlot).then(() => {
+      flying -= 1;
+      if (!flying) setArriving(false);
     });
   };
   return (

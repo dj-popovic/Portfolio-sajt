@@ -17,7 +17,7 @@ type Brief = {
   status: BriefStatus;
   /** how many briefs have gone off (each send seals the card anew) */
   sent: number;
-  /** a package's ticket is on its way down to Contact: its slot waits for it */
+  /** a picked package is on its way down to Contact: its slot waits for it */
   arriving: boolean;
   choosePackage: (pkg: PackageKey | null) => void;
   toggleAddon: (addon: AddonKey) => void;

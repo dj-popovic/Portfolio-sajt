@@ -133,6 +133,8 @@
     "window": {
       "close": "Close demo",
       "hint": "Scroll and click around. It’s all live.",
+      "hintTouch": "Scroll and tap around. It’s all live.",
+      "next": "Next concept",
       "openAria": "Open demo: {brand}, {what}",
       "switch": "Concepts"
     }

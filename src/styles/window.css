@@ -248,6 +248,105 @@
     transform: translateY(4px);
   }
 }
+.ww-tap {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wwTap 1.6s ease-out infinite;
+}
+@keyframes wwTap {
+  0% {
+    opacity: 0;
+    transform: scale(0.45);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+/* the frame's ending, under the concept's own page: ours again (the bar's glass), with
+   the next concept and the window's one lime button */
+.ww-end {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding: 20px clamp(16px, 3vw, 32px);
+  background:
+    radial-gradient(50% 160% at 88% 130%, color-mix(in oklab, var(--blue-bright) 34%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--surface-2), var(--surface));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1);
+  color: var(--text-2);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+}
+/* not before the concept's page is there */
+.ww-body:has(.ww-loading) .ww-end {
+  display: none;
+}
+.ww-end-note b {
+  color: var(--text);
+  font-weight: 600;
+}
+.ww-end-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.ww-next,
+.ww-start {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: var(--ctl-m);
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.ww-next {
+  padding: 0 16px 0 18px;
+  background: rgb(255 255 255 / 0.06);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
+  color: var(--text);
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.ww-next-label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.ww-next .concept-mark {
+  transition: transform 0.35s var(--ease-out-quart);
+}
+@media (hover: hover) {
+  .ww-next:hover {
+    background: color-mix(in oklab, var(--blue-bright) 26%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--blue-bright) 70%, transparent);
+  }
+  .ww-next:hover .concept-mark {
+    transform: translateX(2px) scale(1.06);
+  }
+}
+.ww-start {
+  padding: 0 18px 0 20px;
+}
+.ww-next:focus-visible,
+.ww-start:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 3px;
+}
 .ww-loading {
   position: absolute;
   inset: 0;
@@ -280,5 +379,23 @@
 @media (max-width: 420px) {
   .ww-id .concept-mark {
     display: none;
+  }
+}
+/* phones: the window is the screen, so the concept gets every pixel of its width */
+@media (max-width: 600px) {
+  .work-window {
+    padding: 0;
+  }
+  .ww-frame {
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .ww-end {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px 16px 24px;
+  }
+  .ww-end-actions > * {
+    flex: 1 1 auto;
   }
 }

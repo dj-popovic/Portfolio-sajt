@@ -3,7 +3,9 @@
 
 export type DemoKey = "coffee" | "fintech" | "wellness" | "food";
 
-export const DEMO_KEYS: DemoKey[] = ["coffee", "fintech", "wellness", "food"];
+// in the order they're shown: site, app, app, site, so the grid's two rows mirror
+// each other (a site takes the wide tile, an app the narrow one)
+export const DEMO_KEYS: DemoKey[] = ["coffee", "wellness", "food", "fintech"];
 
 export const CONCEPT: Record<
   DemoKey,

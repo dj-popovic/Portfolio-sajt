@@ -11,6 +11,8 @@ const PHONE_W = 400; // their phone layout, for narrow cards
 const NARROW = 560; // a site's view narrower than this shows the phone layout (data-narrow)
 const PHONE_K = 0.9; // and never zoomed past this: a wider view gets a wider phone page
 const PHONE = { w: 300, h: 640 }; // the phones' size
+const APP_NARROW = 420; // an app's stage narrower than this brings the phone forward, cropped (data-narrow)
+const APP_SHARE = 0.7; // of the stage's width, there
 // a site preview on hover scrolls itself at an even pace: page px per second
 // (of the 960px replica), and how quickly it gets going and comes to a stop
 const SCROLL_SPEED = 320;
@@ -19,6 +21,7 @@ const ACCEL = 1600; // px/s² to pick up speed (or turn round)
 const BRAKE = 900; // px/s² to settle at either end
 const REST = [900, 1200]; // ms it rests at the top and at the bottom
 const DWELL = [2400, 4200, 3600]; // ms on each phone screen while it plays
+const WAKE = { web: 1700, app: 3100 }; // ms a preview stirs by itself the first time it's in view
 
 type ConceptCardProps = {
   demo: DemoKey;
@@ -32,6 +35,8 @@ type ConceptCardProps = {
   stage?: string;
   /** floating glass chips beside an app's phone */
   chips?: ReactNode;
+  /** ms before it stirs once it's in view, so a row wakes one card after the other */
+  wakeDelay?: number;
   onOpen: (card: HTMLElement) => void;
   /** the preview (previews.tsx) */
   children: ReactNode;
@@ -43,8 +48,11 @@ type ConceptCardProps = {
  * "Open" pill trails the cursor; a site preview scrolls itself down the page
  * and back at an even pace (never tied to the pointer, which can be too
  * quick), an app's phone runs through its screens while its chips drift with
- * the pointer. Touch: the preview plays while the card is in view. Reduced
- * motion: still.
+ * the pointer. The first time a card is well in view its preview stirs for a
+ * moment by itself, so it reads as live before anyone hovers. Touch: the
+ * gallery says which card plays (`concept:play`: the one nearest the middle of
+ * the screen), and the way in is a labelled pill in the footer. Reduced motion:
+ * still.
  */
 export function ConceptCard({
   demo,
@@ -56,6 +64,7 @@ export function ConceptCard({
   ariaLabel,
   stage,
   chips,
+  wakeDelay = 0,
   onOpen,
   children,
 }: ConceptCardProps) {
@@ -94,7 +103,13 @@ export function ConceptCard({
         el.style.setProperty("--vh", `${(view.clientHeight / k).toFixed(1)}px`);
         measure();
       } else if (phone) {
-        const pk = Math.min((media.clientHeight - 30) / PHONE.h, (media.clientWidth * 0.46) / PHONE.w);
+        // a phone-sized stage: the device comes forward and the stage's floor crops it,
+        // instead of a whole phone too small to read
+        const narrow = media.clientWidth < APP_NARROW;
+        el.toggleAttribute("data-narrow", narrow);
+        const pk = narrow
+          ? (media.clientWidth * APP_SHARE) / PHONE.w
+          : Math.min((media.clientHeight - 30) / PHONE.h, (media.clientWidth * 0.46) / PHONE.w);
         el.style.setProperty("--pk", pk.toFixed(4));
       }
     };
@@ -173,19 +188,33 @@ export function ConceptCard({
       }
     };
 
-    // ---- on screen: idle motion; on touch screens, mostly in view = playing
+    // ---- on screen: idle motion, and the first time it's well in view it stirs by
+    // itself for a moment (not on touch screens, where the gallery plays the card in
+    // the middle of the screen, nor under reduced motion)
+    let held = false; // under the pointer, or holding keyboard focus
+    let woke = touch || reduce;
+    let wakeTimer = 0;
+    const wake = () => {
+      if (held || active) return;
+      setActive(true);
+      wakeTimer = window.setTimeout(() => !held && setActive(false), WAKE[web ? "web" : "app"]);
+    };
     const io = new IntersectionObserver(
       ([e]) => {
         el.classList.toggle("is-live", e.isIntersecting);
-        if (touch) setActive(e.intersectionRatio > 0.55);
+        if (woke || e.intersectionRatio < 0.8) return;
+        woke = true;
+        wakeTimer = window.setTimeout(wake, wakeDelay);
       },
-      { threshold: [0, 0.55, 0.8] },
+      { threshold: [0, 0.8] },
     );
     io.observe(el);
+    const onPlay = (e: Event) => setActive(Boolean((e as CustomEvent<boolean>).detail));
 
     // ---- pointer
     const onEnter = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
+      held = true;
       setActive(true);
     };
     const onMove = (e: PointerEvent) => {
@@ -216,6 +245,7 @@ export function ConceptCard({
     };
     const onLeave = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
+      held = false;
       setActive(false);
       cursor?.classList.remove("is-on");
       el.style.setProperty("--rx", "0deg");
@@ -224,10 +254,17 @@ export function ConceptCard({
       chipEls.forEach((c) => (c.style.translate = ""));
     };
     // keyboard focus plays it too (not focus handed back after a mouse click: InputModality)
-    const onFocus = () =>
-      document.documentElement.dataset.input !== "pointer" && el.matches(":focus-visible") && setActive(true);
-    const onBlur = () => setActive(false);
+    const onFocus = () => {
+      if (document.documentElement.dataset.input === "pointer" || !el.matches(":focus-visible")) return;
+      held = true;
+      setActive(true);
+    };
+    const onBlur = () => {
+      held = false;
+      if (!touch) setActive(false);
+    };
 
+    el.addEventListener("concept:play", onPlay);
     el.addEventListener("pointerenter", onEnter);
     el.addEventListener("pointermove", onMove);
     el.addEventListener("pointerleave", onLeave);
@@ -238,13 +275,15 @@ export function ConceptCard({
       io.disconnect();
       cancelAnimationFrame(raf);
       window.clearTimeout(timer);
+      window.clearTimeout(wakeTimer);
+      el.removeEventListener("concept:play", onPlay);
       el.removeEventListener("pointerenter", onEnter);
       el.removeEventListener("pointermove", onMove);
       el.removeEventListener("pointerleave", onLeave);
       el.removeEventListener("focus", onFocus);
       el.removeEventListener("blur", onBlur);
     };
-  }, [kind]);
+  }, [kind, wakeDelay]);
 
   const open = () => ref.current && onOpen(ref.current);
   const onKey = (e: KeyboardEvent) => {
@@ -306,7 +345,8 @@ export function ConceptCard({
         </div>
         <span className="cc-kind">{kindLabel}</span>
         <span className="cc-go" aria-hidden>
-          <ArrowUpRight />
+          <span className="cc-go-label">{openLabel}</span>
+          <ArrowUpRight size={14} />
         </span>
       </div>
       <span className="cc-glare" aria-hidden />

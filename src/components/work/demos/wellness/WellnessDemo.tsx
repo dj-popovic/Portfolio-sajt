@@ -183,9 +183,11 @@ function HeroCopy({ jump }: { jump: (id: string) => void }) {
       <button
         type="button"
         onClick={() => jump("sw-how")}
-        className="mt-6 flex items-center gap-2 text-[13.5px] font-bold text-(--muted) transition-colors hover:text-(--ink)"
+        className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-left text-[13.5px] font-bold text-(--muted) transition-colors hover:text-(--ink)"
       >
-        <span className="text-[#F5B83D]">★★★★★</span> Loved by light sleepers · see how it works ↓
+        <span className="text-[#F5B83D]">★★★★★</span>
+        {/* one piece: on a phone it drops under the stars instead of breaking beside them */}
+        <span>Loved by light sleepers · see how it works ↓</span>
       </button>
     </div>
   );

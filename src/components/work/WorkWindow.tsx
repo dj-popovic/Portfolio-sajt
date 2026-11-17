@@ -3,14 +3,15 @@
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { motion } from "motion/react";
-import { useEffect, useEffectEvent, useRef, useState, type ComponentType } from "react";
+import { useEffect, useEffectEvent, useRef, useState, type ComponentType, type MouseEvent } from "react";
 import { createPortal } from "react-dom";
 import { useScroll } from "@/components/motion/SmoothScroll";
-import { CloseIcon } from "@/components/ui/icons";
+import { ArrowUpRight, CloseIcon } from "@/components/ui/icons";
 import { CONCEPT, DEMO_KEYS, type DemoKey } from "@/components/work/concepts";
 import { ConceptMark } from "@/components/work/marks";
 import { gsap, prefersReducedMotion, ScrollTrigger } from "@/lib/gsap";
 import { overlay } from "@/lib/overlay";
+import { richDark } from "@/lib/rich";
 
 function Loading() {
   return (
@@ -46,11 +47,14 @@ type WorkWindowProps = {
  * The opened concept: grows out of its card's preview, dims the page and
  * closes back into the card of whichever concept is showing, shrinking onto
  * its preview and fading as it lands. The bar says whose site it is and
- * switches between the four without closing. Modal: focus stays inside, Esc
- * closes, the page holds still behind it.
+ * switches between the four without closing. Under the concept's own page the
+ * frame ends in a strip of ours: on to the next concept, or out to Contact
+ * (the window's one lime button). Phones get it full screen. Modal: focus
+ * stays inside, Esc closes, the page holds still behind it.
  */
 export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWindowProps) {
   const t = useTranslations("work");
+  const nav = useTranslations("nav");
   const scroll = useScroll();
   const root = useRef<HTMLDivElement>(null);
   const frame = useRef<HTMLDivElement>(null);
@@ -67,6 +71,9 @@ export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWind
   const Demo = DEMOS[shown];
   const brand = CONCEPT[shown].brand;
   const what = t(`items.${shown}.what`);
+  const next = DEMO_KEYS[(DEMO_KEYS.indexOf(shown) + 1) % DEMO_KEYS.length];
+  // the frame's own corner (window.css: none on phones, where it fills the screen)
+  const corner = () => (frame.current ? parseFloat(getComputedStyle(frame.current).borderTopLeftRadius) || 0 : 0);
 
   // the inset (in the frame) that matches a card's preview
   const insetOf = (card: HTMLElement): Inset => {
@@ -116,13 +123,14 @@ export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWind
     });
   };
 
-  function close() {
+  // home: back onto its card. Not home (the way out to Contact): it just lifts away
+  function close(home = true) {
     if (closing.current) return;
     closing.current = true;
     uncover();
     opening.current?.kill();
     const f = frame.current;
-    const card = cardOf(shownRef.current);
+    const card = home ? cardOf(shownRef.current) : null;
     if (card && !onScreen(card)) lineUp(card);
     if (!f || prefersReducedMotion()) return onClose();
     if (root.current) root.current.style.pointerEvents = "none";
@@ -142,6 +150,8 @@ export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWind
     const x = media.left - from.left - cropX * end;
     const y = media.top - from.top;
     const state = { p: 0 };
+    const r0 = corner();
+    const r1 = parseFloat(getComputedStyle(card?.querySelector(".cc-media") ?? f).borderTopLeftRadius) || 12;
     f.style.transformOrigin = "0 0";
     gsap.to(state, {
       p: 1,
@@ -151,7 +161,7 @@ export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWind
         const { p } = state;
         const k = 1 + (end - 1) * p;
         f.style.transform = `translate3d(${(x * p).toFixed(2)}px, ${(y * p).toFixed(2)}px, 0) scale(${k.toFixed(4)})`;
-        paint(f, { top: 0, right: cropX * p, bottom: cropY * p, left: cropX * p, r: (24 - 6 * p) / k });
+        paint(f, { top: 0, right: cropX * p, bottom: cropY * p, left: cropX * p, r: (r0 + (r1 - r0) * p) / k });
       },
       onComplete: onClose,
     });
@@ -159,6 +169,14 @@ export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWind
   }
   // Esc is wired once, when the window opens: it closes whatever is showing by then
   const onEscape = useEffectEvent(() => close());
+
+  // out to Contact: the page is held while the window is up, so the glide waits for it to go
+  function start(e: MouseEvent) {
+    e.preventDefault();
+    scroll.scrollTo("#contact");
+    history.replaceState(null, "", "#contact");
+    close(false);
+  }
 
   // another concept, in place: the content dips out, the next one rises in
   function go(key: DemoKey) {
@@ -212,7 +230,7 @@ export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWind
         right: 0,
         bottom: 0,
         left: 0,
-        r: 24,
+        r: corner(),
         duration: 0.7,
         ease: "expo.out",
         onUpdate: () => paint(f, state),
@@ -256,7 +274,7 @@ export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWind
 
   return createPortal(
     <div className="work-window" ref={root}>
-      <div className="ww-scrim" ref={scrim} onClick={close} aria-hidden />
+      <div className="ww-scrim" ref={scrim} onClick={() => close()} aria-hidden />
       <div
         className="ww-frame"
         ref={frame}
@@ -297,7 +315,7 @@ export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWind
             ref={closeBtn}
             className="ww-close"
             type="button"
-            onClick={close}
+            onClick={() => close()}
             aria-label={t("window.close")}
             aria-keyshortcuts="Escape"
           >
@@ -313,13 +331,49 @@ export function WorkWindow({ demo, origin, cardOf, onSwitch, onClose }: WorkWind
           }}
         >
           <Demo key={shown} />
+          {/* the frame's own ending, under the concept's page: on to the next one, or out to Contact */}
+          <footer className="ww-end">
+            <p className="ww-end-note">{t.rich("foot", richDark)}</p>
+            <div className="ww-end-actions">
+              <button type="button" className="ww-next" onClick={() => go(next)}>
+                <span className="ww-next-label">{t("window.next")}</span>
+                <ConceptMark kind={next} size={22} />
+                <span className="ww-next-brand">{CONCEPT[next].brand}</span>
+              </button>
+              <a href="#contact" className="ww-start btn-lime" onClick={start}>
+                {nav("cta")}
+                <ArrowUpRight size={14} />
+              </a>
+            </div>
+          </footer>
         </article>
         <div className={`ww-hint ${hintGone ? "is-gone" : ""}`} aria-hidden>
-          <svg width="14" height="18" viewBox="0 0 14 20" fill="none" stroke="currentColor" strokeWidth="1.6">
+          <svg
+            className="hover-only"
+            width="14"
+            height="18"
+            viewBox="0 0 14 20"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+          >
             <rect x="1" y="1" width="12" height="18" rx="6" />
             <path className="ww-wheel" d="M7 5v3" strokeLinecap="round" />
           </svg>
-          {t("window.hint")}
+          <svg
+            className="touch-only"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+          >
+            <circle cx="8" cy="8" r="2.6" fill="currentColor" stroke="none" />
+            <circle className="ww-tap" cx="8" cy="8" r="6.2" />
+          </svg>
+          <span className="hover-only">{t("window.hint")}</span>
+          <span className="touch-only">{t("window.hintTouch")}</span>
         </div>
       </div>
     </div>,

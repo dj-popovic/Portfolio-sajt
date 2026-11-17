@@ -534,12 +534,6 @@
 .concept-card[data-narrow] .cf-finder h4 {
   font-size: 26px;
 }
-/* without a pointer the Open pill sits in the corner: the toast rises clear of it */
-@media (hover: none) {
-  .concept-card[data-narrow] .cf-toast {
-    bottom: calc(68px / var(--k, 1));
-  }
-}
 
 /* ---------- Northbound ---------- */
 .pv-fintech {

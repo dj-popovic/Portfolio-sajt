@@ -1839,19 +1839,27 @@
 .work-light.is-on {
   opacity: 1;
 }
+/* build: two shapes on one grid. A site takes the wide tile (7 of 12: its page shows
+   larger), an app the narrow one (5: a phone needs no more), and the second row mirrors
+   the first. minmax(0, …): a preview's content can't widen its column */
 .work-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr)); /* build: fix — a preview's content can't widen its column */
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: clamp(16px, 2.2vw, 32px);
   perspective: 1600px;
 }
 .concept-slot {
+  grid-column: span 7;
   min-width: 0;
   transform-origin: 50% 100%;
+}
+.concept-slot.is-narrow {
+  grid-column: span 5;
 }
 .concept-card {
   position: relative;
   isolation: isolate;
+  container: card / inline-size; /* its footer lays out by the card's own width (below) */
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -1935,16 +1943,21 @@
 .cc-media {
   position: relative;
   z-index: 1;
-  height: clamp(300px, 26vw, 392px);
+  flex: none;
+  height: clamp(360px, 30vw, 440px);
   overflow: hidden;
   border-radius: var(--r-s); /* the card's corner less its padding */
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.05);
 }
 /* the sites: a slim browser bar over the page */
 .cc-browser {
+  --dots: 39px; /* the three dots and the gaps between them */
   position: relative;
   z-index: 2;
-  display: flex;
+  display: grid;
+  /* the address sits in the bar's middle with the dots' width kept clear on both sides:
+     on a narrow card it shortens instead of running under them */
+  grid-template-columns: minmax(var(--dots), 1fr) minmax(0, 280px) minmax(var(--dots), 1fr);
   align-items: center;
   gap: 12px;
   height: 34px;
@@ -1964,20 +1977,17 @@
 }
 .cc-address {
   display: flex;
-  flex: 1;
   align-items: center;
   justify-content: center;
   gap: 7px;
-  max-width: 280px;
+  min-width: 0;
   height: 22px;
-  margin: 0 auto;
   padding: 0 12px;
   border-radius: 99px;
   background: rgb(255 255 255 / 0.06);
   color: var(--text-2);
   font-size: var(--fs-label);
   white-space: nowrap;
-  transform: translateX(-27px);
 }
 .cc-view {
   position: absolute;
@@ -2031,6 +2041,23 @@
 }
 .cc-device .pv-phone {
   transition: transform 0.6s var(--ease-out-quart);
+}
+/* a phone-sized stage (ConceptCard marks it data-narrow): the device comes forward,
+   centred, and the stage's floor crops it, instead of a whole phone too small to read;
+   one chip tucks in at its foot */
+.is-app[data-narrow] .cc-device {
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.is-app[data-narrow] .cc-chip-a {
+  top: auto;
+  right: auto;
+  bottom: 14px;
+  left: 12px;
+}
+.is-app[data-narrow] .cc-chip-b {
+  display: none;
 }
 .cc-chip {
   position: absolute;
@@ -2229,25 +2256,19 @@
   opacity: 1;
   transform: none;
 }
-/* no pointer: the pill sits in the corner instead */
+/* no pointer, nothing to trail: the footer's button says it (below) */
 @media (hover: none) {
   .cc-cursor {
-    top: auto;
-    left: auto;
-    right: 12px;
-    bottom: 12px;
-    transform: none !important;
-  }
-  .cc-cursor > span {
-    opacity: 1;
-    transform: none;
+    display: none;
   }
 }
 .cc-meta {
   position: relative;
   z-index: 1;
   display: flex;
+  flex: 1; /* a row's two cards end level: the shorter footer centres in the taller one's height */
   align-items: center;
+  align-content: center;
   gap: 12px;
   padding: 16px 6px 6px;
 }
@@ -2264,7 +2285,7 @@
   font-size: var(--fs-small);
   line-height: 1.45;
   color: var(--text-2);
-  text-wrap: pretty;
+  text-wrap: balance; /* two even lines, not a word (or half a hyphenated one) left over */
 }
 .cc-value b {
   color: var(--text);
@@ -2284,12 +2305,14 @@
   white-space: nowrap;
 }
 .cc-go {
-  display: grid;
+  display: inline-flex;
   flex: none;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: 999px;
   background: rgb(255 255 255 / 0.06);
   box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
   transition:
@@ -2297,11 +2320,77 @@
     color 0.3s ease,
     transform 0.5s var(--ease-out-quart);
 }
+.cc-go-label {
+  display: none;
+}
+/* the card's one lime thing: the pill while it trails the pointer over the preview, this
+   button once the pointer is down in the footer */
 @media (hover: hover) {
   .concept-card:hover .cc-go {
+    transform: rotate(45deg);
+  }
+  .concept-card:hover:not(:has(.cc-cursor.is-on)) .cc-go {
     background: var(--lime);
     color: var(--on-lime);
-    transform: rotate(45deg);
+  }
+}
+/* no pointer: nothing can trail a finger, so the way in is spelled out in the footer
+   instead of lying over the preview. The card that's playing wears the lime, one at a
+   time (WorkGallery) */
+@media (hover: none) {
+  .cc-go {
+    width: auto;
+    height: var(--ctl-s);
+    padding: 0 14px 0 16px;
+    font-size: var(--fs-small);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .cc-go-label {
+    display: inline;
+  }
+  .is-active .cc-go {
+    background: linear-gradient(180deg, color-mix(in oklab, var(--lime) 78%, #fff), var(--lime));
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5);
+    color: var(--on-lime);
+  }
+}
+/* a narrow card (the app tile on a small laptop, any card on a phone) and every touch
+   screen, where the button carries its label: the footer takes two rows. Who it is, then
+   what it is and the way in */
+@container card (max-width: 500px) {
+  /* the app tile: the phone steps left, so its first chip clears it */
+  .cc-device {
+    left: 30%;
+  }
+  .cc-meta {
+    flex-wrap: wrap;
+    row-gap: 12px;
+  }
+  .cc-text {
+    flex-basis: calc(100% - 50px); /* the mark and the gap after it */
+  }
+  .cc-go {
+    margin-left: auto;
+  }
+}
+@media (hover: none) {
+  .cc-meta {
+    flex-wrap: wrap;
+    row-gap: 12px;
+  }
+  .cc-text {
+    flex-basis: calc(100% - 50px);
+  }
+  .cc-go {
+    margin-left: auto;
+  }
+}
+/* on a phone the button takes what's left of the row beside the kind, or a row of its
+   own when a long kind ("Концепт · Приложение") leaves it no room */
+@media (hover: none) and (max-width: 560px) {
+  .cc-go {
+    flex: 1 1 auto;
   }
 }
 .work .sec-foot .ln {
@@ -2356,8 +2445,16 @@
   .work-grid {
     grid-template-columns: minmax(0, 1fr); /* build: fix — cards ran off the right edge on phones */
   }
+  .concept-slot,
+  .concept-slot.is-narrow {
+    grid-column: auto;
+  }
   .cc-media {
     height: clamp(320px, 66vw, 420px);
+  }
+  /* on its own row a cropped phone gets a taller stage, so more of the app shows */
+  .is-app[data-narrow] .cc-media {
+    height: 380px;
   }
   .work .sec-foot .ln {
     display: none;
@@ -2366,28 +2463,14 @@
     white-space: normal;
   }
 }
-/* phones: the kind pill moves under the text, the chips tuck in by the phone */
+/* phones: a smaller mark, smaller chips */
 @media (max-width: 560px) {
-  .cc-meta {
-    flex-wrap: wrap;
-    row-gap: 10px;
-  }
   .cc-meta .concept-mark {
     width: 32px !important;
     height: 32px !important;
   }
   .cc-text {
-    flex-basis: calc(100% - 46px - 54px);
-  }
-  .cc-kind {
-    order: 3;
-    margin-left: 46px;
-  }
-  .cc-go {
-    order: 2;
-  }
-  .cc-device {
-    left: 34%;
+    flex-basis: calc(100% - 44px);
   }
   .cc-chip {
     padding: 7px 11px 7px 7px;

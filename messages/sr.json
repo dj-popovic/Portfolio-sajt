@@ -133,6 +133,8 @@
     "window": {
       "close": "Zatvori demo",
       "hint": "Skrolujte i kliknite. Sve radi.",
+      "hintTouch": "Skrolujte i dodirnite. Sve radi.",
+      "next": "Sledeći koncept",
       "openAria": "Otvori demo: {brand}, {what}",
       "switch": "Koncepti"
     }

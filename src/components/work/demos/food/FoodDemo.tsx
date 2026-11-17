@@ -414,7 +414,8 @@ function HeroCopy({ onOrder, jump }: { onOrder: () => void; jump: (id: string) =
           Tonight’s specials
         </button>
       </div>
-      <dl className="mt-10 flex flex-wrap gap-x-10 gap-y-4">
+      {/* phones: three even columns (side by side they ran to a second row) */}
+      <dl className="mt-10 grid grid-cols-3 gap-x-4 gap-y-4 sm:flex sm:flex-wrap sm:gap-x-10">
         {[
           ["20 min", "average delivery"],
           ["4.8", "average cart rating"],

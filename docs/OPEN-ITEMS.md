@@ -113,3 +113,7 @@ With a contact form and a German audience: a privacy policy (GDPR) and probably 
 ## 10. Later
 
 - Testimonials / social proof section (reserved in the brief, add when there are clients).
+
+## 11. A Next.js security patch (waiting for a yes)
+
+The site is on Next.js 16.4.2. A moderate advisory covers 16.3.0–16.4.4 ([GHSA-mfr8-8qww-v76h](https://github.com/advisories/GHSA-mfr8-8qww-v76h): information disclosure across root params when a `'use cache'` function is called through `unstable_cache()`), fixed in 16.4.6. The site uses root params (`next/root-params`, for the language) but neither `unstable_cache` nor `'use cache'`, so it isn't exposed as built today. The patch release is still worth taking before launch: bump `next` and `eslint-config-next` to 16.4.6, then build and run the checks.

@@ -1753,17 +1753,32 @@
 .services[data-deck="stack"] .svc-light {
   inset: 0 -10%;
 }
-/* build: what sticks is the pane's holder, never the pane: the covered pane sinks back (a
-   scale written by script as you scroll), and on a sticky element that made the panes jitter
-   on phones, which move sticky things in step with the finger and apply script a frame later.
-   On the deck and in the grid the holder isn't there (display: contents) */
+/* build: what stays put is the pane's holder, never the pane, which sinks back as the next
+   one covers it. On the deck and in the grid the holder isn't there (display: contents) */
 .svc-slot {
   display: contents;
+}
+.services[data-deck="stack"] {
+  /* where the panes come to rest: under the header, each covered one peeking out above the
+     next (ServicesDeck reads these too) */
+  --stack-top: 84px;
+  --stack-step: 12px;
 }
 .services[data-deck="stack"] .svc-slot {
   display: block;
   position: sticky;
-  top: calc(84px + var(--i) * 12px);
+  top: calc(var(--stack-top) + var(--i) * var(--stack-step));
+}
+/* build: on touch screens whose browser can, the stack is held by the compositor instead
+   (ServicesDeck, compositorHold): sticky panes shook on an iPhone while they were stuck, as
+   Safari placed them again each time the page updated mid-scroll. The holders stay in the
+   flow, and scroll-linked animations move each one down as far as the page goes up */
+.services[data-deck="stack"][data-hold="scroll"] .svc-slot {
+  position: relative;
+  top: auto;
+}
+.services[data-deck="stack"][data-hold="scroll"] .svc-card {
+  transform-origin: 50% 0;
 }
 .services[data-deck="stack"] .svc-card {
   min-height: 0;

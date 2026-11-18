@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Orb2D } from "@/components/canvas/Orb2D";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import { orb } from "@/lib/orb";
+import { ABOUT_PANEL, ABOUT_STAGE, orb } from "@/lib/orb";
 import { overlay } from "@/lib/overlay";
 import { cn } from "@/lib/cn";
 
@@ -29,11 +29,6 @@ function detectMode(): Mode {
 const noopSubscribe = () => () => {};
 
 export const useOrbMode = () => useSyncExternalStore(noopSubscribe, detectMode, () => "pending" as Mode);
-
-// same split as the About stage: the pinned tile on big screens, the opening panel on small ones
-const STAGE = "(prefers-reduced-motion: no-preference) and (min-width: 901px) and (min-height: 560px)";
-const PANEL =
-  "(prefers-reduced-motion: no-preference) and (max-width: 900px), (prefers-reduced-motion: no-preference) and (max-height: 559px)";
 
 /**
  * The orb's fixed layer behind the page. In the hero it is a sphere you can
@@ -90,8 +85,9 @@ export function OrbLayer() {
       };
 
       const mm = gsap.matchMedia();
-      mm.add(STAGE, () => follow("top top", "top -45%", { el: tile ?? about, edge: tile ? "center" : "top" }));
-      mm.add(PANEL, () => follow("top 40%", "top 10%", { el: about, edge: "top" }));
+      // the About stage's split (lib/orb): the pinned tile with room for it, the opening panel without
+      mm.add(ABOUT_STAGE, () => follow("top top", "top -45%", { el: tile ?? about, edge: tile ? "center" : "top" }));
+      mm.add(ABOUT_PANEL, () => follow("top 40%", "top 10%", { el: about, edge: "top" }));
       return () => mm.revert();
     },
     { dependencies: [mode] },

@@ -25,6 +25,19 @@ export const ORB = {
   rippleLife: 1.7,
 };
 
+/**
+ * The About stage's split, shared by AboutStage (the choreography) and OrbLayer (where the
+ * thread lands), so the two can't disagree. With room for it (a laptop or desktop window,
+ * a tablet held sideways) the section pins and the thread runs into the klin tile; phones,
+ * phones held sideways and narrow windows get the panel that opens as it comes up the page.
+ * 480px tall, not more: a laptop at 150–175% display scaling with the browser's toolbars
+ * (and a favourites bar) has about 500–600px left. sections.css lays the stage out a size
+ * smaller under 760px tall and again under 600px; keep its queries in step.
+ */
+export const ABOUT_STAGE = "(prefers-reduced-motion: no-preference) and (min-width: 901px) and (min-height: 480px)";
+export const ABOUT_PANEL =
+  "(prefers-reduced-motion: no-preference) and (max-width: 900px), (prefers-reduced-motion: no-preference) and (max-height: 479px)";
+
 /** Stacked hero (phones, tall tablets): the orb on top, the headline under it. Mirrors the CSS media query. */
 export const isStacked = (w: number, h: number) => w < 760 || (w < 1024 && h > w * 1.1);
 

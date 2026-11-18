@@ -1208,11 +1208,11 @@
     margin-top: 18px;
   }
 }
-/* build: shorter laptop screens (from 560px tall) keep the pinned About stage, a size
-   smaller so it fits the screen: smaller cards and type, less padding */
+/* build: shorter laptop screens (from 480px tall: ABOUT_STAGE in lib/orb) keep the pinned
+   About stage, a size smaller so it fits the screen: smaller cards and type, less padding */
 @media (min-width: 901px) and (max-height: 760px) {
   .about {
-    padding-top: 84px;
+    padding-top: 84px; /* scrolling by (no pin), the story clears the header */
     padding-bottom: 36px;
   }
   .fcard {
@@ -1229,6 +1229,14 @@
   .about-stats {
     margin-top: 20px;
     padding: 12px 4px;
+  }
+}
+/* pinned, --stage-shift already centres the story in the open sheet (below the header):
+   even padding, or the story sat 24px low and the right card ran off the sheet's foot */
+@media (prefers-reduced-motion: no-preference) and (min-width: 901px) and (min-height: 480px) and (max-height: 760px) {
+  .about {
+    padding-top: 32px;
+    padding-bottom: 32px;
   }
 }
 /* phones: the plate takes the column and each stat the room its label needs */

@@ -8,7 +8,7 @@ import { finishSweep, prepareSweep } from "@/components/motion/sweep";
 import CountUp from "@/components/reactbits/CountUp";
 import { ScrollReveal, type ScrollRevealHandle } from "@/components/reactbits/ScrollReveal";
 import { gsap, useGSAP } from "@/lib/gsap";
-import { orb } from "@/lib/orb";
+import { ABOUT_PANEL, ABOUT_STAGE, orb } from "@/lib/orb";
 
 type Stat = { n: number; label: string };
 
@@ -54,8 +54,8 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
       const mm = gsap.matchMedia();
 
       // ---------- desktop: pinned signature sequence ----------
-      // (laptops down to 560px tall get it too, laid out a size smaller in sections.css)
-      mm.add("(prefers-reduced-motion: no-preference) and (min-width: 901px) and (min-height: 560px)", () => {
+      // (laptops down to 480px tall get it too, laid out smaller in sections.css: lib/orb)
+      mm.add(ABOUT_STAGE, () => {
         const panel = { open: 0 };
         // open, it's a sheet like the others, floating on the page: in from the sides and
         // the bottom by the sheets' gap, and below the header (its pills keep to the dark)
@@ -162,85 +162,82 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
       });
 
       // ---------- small screens: the panel opens and closes as it passes ----------
-      mm.add(
-        "(prefers-reduced-motion: no-preference) and (max-width: 900px), (prefers-reduced-motion: no-preference) and (max-height: 559px)",
-        () => {
-          gsap.set(tile, { autoAlpha: 0 });
-          const state = { enter: 1, leave: 0 };
-          const sheet = sheetShape(section);
-          const paint = () => {
-            const c = Math.max(state.enter, state.leave);
-            // narrower and rounder while it comes up, settling into the sheet's own corners
-            const r = sheet.r + c * (40 - sheet.r);
-            setInset(section, 0, c * 6, r, "%");
-            const b = section.getBoundingClientRect();
-            const x = b.width * c * 0.06;
-            Object.assign(orb.panel, {
-              open: 1 - c,
-              x: b.left + x,
-              y: b.top,
-              w: b.width - x * 2,
-              h: b.height,
-              r,
-              stage: false,
-              live: true,
-            });
-          };
-          paint();
-          gsap.to(state, {
-            enter: 0,
-            ease: "none",
-            onUpdate: paint,
-            scrollTrigger: { trigger: section, start: "top bottom", end: "top 35%", scrub: 0.4 },
+      mm.add(ABOUT_PANEL, () => {
+        gsap.set(tile, { autoAlpha: 0 });
+        const state = { enter: 1, leave: 0 };
+        const sheet = sheetShape(section);
+        const paint = () => {
+          const c = Math.max(state.enter, state.leave);
+          // narrower and rounder while it comes up, settling into the sheet's own corners
+          const r = sheet.r + c * (40 - sheet.r);
+          setInset(section, 0, c * 6, r, "%");
+          const b = section.getBoundingClientRect();
+          const x = b.width * c * 0.06;
+          Object.assign(orb.panel, {
+            open: 1 - c,
+            x: b.left + x,
+            y: b.top,
+            w: b.width - x * 2,
+            h: b.height,
+            r,
+            stage: false,
+            live: true,
           });
-          gsap.to(state, {
-            leave: 1,
-            ease: "none",
-            onUpdate: paint,
-            scrollTrigger: { trigger: section, start: "bottom 70%", end: "bottom top", scrub: 0.4 },
-          });
+        };
+        paint();
+        gsap.to(state, {
+          enter: 0,
+          ease: "none",
+          onUpdate: paint,
+          scrollTrigger: { trigger: section, start: "top bottom", end: "top 35%", scrub: 0.4 },
+        });
+        gsap.to(state, {
+          leave: 1,
+          ease: "none",
+          onUpdate: paint,
+          scrollTrigger: { trigger: section, start: "bottom 70%", end: "bottom top", scrub: 0.4 },
+        });
 
-          prepareSweep(heading);
-          gsap.to(heading, {
-            "--rv": 1,
-            filter: "blur(0px)",
+        prepareSweep(heading);
+        gsap.to(heading, {
+          "--rv": 1,
+          filter: "blur(0px)",
+          y: 0,
+          duration: 1.2,
+          ease: "power2.out",
+          scrollTrigger: { trigger: heading, start: "top 85%", once: true },
+          onComplete: () => finishSweep(heading),
+        });
+        gsap.fromTo(
+          cards,
+          { y: 60, opacity: 0 },
+          {
             y: 0,
-            duration: 1.2,
-            ease: "power2.out",
-            scrollTrigger: { trigger: heading, start: "top 85%", once: true },
-            onComplete: () => finishSweep(heading),
-          });
-          gsap.fromTo(
-            cards,
-            { y: 60, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 1,
-              ease: "power3.out",
-              stagger: 0.1,
-              clearProps: "y",
-              scrollTrigger: { trigger: section, start: "top 70%", once: true },
-            },
-          );
-          const words = { p: 0 };
-          gsap.to(words, {
-            p: 1,
-            ease: "none",
-            onUpdate: () => bodyApi.current?.render(words.p),
-            scrollTrigger: { trigger: bodyText, start: "top 90%", end: "bottom 55%", scrub: true },
-          });
-          gsap.timeline({
-            scrollTrigger: { trigger: statsRow, start: "top 92%", once: true, onEnter: () => setStatsPlay(true) },
-          });
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out",
+            stagger: 0.1,
+            clearProps: "y",
+            scrollTrigger: { trigger: section, start: "top 70%", once: true },
+          },
+        );
+        const words = { p: 0 };
+        gsap.to(words, {
+          p: 1,
+          ease: "none",
+          onUpdate: () => bodyApi.current?.render(words.p),
+          scrollTrigger: { trigger: bodyText, start: "top 90%", end: "bottom 55%", scrub: true },
+        });
+        gsap.timeline({
+          scrollTrigger: { trigger: statsRow, start: "top 92%", once: true, onEnter: () => setStatsPlay(true) },
+        });
 
-          return () => {
-            section.style.clipPath = "";
-            orb.panel.live = false;
-            finishSweep(heading);
-          };
-        },
-      );
+        return () => {
+          section.style.clipPath = "";
+          orb.panel.live = false;
+          finishSweep(heading);
+        };
+      });
 
       // ---------- reduced motion: everything simply there ----------
       mm.add("(prefers-reduced-motion: reduce)", () => {

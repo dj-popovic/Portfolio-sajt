@@ -168,23 +168,12 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
         gsap.set(tile, { autoAlpha: 0 });
         const state = { enter: 1, leave: 0 };
         const sheet = sheetShape(section);
+        // (the orb doesn't come here on this route: it fades away with the hero, OrbLayer)
         const paint = () => {
           const c = Math.max(state.enter, state.leave);
           // narrower and rounder while it comes up, settling into the sheet's own corners
           const r = sheet.r + c * (40 - sheet.r);
-          const b = section.getBoundingClientRect(); // before the write (see the stage's paint)
           setInset(section, 0, c * 6, r, "%");
-          const x = b.width * c * 0.06;
-          Object.assign(orb.panel, {
-            open: 1 - c,
-            x: b.left + x,
-            y: b.top,
-            w: b.width - x * 2,
-            h: b.height,
-            r,
-            stage: false,
-            live: true,
-          });
         };
         paint();
         gsap.to(state, {
@@ -236,7 +225,6 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
 
         return () => {
           section.style.clipPath = "";
-          orb.panel.live = false;
           finishSweep(heading);
         };
       });

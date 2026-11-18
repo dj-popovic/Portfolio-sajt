@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import {
   buildHorizon,
@@ -12,7 +12,8 @@ import {
   pointerLight,
   stepHorizon,
 } from "@/lib/horizon";
-import { isTouch } from "@/lib/orb";
+import { isTouch, lowerDpr, startDpr } from "@/lib/orb";
+import { useSlowFrames } from "./useSlowFrames";
 import { DOTS, glsl, PALETTE, rgb } from "@/lib/palette";
 
 /* ------------------------------------------------------------------
@@ -153,7 +154,8 @@ const glowFragment = /* glsl */ `
   }
 `;
 
-function Crown({ count }: { count: number }) {
+function Crown({ count, onSlow }: { count: number; onSlow?: () => void }) {
+  useSlowFrames(onSlow);
   const material = useRef<THREE.ShaderMaterial>(null);
   const glow = useRef<THREE.ShaderMaterial>(null);
   const rot = useMemo(() => new THREE.Matrix3(), []);
@@ -278,16 +280,19 @@ export type HorizonSceneProps = {
 };
 
 export default function HorizonScene({ count, active }: HorizonSceneProps) {
+  // sharp on phones, stepping down only if it must (see OrbScene)
+  const [dpr, setDpr] = useState(startDpr);
+  const touch = isTouch();
   return (
     <Canvas
       className="!pointer-events-none"
       frameloop={active ? "always" : "never"}
-      dpr={[1, isTouch() ? 1.5 : 1.75]}
+      dpr={touch ? dpr : [1, 1.75]}
       orthographic
       gl={{ antialias: false, alpha: true, powerPreference: "high-performance", stencil: false, depth: false }}
       onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}
     >
-      <Crown count={count} />
+      <Crown count={count} onSlow={touch ? () => setDpr((d) => lowerDpr(d) ?? d) : undefined} />
     </Canvas>
   );
 }

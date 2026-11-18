@@ -206,9 +206,13 @@ export function ServicesDeck({ label, names, children, foot }: DeckProps) {
       // ---------- phones: the panes stick and stack in the flow ----------
       mm.add(STACK, () => {
         section.dataset.deck = "stack";
-        const top = (i: number) => parseFloat(getComputedStyle(cards[i]).top) || 0;
+        // each pane's holder is what sticks (never moved by script: see ServiceCard); the
+        // triggers measure the holders, which the panes' sinking doesn't change
+        const slots = cards.map((card) => card.parentElement as HTMLElement);
+        const top = (i: number) => parseFloat(getComputedStyle(slots[i]).top) || 0;
         cards.forEach((card, i) => {
-          const arrive = { trigger: card, start: "top 90%", end: "top 40%", scrub: 0.4 };
+          const slot = slots[i];
+          const arrive = { trigger: slot, start: "top 90%", end: "top 40%", scrub: 0.4 };
           gsap.fromTo(glyphs[i], { "--draw": 1 }, { "--draw": 0, ease: "power1.inOut", scrollTrigger: arrive });
           gsap.fromTo(
             glares[i],
@@ -217,7 +221,7 @@ export function ServicesDeck({ label, names, children, foot }: DeckProps) {
           );
           if (i === 0) return;
           // the pane underneath sinks and dims as this one slides over it
-          const cover = { trigger: card, start: "top bottom", end: () => `top ${top(i)}px`, scrub: 0.3 };
+          const cover = { trigger: slot, start: "top bottom", end: () => `top ${top(i)}px`, scrub: 0.3 };
           gsap.fromTo(cards[i - 1], { scale: 1 }, { scale: 1 - SINK * 1.4, ease: "none", scrollTrigger: cover });
           gsap.fromTo(shades[i - 1], { opacity: 0 }, { opacity: SHADE[1], ease: "none", scrollTrigger: { ...cover } });
           // its words only leave once this one is well over it (still being read till then)

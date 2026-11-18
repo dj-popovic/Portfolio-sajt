@@ -85,8 +85,7 @@ export function ContactParticles({ className }: { className?: string }) {
 
     function resize() {
       if (!canvas || !ctx) return;
-      // the field is as tall as the section: on a phone 1.5 is plenty for dots this small
-      const dpr = Math.min(window.devicePixelRatio || 1, isTouch() ? 1.5 : 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const r = canvas.getBoundingClientRect();
       W = r.width;
       H = r.height;

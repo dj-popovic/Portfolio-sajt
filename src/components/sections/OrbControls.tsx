@@ -66,6 +66,8 @@ export function OrbControls() {
       const L = layout();
       return Math.hypot(x - L.x, y - L.y) <= L.r * 1.04;
     };
+    // a pointer's height in the orb layer's px: on phones the layer scrolls with the page
+    const layerY = (clientY: number) => clientY + (orb.scrolls ? window.scrollY : 0);
 
     const down = (e: PointerEvent) => {
       if (e.pointerType === "mouse" && e.button !== 0) return;
@@ -83,8 +85,8 @@ export function OrbControls() {
       // hover: the dots part around the pointer (mouse only)
       if (e.pointerType === "mouse") {
         orb.pointer.x = e.clientX;
-        orb.pointer.y = e.clientY;
-        orb.pointer.over = over(e.clientX, e.clientY);
+        orb.pointer.y = layerY(e.clientY);
+        orb.pointer.over = over(e.clientX, orb.pointer.y);
       }
       if (!orb.dragging || e.pointerId !== id) return;
       const now = performance.now();
@@ -118,7 +120,7 @@ export function OrbControls() {
       orb.vyaw = clamp(orb.vyaw, -6, 6);
       orb.vpitch = clamp(orb.vpitch, -4, 4);
       // a tap (not a drag) sends a ripple across the surface
-      if (!moved && performance.now() - startT < 400 && !reduce) rippleAt(e.clientX, e.clientY, layout());
+      if (!moved && performance.now() - startT < 400 && !reduce) rippleAt(e.clientX, layerY(e.clientY), layout());
     };
     const cancel = () => {
       id = -1;

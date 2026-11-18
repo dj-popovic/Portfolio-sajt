@@ -1753,9 +1753,19 @@
 .services[data-deck="stack"] .svc-light {
   inset: 0 -10%;
 }
-.services[data-deck="stack"] .svc-card {
+/* build: what sticks is the pane's holder, never the pane: the covered pane sinks back (a
+   scale written by script as you scroll), and on a sticky element that made the panes jitter
+   on phones, which move sticky things in step with the finger and apply script a frame later.
+   On the deck and in the grid the holder isn't there (display: contents) */
+.svc-slot {
+  display: contents;
+}
+.services[data-deck="stack"] .svc-slot {
+  display: block;
   position: sticky;
   top: calc(84px + var(--i) * 12px);
+}
+.services[data-deck="stack"] .svc-card {
   min-height: 0;
 }
 .services[data-deck="stack"] .svc-icon {
@@ -2095,7 +2105,8 @@
 }
 /* a phone-sized stage (ConceptCard marks it data-narrow): the device comes forward,
    centred, and the stage's floor crops it, instead of a whole phone too small to read;
-   one chip tucks in at its foot */
+   one chip sits at its foot, centred inside the phone like a notification (at the side it
+   hung half off the phone's edge) */
 .is-app[data-narrow] .cc-device {
   top: 24px;
   left: 50%;
@@ -2103,9 +2114,12 @@
 }
 .is-app[data-narrow] .cc-chip-a {
   top: auto;
-  right: auto;
-  bottom: 14px;
-  left: 12px;
+  right: 0;
+  bottom: 18px;
+  left: 0;
+  width: max-content;
+  max-width: calc(100% - 24px);
+  margin-inline: auto;
 }
 .is-app[data-narrow] .cc-chip-b {
   display: none;

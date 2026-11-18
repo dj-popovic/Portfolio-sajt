@@ -1,9 +1,21 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import * as THREE from "three";
-import { buildOrb, isTouch, orb, ORB, orbLayout, orbRotation, stepOrb, viewportSize } from "@/lib/orb";
+import {
+  buildOrb,
+  isTouch,
+  lowerDpr,
+  orb,
+  ORB,
+  orbLayout,
+  orbRotation,
+  startDpr,
+  stepOrb,
+  viewportSize,
+} from "@/lib/orb";
+import { useSlowFrames } from "./useSlowFrames";
 import { DOTS, glsl, PALETTE, rgb } from "@/lib/palette";
 
 /* ------------------------------------------------------------------
@@ -16,7 +28,7 @@ import { DOTS, glsl, PALETTE, rgb } from "@/lib/palette";
    ------------------------------------------------------------------ */
 
 // how far the glow behind the orb reaches, in orb radii (the quad it is drawn on)
-const GLOW_REACH = 1.9;
+const GLOW_REACH = ORB.glowReach;
 const BACK_LIGHT = `vec2(${ORB.back[0].toFixed(4)}, ${ORB.back[1].toFixed(4)})`;
 
 const vertexShader = /* glsl */ `
@@ -230,7 +242,8 @@ const smoothstep = (a: number, b: number, x: number) => {
   return t * t * (3 - 2 * t);
 };
 
-function Orb({ count }: { count: number }) {
+function Orb({ count, onSlow }: { count: number; onSlow?: () => void }) {
+  useSlowFrames(onSlow);
   const material = useRef<THREE.ShaderMaterial>(null);
   const body = useRef<THREE.ShaderMaterial>(null);
   const bodyMesh = useRef<THREE.Mesh>(null);
@@ -442,13 +455,15 @@ export type OrbSceneProps = {
 };
 
 export default function OrbScene({ count, active, onReady }: OrbSceneProps) {
+  // the pixel ratio lives here, not only in the canvas: the canvas resets it to this prop
+  // whenever it re-renders (waking up), which would undo a step down
+  const [dpr, setDpr] = useState(startDpr);
+  const touch = isTouch();
   return (
     <Canvas
       className="!pointer-events-none"
       frameloop={active ? "always" : "never"}
-      // a phone's screen is 3x: its dots are a few pixels across either way, and 1.5 is a
-      // quarter fewer pixels for the whole-screen layer than 1.75
-      dpr={[1, isTouch() ? 1.5 : 1.75]}
+      dpr={touch ? dpr : [1, 1.75]}
       orthographic
       gl={{ antialias: false, alpha: true, powerPreference: "high-performance", stencil: false, depth: false }}
       onCreated={({ gl }) => {
@@ -456,7 +471,7 @@ export default function OrbScene({ count, active, onReady }: OrbSceneProps) {
         onReady?.();
       }}
     >
-      <Orb count={count} />
+      <Orb count={count} onSlow={touch ? () => setDpr((d) => lowerDpr(d) ?? d) : undefined} />
     </Canvas>
   );
 }

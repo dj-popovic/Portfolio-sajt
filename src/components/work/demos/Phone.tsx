@@ -22,21 +22,41 @@ export const useWideWindow = () =>
     () => true,
   );
 
-/** Zooms a sticky phone down until all of it fits inside the window's scroll area. */
+/**
+ * Keeps a sticky phone clear of the demo's own header: its holder sticks right under the
+ * header (the holder's padding is the gap), and the phone inside zooms down until all of it
+ * fits in what's left of the window's scroll area. (It stuck 24px from the top and slid
+ * under the header. The zoom is on the phone, not the holder: zoomed, the holder's own
+ * offset and padding shrank with it.)
+ */
 export function useFitToWindow(ref: RefObject<HTMLElement | null>, enabled = true) {
   useEffect(() => {
-    const el = ref.current;
-    const body = el?.closest<HTMLElement>(".ww-body");
-    if (!el || !body) return;
+    const holder = ref.current;
+    const body = holder?.closest<HTMLElement>(".ww-body");
+    const device = holder?.firstElementChild as HTMLElement | null | undefined;
+    if (!holder || !body || !device) return;
     if (!enabled) {
-      el.style.removeProperty("zoom");
+      holder.style.removeProperty("top");
+      device.style.removeProperty("zoom");
       return;
     }
-    const fit = () => el.style.setProperty("zoom", String(Math.min(1, (body.clientHeight - 56) / PHONE.h)));
+    const header = body.querySelector<HTMLElement>("header");
+    const fit = () => {
+      const head = header?.offsetHeight ?? 0;
+      const cs = getComputedStyle(holder);
+      const pad = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+      holder.style.top = `${head}px`;
+      device.style.setProperty("zoom", String(Math.min(1, (body.clientHeight - head - pad - 8) / PHONE.h)));
+    };
     const ro = new ResizeObserver(fit);
     ro.observe(body);
+    if (header) ro.observe(header);
     fit();
-    return () => ro.disconnect();
+    return () => {
+      ro.disconnect();
+      holder.style.removeProperty("top");
+      device.style.removeProperty("zoom");
+    };
   }, [ref, enabled]);
 }
 

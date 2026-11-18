@@ -738,8 +738,9 @@ function Promo() {
               {p.title}
             </p>
             <p className="mt-1.5 text-[10.5px] font-semibold opacity-90">{p.sub}</p>
-            <span className="absolute -right-3 -bottom-4 size-[84px] rounded-full" style={{ background: p.badge }} />
-            <Dish kind={p.dish} className="absolute right-1 bottom-0 size-[70px] -rotate-12" />
+            {/* inside the banner, not hanging off its corner (the card preview matches) */}
+            <span className="absolute right-1 bottom-1 size-[80px] rounded-full" style={{ background: p.badge }} />
+            <Dish kind={p.dish} className="absolute right-3 bottom-3 size-[64px] -rotate-12" />
           </motion.div>
         </AnimatePresence>
       </div>
@@ -845,7 +846,7 @@ function MenuScreen() {
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search tacos, bowls, drinks…"
-          className="h-[36px] w-full rounded-[12px] border border-(--line) bg-white pr-3 pl-8 text-[12px] font-semibold text-(--ink) placeholder:text-[#9A7A5A] focus:border-(--red)/50 focus:outline-none"
+          className="h-[36px] w-full rounded-[12px] border border-(--line) bg-white pr-3 pl-8 text-[11px] font-semibold text-(--ink) placeholder:text-[#9A7A5A] focus:border-(--red)/50 focus:outline-none"
         />
       </label>
       <div className="tk-scroll flex gap-2 overflow-x-auto px-4 py-3">

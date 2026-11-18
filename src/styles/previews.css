@@ -1633,7 +1633,7 @@
   border-radius: 12px;
   background: #fff;
   color: #9a7a5a;
-  font-size: 12px;
+  font-size: 11px; /* build: a size down, it read louder than the rest of the screen */
   font-weight: 600;
 }
 .tk-chips {
@@ -1710,12 +1710,14 @@
   font-weight: 600;
   opacity: 0.9;
 }
+/* build: the dish and the disc behind it sit inside the banner (they hung off its corner,
+   the dish cut by the edge); the demo's banner matches (FoodDemo) */
 .tk-slide > i {
   position: absolute;
-  right: -12px;
-  bottom: -16px;
-  width: 84px;
-  height: 84px;
+  right: 4px;
+  bottom: 4px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background: #ffc93c;
 }
@@ -1724,10 +1726,10 @@
 }
 .tk-slide > svg {
   position: absolute;
-  right: 4px;
-  bottom: 0;
-  width: 70px;
-  height: 70px;
+  right: 12px;
+  bottom: 12px;
+  width: 64px;
+  height: 64px;
   transform: rotate(-12deg);
 }
 .tk-k {

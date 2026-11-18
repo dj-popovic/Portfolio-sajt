@@ -35,9 +35,30 @@
   background: radial-gradient(120% 90% at 50% 120%, color-mix(in oklab, var(--bg) 88%, transparent), transparent 60%);
   opacity: calc(1 - var(--orb-morph, 0));
 }
-[data-orb="webgl"] .hero-vignette,
-[data-orb="webgl"] .hero-floor {
+[data-orb="webgl"]:not([data-orb-scrolls]) .hero-vignette,
+[data-orb="webgl"]:not([data-orb-scrolls]) .hero-floor {
   display: none;
+}
+.orb-stage {
+  position: absolute;
+  inset: 0;
+}
+/* phones and windows with little height (OrbLayer: scrollAway): the layer lies at the top of
+   the page instead of fixed over it, so it scrolls away with the hero in step with the
+   finger, and the orb shrinks back about its own centre and fades as it goes (--orb-exit,
+   0 → 1 over half a screen). The hero's own vignette and floor stay (they let go before
+   its bottom edge); the layer's copy would have scrolled up the screen as a line */
+.orb-layer[data-scrolls] {
+  position: absolute;
+  bottom: auto; /* its height, the hero's first screen, is written by OrbLayer */
+}
+.orb-layer[data-scrolls]::after {
+  display: none;
+}
+.orb-layer[data-scrolls] .orb-stage {
+  opacity: calc(1 - var(--orb-exit, 0));
+  transform: scale(calc(1 - 0.2 * var(--orb-exit, 0)));
+  transform-origin: var(--orb-cx, 50%) var(--orb-cy, 31%);
 }
 main,
 .footer {

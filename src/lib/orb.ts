@@ -23,6 +23,8 @@ export const ORB = {
   pitchLimit: 1.05,
   /** seconds a ripple takes to cross the surface and fade */
   rippleLife: 1.7,
+  /** how far the glow behind the orb reaches, in orb radii (the quad it is drawn on) */
+  glowReach: 1.9,
 };
 
 /**
@@ -73,8 +75,19 @@ export function viewportSize() {
   return stable;
 }
 
-/** Phones and tablets (touch first): the canvases draw at a lower pixel ratio there. */
+/** Phones and tablets (touch first). */
 export const isTouch = () => window.matchMedia("(hover: none)").matches;
+
+/**
+ * The pixel ratio a canvas of dots starts at. Touch screens get the screen's own (up to 3):
+ * at less, a phone's 3x screen stretches each dot over several of its pixels and the orb
+ * looks low-res. Desktops stay at 1.75 (on a 2x laptop that's already sharp). A canvas that
+ * can't keep up steps down (`useSlowFrames`) to `DPR_FLOOR`.
+ */
+export const startDpr = () => Math.min(isTouch() ? 3 : 1.75, Math.max(1, window.devicePixelRatio || 1));
+export const DPR_FLOOR = 1.5;
+/** the next step down from a pixel ratio, or null at the floor */
+export const lowerDpr = (dpr: number) => (dpr > DPR_FLOOR + 0.01 ? Math.max(DPR_FLOOR, dpr - 0.75) : null);
 
 /**
  * Fibonacci lattice with grain. Per dot: a unit-sphere position (radius
@@ -118,8 +131,12 @@ export const orb = {
   vyaw: ORB.drift,
   vpitch: 0,
   dragging: false,
-  /** pointer in viewport px and whether it is over the disc */
+  /** pointer in the layer's px (viewport px, or page px while the layer scrolls) and
+   *  whether it is over the disc */
   pointer: { x: -9999, y: -9999, over: false },
+  /** the layer scrolls away with the hero (phones: OrbLayer) instead of staying fixed, so
+   *  the page's scroll is added to the pointer's height to find the orb under a finger */
+  scrolls: false,
   /** object-space direction of the last ripple and its age in seconds (< 0: none) */
   ripple: { x: 0, y: 0, z: 1, t: -1 },
   /** 0 → 1 while the hero scrolls into About: sphere → thread → the klin tile */

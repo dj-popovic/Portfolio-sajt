@@ -1,8 +1,10 @@
 /* ===================================================================
    Work — card previews. Each concept is its own little world (it does not
-   inherit the Ember theme), drawn at the demo's own size and zoomed down
+   inherit the site's theme), drawn at the demo's own size and scaled down
    by the card: --k for the sites (960px wide), --pk for the phones
-   (300×640). States come from the card: .is-live (on screen: idle motion),
+   (300×640). A transform, not CSS zoom: Safari on iPhone zoomed the boxes
+   but left the text at full size, so it wrapped and overran (the owners'
+   phone). States come from the card: .is-live (on screen: idle motion),
    .is-active (hovered / playing), data-screen on the phones.
    =================================================================== */
 
@@ -14,8 +16,12 @@
     inset 0 0 0 1px rgb(255 255 255 / 0.1),
     0 4px 10px -4px rgb(0 0 0 / 0.35);
 }
+/* the glyph fills its tile: a tile resized by CSS (the cards' footer on phones) took the
+   glyph off centre and out of its edge while it kept the size it was drawn at */
 .concept-mark svg {
   display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .pv-web,
@@ -38,7 +44,8 @@
   width: 960px;
   height: var(--vh, 560px);
   overflow: hidden;
-  zoom: var(--k, 0.6);
+  transform: scale(var(--k, 0.6));
+  transform-origin: 0 0;
 }
 .pv-web .pv-track {
   position: absolute;
@@ -1064,7 +1071,6 @@
     0 60px 90px -40px rgb(30 20 40 / 0.55),
     inset 0 0 0 1px rgb(255 255 255 / 0.07),
     inset 0 0 0 3px rgb(255 255 255 / 0.03);
-  zoom: var(--pk, 0.5);
 }
 .pv-screen {
   position: relative;

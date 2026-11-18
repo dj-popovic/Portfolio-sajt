@@ -2093,12 +2093,22 @@
   background: radial-gradient(closest-side, rgb(255 255 255 / 0.55), transparent);
   pointer-events: none;
 }
+/* the phone is drawn at 300×640 and scaled into this box (.cc-scale): a transform, not zoom
+   (previews.css) */
 .cc-device {
   position: absolute;
   top: 50%;
   left: 36%;
-  perspective: 900px;
+  width: calc(300px * var(--pk, 0.5));
+  height: calc(640px * var(--pk, 0.5));
   transform: translate(-50%, -50%);
+}
+.cc-scale {
+  width: 300px;
+  height: 640px;
+  transform: scale(var(--pk, 0.5));
+  transform-origin: 0 0;
+  perspective: calc(900px / var(--pk, 0.5)); /* the phone's tilt, as before in the card's px */
 }
 .cc-device .pv-phone {
   transition: transform 0.6s var(--ease-out-quart);

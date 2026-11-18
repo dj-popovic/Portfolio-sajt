@@ -24,10 +24,10 @@ export const useWideWindow = () =>
 
 /**
  * Keeps a sticky phone clear of the demo's own header: its holder sticks right under the
- * header (the holder's padding is the gap), and the phone inside zooms down until all of it
- * fits in what's left of the window's scroll area. (It stuck 24px from the top and slid
- * under the header. The zoom is on the phone, not the holder: zoomed, the holder's own
- * offset and padding shrank with it.)
+ * header (the holder's padding is the gap), and the phone inside scales down until all of
+ * it fits in what's left of the window's scroll area, its box shrunk to match (negative
+ * margins), so the holder and the column fit the phone as drawn. A transform, not CSS zoom:
+ * Safari zoomed the boxes but not the text.
  */
 export function useFitToWindow(ref: RefObject<HTMLElement | null>, enabled = true) {
   useEffect(() => {
@@ -35,9 +35,13 @@ export function useFitToWindow(ref: RefObject<HTMLElement | null>, enabled = tru
     const body = holder?.closest<HTMLElement>(".ww-body");
     const device = holder?.firstElementChild as HTMLElement | null | undefined;
     if (!holder || !body || !device) return;
-    if (!enabled) {
+    const reset = () => {
       holder.style.removeProperty("top");
-      device.style.removeProperty("zoom");
+      for (const prop of ["transform", "transform-origin", "margin-right", "margin-bottom"])
+        device.style.removeProperty(prop);
+    };
+    if (!enabled) {
+      reset();
       return;
     }
     const header = body.querySelector<HTMLElement>("header");
@@ -45,8 +49,12 @@ export function useFitToWindow(ref: RefObject<HTMLElement | null>, enabled = tru
       const head = header?.offsetHeight ?? 0;
       const cs = getComputedStyle(holder);
       const pad = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-      holder.style.top = `${head}px`;
-      device.style.setProperty("zoom", String(Math.min(1, (body.clientHeight - head - pad - 8) / PHONE.h)));
+      holder.style.setProperty("top", `${head}px`);
+      const k = Math.min(1, (body.clientHeight - head - pad - 8) / PHONE.h);
+      device.style.setProperty("transform-origin", "0 0");
+      device.style.setProperty("transform", `scale(${k.toFixed(4)})`);
+      device.style.setProperty("margin-right", `${(PHONE.w * (k - 1)).toFixed(1)}px`);
+      device.style.setProperty("margin-bottom", `${(PHONE.h * (k - 1)).toFixed(1)}px`);
     };
     const ro = new ResizeObserver(fit);
     ro.observe(body);
@@ -54,8 +62,7 @@ export function useFitToWindow(ref: RefObject<HTMLElement | null>, enabled = tru
     fit();
     return () => {
       ro.disconnect();
-      holder.style.removeProperty("top");
-      device.style.removeProperty("zoom");
+      reset();
     };
   }, [ref, enabled]);
 }

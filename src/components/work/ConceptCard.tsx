@@ -331,7 +331,9 @@ export function ConceptCard({
           </>
         ) : (
           <>
-            <div className="cc-device">{children}</div>
+            <div className="cc-device">
+              <div className="cc-scale">{children}</div>
+            </div>
             {chips}
           </>
         )}

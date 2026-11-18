@@ -209,6 +209,9 @@ export function ServicesDeck({ label, names, children, foot }: DeckProps) {
         // each pane's holder is what sticks (never moved by script: see ServiceCard); the
         // triggers measure the holders, which the panes' sinking doesn't change
         const slots = cards.map((card) => card.parentElement as HTMLElement);
+        // touch screens: no sinking. A scale written by script while a finger scrolls came out
+        // jittery on iPhones (the owners filmed it), so there the covered pane only dims
+        const sink = !window.matchMedia("(hover: none)").matches;
         const top = (i: number) => parseFloat(getComputedStyle(slots[i]).top) || 0;
         cards.forEach((card, i) => {
           const slot = slots[i];
@@ -222,7 +225,8 @@ export function ServicesDeck({ label, names, children, foot }: DeckProps) {
           if (i === 0) return;
           // the pane underneath sinks and dims as this one slides over it
           const cover = { trigger: slot, start: "top bottom", end: () => `top ${top(i)}px`, scrub: 0.3 };
-          gsap.fromTo(cards[i - 1], { scale: 1 }, { scale: 1 - SINK * 1.4, ease: "none", scrollTrigger: cover });
+          if (sink)
+            gsap.fromTo(cards[i - 1], { scale: 1 }, { scale: 1 - SINK * 1.4, ease: "none", scrollTrigger: cover });
           gsap.fromTo(shades[i - 1], { opacity: 0 }, { opacity: SHADE[1], ease: "none", scrollTrigger: { ...cover } });
           // its words only leave once this one is well over it (still being read till then)
           gsap.fromTo(

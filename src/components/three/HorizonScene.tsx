@@ -287,6 +287,10 @@ export default function HorizonScene({ count, active }: HorizonSceneProps) {
     <Canvas
       className="!pointer-events-none"
       frameloop={active ? "always" : "never"}
+      // measured by layout size, on resize only: by default it re-measured on every scroll,
+      // with a box that includes CSS transforms, so while the phone's orb was shrinking away
+      // (scrollAway) it kept that smaller box, and scrolled back up it drew only part of the orb
+      resize={{ scroll: false, offsetSize: true }}
       dpr={touch ? dpr : [1, 1.75]}
       orthographic
       gl={{ antialias: false, alpha: true, powerPreference: "high-performance", stencil: false, depth: false }}

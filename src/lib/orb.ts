@@ -53,13 +53,28 @@ export function orbLayout(w: number, h: number): OrbLayout {
 
 // Phones resize the viewport when the URL bar slides away; the orb should not
 // jump with it, so small height-only changes keep the previous height.
+// Measured once and then on resize only: the orb asks every frame, and reading
+// innerWidth/innerHeight mid-frame makes the browser lay the page out first (with the
+// scroll-driven styles just written), an extra layout per frame that on a phone cost
+// more than drawing the orb.
 let stable = { w: 0, h: 0 };
-export function viewportSize() {
+let watching = false;
+function measureViewport() {
   const w = window.innerWidth;
   const h = window.innerHeight;
   if (w !== stable.w || Math.abs(h - stable.h) > 150) stable = { w, h };
+}
+export function viewportSize() {
+  if (!watching) {
+    watching = true;
+    measureViewport();
+    window.addEventListener("resize", measureViewport, { passive: true });
+  }
   return stable;
 }
+
+/** Phones and tablets (touch first): the canvases draw at a lower pixel ratio there. */
+export const isTouch = () => window.matchMedia("(hover: none)").matches;
 
 /**
  * Fibonacci lattice with grain. Per dot: a unit-sphere position (radius

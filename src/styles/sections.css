@@ -3469,26 +3469,40 @@
     transparent 74%
   );
 }
-@property --beam {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 20deg;
-}
+/* build: a beam of light runs round the rim of Pro, or of the package the finder points to
+   (FitFinder): it fades over to the fit while the light behind the glass follows. The rim
+   is a mask (2px of the border box); the light under it is a conic gradient on a square
+   that turns round the card's centre, the same as turning the gradient's angle. A turn is
+   a transform the compositor runs by itself: animating the angle repainted the card every
+   frame (on a phone, Find your fit dropped from 60 to under 20 frames a second) */
 @keyframes pkgBeam {
   to {
-    --beam: 380deg;
+    transform: rotate(360deg);
   }
 }
-/* build: a beam of light runs round the rim of Pro, or of the package the finder points to
-   (FitFinder): it fades over to the fit while the light behind the glass follows */
 .pkg > .pkg-beam {
   position: absolute;
   inset: 0;
   z-index: 3;
+  overflow: hidden;
   border-radius: inherit;
   padding: 2px;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  pointer-events: none;
+}
+/* three times the card each way, so it still covers every corner as it turns */
+.pkg > .pkg-beam::before {
+  content: "";
+  position: absolute;
+  inset: -100%;
   background: conic-gradient(
-    from var(--beam),
+    from 20deg,
     transparent 0deg,
     transparent 196deg,
     color-mix(in oklab, var(--blue-bright) 45%, transparent) 246deg,
@@ -3497,15 +3511,7 @@
     #fff 351deg,
     transparent 360deg
   );
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.7s ease;
   animation: pkgBeam 5s linear infinite;
-  pointer-events: none;
 }
 .fit-grid:not([data-fit]) .pkg.featured > .pkg-beam,
 .pkg.is-fit > .pkg-beam {
@@ -4152,9 +4158,8 @@
   height: 100%;
   pointer-events: none;
   display: block;
-  /* build: the dots thin out toward the section's ends instead of stopping in a line */
-  -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
-  mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+  /* build: the dots thin out toward the section's ends instead of stopping in a line (drawn
+     in the canvas itself: ContactParticles) */
 }
 .contact-inner {
   position: relative;
@@ -5381,23 +5386,36 @@
   color: var(--text-2);
 }
 .f-status .pulse {
+  position: relative;
+  isolation: isolate;
   width: 8px;
   height: 8px;
   border-radius: 50%;
   flex: 0 0 auto;
   background: var(--lime);
-  box-shadow: 0 0 0 0 color-mix(in oklab, var(--lime) 60%, transparent);
+}
+/* build: the ring is a disc behind the dot that grows and fades (a transform and an opacity,
+   which the compositor runs); an animated box-shadow repainted it on every frame, wherever
+   you were on the page */
+.f-status .pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: color-mix(in oklab, var(--lime) 55%, transparent);
+  opacity: 0;
   animation: footPulse 2.8s ease-out infinite;
 }
 @keyframes footPulse {
   0% {
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--lime) 55%, transparent);
+    opacity: 1;
+    transform: scale(1);
   }
-  70% {
-    box-shadow: 0 0 0 10px transparent;
-  }
+  70%,
   100% {
-    box-shadow: 0 0 0 0 transparent;
+    opacity: 0;
+    transform: scale(3.5);
   }
 }
 .f-status b {
@@ -5506,5 +5524,32 @@
   }
   .f-nav {
     gap: 24px;
+  }
+}
+
+/* ------------------------------------------------- TOUCH SCREENS: LIGHTER GLASS
+   build: on phones and tablets the big panes are tinted glass without the live blur. A
+   blurred pane redraws its blur every frame that anything behind it moves (and scrolling
+   moves everything), which on a phone cost more than all the rest of the page: the Contact
+   panes over the drifting dots, the footer's pills over its orb, the steps and packages
+   while they scroll. Behind most of them are soft glows, where the blur barely shows. The
+   header's pills keep theirs: they're small, and the page's text would show through them. */
+@media (hover: none) {
+  :is(.svc-card, .jy-pane, .jy-node, .jy-phase, .pkg, .finder-bar, .chip, .convo, .brief, .founder-avatar),
+  :is(.cc-chip, .btn-ghost, .fdialog-scrim, .orb-hint-pill),
+  footer .glass {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  /* the Work cards' chips lie over the phone: more white instead of the frost */
+  .cc-chip {
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.95), rgb(255 255 255 / 0.9));
+  }
+  /* the dots drift behind the two Contact panes: a little more body, so the text stays clean */
+  .convo,
+  .brief {
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02) 44%, rgb(255 255 255 / 0.035)),
+      color-mix(in oklab, var(--bg) 74%, transparent);
   }
 }

@@ -12,6 +12,7 @@ import {
   pointerLight,
   stepHorizon,
 } from "@/lib/horizon";
+import { isTouch } from "@/lib/orb";
 import { DOTS, glsl, PALETTE, rgb } from "@/lib/palette";
 
 /* ------------------------------------------------------------------
@@ -281,7 +282,7 @@ export default function HorizonScene({ count, active }: HorizonSceneProps) {
     <Canvas
       className="!pointer-events-none"
       frameloop={active ? "always" : "never"}
-      dpr={[1, 1.75]}
+      dpr={[1, isTouch() ? 1.5 : 1.75]}
       orthographic
       gl={{ antialias: false, alpha: true, powerPreference: "high-performance", stencil: false, depth: false }}
       onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}

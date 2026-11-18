@@ -136,10 +136,14 @@
     transform: scale(1.06);
   }
 }
-.sw-breathe {
+/* scoped to the demo window: the card previews use .sw-breathe and .sw-eq for their own parts
+   (previews.css), and unscoped these ran on them forever, on every screen of the page: the
+   preview's breathing screen pulsed in size and never slid in, and its equaliser box
+   animated its height, which made the browser lay the page out again every frame */
+.ww-body .sw-breathe {
   animation: swBreathe 7s ease-in-out infinite;
 }
-.sw-breathe-soft {
+.ww-body .sw-breathe-soft {
   animation: swBreathe 9s ease-in-out infinite;
 }
 @keyframes swTwinkle {
@@ -163,7 +167,7 @@
     height: 22px;
   }
 }
-.sw-eq {
+.ww-body .sw-eq {
   height: 6px;
   animation: swEq 0.9s ease-in-out infinite;
 }

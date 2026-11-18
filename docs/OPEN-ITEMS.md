@@ -113,6 +113,7 @@ With a contact form and a German audience: a privacy policy (GDPR) and probably 
 ## 10. Later
 
 - Testimonials / social proof section (reserved in the brief, add when there are clients).
+- **A different exit for the hero orb on phones** (the owners asked, Nov 2026; not built yet). On phones the orb unravels into a thread that runs down through the headline to the About sheet, which reads oddly in a single column. Possible without touching desktop: phones already take their own route (`ABOUT_PANEL` in `src/lib/orb.ts`). Options: the orb sinks and fades as the hero scrolls away; it bursts into loose dots that drift up and fade (the Contact dots' look); or its dots gather into the klin logo in the header.
 
 ## 11. A Next.js security patch (waiting for a yes)
 

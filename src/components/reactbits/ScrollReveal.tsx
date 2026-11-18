@@ -57,6 +57,9 @@ export const ScrollReveal = forwardRef<ScrollRevealHandle, ScrollRevealProps>(fu
     const pieces = Array.from(el.querySelectorAll<HTMLElement>("[data-piece]"));
     const total = SCRUB_SPAN + Math.max(0, pieces.length - 1) * stagger;
     const last = pieces.map(() => -1);
+    // touch screens: the words only fade (each blurred word repainted on every frame of the
+    // scroll that reveals it, forty-odd of them at once on a phone)
+    const blur = window.matchMedia("(hover: none)").matches ? 0 : blurStrength;
     const mm = gsap.matchMedia();
 
     mm.add("(prefers-reduced-motion: no-preference)", () => {
@@ -67,7 +70,7 @@ export const ScrollReveal = forwardRef<ScrollRevealHandle, ScrollRevealProps>(fu
           if (t === last[i]) return;
           last[i] = t;
           piece.style.opacity = t >= 1 ? "" : (baseOpacity + (1 - baseOpacity) * t).toFixed(3);
-          piece.style.filter = blurStrength && t < 1 ? `blur(${(blurStrength * (1 - t)).toFixed(2)}px)` : "";
+          piece.style.filter = blur && t < 1 ? `blur(${(blur * (1 - t)).toFixed(2)}px)` : "";
         });
       };
       renderRef.current = paint;

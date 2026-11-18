@@ -3,7 +3,7 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
-import { buildOrb, orb, ORB, orbLayout, orbRotation, stepOrb, viewportSize } from "@/lib/orb";
+import { buildOrb, isTouch, orb, ORB, orbLayout, orbRotation, stepOrb, viewportSize } from "@/lib/orb";
 import { DOTS, glsl, PALETTE, rgb } from "@/lib/palette";
 
 /* ------------------------------------------------------------------
@@ -233,6 +233,7 @@ const smoothstep = (a: number, b: number, x: number) => {
 function Orb({ count }: { count: number }) {
   const material = useRef<THREE.ShaderMaterial>(null);
   const body = useRef<THREE.ShaderMaterial>(null);
+  const bodyMesh = useRef<THREE.Mesh>(null);
   const rot = useMemo(() => new THREE.Matrix3(), []);
   const rim = useRef<THREE.Mesh>(null);
   const rimMat = useRef<THREE.ShaderMaterial>(null);
@@ -355,6 +356,8 @@ function Orb({ count }: { count: number }) {
     if (bu) {
       bu.uHalf.value = L.r * GLOW_REACH;
       bu.uFade.value = intro * (1 - smoothstep(0, 0.55, m));
+      // its glow is a full-screen pass: none once it has faded out (the thread runs alone)
+      if (bodyMesh.current) bodyMesh.current.visible = bu.uFade.value > 0.002;
     }
 
     // the tile glows as the last dots arrive and holds it; as the panel opens
@@ -392,7 +395,7 @@ function Orb({ count }: { count: number }) {
 
   return (
     <>
-      <mesh geometry={quad} frustumCulled={false}>
+      <mesh ref={bodyMesh} geometry={quad} frustumCulled={false}>
         <shaderMaterial
           ref={body}
           vertexShader={quadVertex}
@@ -443,7 +446,9 @@ export default function OrbScene({ count, active, onReady }: OrbSceneProps) {
     <Canvas
       className="!pointer-events-none"
       frameloop={active ? "always" : "never"}
-      dpr={[1, 1.75]}
+      // a phone's screen is 3x: its dots are a few pixels across either way, and 1.5 is a
+      // quarter fewer pixels for the whole-screen layer than 1.75
+      dpr={[1, isTouch() ? 1.5 : 1.75]}
       orthographic
       gl={{ antialias: false, alpha: true, powerPreference: "high-performance", stencil: false, depth: false }}
       onCreated={({ gl }) => {

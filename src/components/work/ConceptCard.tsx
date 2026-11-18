@@ -171,6 +171,8 @@ export function ConceptCard({
       if (on === active) return;
       active = on;
       el.classList.toggle("is-active", on);
+      // touch screens: the card that plays is the one that's live (below)
+      if (touch) el.classList.toggle("is-live", on);
       if (reduce) return;
       if (web) {
         if (on) {
@@ -201,7 +203,10 @@ export function ConceptCard({
     };
     const io = new IntersectionObserver(
       ([e]) => {
-        el.classList.toggle("is-live", e.isIntersecting);
+        // on screen, its idle motion runs (the marquee, the floating chips). Not on touch
+        // screens, where only the card that plays moves: two or three previews' worth of
+        // motion at once cost a phone a third of its frames
+        if (!touch) el.classList.toggle("is-live", e.isIntersecting);
         if (woke || e.intersectionRatio < 0.8) return;
         woke = true;
         wakeTimer = window.setTimeout(wake, wakeDelay);

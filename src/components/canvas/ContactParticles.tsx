@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { dotFill, sparkFill } from "@/components/canvas/Orb2D";
+import { isTouch } from "@/lib/orb";
 
 const LEVELS = 14;
 
@@ -63,12 +64,20 @@ export function ContactParticles({ className }: { className?: string }) {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const fills = Array.from({ length: LEVELS }, (_, i) => dotFill(i / (LEVELS - 1)));
     const sparkFills = Array.from({ length: LEVELS }, (_, i) => sparkFill(i / (LEVELS - 1)));
-    const buckets: Dot[][] = Array.from({ length: LEVELS }, () => []);
-    const sparks: Dot[][] = Array.from({ length: LEVELS }, () => []);
+    // by how faded they are (FADES steps toward the section's ends), then by brightness: one
+    // fill style and alpha per batch of dots
+    const FADES = 6;
+    const batches = () => Array.from({ length: FADES + 1 }, () => Array.from({ length: LEVELS }, (): Dot[] => []));
+    const buckets = batches();
+    const sparks = batches();
 
     let W = 0;
     let H = 0;
     let dots: Dot[] = [];
+    // the field thins out toward the section's ends instead of stopping in a line: each dot
+    // fades by its height (a CSS mask on a canvas that changes every frame cost a phone about
+    // a sixth of its frames; so did wiping two bands of the canvas each frame)
+    const FADE = 0.14;
     let base = 0;
     let raf = 0;
     let visible = false;
@@ -76,7 +85,8 @@ export function ContactParticles({ className }: { className?: string }) {
 
     function resize() {
       if (!canvas || !ctx) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // the field is as tall as the section: on a phone 1.5 is plenty for dots this small
+      const dpr = Math.min(window.devicePixelRatio || 1, isTouch() ? 1.5 : 2);
       const r = canvas.getBoundingClientRect();
       W = r.width;
       H = r.height;
@@ -145,8 +155,8 @@ export function ContactParticles({ className }: { className?: string }) {
       takeBursts();
       const r = stirs.length ? canvas?.getBoundingClientRect() : null;
       const stir = r ? stirs.splice(0).map((p) => ({ x: p.x - r.left, y: p.y - r.top })) : [];
-      for (const b of buckets) b.length = 0;
-      for (const b of sparks) b.length = 0;
+      for (const set of [buckets, sparks]) for (const step of set) for (const b of step) b.length = 0;
+      const band = H * FADE;
       for (const d of dots) {
         if (!reduce) {
           d.x += d.vx + d.bx;
@@ -194,29 +204,48 @@ export function ContactParticles({ className }: { className?: string }) {
         d.heat *= 0.96;
         const twinkle = reduce ? 1 : 0.8 + 0.2 * Math.sin(t * d.sp + d.ph);
         const energy = Math.min(1, d.e * twinkle + d.heat * 0.8);
-        (d.spark ? sparks : buckets)[Math.round(energy * (LEVELS - 1))].push(d);
+        const y = d.y + d.oy;
+        const fade = y < band ? y / band : y > H - band ? (H - y) / band : 1;
+        const step = Math.round(Math.min(1, Math.max(0, fade)) * FADES);
+        if (step) (d.spark ? sparks : buckets)[step][Math.round(energy * (LEVELS - 1))].push(d);
       }
-      for (const [set, paint] of [
-        [buckets, fills],
-        [sparks, sparkFills],
-      ] as const) {
-        for (let l = 0; l < LEVELS; l++) {
-          const list = set[l];
-          if (!list.length) continue;
-          ctx.fillStyle = paint[l];
-          for (const d of list) {
-            const s = d.s * (0.9 + (0.3 * l) / (LEVELS - 1));
-            ctx.fillRect(d.x + d.ox - s / 2, d.y + d.oy - s / 2, s, s);
+      for (let f = 1; f <= FADES; f++) {
+        ctx.globalAlpha = f / FADES;
+        for (const [set, paint] of [
+          [buckets, fills],
+          [sparks, sparkFills],
+        ] as const) {
+          for (let l = 0; l < LEVELS; l++) {
+            const list = set[f][l];
+            if (!list.length) continue;
+            ctx.fillStyle = paint[l];
+            for (const d of list) {
+              const s = d.s * (0.9 + (0.3 * l) / (LEVELS - 1));
+              ctx.fillRect(d.x + d.ox - s / 2, d.y + d.oy - s / 2, s, s);
+            }
           }
         }
       }
+      ctx.globalAlpha = 1;
       ctx.globalCompositeOperation = "source-over";
     }
 
+    // touch screens draw every other frame while the dots only drift (slow enough that it
+    // looks the same, and the field is as tall as the section); a burst gets every frame
+    const halve = isTouch();
+    let skip = false;
     function frame(now: number) {
+      skip = halve && !skip && dots.length <= base && !bursts.length;
+      if (!skip) draw(now);
       raf = requestAnimationFrame(frame);
-      if (visible) draw(now);
     }
+    // only while it's on screen: a loop left asking for frames keeps a phone from ever resting
+    const run = () => {
+      cancelAnimationFrame(raf);
+      raf = 0;
+      if (reduce || !visible || document.hidden) return;
+      raf = requestAnimationFrame(frame);
+    };
 
     const onMove = (e: PointerEvent) => {
       if (e.pointerType !== "mouse" || !canvas) return;
@@ -236,6 +265,7 @@ export function ContactParticles({ className }: { className?: string }) {
     };
     const io = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
+      run();
     });
 
     resize();
@@ -244,7 +274,7 @@ export function ContactParticles({ className }: { className?: string }) {
     if (!reduce) {
       host.addEventListener("pointermove", onMove);
       host.addEventListener("pointerleave", onLeave);
-      raf = requestAnimationFrame(frame);
+      document.addEventListener("visibilitychange", run);
     }
 
     return () => {
@@ -253,6 +283,7 @@ export function ContactParticles({ className }: { className?: string }) {
       window.removeEventListener("resize", onResize);
       host.removeEventListener("pointermove", onMove);
       host.removeEventListener("pointerleave", onLeave);
+      document.removeEventListener("visibilitychange", run);
       io.disconnect();
     };
   }, []);

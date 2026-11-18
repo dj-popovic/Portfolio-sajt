@@ -57,6 +57,9 @@ export function IconSphere({
     let speed = 0.32;
     let target = 0.32;
 
+    // what was last written to each logo: the stacking order and the lime only change now
+    // and then, and every write makes the browser restyle (and the lime repaint) that logo
+    const written = items.map(() => ({ z: "", front: "" }));
     const place = () => {
       const cy = Math.cos(yaw);
       const sy = Math.sin(yaw);
@@ -71,8 +74,12 @@ export function IconSphere({
         const s = items[i].style;
         s.transform = `translate3d(${(x1 * R).toFixed(1)}px, ${(-y2 * R).toFixed(1)}px, 0) scale(${(0.56 + 0.44 * depth).toFixed(3)})`;
         s.opacity = (0.16 + 0.84 * depth ** 1.6).toFixed(3);
-        s.zIndex = String(Math.round(depth * 100));
-        s.setProperty("--front", smooth(FRONT_FROM, FRONT_FULL, depth).toFixed(2));
+        // ten layers are enough for twelve logos to overlap the right way round
+        const zi = String(Math.round(depth * 10));
+        if (zi !== written[i].z) s.zIndex = written[i].z = zi;
+        // the lime in twenty steps: no visible banding, a fraction of the repaints
+        const front = (Math.round(smooth(FRONT_FROM, FRONT_FULL, depth) * 20) / 20).toFixed(2);
+        if (front !== written[i].front) s.setProperty("--front", (written[i].front = front));
       });
     };
 

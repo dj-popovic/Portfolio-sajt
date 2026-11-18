@@ -1120,6 +1120,15 @@
     opacity 0.22s ease,
     transform 0.6s var(--ease-out-quart);
 }
+/* build: the parts that move on their own get their own layers, so a screen sliding in, a
+   toast or the cart sheet rising doesn't make the browser redraw the whole card (on a phone
+   the Work cards dropped to a third of their frames each time a preview changed screen) */
+.pv-scr,
+.pv-toast,
+.tk-sheet,
+.cc-chip {
+  will-change: transform, opacity;
+}
 .pv-phone[data-screen="0"] .pv-scr:nth-child(1),
 .pv-phone[data-screen="1"] .pv-scr:nth-child(2),
 .pv-phone[data-screen="2"] .pv-scr:nth-child(3) {

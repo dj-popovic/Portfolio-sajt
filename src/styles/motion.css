@@ -14,10 +14,15 @@
 .orb-layer.is-ready {
   opacity: 1;
 }
-/* once the last dot has reached the tile the layer sleeps (a frozen frame never shows) */
+/* once the last dot has reached the tile the layer sleeps (a frozen frame never shows), and
+   once it has faded it leaves the page's layers altogether: a screen-sized canvas the
+   browser would otherwise keep compositing, invisible, all the way down the page */
 .orb-layer.is-ready.is-asleep {
   opacity: 0;
-  transition-duration: 0.3s;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0s linear 0.3s;
 }
 /* the hero's vignette + floor travel with the layer (no seam while the hero
    scrolls away) and lift as the orb unravels, so the thread stays bright */

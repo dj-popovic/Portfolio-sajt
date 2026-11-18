@@ -415,3 +415,17 @@
     flex: 1 1 auto;
   }
 }
+/* touch screens: no live blur behind the demo (on a phone the window covers the page
+   anyway) or under the hint, which floats over a demo that never stops moving */
+@media (hover: none) {
+  .ww-scrim,
+  .ww-hint {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ww-hint {
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02)),
+      color-mix(in oklab, var(--surface) 92%, transparent);
+  }
+}

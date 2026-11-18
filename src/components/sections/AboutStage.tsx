@@ -69,11 +69,13 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
           section.style.setProperty("--stage-shift", `${((top - sheet.gap) / 2).toFixed(1)}px`);
         };
         const paint = () => {
+          // measured before the clip and the class are written (they don't move it), so the
+          // browser isn't made to restyle the page mid-frame to answer
+          const b = section.getBoundingClientRect();
           const inset = tileClip(section, panel.open, TILE, open);
           // fully closed, only the tile is drawn (motion.css: nothing light left under its edge)
           section.classList.toggle("is-shut", panel.open < 0.001);
           // the orb layer draws the glow and the sparks along this edge
-          const b = section.getBoundingClientRect();
           Object.assign(orb.panel, {
             open: panel.open,
             x: b.left + inset.x,
@@ -170,8 +172,8 @@ export function AboutStage({ title, body, stats, left, right }: AboutStageProps)
           const c = Math.max(state.enter, state.leave);
           // narrower and rounder while it comes up, settling into the sheet's own corners
           const r = sheet.r + c * (40 - sheet.r);
+          const b = section.getBoundingClientRect(); // before the write (see the stage's paint)
           setInset(section, 0, c * 6, r, "%");
-          const b = section.getBoundingClientRect();
           const x = b.width * c * 0.06;
           Object.assign(orb.panel, {
             open: 1 - c,

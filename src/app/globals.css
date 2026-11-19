@@ -114,6 +114,13 @@
 }
 
 @layer base {
+  /* sideways overflow is clipped here, at the viewport, and never on an element that holds a
+     sticky one: Safari moves a sticky element under a clip from the page's own thread, and on
+     an iPhone it shook while it was stuck (What we offer's panes). Its own rule, ahead of the
+     next: written after the scrollbar's color-mix(), the build moved it onto body's rule */
+  html {
+    overflow-x: clip;
+  }
   html {
     background: var(--bg);
     color-scheme: dark;
@@ -127,7 +134,6 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: clip;
     text-rendering: optimizeLegibility;
   }
   ::selection {

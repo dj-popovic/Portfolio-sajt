@@ -27,74 +27,9 @@ const LIGHTS = [
   { a: [24, -18], b: [4, 30] },
 ];
 
-const GLARE_EASE = "cubic-bezier(0.45, 0, 0.55, 1)"; // power1.inOut, for CSS
-
-/** an element's laid-out height, unrounded (a holder is only ever moved, never scaled) */
+/** an element's laid-out height, unrounded (offsetHeight rounds to whole px, and down a stack
+ * of four panes the rounding adds up) */
 const height = (el: HTMLElement) => el.getBoundingClientRect().height;
-
-/**
- * Whether the phones' stack is held by the compositor (CSS animations on the page's scroll)
- * instead of position: sticky: touch screens whose browser runs those animations off the
- * page's main thread, in step with the finger.
- */
-function compositorHold(): boolean {
-  if (!window.matchMedia("(hover: none)").matches) return false;
-  if (!CSS.supports("animation-timeline", "scroll(root)") || !CSS.supports("animation-range", "1px 2px")) return false;
-  // Firefox isn't known to run them off its main thread
-  if (CSS.supports("-moz-appearance", "none")) return false;
-  // iOS: Safari runs them on the compositor from 26.4; before that on the page's own thread, a
-  // frame behind the finger, which would shake more than sticky does. Other iOS browsers don't
-  // say which version of the engine they run, so they keep sticky
-  if (CSS.supports("-webkit-touch-callout", "none")) {
-    const v = /Version\/(\d+)\.(\d+)/.exec(navigator.userAgent);
-    return !!v && Number(v[1]) * 100 + Number(v[2]) >= 2604;
-  }
-  return true;
-}
-
-/**
- * The held stack as CSS, in px of the page's scroll: each holder moves down exactly as far as
- * the page goes up from where it comes to rest to the deck's end (so it stands still there, as
- * a sticky one would, and leaves with the deck), and the sinking, dimming, fading and glare of
- * the scripted version run on the same scroll positions.
- */
-function holdRules(deck: HTMLElement, slots: HTMLElement[], offsets: number[], rest: (i: number) => number) {
-  const vh = window.innerHeight;
-  // fractional sizes throughout (offsetHeight and clientHeight round to whole px, and down a
-  // stack of four the rounding added up to a pane resting 2px off)
-  const box = deck.getBoundingClientRect();
-  const deckTop = box.top + window.scrollY;
-  const deckEnd = box.height;
-  const px = (v: number) => `${v.toFixed(2)}px`;
-  const slot = (i: number) => `.services[data-hold="scroll"] .svc-slot[data-slot="${i}"]`;
-  const run = (sel: string, name: string, ease: string, from: number, to: number) =>
-    to > from
-      ? `${sel}{animation:${name} ${ease} both;animation-timeline:scroll(root);animation-range:${px(from)} ${px(to)}}`
-      : "";
-  let css =
-    `@keyframes svc-sink{from{transform:scale(1)}to{transform:scale(${(1 - SINK * 1.4).toFixed(4)})}}` +
-    `@keyframes svc-shade{from{opacity:0}to{opacity:${SHADE[1]}}}` +
-    `@keyframes svc-fade{from{opacity:1}to{opacity:0}}` +
-    `@keyframes svc-glare{from{transform:translateX(0)}to{transform:translateX(340%)}}`;
-  slots.forEach((holder, i) => {
-    // the page's scroll when this holder's top would be y px down the viewport
-    const at = (y: number) => deckTop + offsets[i] - y;
-    const hold = deckEnd - offsets[i] - height(holder);
-    if (hold > 0.5) {
-      css += `@keyframes svc-hold-${i}{from{transform:translateY(0)}to{transform:translateY(${px(hold)})}}`;
-      css += run(slot(i), `svc-hold-${i}`, "linear", at(rest(i)), at(rest(i)) + hold);
-    }
-    css += run(`${slot(i)} .svc-glare`, "svc-glare", GLARE_EASE, at(0.9 * vh), at(0.4 * vh));
-    if (i === 0) return;
-    // the pane underneath sinks and dims as this one comes up over it; its words leave once
-    // this one is well over it
-    const under = slot(i - 1);
-    css += run(`${under} .svc-card`, "svc-sink", "linear", at(vh), at(rest(i)));
-    css += run(`${under} .svc-shade`, "svc-shade", "linear", at(vh), at(rest(i)));
-    css += run(`${under} .svc-body`, "svc-fade", "linear", at(0.45 * vh), at(rest(i)));
-  });
-  return css;
-}
 
 type DeckProps = {
   /** accessible name of the index */
@@ -272,13 +207,16 @@ export function ServicesDeck({ label, names, children, foot }: DeckProps) {
         };
       });
 
-      // ---------- phones: the panes stack in the flow ----------
+      // ---------- phones: the panes stick and stack in the flow ----------
       mm.add(STACK, () => {
         section.dataset.deck = "stack";
-        // each pane's holder is what stays put (ServiceCard), so the pane inside can sink back
+        // each pane's holder is what sticks (ServiceCard), so the pane inside can sink back
+        // without moving it. Nothing above a holder may clip: Safari moves a sticky element
+        // under a clipping box from the page's own thread, and on an iPhone the stuck panes
+        // shook (sections.css, the stack)
         const slots = cards.map((card) => card.parentElement as HTMLElement);
-        // where each holder sits in the deck with nothing held, from the heights and the gap
-        // alone: a refresh while the stack is held (stuck, or moved) can't misplace a trigger
+        // where each holder sits in the deck with nothing stuck, from the heights and the gap
+        // alone: a refresh while the stack is stuck can't misplace a trigger
         const offsets = () => {
           const gap = parseFloat(getComputedStyle(deck).rowGap) || 0;
           let y = 0;
@@ -296,69 +234,28 @@ export function ServicesDeck({ label, names, children, foot }: DeckProps) {
         // a ScrollTrigger position: holder i's top at a place in the viewport ("90%", "120px")
         const when = (i: number, place: string | (() => string)) => () =>
           `top+=${offsets()[i]} ${typeof place === "string" ? place : place()}`;
-        const arrive = (i: number) => ({ trigger: deck, start: when(i, "90%"), end: when(i, "40%"), scrub: 0.4 });
-
-        // each symbol draws in as its pane comes up (a custom property: only script can move it)
         cards.forEach((_, i) => {
-          gsap.fromTo(glyphs[i], { "--draw": 1 }, { "--draw": 0, ease: "power1.inOut", scrollTrigger: arrive(i) });
+          // its symbol draws in and a glare crosses it as the pane comes up
+          const arrive = { trigger: deck, start: when(i, "90%"), end: when(i, "40%"), scrub: 0.4 };
+          gsap.fromTo(glyphs[i], { "--draw": 1 }, { "--draw": 0, ease: "power1.inOut", scrollTrigger: arrive });
+          gsap.fromTo(
+            glares[i],
+            { xPercent: 0 },
+            { xPercent: 340, ease: "power1.inOut", scrollTrigger: { ...arrive } },
+          );
+          if (i === 0) return;
+          // the pane underneath sinks and dims as this one slides over it
+          const cover = { trigger: deck, start: when(i, "bottom"), end: when(i, () => `${rest(i)}px`), scrub: 0.3 };
+          gsap.fromTo(cards[i - 1], { scale: 1 }, { scale: 1 - SINK * 1.4, ease: "none", scrollTrigger: cover });
+          gsap.fromTo(shades[i - 1], { opacity: 0 }, { opacity: SHADE[1], ease: "none", scrollTrigger: { ...cover } });
+          // its words only leave once this one is well over it (still being read till then)
+          gsap.fromTo(
+            bodies[i - 1],
+            { opacity: 1 },
+            { opacity: 0, ease: "none", scrollTrigger: { ...cover, start: when(i, "45%") } },
+          );
         });
-
-        let undo = () => {};
-        if (compositorHold()) {
-          // Held by the compositor. On an iPhone a sticky pane shook by a pixel or two while it was
-          // stuck (the owners filmed it; the fixed header above it stayed still): Safari places a
-          // stuck element again each time the page updates mid-scroll, and the scroll effects
-          // update it every frame. Here nothing sticks: each holder is moved down exactly as far as
-          // the page goes up, and the sinking, dimming and glare run the same way, all as CSS
-          // animations on the page's scroll, which the compositor runs in step with the finger
-          section.dataset.hold = "scroll";
-          const sheet = document.createElement("style");
-          document.head.append(sheet);
-          const write = () => {
-            const css = holdRules(deck, slots, offsets(), rest);
-            if (sheet.textContent !== css) sheet.textContent = css;
-          };
-          // the positions are the page's own: written again whenever the triggers are measured,
-          // the page above grows or shrinks (a fraction of a pixel in the hero moves the deck),
-          // or the stack itself changes size
-          ScrollTrigger.addEventListener("refresh", write);
-          const resized = new ResizeObserver(write);
-          resized.observe(document.body);
-          resized.observe(deck);
-          write();
-          undo = () => {
-            ScrollTrigger.removeEventListener("refresh", write);
-            resized.disconnect();
-            sheet.remove();
-            delete section.dataset.hold;
-          };
-        } else {
-          // sticky (sections.css), with the effects written by script as you scroll
-          cards.forEach((_, i) => {
-            gsap.fromTo(glares[i], { xPercent: 0 }, { xPercent: 340, ease: "power1.inOut", scrollTrigger: arrive(i) });
-            if (i === 0) return;
-            // the pane underneath sinks and dims as this one slides over it
-            const cover = {
-              trigger: deck,
-              start: when(i, "bottom"),
-              end: when(i, () => `${rest(i)}px`),
-              scrub: 0.3,
-            };
-            gsap.fromTo(cards[i - 1], { scale: 1 }, { scale: 1 - SINK * 1.4, ease: "none", scrollTrigger: cover });
-            gsap.fromTo(
-              shades[i - 1],
-              { opacity: 0 },
-              { opacity: SHADE[1], ease: "none", scrollTrigger: { ...cover } },
-            );
-            // its words only leave once this one is well over it (still being read till then)
-            gsap.fromTo(
-              bodies[i - 1],
-              { opacity: 1 },
-              { opacity: 0, ease: "none", scrollTrigger: { ...cover, start: when(i, "45%") } },
-            );
-          });
-          gsap.set(cards, { transformOrigin: "50% 0%" });
-        }
+        gsap.set(cards, { transformOrigin: "50% 0%" });
         gsap.fromTo(
           footEl,
           { opacity: 0, y: 12 },
@@ -372,7 +269,6 @@ export function ServicesDeck({ label, names, children, foot }: DeckProps) {
         );
         ScrollTrigger.refresh();
         return () => {
-          undo();
           delete section.dataset.deck;
         };
       });

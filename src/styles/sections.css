@@ -1271,8 +1271,8 @@
   background: var(--bg);
   color: var(--text);
   padding: var(--section-y) var(--gutter);
-  /* not hidden: that would make it a scroller and the phone stack wouldn't stick.
-     build: sideways only, so its lights carry on past the top and bottom (one canvas) */
+  /* build: sideways only, so its lights carry on past the top and bottom (one canvas). Off
+     in the phones' stack, where it would make the sticky panes shake in Safari (below) */
   overflow-x: clip;
   isolation: isolate;
 }
@@ -1750,35 +1750,30 @@
   flex-direction: column;
   gap: 16px;
 }
-.services[data-deck="stack"] .svc-light {
-  inset: 0 -10%;
-}
-/* build: what stays put is the pane's holder, never the pane, which sinks back as the next
-   one covers it. On the deck and in the grid the holder isn't there (display: contents) */
-.svc-slot {
-  display: contents;
-}
 .services[data-deck="stack"] {
+  /* build: no clip here. Safari moves a sticky element that has a clipping box above it
+     from the page's own thread, and on an iPhone the stuck panes shook by a pixel or two
+     (the owners filmed it twice; the fixed header above them stayed still). Sideways
+     overflow is clipped once, at the viewport (globals.css), and the lights stay inside */
+  overflow-x: visible;
   /* where the panes come to rest: under the header, each covered one peeking out above the
      next (ServicesDeck reads these too) */
   --stack-top: 84px;
   --stack-step: 12px;
 }
+/* the lights reach the screen's edges and no further: past them they'd make the page wider */
+.services[data-deck="stack"] .svc-light {
+  inset: 0 calc(-1 * var(--gutter));
+}
+/* build: what sticks is the pane's holder, never the pane, which sinks back as the next one
+   covers it. On the deck and in the grid the holder isn't there (display: contents) */
+.svc-slot {
+  display: contents;
+}
 .services[data-deck="stack"] .svc-slot {
   display: block;
   position: sticky;
   top: calc(var(--stack-top) + var(--i) * var(--stack-step));
-}
-/* build: on touch screens whose browser can, the stack is held by the compositor instead
-   (ServicesDeck, compositorHold): sticky panes shook on an iPhone while they were stuck, as
-   Safari placed them again each time the page updated mid-scroll. The holders stay in the
-   flow, and scroll-linked animations move each one down as far as the page goes up */
-.services[data-deck="stack"][data-hold="scroll"] .svc-slot {
-  position: relative;
-  top: auto;
-}
-.services[data-deck="stack"][data-hold="scroll"] .svc-card {
-  transform-origin: 50% 0;
 }
 .services[data-deck="stack"] .svc-card {
   min-height: 0;
@@ -5591,5 +5586,13 @@
     background:
       linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.02) 44%, rgb(255 255 255 / 0.035)),
       color-mix(in oklab, var(--bg) 74%, transparent);
+  }
+  /* What we offer's panes: as the next one slides over a pane, the covered words showed
+     through the clear glass crisp, over the new pane's own (the owners' phone). With more
+     body they're only a smudge, as under the frost on a computer */
+  .svc-card {
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.09), rgb(255 255 255 / 0.02) 46%, rgb(255 255 255 / 0.04)),
+      color-mix(in oklab, var(--bg) 86%, transparent);
   }
 }

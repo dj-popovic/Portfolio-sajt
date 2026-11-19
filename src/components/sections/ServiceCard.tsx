@@ -18,12 +18,12 @@ type ServiceCardProps = {
  * One service as a pane of liquid glass: the copy on one side, its symbol in
  * blue dots on the other. In the deck (ServicesDeck) the panes stack and the
  * covered ones dim (`.svc-shade`); a light follows the pointer across the glass.
- * The holder round it (`.svc-slot`) is what stays put in the phones' stack, so the
+ * The holder round it (`.svc-slot`) is what sticks in the phones' stack, so the
  * pane inside can sink back without moving it (sections.css, ServicesDeck).
  */
 export function ServiceCard({ kind, index, num, title, desc, tags, icon }: ServiceCardProps) {
   return (
-    <div className="svc-slot" data-slot={index} style={{ "--i": index } as CSSProperties}>
+    <div className="svc-slot" style={{ "--i": index } as CSSProperties}>
       <article className="svc-card" onPointerMove={pointerLight}>
         <div className="svc-body">
           <div className="svc-top">

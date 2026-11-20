@@ -18,6 +18,11 @@ const OG_LOCALE = { en: "en_US", sr: "sr_RS", ru: "ru_RU", de: "de_DE" } as cons
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("meta");
   const locale = await rootLocale();
+  const lang = hasLocale(routing.locales, locale) ? locale : routing.defaultLocale;
+  // the share card for this language, made from the hero by scripts/og/build.mjs. Its address
+  // is relative: on Vercel, Next completes it with the production domain until metadataBase
+  // is set (docs/OPEN-ITEMS.md, the domain)
+  const image = { url: `/og/${lang}.jpg`, width: 1200, height: 630, alt: t("imageAlt") };
   return {
     title: t("title"),
     description: t("description"),
@@ -28,7 +33,14 @@ export async function generateMetadata(): Promise<Metadata> {
       description: t("description"),
       siteName: STUDIO,
       type: "website",
-      locale: OG_LOCALE[locale as keyof typeof OG_LOCALE] ?? OG_LOCALE.en,
+      locale: OG_LOCALE[lang],
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+      images: [image],
     },
     alternates: {
       languages: {

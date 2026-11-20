@@ -1,7 +1,8 @@
 {
   "meta": {
     "title": "klin · Kreativstudio zu zweit",
-    "description": "Wir sind ein Studio zu zweit und gestalten Marken, Websites und Apps von A bis Z: Strategie, Design und Entwicklung unter einem Dach."
+    "description": "Wir sind ein Studio zu zweit und gestalten Marken, Websites und Apps von A bis Z: Strategie, Design und Entwicklung unter einem Dach.",
+    "imageAlt": "Das klin-Logo und eine Kugel aus blauen Punkten neben dem Satz „Kreative Arbeit, die aus der Reihe tanzt.“"
   },
   "common": {
     "skip": "Zum Inhalt springen",
@@ -326,7 +327,6 @@
     "copied": "Kopiert",
     "studio": "Studio",
     "elsewhere": "Anderswo",
-    "journal": "Zum Journal",
     "status": "<b>{time}</b> in <city>Novi Sad</city>, {mood}",
     "moods": [
       "wahrscheinlich noch am Bauen",
@@ -343,7 +343,8 @@
       "instagram": "Instagram",
       "x": "X",
       "linkedin": "LinkedIn",
-      "dribbble": "Dribbble"
+      "dribbble": "Dribbble",
+      "github": "GitHub"
     }
   }
 }

@@ -1,7 +1,8 @@
 {
   "meta": {
     "title": "klin · Two-person creative studio",
-    "description": "We’re a two-person studio crafting brands, websites and apps end-to-end: strategy, design and build, all under one roof."
+    "description": "We’re a two-person studio crafting brands, websites and apps end-to-end: strategy, design and build, all under one roof.",
+    "imageAlt": "The klin logo and a sphere of blue dots beside the line “Creative work that refuses to blend in.”"
   },
   "common": {
     "skip": "Skip to content",
@@ -326,7 +327,6 @@
     "copied": "Copied",
     "studio": "Studio",
     "elsewhere": "Elsewhere",
-    "journal": "Read the journal",
     "status": "<b>{time}</b> in <city>Novi Sad</city>, {mood}",
     "moods": [
       "probably still building",
@@ -343,7 +343,8 @@
       "instagram": "Instagram",
       "x": "X",
       "linkedin": "LinkedIn",
-      "dribbble": "Dribbble"
+      "dribbble": "Dribbble",
+      "github": "GitHub"
     }
   }
 }

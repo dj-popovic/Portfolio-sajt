@@ -51,7 +51,7 @@ export function Footer() {
                   <a href="#">{t("social.linkedin")}</a>
                 </li>
                 <li>
-                  <a href="#">{t("journal")}</a>
+                  <a href="#">{t("social.github")}</a>
                 </li>
               </ul>
             </div>

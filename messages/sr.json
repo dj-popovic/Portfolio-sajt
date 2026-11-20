@@ -1,7 +1,8 @@
 {
   "meta": {
     "title": "klin · Dvočlani kreativni studio",
-    "description": "Mi smo dvočlani studio koji od početka do kraja pravi brendove, sajtove i aplikacije: strategija, dizajn i razvoj, sve pod jednim krovom."
+    "description": "Mi smo dvočlani studio koji od početka do kraja pravi brendove, sajtove i aplikacije: strategija, dizajn i razvoj, sve pod jednim krovom.",
+    "imageAlt": "Logo klin i sfera od plavih tačaka uz rečenicu „Kreativa koja odbija da se uklopi.“"
   },
   "common": {
     "skip": "Preskoči na sadržaj",
@@ -330,7 +331,6 @@
     "copied": "Kopirano",
     "studio": "Studio",
     "elsewhere": "Na mrežama",
-    "journal": "Čitajte blog",
     "status": "<b>{time}</b> u <city>Novom Sadu</city>, {mood}",
     "moods": [
       "verovatno još nešto gradimo",
@@ -347,7 +347,8 @@
       "instagram": "Instagram",
       "x": "X",
       "linkedin": "LinkedIn",
-      "dribbble": "Dribbble"
+      "dribbble": "Dribbble",
+      "github": "GitHub"
     }
   }
 }

@@ -11,7 +11,6 @@ The site is built so photos drop in without layout changes. Until then the slots
 | Work — coffee concept (Copper & Oak) | Optional: a real cupping-table or roastery photo for the story block (drawn for now in `demos/coffee/CuppingTable.tsx`) and real bag shots to replace the drawn bags. | The drawings already carry the shop; real photos would make the concept read even more like finished client work.        |
 | Work — street-food concept (Tako)    | Optional: dish photos (tacos, bowls, drinks; top-down or 3/4) to replace the flat illustrations in `demos/food/Dish.tsx`                                              | Food apps live or die on appetite appeal. The illustrations work, but real food photography is what makes people hungry. |
 | Work — wellness concept (Stillwater) | Optional: 2–3 calm ambient images (water, sky, texture)                                                                                                               | Nice to have — the app UI already carries itself.                                                                        |
-| Social share (OG) image              | 1200×630 with the final logo                                                                                                                                          | Shown when the link is shared in chats/social. Needs the name/logo first.                                                |
 
 About uses no photos any more: the founders are 3D name cards with their tools (decided in the About redesign). Contact doesn't either (the owners' call): each founder is a lens of glass with their craft drawn in it.
 
@@ -21,8 +20,8 @@ Image licensing: use photos you own or that are explicitly licensed for commerci
 
 - **Done (Nov 2026):** the studio is **klin** (always lowercase), and its logo is in: the header, the phone menu, the footer's copyright line, the About tile (the mark), the page title and share title in all four languages, the favicon, the Apple icon and the web manifest. Files in `public/brand/` (`logo-dark/light/mono.svg`, `mark.svg`, icons); the build is described in `src/components/brand/`.
 - **Still open: the domain.** Until it's registered, `[studio]` stays in the email addresses: `hello@[studio].com` (footer, Copy email) and `djordje@[studio].com` / `relja@[studio].com` (founder profiles), all in `src/lib/placeholders.ts`. The part before the @ follows the founders' names; change it there if the real addresses differ.
-- **A social share image** (1200×630 with the logo) can be made now that the logo exists: see the table in section 1.
-- **Once the domain is set:** the site's own address for share previews (`metadataBase` in `src/app/[locale]/layout.tsx`; links shared before that can't find the share image), plus a sitemap and a robots file for search engines (`sitemap.ts` and `robots.ts` in `src/app/`, none yet).
+- **Done (Nov 2026): the share images**, one per language (1200×630: the logo, the hero's headline and the orb), in `public/og/`. They're made from the real hero by `scripts/og/build.mjs`; run it again if the headline, the logo or the orb changes. Until the domain's in, Vercel fills in the site's address for them.
+- **Once the domain is set:** add it in Vercel (the share images follow on their own: Next takes Vercel's production address), set it as the site's own address in `metadataBase` (`src/app/[locale]/layout.tsx`) for anywhere else it's served, and add a sitemap and a robots file for search engines (`sitemap.ts` and `robots.ts` in `src/app/`, none yet).
 - The one placeholder left, `[studio]`, lives in `src/lib/placeholders.ts` — never translate it.
 
 ## 3. Copy
@@ -36,8 +35,7 @@ Image licensing: use photos you own or that are explicitly licensed for commerci
   - Emails `djordje@[studio].com` / `relja@[studio].com` live in `src/lib/placeholders.ts`.
   - LinkedIn / GitHub links are `#` in `src/lib/founders.ts`.
   - The tool stacks in the same file are a first pick (12 each, frontend left, backend right). Logos come from Simple Icons (`src/lib/tech-icons.ts`, generated); adding a tool means adding its path there.
-- Social links are `#` (Instagram, Dribbble, LinkedIn, X) — real URLs needed, or remove the ones you won't use.
-- "Read the journal" links to nothing — remove it unless a journal is planned.
+- Social links are `#` (Instagram, Dribbble, LinkedIn, X, GitHub) — real URLs needed, or remove the ones you won't use. GitHub took the place of "Read the journal" in the footer (no journal is planned, the owners' call): Dribbble shows the design, GitHub the code.
 - Wording from the old orange palette: settled. The orb's screen-reader name is "Interactive sphere of dots" now; `contact.done.hint` keeps "a warm, human reply" (the owners' call: it's human warmth, not fire).
 - The four Work concepts have real names now (fictional client brands, filled in at the owners' request): Copper & Oak, Northbound, Stillwater, Tako. No brackets are left inside the demos: origins, cities, people and numbers are filled. A rename touches `src/components/work/concepts.ts` and the demo copy; the marks are drawn icons (`src/components/work/marks.tsx`).
 
@@ -116,9 +114,9 @@ With a contact form and a German audience: a privacy policy (GDPR) and probably 
 - Testimonials / social proof section (reserved in the brief, add when there are clients).
 - **Done (Nov 2026): a different exit for the hero orb on phones.** The owners picked the calm one: it scrolls away with the hero, shrinking back and fading (the thread into the About sheet read oddly in one column, and gathering the dots into the header's logo was too small to read on a phone). Desktop keeps the thread into the klin tile.
 
-## 11. A Next.js security patch (waiting for a yes)
+## 11. A Next.js security patch — done (Nov 2026)
 
-The site is on Next.js 16.4.2. A moderate advisory covers 16.3.0–16.4.4 ([GHSA-mfr8-8qww-v76h](https://github.com/advisories/GHSA-mfr8-8qww-v76h): information disclosure across root params when a `'use cache'` function is called through `unstable_cache()`), fixed in 16.4.6. The site uses root params (`next/root-params`, for the language) but neither `unstable_cache` nor `'use cache'`, so it isn't exposed as built today. The patch release is still worth taking before launch: bump `next` and `eslint-config-next` to 16.4.6, then build and run the checks.
+The site is on Next.js 16.4.6 (with `eslint-config-next` to match), which fixes [GHSA-mfr8-8qww-v76h](https://github.com/advisories/GHSA-mfr8-8qww-v76h) (information disclosure across root params through `unstable_cache()` and `'use cache'`; the site used neither, so it was never exposed). The same day the lint tools' advisories were cleared too (typescript-eslint's copy of minimatch, which never ships to the site): `npm audit` reports none.
 
 ## 12. Checks on real devices before launch
 

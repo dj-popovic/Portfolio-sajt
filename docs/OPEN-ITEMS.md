@@ -22,6 +22,7 @@ Image licensing: use photos you own or that are explicitly licensed for commerci
 - **Done (Nov 2026):** the studio is **klin** (always lowercase), and its logo is in: the header, the phone menu, the footer's copyright line, the About tile (the mark), the page title and share title in all four languages, the favicon, the Apple icon and the web manifest. Files in `public/brand/` (`logo-dark/light/mono.svg`, `mark.svg`, icons); the build is described in `src/components/brand/`.
 - **Still open: the domain.** Until it's registered, `[studio]` stays in the email addresses: `hello@[studio].com` (footer, Copy email) and `djordje@[studio].com` / `relja@[studio].com` (founder profiles), all in `src/lib/placeholders.ts`. The part before the @ follows the founders' names; change it there if the real addresses differ.
 - **A social share image** (1200×630 with the logo) can be made now that the logo exists: see the table in section 1.
+- **Once the domain is set:** the site's own address for share previews (`metadataBase` in `src/app/[locale]/layout.tsx`; links shared before that can't find the share image), plus a sitemap and a robots file for search engines (`sitemap.ts` and `robots.ts` in `src/app/`, none yet).
 - The one placeholder left, `[studio]`, lives in `src/lib/placeholders.ts` — never translate it.
 
 ## 3. Copy
@@ -118,3 +119,7 @@ With a contact form and a German audience: a privacy policy (GDPR) and probably 
 ## 11. A Next.js security patch (waiting for a yes)
 
 The site is on Next.js 16.4.2. A moderate advisory covers 16.3.0–16.4.4 ([GHSA-mfr8-8qww-v76h](https://github.com/advisories/GHSA-mfr8-8qww-v76h): information disclosure across root params when a `'use cache'` function is called through `unstable_cache()`), fixed in 16.4.6. The site uses root params (`next/root-params`, for the language) but neither `unstable_cache` nor `'use cache'`, so it isn't exposed as built today. The patch release is still worth taking before launch: bump `next` and `eslint-config-next` to 16.4.6, then build and run the checks.
+
+## 12. Checks on real devices before launch
+
+Everything is tested here in Chrome only (desktop and phone emulation). The owners' iPhone found three things Chrome never showed: the Work previews' text (CSS zoom), the orb cut off after scrolling back up, and the What we offer panes shaking while stuck (a clip above a sticky element). All three are fixed and confirmed on the iPhone (Nov 2026). Still to look at once, on real hardware: Safari on a Mac, an iPad (both ways round), an Android phone in Chrome, and Firefox on a computer.

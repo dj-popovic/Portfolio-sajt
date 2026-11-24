@@ -178,7 +178,6 @@ export function WorkGallery() {
               kindLabel={kind === "web" ? t("kindWeb") : t("kindApp")}
               value={t.rich(`items.${key}.value`, richDark)}
               openLabel={t("open")}
-              ariaLabel={t("window.openAria", { brand, what: t(`items.${key}.what`) })}
               stage={stage}
               chips={chips}
               wakeDelay={(i % 2) * WAKE_STAGGER}

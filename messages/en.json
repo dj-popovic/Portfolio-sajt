@@ -2,7 +2,8 @@
   "meta": {
     "title": "klin · Two-person creative studio",
     "description": "We’re a two-person studio crafting brands, websites and apps end-to-end: strategy, design and build, all under one roof.",
-    "imageAlt": "The klin logo and a sphere of blue dots beside the line “Creative work that refuses to blend in.”"
+    "imageAlt": "The klin logo and a sphere of blue dots beside the line “Creative work that refuses to blend in.”",
+    "city": "Novi Sad"
   },
   "common": {
     "skip": "Skip to content",
@@ -136,7 +137,6 @@
       "hint": "Scroll and click around. It’s all live.",
       "hintTouch": "Scroll and tap around. It’s all live.",
       "next": "Next concept",
-      "openAria": "Open demo: {brand}, {what}",
       "switch": "Concepts"
     }
   },
@@ -346,5 +346,12 @@
       "dribbble": "Dribbble",
       "github": "GitHub"
     }
+  },
+  "notFound": {
+    "label": "Error 404",
+    "title": "This page has <glow>drifted off.</glow>",
+    "sub": "The link may be old, or the address has a typo. Everything we do is on one page, one click away.",
+    "home": "Back to the start",
+    "work": "See our work"
   }
 }

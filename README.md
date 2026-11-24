@@ -44,8 +44,10 @@ node scripts/shoot.mjs http://localhost:3100 .shots /
 | `src/styles/sections.css`      | Section styles ported from the design export                                                                      |
 | `src/lib/placeholders.ts`      | `[studio]`, the email domain: the one thing still undecided in the copy                                           |
 | `src/components/brand/`        | The klin logo (`<Logo>`, `<Mark>`); its geometry, `public/brand/` and the icons come from `scripts/logo/build.py` |
-| `src/app/api/contact/route.ts` | Contact endpoint (**stub** — see `docs/CONTACT_API.md`)                                                           |
+| `src/app/api/contact/route.ts` | Contact endpoint (**stub** — see `docs/BACKEND.md`)                                                               |
 | `docs/OPEN-ITEMS.md`           | What's still missing before launch (photos, name, prices…)                                                        |
+| `docs/BACKEND.md`              | Start here for the backend: contact endpoint, email and domain, booking, security, privacy                        |
+| `src/app/global-not-found.tsx` | The 404, in all four languages (`src/components/sections/Lost.tsx`)                                               |
 
 ## Quality bar
 
@@ -56,4 +58,4 @@ node scripts/shoot.mjs http://localhost:3100 .shots /
 
 ## Deploy
 
-Import the GitHub repo in Vercel; no settings needed. `vercel.json` pins the **Next.js** framework preset and the `.next` output folder, so a project that was created with the "Other" preset (error: _No Output Directory named "public" found_) still builds correctly. Optional env var: `NEXT_PUBLIC_CONTACT_ENDPOINT` if the contact backend is hosted elsewhere.
+Import the GitHub repo in Vercel; no settings needed. `vercel.json` pins the **Next.js** framework preset and the `.next` output folder, so a project that was created with the "Other" preset (error: _No Output Directory named "public" found_) still builds correctly. Optional env vars: `NEXT_PUBLIC_CONTACT_ENDPOINT` if the contact backend is hosted elsewhere, `NEXT_PUBLIC_SITE_URL` to pin the site's address (otherwise Vercel's production domain is used). See `docs/BACKEND.md`.

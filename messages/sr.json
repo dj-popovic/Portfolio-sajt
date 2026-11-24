@@ -2,7 +2,8 @@
   "meta": {
     "title": "klin · Dvočlani kreativni studio",
     "description": "Mi smo dvočlani studio koji od početka do kraja pravi brendove, sajtove i aplikacije: strategija, dizajn i razvoj, sve pod jednim krovom.",
-    "imageAlt": "Logo klin i sfera od plavih tačaka uz rečenicu „Kreativa koja odbija da se uklopi.“"
+    "imageAlt": "Logo klin i sfera od plavih tačaka uz rečenicu „Kreativa koja odbija da se uklopi.“",
+    "city": "Novi Sad"
   },
   "common": {
     "skip": "Preskoči na sadržaj",
@@ -136,7 +137,6 @@
       "hint": "Skrolujte i kliknite. Sve radi.",
       "hintTouch": "Skrolujte i dodirnite. Sve radi.",
       "next": "Sledeći koncept",
-      "openAria": "Otvori demo: {brand}, {what}",
       "switch": "Koncepti"
     }
   },
@@ -350,5 +350,12 @@
       "dribbble": "Dribbble",
       "github": "GitHub"
     }
+  },
+  "notFound": {
+    "label": "Greška 404",
+    "title": "Ova stranica je <glow>odlutala.</glow>",
+    "sub": "Link je možda zastareo ili adresa ima grešku. Sve što radimo nalazi se na jednoj stranici, jedan klik odavde.",
+    "home": "Nazad na početak",
+    "work": "Pogledajte radove"
   }
 }

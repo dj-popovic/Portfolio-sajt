@@ -30,7 +30,6 @@ type ConceptCardProps = {
   kindLabel: string;
   value: ReactNode;
   openLabel: string;
-  ariaLabel: string;
   /** backdrop behind an app's phone */
   stage?: string;
   /** floating glass chips beside an app's phone */
@@ -61,7 +60,6 @@ export function ConceptCard({
   kindLabel,
   value,
   openLabel,
-  ariaLabel,
   stage,
   chips,
   wakeDelay = 0,
@@ -305,7 +303,6 @@ export function ConceptCard({
       data-demo={demo}
       role="button"
       tabIndex={0}
-      aria-label={ariaLabel}
       aria-haspopup="dialog"
       onClick={open}
       onKeyDown={onKey}
@@ -351,6 +348,9 @@ export function ConceptCard({
           <p className="cc-value">{value}</p>
         </div>
         <span className="cc-kind">{kindLabel}</span>
+        {/* the card's name is what it shows (brand, value, kind), then where it leads: a
+            label that differs from the visible text fails speech control ("click Copper & Oak") */}
+        <span className="sr-only">{`, ${openLabel}`}</span>
         <span className="cc-go" aria-hidden>
           <span className="cc-go-label">{openLabel}</span>
           <ArrowUpRight size={14} />

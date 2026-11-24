@@ -1,8 +1,8 @@
 import { useTranslations } from "next-intl";
-import { HeroIntro } from "@/components/sections/HeroIntro";
 import { OrbControls } from "@/components/sections/OrbControls";
 import { HeroOrbFallback } from "@/components/three/OrbLayer";
 import { richHero } from "@/lib/rich";
+import { splitWords } from "@/lib/words";
 
 export function Hero() {
   const t = useTranslations("hero");
@@ -18,8 +18,14 @@ export function Hero() {
 
       <div className="hero-inner">
         <div className="hero-content">
-          <h1 className="hero-title" data-hero="title">
-            {t.rich("title", richHero)}
+          {/* its words come in one after another (motion.css, the hero's entrance): split here,
+              read as one line (the label; the split words are hidden from screen readers) */}
+          <h1
+            className="hero-title"
+            data-hero="title"
+            aria-label={t.markup("title", { glow: (c) => c, b: (c) => c, br: () => " " }).replace(/\s+/g, " ")}
+          >
+            <span aria-hidden>{splitWords(t.rich("title", richHero))}</span>
           </h1>
           <p className="hero-sub" data-hero="sub">
             {t("sub")}
@@ -37,8 +43,6 @@ export function Hero() {
 
       {/* after the buttons in the tab order; it still sits under the text (z-index) */}
       <OrbControls />
-
-      <HeroIntro />
     </section>
   );
 }

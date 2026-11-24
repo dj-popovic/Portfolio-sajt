@@ -20,8 +20,9 @@ Image licensing: use photos you own or that are explicitly licensed for commerci
 
 - **Done (Nov 2026):** the studio is **klin** (always lowercase), and its logo is in: the header, the phone menu, the footer's copyright line, the About tile (the mark), the page title and share title in all four languages, the favicon, the Apple icon and the web manifest. Files in `public/brand/` (`logo-dark/light/mono.svg`, `mark.svg`, icons); the build is described in `src/components/brand/`.
 - **Still open: the domain.** Until it's registered, `[studio]` stays in the email addresses: `hello@[studio].com` (footer, Copy email) and `djordje@[studio].com` / `relja@[studio].com` (founder profiles), all in `src/lib/placeholders.ts`. The part before the @ follows the founders' names; change it there if the real addresses differ.
-- **Done (Nov 2026): the share images**, one per language (1200×630: the logo, the hero's headline and the orb), in `public/og/`. They're made from the real hero by `scripts/og/build.mjs`; run it again if the headline, the logo or the orb changes. Until the domain's in, Vercel fills in the site's address for them.
-- **Once the domain is set:** add it in Vercel (the share images follow on their own: Next takes Vercel's production address), set it as the site's own address in `metadataBase` (`src/app/[locale]/layout.tsx`) for anywhere else it's served, and add a sitemap and a robots file for search engines (`sitemap.ts` and `robots.ts` in `src/app/`, none yet).
+- **Done (Nov 2026): the share images**, one per language (1200×630: the logo, the hero's headline and the orb), in `public/og/`. They're made from the real hero by `scripts/og/build.mjs`; run it again if the headline, the logo or the orb changes.
+- **Done (Nov 2026): search-engine basics.** The site's address comes from `src/lib/site.ts` (Vercel's production domain, or `NEXT_PUBLIC_SITE_URL`), and with it the canonical and language links, `sitemap.xml`, `robots.txt` and the structured data (the studio, the two of you, Novi Sad).
+- **Once the domain is set:** add it in Vercel. The next deploy moves the share images, links, sitemap and structured data to it by itself. The steps for mail on the domain are in [BACKEND.md](./BACKEND.md), section 3.
 - The one placeholder left, `[studio]`, lives in `src/lib/placeholders.ts` — never translate it.
 
 ## 3. Copy
@@ -52,11 +53,11 @@ Until then the cards say how each is priced instead of three times "Let's talk":
 
 ## 5. Contact backend
 
-Being built separately — see [CONTACT_API.md](./CONTACT_API.md). The current `/api/contact` is a **stub that does not deliver messages**. The conversation in Contact sends the same payload the form did (the four answers, the package and add-ons picked in Find your fit, the language).
+Being built separately: everything the backend needs (the contract, email, domain, booking, security, privacy) is in [BACKEND.md](./BACKEND.md). The current `/api/contact` is a **stub that does not deliver messages**. The conversation in Contact sends the same payload the form did (the four answers, the package and add-ons picked in Find your fit, the language).
 
 ## 6. Booking a call — mockup only
 
-A mockup of a booking step in the site's look, not built into the site yet: <https://claude.ai/artifact/TsS9Q4ErHmiUt9RRrn3f1q> (private until it's shared from its Share menu). The idea: Cal.com behind our own design, offered once the brief is sent.
+A mockup of a booking step in the site's look, not built into the site yet: <https://claude.ai/artifact/TsS9Q4ErHmiUt9RRrn3f1q> (private until it's shared from its Share menu). The idea: Cal.com behind our own design, offered once the brief is sent. Redrawn in Nov 2026 in the blue and lime glass of the Contact section, with your names and Novi Sad; booked, it confirms the way the brief card does (a lime thread through the rows, a "Booked" pill, the orb whole in the corner) instead of the old ticket and stamp.
 
 To decide together:
 
@@ -107,11 +108,12 @@ Still flagged by the Impeccable detector, on purpose:
 
 ## 9. Legal (likely needed before launch)
 
-With a contact form and a German audience: a privacy policy (GDPR) and probably an Impressum. Not designed yet. Once booking is in, the privacy policy names the booking service too (the owners asked to leave that for later).
+With a contact form and a German audience: a privacy policy (GDPR) and probably an Impressum. Not designed yet. Once booking is in, the privacy policy names the booking service too (the owners asked to leave that for later). What it has to cover is listed in [BACKEND.md](./BACKEND.md), section 6, including the one cookie the site sets (`NEXT_LOCALE`, the language a visitor picked).
 
 ## 10. Later
 
 - Testimonials / social proof section (reserved in the brief, add when there are clients).
+- Smoother on some laptops, if you notice lag: the glass panes blur the moving blue lights behind them, and a laptop's graphics redraw that blur every frame. Freezing the lights under the panes, or a lighter blur there, would cost a little of the look; left as it is until it shows (the owners' call, Nov 2026).
 - **Done (Nov 2026): a different exit for the hero orb on phones.** The owners picked the calm one: it scrolls away with the hero, shrinking back and fading (the thread into the About sheet read oddly in one column, and gathering the dots into the header's logo was too small to read on a phone). Desktop keeps the thread into the klin tile.
 
 ## 11. A Next.js security patch — done (Nov 2026)
@@ -121,3 +123,12 @@ The site is on Next.js 16.4.6 (with `eslint-config-next` to match), which fixes 
 ## 12. Checks on real devices before launch
 
 Everything is tested here in Chrome only (desktop and phone emulation). The owners' iPhone found three things Chrome never showed: the Work previews' text (CSS zoom), the orb cut off after scrolling back up, and the What we offer panes shaking while stuck (a clip above a sticky element). All three are fixed and confirmed on the iPhone (Nov 2026). Still to look at once, on real hardware: Safari on a Mac, an iPad (both ways round), an Android phone in Chrome, and Firefox on a computer.
+
+## 13. Front-end round — done (Nov 2026)
+
+- **A 404 page** in the site's look, in all four languages (the language the address starts with), with a real 404 status for every unknown address: `src/app/global-not-found.tsx`.
+- **The headline on slow phones** starts appearing after about 2 seconds instead of 5: the hero's entrance is CSS now and no longer waits for the page's scripts. The motion is the same.
+- **Screen readers and speech control:** the language button and the Work cards are named by what they show.
+- **Windows high contrast and "reduce transparency"** are handled: outlines where colour did the work, the logo visible on light themes, solid glass when asked for.
+- **Security headers** (no framing, no file-type guessing, a strict referrer, browser features off) and **search basics** (canonical links, sitemap, robots, structured data).
+- **Backend handover:** everything that needs a server, an account or a secret is in [BACKEND.md](./BACKEND.md), for Relja.

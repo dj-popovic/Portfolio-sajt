@@ -75,7 +75,9 @@ export function LangMenu({ locale, className }: { locale: Locale; className?: st
         className="lang-btn glass"
         aria-expanded={open}
         aria-controls={listId}
-        aria-label={t("languageCurrent", { name: tc(`languages.${locale}`) })}
+        // the name starts with the code it shows ("EN, Language: English"), so speech control's
+        // "click EN" finds it
+        aria-label={`${locale.toUpperCase()}, ${t("languageCurrent", { name: tc(`languages.${locale}`) })}`}
         onClick={() => setOpen((v) => !v)}
       >
         <GlobeIcon />

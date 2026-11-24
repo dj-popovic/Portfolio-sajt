@@ -553,6 +553,89 @@
 .btn-ghost:active {
   transform: scale(0.98);
 }
+/* ---------------------------------------------------------------- 404 */
+/* build: the 404 (sections/Lost.tsx) is the hero's layout, its orb drawn in 2D (LostOrb).
+   Nothing writes the orb's place here, so it's orbLayout's numbers (lib/orb.ts) in CSS: right
+   of the headline on big screens, above it in the stacked hero */
+.lost {
+  --orb-r: min(26vw, 37svh);
+  --orb-x: 70vw;
+  --orb-y: 50svh;
+}
+@media (max-width: 759px), (max-width: 1023px) and (max-aspect-ratio: 10/11) {
+  .lost {
+    --orb-r: min(38vw, 21svh);
+    --orb-x: 50vw;
+    --orb-y: max(calc(var(--orb-r) + 86px), 31svh);
+  }
+}
+/* all four languages are in the page; the one the address starts with shows (global-not-found) */
+.lost-lang {
+  display: none;
+}
+html[data-lost="en"] .lost-lang[data-l="en"],
+html[data-lost="sr"] .lost-lang[data-l="sr"],
+html[data-lost="ru"] .lost-lang[data-l="ru"],
+html[data-lost="de"] .lost-lang[data-l="de"] {
+  display: contents;
+}
+/* the header's wordmark pill, on the page (nothing scrolls under it) */
+.lost-nav {
+  position: absolute;
+  grid-template-columns: 1fr;
+}
+/* the orb hint's pill, as a label over the title */
+.lost-code {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  margin-bottom: 24px;
+  padding: 0 14px 0 12px;
+  border-radius: 999px;
+  color: var(--text-2);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+.lost-code .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue-text);
+}
+/* the hero's entrance, in CSS: the orb fades up, the words rise one after another */
+@media (prefers-reduced-motion: no-preference) {
+  .lost .hero-canvas {
+    animation: lostFade 1.4s ease both;
+  }
+  .lost .hero-content > * {
+    animation: lostRise 0.9s var(--ease-out-quart) both;
+  }
+  .lost .hero-content > :nth-child(2) {
+    animation-delay: 0.08s;
+  }
+  .lost .hero-content > :nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  .lost .hero-content > :nth-child(4) {
+    animation-delay: 0.3s;
+  }
+}
+@keyframes lostFade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes lostRise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
 /* -------------------------------------------------------------- ABOUT */
 .about {
   position: relative;
@@ -5617,5 +5700,96 @@
     background:
       linear-gradient(180deg, rgb(255 255 255 / 0.09), rgb(255 255 255 / 0.02) 46%, rgb(255 255 255 / 0.04)),
       color-mix(in oklab, var(--bg) 86%, transparent);
+  }
+}
+
+/* ------------------------------------------------- HIGH CONTRAST (forced colours)
+   build: Windows' high-contrast themes swap the page's colours for the system's and drop
+   backgrounds, gradients and shadows. What was drawn by a fill or a shadow (the lime buttons,
+   the glass pills and panes, the cards) gets an outline in the system's colour; the wordmark
+   is drawn in the text colour (its white letters vanished on a light theme); states that were
+   only a colour (pressed, chosen, current, lit, answered) take the system's highlight */
+@media (forced-colors: active) {
+  .logo {
+    --logo-ink: CanvasText;
+    --logo-wedge: CanvasText;
+    --logo-dot: CanvasText;
+    --logo-ring: transparent;
+  }
+  :is(.glass, .btn-lime, .btn-primary, .lang-list, #mobile-menu),
+  :is(.svc-card, .concept-card, .pkg, .pkg-badge, .fcard, .jy-pane, .convo, .brief, .fdialog-sheet, .ww-frame),
+  :is(button, [role="button"], [role="radio"], [role="switch"]):not(.sr-only) {
+    border: 1px solid;
+  }
+  :is([aria-pressed="true"], [aria-checked="true"]) {
+    border-color: Highlight;
+    outline: 1px solid Highlight;
+  }
+  :is(a, button)[aria-current]:not([aria-current="false"]) {
+    text-decoration: underline 2px;
+    text-underline-offset: 6px;
+  }
+  /* the process thread's lit nodes and the brief's answered rows were lime dots */
+  .jy-node i,
+  .brief-node {
+    forced-color-adjust: none;
+    border: 1px solid CanvasText;
+    background: Canvas;
+  }
+  :is(.jy-step.is-lit, .process:not([data-journey])) .jy-node i,
+  .brief-row[data-on] .brief-node {
+    background: Highlight;
+  }
+}
+
+/* ------------------------------------------------- REDUCE TRANSPARENCY
+   build: with the system's "reduce transparency" on, the glass is solid: the same panes and
+   pills with their lit rims, on a ground of their own instead of the blurred page behind
+   them. The dark glass stands on the surface colour, the frosted packages on white paper, Pro
+   on its deep blue; scrims and the phone menu cover what's behind them */
+@media (prefers-reduced-transparency: reduce) {
+  :is(.glass, .btn-ghost, .svc-card, .jy-pane, .jy-node, .jy-phase, .convo, .brief, .founder-avatar),
+  :is(.pkg, .finder-bar, .chip, .lang-list, .ww-hint, .fdialog-scrim, .ww-scrim, #mobile-menu) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .glass,
+  .ww-hint {
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.075), rgb(255 255 255 / 0.015) 55%, rgb(255 255 255 / 0.035)),
+      var(--surface);
+  }
+  .btn-ghost,
+  .lang-list,
+  .jy-node,
+  .jy-phase,
+  .founder-avatar {
+    background-color: var(--surface);
+  }
+  .svc-card,
+  .jy-pane,
+  .convo,
+  .brief {
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.09), rgb(255 255 255 / 0.02) 46%, rgb(255 255 255 / 0.04)),
+      var(--surface);
+  }
+  .pkg,
+  .finder-bar,
+  .chip {
+    background: var(--paper-2);
+  }
+  .pkg.featured {
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0.015) 46%, rgb(255 255 255 / 0.03)),
+      radial-gradient(120% 70% at 50% 110%, color-mix(in oklab, var(--blue-bright) 55%, transparent), transparent 70%),
+      var(--blue);
+  }
+  .fdialog-scrim,
+  #mobile-menu {
+    background: var(--bg);
+  }
+  .ww-scrim {
+    background: var(--bg-deep);
   }
 }

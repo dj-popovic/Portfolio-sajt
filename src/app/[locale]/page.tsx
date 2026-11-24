@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { BriefProvider } from "@/components/brief/BriefProvider";
 import { InputModality } from "@/components/layout/InputModality";
 import { Nav } from "@/components/layout/Nav";
+import { StructuredData } from "@/components/layout/StructuredData";
 import { MotionPreferences } from "@/components/motion/MotionPreferences";
 import { Reveals } from "@/components/motion/Reveals";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
@@ -42,6 +43,7 @@ export default function HomePage() {
           <Footer />
           <Reveals />
           <InputModality />
+          <StructuredData />
         </BriefProvider>
       </MotionPreferences>
     </SmoothScroll>

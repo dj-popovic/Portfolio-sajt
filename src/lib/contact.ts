@@ -2,7 +2,7 @@ import type { AddonKey, PackageKey } from "@/lib/brief";
 
 /**
  * Contract between the contact form (front end) and the backend.
- * Documented for the backend in docs/CONTACT_API.md — keep both in sync.
+ * Documented for the backend in docs/BACKEND.md (section 2) — keep both in sync.
  */
 export type ContactPayload = {
   name: string;

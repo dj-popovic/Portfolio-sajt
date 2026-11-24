@@ -100,10 +100,10 @@ main,
       transparent
     );
 }
-/* without the WebGL layer the orb is drawn inside the hero (Orb2D), so the same two lights
-   are CSS: the deep blue pool, and the lime back-light as an arc on the orb's lower-left edge
-   (a ring, masked to the arc ORB.back points along) */
-:is([data-orb="canvas"], [data-orb="still"]) .hero-aura {
+/* without the WebGL layer the orb is drawn inside the hero (Orb2D, and always on the 404),
+   so the same two lights are CSS: the deep blue pool, and the lime back-light as an arc on
+   the orb's lower-left edge (a ring, masked to the arc ORB.back points along) */
+:is([data-orb="canvas"], [data-orb="still"], .lost) .hero-aura {
   background:
     radial-gradient(
       circle calc(var(--r) * 1.5) at var(--x) var(--y),
@@ -116,7 +116,7 @@ main,
       transparent
     );
 }
-:is([data-orb="canvas"], [data-orb="still"]) .hero-aura::before {
+:is([data-orb="canvas"], [data-orb="still"], .lost) .hero-aura::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -202,9 +202,67 @@ main,
    in the tab order and in the accessibility tree (headings, cards, links) */
 @media (prefers-reduced-motion: no-preference) {
   .js:not(.motion-failed) [data-reveal],
-  .js:not(.motion-failed) [data-reveal-item],
-  .js:not(.motion-failed) [data-hero] {
+  .js:not(.motion-failed) [data-reveal-item] {
     opacity: 0;
+  }
+  /* the hero waits only for the page to paint with its fonts (.hero-go, the head script) */
+  .js:not(.hero-go):not(.motion-failed) [data-hero] {
+    opacity: 0;
+  }
+}
+
+/* the hero's entrance, in CSS so it starts as soon as the page and its fonts are in (a
+   script-driven intro kept the headline hidden for seconds on a slow phone). The header drops
+   in, the title's words rise out of a blur one after another (split on the server,
+   lib/words.tsx), then the line under it, the buttons and the orb's hint. `backwards` holds
+   each one hidden through its delay and leaves nothing behind once it has played */
+.hw {
+  display: inline-block;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-go [data-hero="nav"] {
+    animation: heroDrop 0.7s var(--ease-out-quart) 0.1s backwards;
+  }
+  .hero-go [data-hero="title"] .hw {
+    animation: heroWord 1s var(--ease-out-quart) calc(0.25s + var(--i) * 0.06s) backwards;
+  }
+  .hero-go [data-hero="sub"] {
+    animation: heroRise 0.8s var(--ease-out-quart) 0.7s backwards;
+  }
+  .hero-go [data-hero="actions"] > * {
+    animation: heroRise 0.7s var(--ease-out-quart) 0.85s backwards;
+  }
+  .hero-go [data-hero="actions"] > :nth-child(2) {
+    animation-delay: 0.91s;
+  }
+  .hero-go [data-hero="hint"] {
+    animation: heroHint 0.8s var(--ease-out-quart) 1.7s backwards;
+  }
+}
+@keyframes heroDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+@keyframes heroWord {
+  from {
+    opacity: 0;
+    transform: translateY(30%);
+    filter: blur(8px);
+  }
+}
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+/* the hint is centred under the orb by its own transform */
+@keyframes heroHint {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(6px);
   }
 }
 

@@ -116,6 +116,9 @@ export function OrbLayer() {
         window.addEventListener("resize", place);
         const fade = (p: number) => {
           el.style.setProperty("--orb-exit", p.toFixed(3));
+          // on its way out the orb holds still (OrbScene): drawn every frame while it shrank
+          // and faded, it cost a phone a third of the frames there
+          orb.hold = p > 0.02;
           setFaded(p >= 1);
         };
         // half a screen of scrolling: by then the orb's centre has left the top of the screen
@@ -145,6 +148,7 @@ export function OrbLayer() {
           exit.kill();
           wake.kill();
           orb.scrolls = false;
+          orb.hold = false;
           delete el.dataset.scrolls;
           delete root.dataset.orbScrolls;
           for (const prop of ["height", "--orb-cx", "--orb-cy", "--orb-exit"]) el.style.removeProperty(prop);

@@ -1775,6 +1775,17 @@
   position: sticky;
   top: calc(var(--stack-top) + var(--i) * var(--stack-step));
 }
+/* build: in the deck and the stack, every part that moves as you scroll has its own layer,
+   so moving, shrinking or fading one is the compositor's job and never repaints the pane
+   round it (its glass, rim, shadow and symbol). Without them each pane repainted whole every
+   frame its shade, words or glare changed: What we offer scrolled at under two thirds of its
+   frames on a phone. The symbol's own layer keeps its drawing-in to its own square */
+.services[data-deck] :is(.svc-card, .svc-glare, .svc-glyph, .svc-light span) {
+  will-change: transform;
+}
+.services[data-deck] :is(.svc-shade, .svc-body) {
+  will-change: opacity;
+}
 .services[data-deck="stack"] .svc-card {
   min-height: 0;
 }
@@ -2152,9 +2163,10 @@
   gap: 10px;
   padding: 10px 16px 10px 10px;
   border-radius: 18px;
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.66), rgb(255 255 255 / 0.4));
-  -webkit-backdrop-filter: blur(14px) saturate(1.5);
-  backdrop-filter: blur(14px) saturate(1.5);
+  /* build: solid, in the colour its frost used to take from each card (--chip-a/b below), not
+     frosted: a blurred chip that floats made Chrome re-raster the whole stage under it every
+     frame, so the two app cards repainted for as long as Work was on a computer's screen */
+  background: linear-gradient(180deg, var(--chip-a, rgb(255 255 255)), var(--chip-b, rgb(246 246 252)));
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.9),
     inset 0 0 0 1px rgb(255 255 255 / 0.5),
@@ -2201,6 +2213,8 @@
   border-radius: 12px;
 }
 [data-demo="wellness"] .cc-chip {
+  --chip-a: rgb(244 245 255);
+  --chip-b: rgb(232 234 252);
   color: #2a2553;
   font-family: var(--font-nunito), system-ui, sans-serif;
 }
@@ -2248,6 +2262,8 @@
   }
 }
 [data-demo="food"] .cc-chip {
+  --chip-a: rgb(255 241 222);
+  --chip-b: rgb(255 231 200);
   color: #241910;
   font-family: var(--font-bricolage), system-ui, sans-serif;
 }
@@ -3546,10 +3562,17 @@
     transparent 360deg
   );
   animation: pkgBeam 5s linear infinite;
+  /* only the beam that shows turns: the hidden two kept the compositor busy, and on a
+     computer the frosted glass round them was blurred again every frame */
+  animation-play-state: paused;
 }
 .fit-grid:not([data-fit]) .pkg.featured > .pkg-beam,
 .pkg.is-fit > .pkg-beam {
   opacity: 1;
+}
+.fit-grid:not([data-fit]) .pkg.featured > .pkg-beam::before,
+.pkg.is-fit > .pkg-beam::before {
+  animation-play-state: running;
 }
 .pkg.is-fit {
   --lift: -12px;

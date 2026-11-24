@@ -1,6 +1,6 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, type RootState } from "@react-three/fiber";
 import { useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import {
@@ -161,6 +161,7 @@ function Crown({ count, onSlow }: { count: number; onSlow?: () => void }) {
   const rot = useMemo(() => new THREE.Matrix3(), []);
   const s = useRef({
     force: 0,
+    skip: false,
     px: -9999,
     py: -9999,
     light: new THREE.Vector3(...HORIZON.light),
@@ -203,7 +204,8 @@ function Crown({ count, onSlow }: { count: number; onSlow?: () => void }) {
     [],
   );
 
-  useFrame((state, delta) => {
+  // one frame of the crown: the spin, the gathering, the pointer's light and every uniform
+  const step = (state: RootState, delta: number) => {
     const mat = material.current;
     if (!mat) return;
     const dt = Math.min(delta, 1 / 20);
@@ -242,7 +244,18 @@ function Crown({ count, onSlow }: { count: number; onSlow?: () => void }) {
       g.uRadius.value = L.r;
       g.uIntro.value = horizon.intro;
     }
-  });
+  };
+  // priority 1: this draws the frame itself (R3F stops drawing on its own). Touch screens draw
+  // every other frame while the dots only drift, as the Contact dots do (slow enough that it
+  // doesn't show); a finger on it, a ripple and the gathering run at the full rate
+  const touch = useMemo(() => isTouch(), []);
+  useFrame((state, delta) => {
+    step(state, delta);
+    const st = s.current;
+    const busy = !touch || st.force > 0.01 || horizon.ripple.t >= 0 || horizon.intro < 1;
+    st.skip = !busy && !st.skip;
+    if (!st.skip) state.gl.render(state.scene, state.camera);
+  }, 1);
 
   return (
     <>

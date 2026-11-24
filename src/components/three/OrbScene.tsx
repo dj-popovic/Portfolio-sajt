@@ -1,6 +1,6 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, type RootState } from "@react-three/fiber";
 import { useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import {
@@ -250,7 +250,7 @@ function Orb({ count, onSlow }: { count: number; onSlow?: () => void }) {
   const rot = useMemo(() => new THREE.Matrix3(), []);
   const rim = useRef<THREE.Mesh>(null);
   const rimMat = useRef<THREE.ShaderMaterial>(null);
-  const s = useRef({ time: 0, start: -1, force: 0, px: -9999, py: -9999, glow: 0, open: 0, burst: -1 });
+  const s = useRef({ time: 0, start: -1, force: 0, px: -9999, py: -9999, glow: 0, open: 0, burst: -1, drawn: false });
 
   const geometry = useMemo(() => {
     const { pos, seed } = buildOrb(count);
@@ -305,7 +305,8 @@ function Orb({ count, onSlow }: { count: number; onSlow?: () => void }) {
     [uniforms],
   );
 
-  useFrame((state, delta) => {
+  // one frame of the orb: its clocks, the spin and every uniform
+  const step = (state: RootState, delta: number) => {
     const mat = material.current;
     if (!mat) return;
     const dt = Math.min(delta, 1 / 20);
@@ -404,7 +405,17 @@ function Orb({ count, onSlow }: { count: number; onSlow?: () => void }) {
     st.open = pn.open;
     if (st.burst >= 0) st.burst = st.burst > 2.2 ? 2.2 : st.burst + dt;
     u.uBurst.value.set(pn.x + pn.w / 2, pn.y + pn.h / 2, st.burst, Math.hypot(view.w, view.h) * 0.55);
-  });
+  };
+  // priority 1: this draws the frame itself (R3F stops drawing on its own), so the orb can
+  // hold still by not drawing. Phones, as the hero scrolls away (orb.hold, OrbLayer): once its
+  // intro has run it holds, its clocks and spin waiting, while CSS shrinks and fades the layer
+  useFrame((state, delta) => {
+    const st = s.current;
+    if (orb.hold && st.drawn && state.clock.elapsedTime - st.start > 2.2) return;
+    step(state, delta);
+    state.gl.render(state.scene, state.camera);
+    st.drawn = true;
+  }, 1);
 
   return (
     <>

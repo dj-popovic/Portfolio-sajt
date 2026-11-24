@@ -2159,21 +2159,17 @@
   animation: pvBreathe 9s ease-in-out infinite;
   animation-play-state: paused;
 }
-.sw-star {
+/* each group of stars is its own svg over the art (previews.tsx: SW_STARS, which sets its
+   phase), so the compositor fades it without repainting the card */
+.sw-stars {
   animation: pvTwinkle 3.2s ease-in-out infinite;
   animation-play-state: paused;
-}
-.sw-star:nth-child(2n) {
-  animation-delay: -1.4s;
-}
-.sw-star:nth-child(3n) {
-  animation-delay: -2.2s;
 }
 .is-live .cf-marquee-run,
 .is-live .cf-seal,
 .is-live .cf-bag,
 .is-live .sw-now-glow,
-.is-live .sw-star {
+.is-live .sw-stars {
   animation-play-state: running;
 }
 /* the dashboard draws itself when it comes on screen */

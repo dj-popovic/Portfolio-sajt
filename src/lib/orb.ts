@@ -137,6 +137,9 @@ export const orb = {
   /** the layer scrolls away with the hero (phones: OrbLayer) instead of staying fixed, so
    *  the page's scroll is added to the pointer's height to find the orb under a finger */
   scrolls: false,
+  /** the hero is scrolling away (phones: OrbLayer): the orb holds still, drawn no more, while
+   *  CSS shrinks and fades the layer; back at the top it carries on from where it stopped */
+  hold: false,
   /** object-space direction of the last ripple and its age in seconds (< 0: none) */
   ripple: { x: 0, y: 0, z: 1, t: -1 },
   /** 0 → 1 while the hero scrolls into About: sphere → thread → the klin tile */

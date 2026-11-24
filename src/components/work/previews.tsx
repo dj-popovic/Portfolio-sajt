@@ -450,6 +450,33 @@ const SW_TABS = [
   ["Rhythm", <path key="r" d="M5 20v-8m7 8V5m7 15v-6" />],
 ] as const;
 
+// the night sky's stars twinkle in three groups, each its own svg laid over the art: the
+// compositor can fade a whole svg by itself, but a shape inside one only by repainting, and
+// six twinkling circles repainted the Stillwater card every frame it was on screen
+const SW_STARS: Array<{ delay: string; stars: Array<[number, number, number]> }> = [
+  {
+    delay: "-2.2s",
+    stars: [
+      [40, 30, 2],
+      [60, 82, 1.4],
+    ],
+  },
+  {
+    delay: "-1.4s",
+    stars: [
+      [92, 54, 1.4],
+      [120, 92, 1.4],
+    ],
+  },
+  {
+    delay: "0s",
+    stars: [
+      [140, 24, 2],
+      [228, 100, 2],
+    ],
+  },
+];
+
 export function WellnessPhone() {
   return (
     <PhoneShell
@@ -535,19 +562,16 @@ export function WellnessPhone() {
           <svg viewBox="0 0 260 168">
             <circle cx="196" cy="52" r="24" fill="#FFF6E0" />
             <circle cx="206" cy="46" r="22" fill="#000" opacity=".14" />
-            {[
-              [40, 30],
-              [92, 54],
-              [140, 24],
-              [60, 82],
-              [228, 100],
-              [120, 92],
-            ].map(([x, y], i) => (
-              <circle key={i} cx={x} cy={y} r={i % 2 ? 1.4 : 2} fill="#fff" className="sw-star" />
-            ))}
             <path d="M0 132 Q 40 118 80 130 T 160 128 T 260 126 V168 H0Z" fill="#fff" opacity=".18" />
             <path d="M0 146 Q 50 134 100 146 T 200 144 T 260 142 V168 H0Z" fill="#fff" opacity=".22" />
           </svg>
+          {SW_STARS.map(({ delay, stars }) => (
+            <svg key={delay} viewBox="0 0 260 168" className="sw-stars" style={{ animationDelay: delay }}>
+              {stars.map(([x, y, r]) => (
+                <circle key={`${x}-${y}`} cx={x} cy={y} r={r} fill="#fff" />
+              ))}
+            </svg>
+          ))}
           <span>Sleep story</span>
         </div>
         <div className="sw-sleep-head">
